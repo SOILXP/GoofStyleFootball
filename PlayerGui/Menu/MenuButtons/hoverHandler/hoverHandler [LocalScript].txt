@@ -1,0 +1,49 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerGui.Menu.MenuButtons.hoverHandler
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:27
+-- Luau version 6, Types version 3
+-- Time taken: 0.001222 seconds
+
+local Parent_upvr = script.Parent
+for _, v_upvr in pairs(script.Parent:GetChildren()) do
+	if v_upvr:IsA("TextButton") then
+		local any_MouseEnterLeaveEvent_result1, any_MouseEnterLeaveEvent_result2 = require(game.ReplicatedStorage.Modules.MouseHoverModule).MouseEnterLeaveEvent(v_upvr)
+		any_MouseEnterLeaveEvent_result1:Connect(function() -- Line 9
+			--[[ Upvalues[2]:
+				[1]: Parent_upvr (readonly)
+				[2]: v_upvr (readonly)
+			]]
+			if Parent_upvr.Visible == false then
+			else
+				local clone = game.ReplicatedStorage.UISounds._click:Clone()
+				clone.Parent = game.Workspace
+				clone:Play()
+				game.Debris:AddItem(clone, 0.5)
+				game:GetService("TweenService"):Create(v_upvr, TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+					Size = UDim2.new(0, 125, 0, 125);
+				}):Play()
+				game:GetService("TweenService"):Create(v_upvr.ImageLabel, TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+					Size = UDim2.new(0, 110, 0, 85);
+				}):Play()
+			end
+		end)
+		any_MouseEnterLeaveEvent_result2:Connect(function() -- Line 24
+			--[[ Upvalues[2]:
+				[1]: Parent_upvr (readonly)
+				[2]: v_upvr (readonly)
+			]]
+			if Parent_upvr.Visible == false then
+			else
+				game:GetService("TweenService"):Create(v_upvr, TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+					Size = UDim2.new(0, 112, 0, 112);
+				}):Play()
+				game:GetService("TweenService"):Create(v_upvr.ImageLabel, TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+					Size = UDim2.new(0, 100, 0, 75);
+				}):Play()
+			end
+		end)
+	end
+end

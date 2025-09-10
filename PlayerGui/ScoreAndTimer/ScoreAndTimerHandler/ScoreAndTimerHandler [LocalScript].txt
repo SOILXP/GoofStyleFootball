@@ -1,0 +1,1115 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerGui.ScoreAndTimer.ScoreAndTimerHandler
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:53
+-- Luau version 6, Types version 3
+-- Time taken: 0.030482 seconds
+
+local tbl_2_upvr = {
+	Argentina = Color3.fromRGB(25, 94, 222);
+	Munich = Color3.fromRGB(185, 0, 0);
+	Dortmund = Color3.fromRGB(255, 225, 0);
+	Brazil = Color3.fromRGB(255, 213, 0);
+	ParisSaints = Color3.fromRGB(2, 28, 97);
+	ManchesterU = Color3.fromRGB(161, 0, 0);
+	Barcelona = Color3.fromRGB(0, 43, 136);
+	InterMiami = Color3.fromRGB(0, 0, 0);
+	Japan = Color3.fromRGB(236, 236, 236);
+	Italy = Color3.fromRGB(0, 98, 255);
+	Croatia = Color3.fromRGB(4, 87, 162);
+	Morocco = Color3.fromRGB(200, 12, 12);
+	Canada = Color3.fromRGB(255, 255, 255);
+	Portugal = Color3.fromRGB(195, 29, 21);
+	Mexico = Color3.fromRGB(20, 25, 39);
+	Netherlands = Color3.fromRGB(255, 128, 0);
+	RealMadrid = Color3.fromRGB(227, 227, 227);
+	LiverpoolFC = Color3.fromRGB(33, 33, 33);
+	SeattleSoundersFC = Color3.fromRGB(59, 155, 68);
+	JuventusFC = Color3.fromRGB(0, 0, 0);
+	Newcastle = Color3.fromRGB(255, 255, 255);
+	ManchesterCity = Color3.fromRGB(125, 199, 255);
+	Germany = Color3.fromRGB(170, 37, 11);
+	Arsenal = Color3.fromRGB(197, 0, 0);
+	InterMilan = Color3.fromRGB(28, 107, 255);
+	USA = Color3.fromRGB(170, 33, 33);
+	Chelsea = Color3.fromRGB(51, 55, 170);
+	Napoli = Color3.fromRGB(81, 134, 232);
+	France = Color3.fromRGB(1, 56, 157);
+	Uruguay = Color3.fromRGB(69, 155, 235);
+	Roma = Color3.fromRGB(208, 38, 8);
+	Lazio = Color3.fromRGB(84, 138, 208);
+	England = Color3.fromRGB(196, 210, 243);
+	SouthKorea = Color3.fromRGB(243, 243, 243);
+	VascoDaGama = Color3.fromRGB(243, 243, 243);
+	Ajax = Color3.fromRGB(255, 99, 99);
+	Atletico = Color3.fromRGB(172, 4, 4);
+	Leverkusen = Color3.fromRGB(143, 12, 12);
+	Wales = Color3.fromRGB(77, 182, 77);
+	Fiorentina = Color3.fromRGB(124, 64, 208);
+	Spurs = Color3.fromRGB(208, 208, 208);
+	ACMilan = Color3.fromRGB(197, 20, 20);
+	Belgium = Color3.new(0.980392, 0.654902, 0);
+	Spain = Color3.fromRGB(213, 14, 0);
+	Scotland = Color3.fromRGB(56, 80, 136);
+	Poland = Color3.new(1, 0, 0.0156863);
+	Sweden = Color3.new(0.192157, 0.501961, 1);
+	Bosnia = Color3.new(0.172549, 0.211765, 0.772549);
+	Denmark = Color3.new(0.819608, 0, 0.0117647);
+	Romania = Color3.new(1, 0.819608, 0.0980392);
+	Switzerland = Color3.new(0.827451, 0, 0);
+}
+local tbl_4_upvr = {
+	Argentina = Color3.fromRGB(204, 180, 60);
+	Munich = Color3.fromRGB(0, 170, 255);
+	Dortmund = Color3.fromRGB(0, 0, 0);
+	Brazil = Color3.fromRGB(0, 94, 0);
+	ParisSaints = Color3.fromRGB(255, 255, 255);
+	ManchesterU = Color3.fromRGB(255, 217, 0);
+	Barcelona = Color3.fromRGB(170, 0, 0);
+	InterMiami = Color3.fromRGB(255, 139, 205);
+	Japan = Color3.fromRGB(161, 0, 0);
+	Italy = Color3.fromRGB(236, 236, 236);
+	Croatia = Color3.fromRGB(185, 0, 0);
+	Morocco = Color3.fromRGB(10, 148, 30);
+	Canada = Color3.fromRGB(229, 13, 13);
+	Portugal = Color3.fromRGB(13, 105, 56);
+	Mexico = Color3.fromRGB(0, 238, 0);
+	Netherlands = Color3.fromRGB(217, 217, 217);
+	RealMadrid = Color3.fromRGB(204, 180, 60);
+	LiverpoolFC = Color3.fromRGB(73, 227, 224);
+	SeattleSoundersFC = Color3.fromRGB(10, 95, 170);
+	JuventusFC = Color3.fromRGB(255, 255, 255);
+	Newcastle = Color3.fromRGB(0, 0, 0);
+	ManchesterCity = Color3.fromRGB(255, 255, 255);
+	Germany = Color3.fromRGB(0, 0, 0);
+	Arsenal = Color3.fromRGB(255, 255, 255);
+	InterMilan = Color3.fromRGB(235, 235, 235);
+	USA = Color3.fromRGB(26, 87, 255);
+	Chelsea = Color3.fromRGB(180, 169, 44);
+	Napoli = Color3.fromRGB(45, 104, 243);
+	France = Color3.fromRGB(193, 193, 193);
+	Uruguay = Color3.fromRGB(182, 172, 92);
+	Roma = Color3.fromRGB(208, 147, 24);
+	Lazio = Color3.fromRGB(208, 208, 208);
+	England = Color3.fromRGB(15, 49, 162);
+	SouthKorea = Color3.fromRGB(168, 38, 40);
+	VascoDaGama = Color3.fromRGB(121, 21, 23);
+	Ajax = Color3.fromRGB(255, 255, 255);
+	Atletico = Color3.fromRGB(29, 60, 172);
+	Leverkusen = Color3.fromRGB(0, 0, 0);
+	Wales = Color3.fromRGB(39, 39, 39);
+	Fiorentina = Color3.fromRGB(182, 172, 92);
+	Spurs = Color3.fromRGB(57, 57, 57);
+	ACMilan = Color3.fromRGB(57, 6, 6);
+	Belgium = Color3.new(0.0784314, 0.0509804, 0);
+	Spain = Color3.fromRGB(147, 123, 35);
+	Scotland = Color3.fromRGB(225, 216, 210);
+	Poland = Color3.new(1, 1, 1);
+	Sweden = Color3.new(1, 0.819608, 0.0980392);
+	Bosnia = Color3.new(0.203922, 0.47451, 0.909804);
+	Denmark = Color3.new(1, 1, 1);
+	Romania = Color3.new(0, 0.517647, 1);
+	Switzerland = Color3.new(0.827451, 0.827451, 0.827451);
+}
+local tbl_6_upvr = {
+	Argentina = "rbxassetid://15068029862";
+	Munich = "rbxassetid://15068635815";
+	Dortmund = "rbxassetid://13460575423";
+	Brazil = "rbxassetid://15068649812";
+	ParisSaints = "rbxassetid://13552953245";
+	ManchesterU = "rbxassetid://14540294821";
+	Barcelona = "rbxassetid://316144192";
+	InterMiami = "rbxassetid://15081749904";
+	Japan = "rbxassetid://15098627666";
+	Italy = "rbxassetid://15107657423";
+	Croatia = "rbxassetid://15107652254";
+	Morocco = "rbxassetid://15107668354";
+	Canada = "rbxassetid://15107670722";
+	Portugal = "rbxassetid://15148310170";
+	Mexico = "rbxassetid://15107685948";
+	Netherlands = "rbxassetid://15107690732";
+	RealMadrid = "rbxassetid://15107692601";
+	LiverpoolFC = "rbxassetid://15107649924";
+	SeattleSoundersFC = "rbxassetid://15155280087";
+	JuventusFC = "rbxassetid://15238497443";
+	Newcastle = "rbxassetid://18897627545";
+	ManchesterCity = "rbxassetid://14243657473";
+	Germany = "rbxassetid://18640980135";
+	England = "rbxassetid://18641004985";
+	Arsenal = "rbxassetid://18652402819";
+	InterMilan = "rbxassetid://18816070754";
+	USA = "rbxassetid://18641031024";
+	Chelsea = "rbxassetid://18641029244";
+	Napoli = "rbxassetid://18641026783";
+	France = "rbxassetid://18641023325";
+	Uruguay = "rbxassetid://18641021338";
+	Roma = "rbxassetid://18641019719";
+	Lazio = "rbxassetid://18641016564";
+	SouthKorea = "rbxassetid://18641001856";
+	VascoDaGama = "rbxassetid://18640997828";
+	Ajax = "rbxassetid://18640996176";
+	Atletico = "rbxassetid://18640993960";
+	Leverkusen = "rbxassetid://18640992087";
+	Wales = "rbxassetid://18640989958";
+	Fiorentina = "rbxassetid://18640988644";
+	Spurs = "rbxassetid://18640987300";
+	ACMilan = "rbxassetid://18640984312";
+	Belgium = "rbxassetid://18641190960";
+	Spain = "rbxassetid://18672737980";
+	Scotland = "rbxassetid://18672741584";
+	Poland = "rbxassetid://18816097298";
+	Sweden = "rbxassetid://18897774513";
+	Bosnia = "rbxassetid://18897785797";
+	Denmark = "rbxassetid://18897980982";
+	Romania = "rbxassetid://18897982581";
+	Switzerland = "rbxassetid://18897984306";
+}
+local tbl_5_upvr = {
+	Argentina = "ARG";
+	Munich = "BAY";
+	Dortmund = "DOR";
+	Brazil = "BRA";
+	ParisSaints = "PSG";
+	ManchesterU = "MUN";
+	Barcelona = "FCB";
+	InterMiami = "MIA";
+	Japan = "JPN";
+	Italy = "ITA";
+	Croatia = "CRO";
+	Morocco = "MAR";
+	Canada = "CAN";
+	Portugal = "POR";
+	Mexico = "MEX";
+	Netherlands = "NED";
+	RealMadrid = "RMA";
+	LiverpoolFC = "LFC";
+	SeattleSoundersFC = "SEA";
+	JuventusFC = "JUV";
+	Newcastle = "NEW";
+	ManchesterCity = "MCI";
+	Germany = "GER";
+	England = "ENG";
+	Arsenal = "ASL";
+	InterMilan = "INT";
+	USA = "USA";
+	Chelsea = "CHE";
+	Napoli = "NAP";
+	France = "FRA";
+	Uruguay = "URU";
+	Roma = "ROM";
+	Lazio = "LAZ";
+	SouthKorea = "KOR";
+	VascoDaGama = "VAS";
+	Ajax = "AFC";
+	Atletico = "AMA";
+	Leverkusen = "B04";
+	Wales = "WAL";
+	Fiorentina = "FIO";
+	Spurs = "TOT";
+	ACMilan = "MIL";
+	Belgium = "BEL";
+	Spain = "ESP";
+	Scotland = "SCO";
+	Poland = "POL";
+	Sweden = "SWE";
+	Bosnia = "BIH";
+	Denmark = "DEN";
+	Romania = "ROU";
+	Switzerland = "SUI";
+}
+local tbl_7_upvr = {
+	Argentina = "ARGENTINA";
+	Munich = "F.C. BAYERN";
+	Dortmund = "BORUSSIA DORTMUND";
+	Brazil = "BRAZIL";
+	ParisSaints = "P.S.G";
+	ManchesterU = "MANCHESTER UNITED";
+	Barcelona = "F.C. BARCELONA";
+	InterMiami = "INTER MIAMI";
+	Japan = "JAPAN";
+	Italy = "ITALY";
+	Croatia = "CROATIA";
+	Morocco = "MOROCCO";
+	Canada = "CANADA";
+	Portugal = "PORTUGAL";
+	Mexico = "MEXICO";
+	Netherlands = "NETHERLANDS";
+	RealMadrid = "REAL MADRID";
+	LiverpoolFC = "LIVERPOOL F.C.";
+	SeattleSoundersFC = "SEATTLE SOUNDERS F.C.";
+	JuventusFC = "JUVENTUS F.C.";
+	Newcastle = "NEWCASTLE UNITED";
+	ManchesterCity = "MANCHESTER CITY";
+	Germany = "GERMANY";
+	England = "ENGLAND";
+	Arsenal = "ARSENAL F.C.";
+	InterMilan = "INTER MILAN";
+	USA = "USA";
+	Chelsea = "CHELSEA F.C.";
+	Napoli = "F.C. NAPOLI";
+	France = "FRANCE";
+	Uruguay = "URUGUAY";
+	Roma = "ROMANIA";
+	Lazio = "LAZIO";
+	SouthKorea = "SOUTH KOREA";
+	VascoDaGama = "CR VASCO DA GAMA";
+	Ajax = "A.F.C. AJAX";
+	Atletico = "ATLETICO MADRID";
+	Leverkusen = "BAYER 04 LEVERKUSEN";
+	Wales = "WALES";
+	Fiorentina = "A.C.F. FIORENTINA";
+	Spurs = "TOTTENHAM HOTSPURS";
+	ACMilan = "A.C. MILAN";
+	Belgium = "BELGIUM";
+	Spain = "SPAIN";
+	Scotland = "SCOTLAND";
+	Poland = "POLAND";
+	Sweden = "SWEDEN";
+	Bosnia = "BOSNIA AND HERZEGOVINA";
+	Denmark = "DENMARK";
+	Romania = "ROMANIA";
+	Switzerland = "SWITZERLAND";
+}
+local var6
+repeat
+	task.wait()
+until game.ReplicatedStorage.TeamInfo.CurrentAwayTeam.Value == "" or game.ReplicatedStorage.TeamInfo.CurrentHomeTeam.Value ~= ""
+local TeamInfo_upvr = game.ReplicatedStorage.TeamInfo
+local gameTime_upvr = game.ReplicatedStorage.gameTime
+local ScoreAndTimerFrame_upvr = script.Parent.ScoreAndTimerFrame
+local AwayTeam_upvr = ScoreAndTimerFrame_upvr.AwayTeam
+local HomeTeam_upvr = ScoreAndTimerFrame_upvr.HomeTeam
+local Score_upvr = ScoreAndTimerFrame_upvr.Score
+local Timer_upvr = ScoreAndTimerFrame_upvr.Timer
+local TabFrame_upvr = script.Parent.TabFrame
+local Container_upvr_2 = TabFrame_upvr.HomeFrame.Container
+local Container_upvr = TabFrame_upvr.AwayFrame.Container
+local UserInputService_upvr = game:GetService("UserInputService")
+repeat
+	var6 = wait
+	var6(0.2)
+	var6 = game.Workspace.gameArea.SelectedMap:FindFirstChild("Scoreboard")
+until var6
+var6 = UserInputService_upvr.InputChanged
+var6 = var6:Connect
+var6(function() -- Line 291
+	--[[ Upvalues[6]:
+		[1]: UserInputService_upvr (readonly)
+		[2]: ScoreAndTimerFrame_upvr (readonly)
+		[3]: AwayTeam_upvr (readonly)
+		[4]: HomeTeam_upvr (readonly)
+		[5]: Score_upvr (readonly)
+		[6]: Timer_upvr (readonly)
+	]]
+	if UserInputService_upvr:GetLastInputType() == Enum.UserInputType.Touch then
+		ScoreAndTimerFrame_upvr.Size = UDim2.new(0, 400, 0, 38)
+		AwayTeam_upvr.Size = UDim2.new(0, 40, 0, 22)
+		AwayTeam_upvr.Position = UDim2.new(0.625, 0, 0.69, 0)
+		HomeTeam_upvr.Size = UDim2.new(0, 40, 0, 22)
+		HomeTeam_upvr.Position = UDim2.new(0.375, 0, 0.69, 0)
+		Score_upvr.Size = UDim2.new(0, 40, 0, 22)
+		Timer_upvr.Size = UDim2.new(0, 40, 0, 22)
+	else
+		ScoreAndTimerFrame_upvr.Size = UDim2.new(0, 400, 0, 100)
+		AwayTeam_upvr.Size = UDim2.new(0, 85, 0, 43)
+		AwayTeam_upvr.Position = UDim2.new(0.75, 0, 0.69, 0)
+		HomeTeam_upvr.Size = UDim2.new(0, 85, 0, 43)
+		HomeTeam_upvr.Position = UDim2.new(0.25, 0, 0.69, 0)
+		Score_upvr.Size = UDim2.new(0, 102, 0, 43)
+		Timer_upvr.Size = UDim2.new(0, 102, 0, 43)
+	end
+end)
+var6 = game.ReplicatedStorage.hasGameStarted.Value
+if var6 == true then
+	var6 = UserInputService_upvr:GetLastInputType()
+	if var6 == Enum.UserInputType.Touch then
+		var6 = game:GetService("TweenService")
+		local _ = {
+			Position = UDim2.new(0.5, 0, 0, 55);
+		}
+		var6 = var6:Create(ScoreAndTimerFrame_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), _):Play
+		var6()
+	else
+		var6 = game:GetService("TweenService")
+		local _ = {
+			Position = UDim2.new(0.5, 0, 0, 80);
+		}
+		var6 = var6:Create(ScoreAndTimerFrame_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), _):Play
+		var6()
+	end
+end
+var6 = game.ReplicatedStorage.hasGameStarted.Changed
+var6 = var6:Connect
+var6(function() -- Line 323
+	--[[ Upvalues[2]:
+		[1]: ScoreAndTimerFrame_upvr (readonly)
+		[2]: UserInputService_upvr (readonly)
+	]]
+	if game.ReplicatedStorage.hasGameStarted.Value == false then
+		game:GetService("TweenService"):Create(ScoreAndTimerFrame_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0.5, 0, 0, -100);
+		}):Play()
+	else
+		if UserInputService_upvr:GetLastInputType() == Enum.UserInputType.Touch then
+			game:GetService("TweenService"):Create(ScoreAndTimerFrame_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+				Position = UDim2.new(0.5, 0, 0, 55);
+			}):Play()
+			return
+		end
+		game:GetService("TweenService"):Create(ScoreAndTimerFrame_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0.5, 0, 0, 80);
+		}):Play()
+	end
+end)
+var6 = gameTime_upvr.Changed
+var6 = var6:Connect
+var6(function() -- Line 343
+	--[[ Upvalues[2]:
+		[1]: gameTime_upvr (readonly)
+		[2]: Timer_upvr (readonly)
+	]]
+	local var26
+	if gameTime_upvr.Value % 60 < 10 then
+		var26 = ":0"
+	else
+		var26 = ':'
+	end
+	Timer_upvr.Time.Text = math.floor(gameTime_upvr.Value / 60)..var26..(gameTime_upvr.Value % 60)
+end)
+if gameTime_upvr.Value % 60 < 10 then
+	var6 = ":0"
+else
+	var6 = ':'
+end
+Timer_upvr.Time.Text = math.floor(gameTime_upvr.Value / 60)..var6..(gameTime_upvr.Value % 60)
+function handleAwayTeam() -- Line 350
+	--[[ Upvalues[7]:
+		[1]: TeamInfo_upvr (readonly)
+		[2]: AwayTeam_upvr (readonly)
+		[3]: tbl_2_upvr (readonly)
+		[4]: tbl_4_upvr (readonly)
+		[5]: tbl_5_upvr (readonly)
+		[6]: tbl_6_upvr (readonly)
+		[7]: tbl_7_upvr (readonly)
+	]]
+	local Value_5 = TeamInfo_upvr.CurrentAwayTeam.Value
+	AwayTeam_upvr.BackgroundColor3 = tbl_2_upvr[Value_5]
+	AwayTeam_upvr.UIStroke.Color = tbl_4_upvr[Value_5]
+	AwayTeam_upvr.TeamName.TextStrokeColor3 = tbl_4_upvr[Value_5]
+	AwayTeam_upvr.TeamName.Text = tbl_5_upvr[Value_5]
+	AwayTeam_upvr.ImageLabel.Image = tbl_6_upvr[Value_5]
+	game.Workspace.gameArea.SelectedMap:WaitForChild("Scoreboard").Team2.TeamName.SurfaceGui.Frame.TextLabel.Text = tbl_7_upvr[Value_5]
+	game.Workspace.gameArea.SelectedMap:WaitForChild("Scoreboard").Team2.TeamName.SurfaceGui.Frame.TextLabel.TextStrokeColor3 = tbl_4_upvr[Value_5]
+	game.Workspace.gameArea.SelectedMap:WaitForChild("Scoreboard").Team2.TeamName.SurfaceGui.Frame.TextLabel.TextStrokeTransparency = 1
+end
+function handleHomeTeam() -- Line 362
+	--[[ Upvalues[7]:
+		[1]: TeamInfo_upvr (readonly)
+		[2]: HomeTeam_upvr (readonly)
+		[3]: tbl_2_upvr (readonly)
+		[4]: tbl_4_upvr (readonly)
+		[5]: tbl_5_upvr (readonly)
+		[6]: tbl_6_upvr (readonly)
+		[7]: tbl_7_upvr (readonly)
+	]]
+	local Value_4 = TeamInfo_upvr.CurrentHomeTeam.Value
+	HomeTeam_upvr.BackgroundColor3 = tbl_2_upvr[Value_4]
+	HomeTeam_upvr.UIStroke.Color = tbl_4_upvr[Value_4]
+	HomeTeam_upvr.TeamName.TextStrokeColor3 = tbl_4_upvr[Value_4]
+	HomeTeam_upvr.TeamName.Text = tbl_5_upvr[Value_4]
+	HomeTeam_upvr.ImageLabel.Image = tbl_6_upvr[Value_4]
+	game.Workspace.gameArea.SelectedMap:WaitForChild("Scoreboard").Team1.TeamName.SurfaceGui.Frame.TextLabel.Text = tbl_7_upvr[Value_4]
+	game.Workspace.gameArea.SelectedMap:WaitForChild("Scoreboard").Team1.TeamName.SurfaceGui.Frame.TextLabel.TextStrokeColor3 = tbl_4_upvr[Value_4]
+	game.Workspace.gameArea.SelectedMap:WaitForChild("Scoreboard").Team1.TeamName.SurfaceGui.Frame.TextLabel.TextStrokeTransparency = 1
+end
+TeamInfo_upvr.CurrentAwayTeam.Changed:Connect(function() -- Line 374
+	handleAwayTeam()
+end)
+handleAwayTeam()
+TeamInfo_upvr.CurrentHomeTeam.Changed:Connect(function() -- Line 379
+	handleHomeTeam()
+end)
+handleHomeTeam()
+function handleScoreColor() -- Line 384
+	--[[ Upvalues[4]:
+		[1]: TeamInfo_upvr (readonly)
+		[2]: Score_upvr (readonly)
+		[3]: tbl_2_upvr (readonly)
+		[4]: tbl_4_upvr (readonly)
+	]]
+	local Value_3 = TeamInfo_upvr.AwayTeamPoints.Value
+	local Value_6 = TeamInfo_upvr.HomeTeamPoints.Value
+	if Value_6 < Value_3 then
+		local Value = TeamInfo_upvr.CurrentAwayTeam.Value
+		game:GetService("TweenService"):Create(Score_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+			BackgroundColor3 = tbl_2_upvr[Value];
+		}):Play()
+		game:GetService("TweenService"):Create(Score_upvr.UIStroke, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+			Color = tbl_4_upvr[Value];
+			Thickness = 2;
+		}):Play()
+		game:GetService("TweenService"):Create(Score_upvr.Score, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+			TextStrokeColor3 = tbl_4_upvr[Value];
+		}):Play()
+	else
+		if Value_3 < Value_6 then
+			local Value_2 = TeamInfo_upvr.CurrentHomeTeam.Value
+			game:GetService("TweenService"):Create(Score_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+				BackgroundColor3 = tbl_2_upvr[Value_2];
+			}):Play()
+			game:GetService("TweenService"):Create(Score_upvr.UIStroke, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+				Color = tbl_4_upvr[Value_2];
+				Thickness = 2;
+			}):Play()
+			game:GetService("TweenService"):Create(Score_upvr.Score, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+				TextStrokeColor3 = tbl_4_upvr[Value_2];
+			}):Play()
+			return
+		end
+		if Value_6 == Value_3 then
+			game:GetService("TweenService"):Create(Score_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+				BackgroundColor3 = Color3.new(0, 0, 0);
+			}):Play()
+			game:GetService("TweenService"):Create(Score_upvr.UIStroke, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+				Color = Color3.new(1, 1, 1);
+				Thickness = 1;
+			}):Play()
+			game:GetService("TweenService"):Create(Score_upvr.Score, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+				TextStrokeColor3 = Color3.new(0, 0, 0);
+			}):Play()
+		end
+	end
+end
+game.Players.LocalPlayer:WaitForChild("Settings"):WaitForChild("Misc").MapSelection.Changed:Connect(function() -- Line 429
+	--[[ Upvalues[3]:
+		[1]: TeamInfo_upvr (readonly)
+		[2]: tbl_7_upvr (readonly)
+		[3]: tbl_2_upvr (readonly)
+	]]
+	-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+	print("Map selection changed")
+	local var45_upvw
+	game.Workspace.gameArea:WaitForChild("SelectedMap").ChildAdded:Connect(function(arg1) -- Line 434
+		--[[ Upvalues[1]:
+			[1]: var45_upvw (read and write)
+		]]
+		if arg1.Name == "Scoreboard" then
+			var45_upvw = arg1
+		end
+	end)
+	local var47
+	while not var45_upvw do
+		task.wait()
+	end
+	var47 = "Team1"
+	local SOME = var45_upvw:WaitForChild(var47, 5)
+	local Team2 = var45_upvw:WaitForChild("Team2", 5)
+	local function INLINED() -- Internal function, doesn't exist in bytecode
+		var47 = TeamInfo_upvr.HomeTeamPoints.Value
+		return var47
+	end
+	if not TeamInfo_upvr.HomeTeamPoints or not INLINED() then
+		var47 = '?'
+	end
+	if not TeamInfo_upvr.AwayTeamPoints or not TeamInfo_upvr.AwayTeamPoints.Value then
+	end
+	SOME.Score.SurfaceGui.Frame.TextLabel.Text = var47
+	Team2.Score.SurfaceGui.Frame.TextLabel.Text = '?'
+	SOME.TeamName.SurfaceGui.Frame.TextLabel.Text = tbl_7_upvr[TeamInfo_upvr.CurrentHomeTeam.Value]
+	local var50 = tbl_2_upvr[TeamInfo_upvr.CurrentHomeTeam.Value]
+	if not var50 then
+		var50 = Color3.new(0, 0.0509804, 1)
+	end
+	SOME.TeamName.SurfaceGui.Frame.TextLabel.TextStrokeColor3 = var50
+	SOME.TeamName.SurfaceGui.Frame.TextLabel.TextStrokeTransparency = 1
+	Team2.TeamName.SurfaceGui.Frame.TextLabel.Text = tbl_7_upvr[TeamInfo_upvr.CurrentAwayTeam.Value]
+	local var51 = tbl_2_upvr[TeamInfo_upvr.CurrentAwayTeam.Value]
+	if not var51 then
+		var51 = Color3.new(1, 0.00784314, 0.00784314)
+	end
+	Team2.TeamName.SurfaceGui.Frame.TextLabel.TextStrokeColor3 = var51
+	Team2.TeamName.SurfaceGui.Frame.TextLabel.TextStrokeTransparency = 1
+	handleScoreColor()
+end)
+TeamInfo_upvr.AwayTeamPoints.Changed:Connect(function() -- Line 463
+	--[[ Upvalues[2]:
+		[1]: TeamInfo_upvr (readonly)
+		[2]: Score_upvr (readonly)
+	]]
+	game.Workspace.gameArea.SelectedMap:WaitForChild("Scoreboard").Team1.Score.SurfaceGui.Frame.TextLabel.Text = TeamInfo_upvr.HomeTeamPoints.Value
+	game.Workspace.gameArea.SelectedMap:WaitForChild("Scoreboard").Team2.Score.SurfaceGui.Frame.TextLabel.Text = TeamInfo_upvr.AwayTeamPoints.Value
+	Score_upvr.Score.Text = TeamInfo_upvr.HomeTeamPoints.Value.."  -  "..TeamInfo_upvr.AwayTeamPoints.Value
+	handleScoreColor()
+end)
+game.Workspace.gameArea.SelectedMap:WaitForChild("Scoreboard").Team1.Score.SurfaceGui.Frame.TextLabel.Text = TeamInfo_upvr.HomeTeamPoints.Value
+game.Workspace.gameArea.SelectedMap:WaitForChild("Scoreboard").Team2.Score.SurfaceGui.Frame.TextLabel.Text = TeamInfo_upvr.AwayTeamPoints.Value
+Score_upvr.Score.Text = TeamInfo_upvr.HomeTeamPoints.Value.."  -  "..TeamInfo_upvr.AwayTeamPoints.Value
+handleScoreColor()
+TeamInfo_upvr.HomeTeamPoints.Changed:Connect(function() -- Line 474
+	--[[ Upvalues[2]:
+		[1]: TeamInfo_upvr (readonly)
+		[2]: Score_upvr (readonly)
+	]]
+	game.Workspace.gameArea.SelectedMap:WaitForChild("Scoreboard").Team1.Score.SurfaceGui.Frame.TextLabel.Text = TeamInfo_upvr.HomeTeamPoints.Value
+	game.Workspace.gameArea.SelectedMap:WaitForChild("Scoreboard").Team2.Score.SurfaceGui.Frame.TextLabel.Text = TeamInfo_upvr.AwayTeamPoints.Value
+	Score_upvr.Score.Text = TeamInfo_upvr.HomeTeamPoints.Value.."  -  "..TeamInfo_upvr.AwayTeamPoints.Value
+	handleScoreColor()
+end)
+game.Workspace.gameArea.SelectedMap:WaitForChild("Scoreboard").Team1.Score.SurfaceGui.Frame.TextLabel.Text = TeamInfo_upvr.HomeTeamPoints.Value
+game.Workspace.gameArea.SelectedMap:WaitForChild("Scoreboard").Team2.Score.SurfaceGui.Frame.TextLabel.Text = TeamInfo_upvr.AwayTeamPoints.Value
+Score_upvr.Score.Text = TeamInfo_upvr.HomeTeamPoints.Value.."  -  "..TeamInfo_upvr.AwayTeamPoints.Value
+handleScoreColor()
+function setupTabFrame() -- Line 485
+	--[[ Upvalues[5]:
+		[1]: Container_upvr (readonly)
+		[2]: Container_upvr_2 (readonly)
+		[3]: TeamInfo_upvr (readonly)
+		[4]: tbl_2_upvr (readonly)
+		[5]: tbl_4_upvr (readonly)
+	]]
+	-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+	for _, v_upvr in pairs(game.Players:GetPlayers()) do
+		if v_upvr:FindFirstChild("dataLoaded") then
+			local var98
+			if var98 ~= "N/A" then
+				local var99
+				local function INLINED_4() -- Internal function, doesn't exist in bytecode
+					var98 = Container_upvr
+					return var98
+				end
+				if var99 ~= "Away" or not INLINED_4() then
+					var98 = Container_upvr_2
+				end
+				var99 = var98:FindFirstChild(v_upvr.Name)
+				if not var99 then
+					local function INLINED_5() -- Internal function, doesn't exist in bytecode
+						var99 = TeamInfo_upvr.CurrentAwayTeam.Value
+						return var99
+					end
+					if v_upvr.SelectedTeam.Value ~= "Away" or not INLINED_5() then
+						var99 = TeamInfo_upvr.CurrentHomeTeam.Value
+						local var100 = var99
+					end
+					local clone_upvr = script.plrInfoTemplate:Clone()
+					clone_upvr.UIGradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, tbl_2_upvr[var100]), ColorSequenceKeypoint.new(1, Color3.new(0, 0, 0))})
+					clone_upvr.UIStroke.UIGradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, tbl_4_upvr[var100]), ColorSequenceKeypoint.new(1, Color3.new(0.294118, 0.294118, 0.294118))})
+					clone_upvr.plrName.Text = string.upper(v_upvr.DisplayName)
+					clone_upvr.POSITION.Text = v_upvr.SelectedPosition.Value
+					clone_upvr.GOALS.Text = v_upvr.GoalsThisGame.Value
+					clone_upvr.OOB.Text = v_upvr.PenaltyCount.Value
+					clone_upvr.ASSISTS.Text = v_upvr.AssistsThisGame.Value
+					clone_upvr.POINTS.Text = v_upvr.Points.Value
+					clone_upvr.Name = v_upvr.Name
+					if v_upvr.SelectedTeam.Value ~= "Away" or not Container_upvr then
+					end
+					clone_upvr.Parent = Container_upvr_2
+					v_upvr.SelectedTeam.Changed:Once(function() -- Line 529
+						--[[ Upvalues[1]:
+							[1]: clone_upvr (readonly)
+						]]
+						clone_upvr:Destroy()
+					end)
+					local any_Connect_result1_upvr_8 = v_upvr.SelectedPosition.Changed:Connect(function() -- Line 505
+						--[[ Upvalues[2]:
+							[1]: clone_upvr (readonly)
+							[2]: v_upvr (readonly)
+						]]
+						if not clone_upvr:FindFirstChild("POSITION") then
+						else
+							clone_upvr.POSITION.Text = v_upvr.SelectedPosition.Value
+						end
+					end)
+					local any_Connect_result1_upvr_15 = v_upvr.GoalsThisGame.Changed:Connect(function() -- Line 509
+						--[[ Upvalues[2]:
+							[1]: clone_upvr (readonly)
+							[2]: v_upvr (readonly)
+						]]
+						if not clone_upvr:FindFirstChild("GOALS") then
+						else
+							clone_upvr.GOALS.Text = v_upvr.GoalsThisGame.Value
+						end
+					end)
+					local any_Connect_result1_upvr_6 = v_upvr.PenaltyCount.Changed:Connect(function() -- Line 513
+						--[[ Upvalues[2]:
+							[1]: clone_upvr (readonly)
+							[2]: v_upvr (readonly)
+						]]
+						if not clone_upvr:FindFirstChild("OOB") then
+						else
+							clone_upvr.OOB.Text = v_upvr.PenaltyCount.Value
+						end
+					end)
+					local any_Connect_result1_upvr = v_upvr.AssistsThisGame.Changed:Connect(function() -- Line 517
+						--[[ Upvalues[2]:
+							[1]: clone_upvr (readonly)
+							[2]: v_upvr (readonly)
+						]]
+						if not clone_upvr:FindFirstChild("ASSISTS") then
+						else
+							clone_upvr.ASSISTS.Text = v_upvr.AssistsThisGame.Value
+						end
+					end)
+					local any_Connect_result1_upvr_2 = v_upvr.Points.Changed:Connect(function() -- Line 521
+						--[[ Upvalues[2]:
+							[1]: clone_upvr (readonly)
+							[2]: v_upvr (readonly)
+						]]
+						if not clone_upvr:FindFirstChild("POINTS") then
+						else
+							clone_upvr.POINTS.Text = v_upvr.Points.Value
+						end
+					end)
+					local any_Connect_result1_upvr_16 = v_upvr.OffsideCount.Changed:Connect(function() -- Line 525
+						--[[ Upvalues[2]:
+							[1]: clone_upvr (readonly)
+							[2]: v_upvr (readonly)
+						]]
+						if not clone_upvr:FindFirstChild("OFFSIDES") then
+						else
+							clone_upvr.OFFSIDES.Text = v_upvr.OffsideCount.Value
+						end
+					end)
+					clone_upvr.Destroying:Once(function() -- Line 532
+						--[[ Upvalues[6]:
+							[1]: any_Connect_result1_upvr_8 (readonly)
+							[2]: any_Connect_result1_upvr_15 (readonly)
+							[3]: any_Connect_result1_upvr_6 (readonly)
+							[4]: any_Connect_result1_upvr (readonly)
+							[5]: any_Connect_result1_upvr_2 (readonly)
+							[6]: any_Connect_result1_upvr_16 (readonly)
+						]]
+						any_Connect_result1_upvr_8:Disconnect()
+						any_Connect_result1_upvr_15:Disconnect()
+						any_Connect_result1_upvr_6:Disconnect()
+						any_Connect_result1_upvr:Disconnect()
+						any_Connect_result1_upvr_2:Disconnect()
+						any_Connect_result1_upvr_16:Disconnect()
+					end)
+					local var119_upvw
+					var119_upvw = v_upvr.AncestryChanged:Connect(function() -- Line 541
+						--[[ Upvalues[3]:
+							[1]: v_upvr (readonly)
+							[2]: clone_upvr (readonly)
+							[3]: var119_upvw (read and write)
+						]]
+						if not v_upvr:IsDescendantOf(game) then
+							clone_upvr:Destroy()
+							var119_upvw:Disconnect()
+						end
+					end)
+				end
+			end
+		end
+	end
+end
+function updateHomeColorsTab() -- Line 553
+	--[[ Upvalues[6]:
+		[1]: TabFrame_upvr (readonly)
+		[2]: tbl_2_upvr (readonly)
+		[3]: TeamInfo_upvr (readonly)
+		[4]: tbl_4_upvr (readonly)
+		[5]: Container_upvr_2 (readonly)
+		[6]: tbl_6_upvr (readonly)
+	]]
+	TabFrame_upvr.HomeFrame.UIGradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, tbl_2_upvr[TeamInfo_upvr.CurrentHomeTeam.Value]), ColorSequenceKeypoint.new(1, Color3.new(0, 0, 0))})
+	TabFrame_upvr.HomeFrame.UIStroke.UIGradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, tbl_4_upvr[TeamInfo_upvr.CurrentHomeTeam.Value]), ColorSequenceKeypoint.new(1, Color3.new(0.294118, 0.294118, 0.294118))})
+	Container_upvr_2.TitleFrame.UIGradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, tbl_2_upvr[TeamInfo_upvr.CurrentHomeTeam.Value]), ColorSequenceKeypoint.new(1, Color3.new(0, 0, 0))})
+	Container_upvr_2.TitleFrame.UIStroke.UIGradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, tbl_4_upvr[TeamInfo_upvr.CurrentHomeTeam.Value]), ColorSequenceKeypoint.new(1, Color3.new(0.294118, 0.294118, 0.294118))})
+	Container_upvr_2.TitleFrame.TeamCrest.Image = tbl_6_upvr[TeamInfo_upvr.CurrentHomeTeam.Value]
+end
+TeamInfo_upvr.CurrentHomeTeam.Changed:Connect(function() -- Line 561
+	updateHomeColorsTab()
+end)
+updateHomeColorsTab()
+function updateAwayColorsTab() -- Line 566
+	--[[ Upvalues[6]:
+		[1]: TabFrame_upvr (readonly)
+		[2]: tbl_2_upvr (readonly)
+		[3]: TeamInfo_upvr (readonly)
+		[4]: tbl_4_upvr (readonly)
+		[5]: Container_upvr (readonly)
+		[6]: tbl_6_upvr (readonly)
+	]]
+	TabFrame_upvr.AwayFrame.UIGradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, tbl_2_upvr[TeamInfo_upvr.CurrentAwayTeam.Value]), ColorSequenceKeypoint.new(1, Color3.new(0, 0, 0))})
+	TabFrame_upvr.AwayFrame.UIStroke.UIGradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, tbl_4_upvr[TeamInfo_upvr.CurrentAwayTeam.Value]), ColorSequenceKeypoint.new(1, Color3.new(0.294118, 0.294118, 0.294118))})
+	Container_upvr.TitleFrame.UIGradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, tbl_2_upvr[TeamInfo_upvr.CurrentAwayTeam.Value]), ColorSequenceKeypoint.new(1, Color3.new(0, 0, 0))})
+	Container_upvr.TitleFrame.UIStroke.UIGradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, tbl_4_upvr[TeamInfo_upvr.CurrentAwayTeam.Value]), ColorSequenceKeypoint.new(1, Color3.new(0.294118, 0.294118, 0.294118))})
+	Container_upvr.TitleFrame.TeamCrest.Image = tbl_6_upvr[TeamInfo_upvr.CurrentAwayTeam.Value]
+end
+TeamInfo_upvr.CurrentAwayTeam.Changed:Connect(function() -- Line 574
+	updateAwayColorsTab()
+end)
+updateAwayColorsTab()
+game:GetService("UserInputService").InputBegan:Connect(function(arg1, arg2) -- Line 579
+	--[[ Upvalues[1]:
+		[1]: TabFrame_upvr (readonly)
+	]]
+	if arg1.KeyCode == Enum.KeyCode.Tab then
+		setupTabFrame()
+		TabFrame_upvr.Visible = true
+	end
+end)
+game:GetService("UserInputService").InputEnded:Connect(function(arg1, arg2) -- Line 586
+	--[[ Upvalues[1]:
+		[1]: TabFrame_upvr (readonly)
+	]]
+	if arg1.KeyCode == Enum.KeyCode.Tab then
+		TabFrame_upvr.Visible = false
+	end
+end)
+local Shootout_upvr = script.Parent.Shootout
+local FinalShootout_upvr = script.Parent.FinalShootout
+game.ReplicatedStorage.ChildAdded:Connect(function(arg1) -- Line 596
+	--[[ Upvalues[2]:
+		[1]: Shootout_upvr (readonly)
+		[2]: FinalShootout_upvr (readonly)
+	]]
+	if arg1.Name == "Shootout" then
+		task.wait(0.8)
+		local HomeSuccess_upvr = arg1:WaitForChild("HomeSuccess")
+		local HomeTeamFail_upvr = arg1:WaitForChild("HomeTeamFail")
+		local AwaySuccess_upvr = arg1:WaitForChild("AwaySuccess")
+		local AwayTeamFail_upvr = arg1:WaitForChild("AwayTeamFail")
+		local currentShotNum_upvr = arg1:WaitForChild("currentShotNum")
+		game:GetService("TweenService"):Create(Shootout_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0.5, 0, 0, 148);
+		}):Play()
+		for _, v_2 in pairs(Shootout_upvr.HomeTeam:GetChildren()) do
+			if v_2:IsA("ImageLabel") then
+				game:GetService("TweenService"):Create(v_2, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+					BackgroundTransparency = 0.5;
+				}):Play()
+				game:GetService("TweenService"):Create(v_2.UIStroke, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+					Transparency = 0.5;
+				}):Play()
+			end
+		end
+		for _, v_3 in pairs(Shootout_upvr.AwayTeam:GetChildren()) do
+			if v_3:IsA("ImageLabel") then
+				game:GetService("TweenService"):Create(v_3, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+					BackgroundTransparency = 0.5;
+				}):Play()
+				game:GetService("TweenService"):Create(v_3.UIStroke, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+					Transparency = 0.5;
+				}):Play()
+			end
+		end
+		local any_Connect_result1_upvr_4 = HomeSuccess_upvr.Changed:Connect(function() -- Line 628
+			--[[ Upvalues[3]:
+				[1]: currentShotNum_upvr (readonly)
+				[2]: HomeSuccess_upvr (readonly)
+				[3]: Shootout_upvr (copied, readonly)
+			]]
+			-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [11] 8. Error Block 3 start (CF ANALYSIS FAILED)
+			Shootout_upvr.HomeTeam.Shot1.Result.BackgroundColor3 = Color3.new(0, 0.666667, 0)
+			game:GetService("TweenService"):Create(Shootout_upvr.HomeTeam.Shot1.Result, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+				BackgroundTransparency = 0;
+			}):Play()
+			do
+				return
+			end
+			-- KONSTANTERROR: [11] 8. Error Block 3 end (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [58] 39. Error Block 4 start (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [58] 39. Error Block 4 end (CF ANALYSIS FAILED)
+		end)
+		local any_Connect_result1_upvr_7 = AwaySuccess_upvr.Changed:Connect(function() -- Line 652
+			--[[ Upvalues[3]:
+				[1]: currentShotNum_upvr (readonly)
+				[2]: AwaySuccess_upvr (readonly)
+				[3]: Shootout_upvr (copied, readonly)
+			]]
+			-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [11] 8. Error Block 3 start (CF ANALYSIS FAILED)
+			Shootout_upvr.AwayTeam.Shot1.Result.BackgroundColor3 = Color3.new(0, 0.666667, 0)
+			game:GetService("TweenService"):Create(Shootout_upvr.AwayTeam.Shot1.Result, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+				BackgroundTransparency = 0;
+			}):Play()
+			do
+				return
+			end
+			-- KONSTANTERROR: [11] 8. Error Block 3 end (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [58] 39. Error Block 4 start (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [58] 39. Error Block 4 end (CF ANALYSIS FAILED)
+		end)
+		local any_Connect_result1_upvr_10 = HomeTeamFail_upvr.Changed:Connect(function() -- Line 676
+			--[[ Upvalues[3]:
+				[1]: currentShotNum_upvr (readonly)
+				[2]: HomeTeamFail_upvr (readonly)
+				[3]: Shootout_upvr (copied, readonly)
+			]]
+			-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [11] 8. Error Block 3 start (CF ANALYSIS FAILED)
+			Shootout_upvr.HomeTeam.Shot1.Result.BackgroundColor3 = Color3.new(0.666667, 0, 0)
+			game:GetService("TweenService"):Create(Shootout_upvr.HomeTeam.Shot1.Result, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+				BackgroundTransparency = 0;
+			}):Play()
+			do
+				return
+			end
+			-- KONSTANTERROR: [11] 8. Error Block 3 end (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [58] 39. Error Block 4 start (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [58] 39. Error Block 4 end (CF ANALYSIS FAILED)
+		end)
+		local any_Connect_result1_upvr_9 = AwayTeamFail_upvr.Changed:Connect(function() -- Line 700
+			--[[ Upvalues[3]:
+				[1]: currentShotNum_upvr (readonly)
+				[2]: AwayTeamFail_upvr (readonly)
+				[3]: Shootout_upvr (copied, readonly)
+			]]
+			-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [11] 8. Error Block 3 start (CF ANALYSIS FAILED)
+			Shootout_upvr.AwayTeam.Shot1.Result.BackgroundColor3 = Color3.new(0.666667, 0, 0)
+			game:GetService("TweenService"):Create(Shootout_upvr.AwayTeam.Shot1.Result, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+				BackgroundTransparency = 0;
+			}):Play()
+			do
+				return
+			end
+			-- KONSTANTERROR: [11] 8. Error Block 3 end (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [58] 39. Error Block 4 start (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [58] 39. Error Block 4 end (CF ANALYSIS FAILED)
+		end)
+		arg1.Destroying:Once(function() -- Line 724
+			--[[ Upvalues[5]:
+				[1]: any_Connect_result1_upvr_4 (readonly)
+				[2]: any_Connect_result1_upvr_7 (readonly)
+				[3]: any_Connect_result1_upvr_10 (readonly)
+				[4]: any_Connect_result1_upvr_9 (readonly)
+				[5]: Shootout_upvr (copied, readonly)
+			]]
+			task.wait(0.5)
+			any_Connect_result1_upvr_4:Disconnect()
+			any_Connect_result1_upvr_7:Disconnect()
+			any_Connect_result1_upvr_10:Disconnect()
+			any_Connect_result1_upvr_9:Disconnect()
+			game:GetService("TweenService"):Create(Shootout_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+				Position = UDim2.new(0.5, 0, 0, 100);
+			}):Play()
+			for _, v_4 in pairs(Shootout_upvr.HomeTeam:GetChildren()) do
+				if v_4:IsA("ImageLabel") then
+					game:GetService("TweenService"):Create(v_4, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+						BackgroundTransparency = 1;
+					}):Play()
+					game:GetService("TweenService"):Create(v_4.Result, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+						BackgroundTransparency = 1;
+					}):Play()
+					game:GetService("TweenService"):Create(v_4.UIStroke, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+						Transparency = 1;
+					}):Play()
+				end
+			end
+			for _, v_5 in pairs(Shootout_upvr.AwayTeam:GetChildren()) do
+				if v_5:IsA("ImageLabel") then
+					game:GetService("TweenService"):Create(v_5, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+						BackgroundTransparency = 1;
+					}):Play()
+					game:GetService("TweenService"):Create(v_5.Result, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+						BackgroundTransparency = 1;
+					}):Play()
+					game:GetService("TweenService"):Create(v_5.UIStroke, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+						Transparency = 1;
+					}):Play()
+				end
+			end
+		end)
+	else
+		HomeSuccess_upvr = arg1.Name
+		if HomeSuccess_upvr == "FinalShootout" then
+			HomeSuccess_upvr = task.wait
+			HomeTeamFail_upvr = 0.8
+			HomeSuccess_upvr(HomeTeamFail_upvr)
+			AwaySuccess_upvr = FinalShootout_upvr
+			HomeTeamFail_upvr = AwaySuccess_upvr.HomeTeam
+			HomeSuccess_upvr = HomeTeamFail_upvr.Shot
+			local var185_upvr = HomeSuccess_upvr
+			AwayTeamFail_upvr = FinalShootout_upvr
+			AwaySuccess_upvr = AwayTeamFail_upvr.AwayTeam
+			HomeTeamFail_upvr = AwaySuccess_upvr.Shot
+			local var186_upvr = HomeTeamFail_upvr
+			AwaySuccess_upvr = game
+			currentShotNum_upvr = "TweenService"
+			AwaySuccess_upvr = AwaySuccess_upvr:GetService(currentShotNum_upvr)
+			currentShotNum_upvr = FinalShootout_upvr
+			any_Connect_result1_upvr_4 = TweenInfo.new
+			any_Connect_result1_upvr_7 = 0.5
+			any_Connect_result1_upvr_10 = Enum.EasingStyle.Cubic
+			any_Connect_result1_upvr_9 = Enum.EasingDirection.Out
+			any_Connect_result1_upvr_4 = any_Connect_result1_upvr_4(any_Connect_result1_upvr_7, any_Connect_result1_upvr_10, any_Connect_result1_upvr_9)
+			any_Connect_result1_upvr_7 = {}
+			local var187 = any_Connect_result1_upvr_7
+			any_Connect_result1_upvr_10 = UDim2.new
+			any_Connect_result1_upvr_9 = 0.5
+			any_Connect_result1_upvr_10 = any_Connect_result1_upvr_10(any_Connect_result1_upvr_9, 0, 0, 148)
+			var187.Position = any_Connect_result1_upvr_10
+			AwaySuccess_upvr = AwaySuccess_upvr:Create(currentShotNum_upvr, any_Connect_result1_upvr_4, var187):Play
+			AwaySuccess_upvr()
+			AwaySuccess_upvr = game
+			currentShotNum_upvr = "TweenService"
+			AwaySuccess_upvr = AwaySuccess_upvr:GetService(currentShotNum_upvr)
+			currentShotNum_upvr = var185_upvr
+			any_Connect_result1_upvr_4 = TweenInfo.new
+			var187 = 0.5
+			any_Connect_result1_upvr_10 = Enum.EasingStyle.Cubic
+			any_Connect_result1_upvr_9 = Enum.EasingDirection.Out
+			any_Connect_result1_upvr_4 = any_Connect_result1_upvr_4(var187, any_Connect_result1_upvr_10, any_Connect_result1_upvr_9)
+			var187 = {}
+			local var188 = var187
+			any_Connect_result1_upvr_10 = 0.5
+			var188.BackgroundTransparency = any_Connect_result1_upvr_10
+			AwaySuccess_upvr = AwaySuccess_upvr:Create(currentShotNum_upvr, any_Connect_result1_upvr_4, var188):Play
+			AwaySuccess_upvr()
+			AwaySuccess_upvr = game
+			currentShotNum_upvr = "TweenService"
+			AwaySuccess_upvr = AwaySuccess_upvr:GetService(currentShotNum_upvr)
+			currentShotNum_upvr = var185_upvr.UIStroke
+			any_Connect_result1_upvr_4 = TweenInfo.new
+			var188 = 0.5
+			any_Connect_result1_upvr_10 = Enum.EasingStyle.Cubic
+			any_Connect_result1_upvr_9 = Enum.EasingDirection.Out
+			any_Connect_result1_upvr_4 = any_Connect_result1_upvr_4(var188, any_Connect_result1_upvr_10, any_Connect_result1_upvr_9)
+			var188 = {}
+			local var189 = var188
+			any_Connect_result1_upvr_10 = 0.5
+			var189.Transparency = any_Connect_result1_upvr_10
+			AwaySuccess_upvr = AwaySuccess_upvr:Create(currentShotNum_upvr, any_Connect_result1_upvr_4, var189):Play
+			AwaySuccess_upvr()
+			AwaySuccess_upvr = game
+			currentShotNum_upvr = "TweenService"
+			AwaySuccess_upvr = AwaySuccess_upvr:GetService(currentShotNum_upvr)
+			currentShotNum_upvr = var186_upvr
+			any_Connect_result1_upvr_4 = TweenInfo.new
+			var189 = 0.5
+			any_Connect_result1_upvr_10 = Enum.EasingStyle.Cubic
+			any_Connect_result1_upvr_9 = Enum.EasingDirection.Out
+			any_Connect_result1_upvr_4 = any_Connect_result1_upvr_4(var189, any_Connect_result1_upvr_10, any_Connect_result1_upvr_9)
+			var189 = {}
+			local var190 = var189
+			any_Connect_result1_upvr_10 = 0.5
+			var190.BackgroundTransparency = any_Connect_result1_upvr_10
+			AwaySuccess_upvr = AwaySuccess_upvr:Create(currentShotNum_upvr, any_Connect_result1_upvr_4, var190):Play
+			AwaySuccess_upvr()
+			AwaySuccess_upvr = game
+			currentShotNum_upvr = "TweenService"
+			AwaySuccess_upvr = AwaySuccess_upvr:GetService(currentShotNum_upvr)
+			currentShotNum_upvr = var186_upvr.UIStroke
+			any_Connect_result1_upvr_4 = TweenInfo.new
+			var190 = 0.5
+			any_Connect_result1_upvr_10 = Enum.EasingStyle.Cubic
+			any_Connect_result1_upvr_9 = Enum.EasingDirection.Out
+			any_Connect_result1_upvr_4 = any_Connect_result1_upvr_4(var190, any_Connect_result1_upvr_10, any_Connect_result1_upvr_9)
+			var190 = {}
+			any_Connect_result1_upvr_10 = 0.5
+			var190.Transparency = any_Connect_result1_upvr_10
+			AwaySuccess_upvr = AwaySuccess_upvr:Create(currentShotNum_upvr, any_Connect_result1_upvr_4, var190):Play
+			AwaySuccess_upvr()
+			AwaySuccess_upvr = arg1.ChildAdded
+			function currentShotNum_upvr(arg1_2) -- Line 780
+				--[[ Upvalues[2]:
+					[1]: var185_upvr (readonly)
+					[2]: var186_upvr (readonly)
+				]]
+				if arg1_2.Name == "HomeTeamSuccess" then
+					var185_upvr.Result.BackgroundColor3 = Color3.new(0, 0.666667, 0)
+					game:GetService("TweenService"):Create(var185_upvr.Result, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+						BackgroundTransparency = 0;
+					}):Play()
+					arg1_2.Destroying:Connect(function() -- Line 786
+						--[[ Upvalues[1]:
+							[1]: var185_upvr (copied, readonly)
+						]]
+						game:GetService("TweenService"):Create(var185_upvr.Result, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+							BackgroundTransparency = 1;
+						}):Play()
+					end)
+				else
+					if arg1_2.Name == "AwayTeamSuccess" then
+						var186_upvr.Result.BackgroundColor3 = Color3.new(0, 0.666667, 0)
+						game:GetService("TweenService"):Create(var186_upvr.Result, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+							BackgroundTransparency = 0;
+						}):Play()
+						arg1_2.Destroying:Connect(function() -- Line 796
+							--[[ Upvalues[1]:
+								[1]: var186_upvr (copied, readonly)
+							]]
+							game:GetService("TweenService"):Create(var186_upvr.Result, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+								BackgroundTransparency = 1;
+							}):Play()
+						end)
+						return
+					end
+					if arg1_2.Name == "HomeTeamFail" then
+						var185_upvr.Result.BackgroundColor3 = Color3.new(0.666667, 0, 0)
+						game:GetService("TweenService"):Create(var185_upvr.Result, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+							BackgroundTransparency = 0;
+						}):Play()
+						arg1_2.Destroying:Connect(function() -- Line 806
+							--[[ Upvalues[1]:
+								[1]: var185_upvr (copied, readonly)
+							]]
+							game:GetService("TweenService"):Create(var185_upvr.Result, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+								BackgroundTransparency = 1;
+							}):Play()
+						end)
+						return
+					end
+					if arg1_2.Name == "AwayTeamFail" then
+						var186_upvr.Result.BackgroundColor3 = Color3.new(0.666667, 0, 0)
+						game:GetService("TweenService"):Create(var186_upvr.Result, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+							BackgroundTransparency = 0;
+						}):Play()
+						arg1_2.Destroying:Connect(function() -- Line 816
+							--[[ Upvalues[1]:
+								[1]: var186_upvr (copied, readonly)
+							]]
+							game:GetService("TweenService"):Create(var186_upvr.Result, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+								BackgroundTransparency = 1;
+							}):Play()
+						end)
+					end
+				end
+			end
+			AwaySuccess_upvr = AwaySuccess_upvr:Connect(currentShotNum_upvr)
+			AwayTeamFail_upvr = arg1.Destroying
+			function any_Connect_result1_upvr_4() -- Line 823
+				--[[ Upvalues[4]:
+					[1]: AwaySuccess_upvr (readonly)
+					[2]: FinalShootout_upvr (copied, readonly)
+					[3]: var185_upvr (readonly)
+					[4]: var186_upvr (readonly)
+				]]
+				task.wait(0.5)
+				AwaySuccess_upvr:Disconnect()
+				game:GetService("TweenService"):Create(FinalShootout_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+					Position = UDim2.new(0.5, 0, 0, 100);
+				}):Play()
+				game:GetService("TweenService"):Create(var185_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+					BackgroundTransparency = 1;
+				}):Play()
+				game:GetService("TweenService"):Create(var185_upvr.UIStroke, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+					Transparency = 1;
+				}):Play()
+				game:GetService("TweenService"):Create(var185_upvr.Result, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+					BackgroundTransparency = 1;
+				}):Play()
+				game:GetService("TweenService"):Create(var186_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+					BackgroundTransparency = 1;
+				}):Play()
+				game:GetService("TweenService"):Create(var186_upvr.UIStroke, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+					Transparency = 1;
+				}):Play()
+				game:GetService("TweenService"):Create(var186_upvr.Result, TweenInfo.new(0.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+					BackgroundTransparency = 1;
+				}):Play()
+			end
+			AwayTeamFail_upvr = AwayTeamFail_upvr:Once
+			AwayTeamFail_upvr(any_Connect_result1_upvr_4)
+		end
+	end
+end)

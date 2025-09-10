@@ -1,0 +1,233 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerGui.Buttons.Handler
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:20
+-- Luau version 6, Types version 3
+-- Time taken: 0.004489 seconds
+
+local UserInputService_upvr = game:GetService("UserInputService")
+local Frame_upvr = script.Parent.Frame
+function updateInput() -- Line 5
+	--[[ Upvalues[2]:
+		[1]: UserInputService_upvr (readonly)
+		[2]: Frame_upvr (readonly)
+	]]
+	local any_GetLastInputType_result1 = UserInputService_upvr:GetLastInputType()
+	local var4
+	if any_GetLastInputType_result1 == Enum.UserInputType.Focus then
+	else
+		if any_GetLastInputType_result1 ~= Enum.UserInputType.Touch then
+			var4 = false
+		else
+			var4 = true
+		end
+		Frame_upvr.Visible = var4
+		var4 = script.Parent
+		if any_GetLastInputType_result1 ~= Enum.UserInputType.Touch then
+			var4 = false
+		else
+			var4 = true
+		end
+		var4.penButtonFrame.Visible = var4
+	end
+end
+updateInput()
+UserInputService_upvr.LastInputTypeChanged:Connect(updateInput)
+game:GetService("RunService").RenderStepped:Connect(function() -- Line 17
+	--[[ Upvalues[1]:
+		[1]: Frame_upvr (readonly)
+	]]
+	-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+	local var6
+	if Frame_upvr.Visible then
+		local X = Frame_upvr.Screen.AbsoluteSize.X
+		var6 = Frame_upvr.Screen.AbsoluteSize.Y
+		var6 = 500
+		if math.min(X, var6) > var6 then
+			X = false
+		else
+			X = true
+		end
+		if X then
+			var6 = 70
+		else
+			var6 = 120
+		end
+		Frame_upvr.Size = UDim2.new(0, var6, 0, var6)
+		if not X or not UDim2.new(1, -(var6 * 1.5 - 10), 1, -var6 - 20) then
+		end
+		Frame_upvr.Position = UDim2.new(1, -(var6 * 1.5 - 10), 1, -var6 * 1.75)
+	end
+end)
+function doHighlight(arg1, arg2) -- Line 28
+	if arg2 == nil then
+		game:GetService("TweenService"):Create(arg1.Highlight, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			ImageTransparency = 0;
+		}):Play()
+		task.delay(0.1, function() -- Line 33
+			--[[ Upvalues[1]:
+				[1]: arg1 (readonly)
+			]]
+			game:GetService("TweenService"):Create(arg1.Highlight, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				ImageTransparency = 1;
+			}):Play()
+		end)
+	else
+		if arg2 == true then
+			game:GetService("TweenService"):Create(arg1.Highlight, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				ImageTransparency = 0;
+			}):Play()
+			return
+		end
+		if arg2 == false then
+			game:GetService("TweenService"):Create(arg1.Highlight, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				ImageTransparency = 1;
+			}):Play()
+		end
+	end
+end
+local MobileControlEvents_upvr = game.ReplicatedStorage.MobileControlEvents
+Frame_upvr.DribbleLeftButton.InputBegan:Connect(function() -- Line 52
+	--[[ Upvalues[2]:
+		[1]: MobileControlEvents_upvr (readonly)
+		[2]: Frame_upvr (readonly)
+	]]
+	MobileControlEvents_upvr.DribbleLeft:Fire(true)
+	doHighlight(Frame_upvr.DribbleLeftButton, true)
+end)
+Frame_upvr.DribbleLeftButton.InputEnded:Connect(function() -- Line 57
+	--[[ Upvalues[2]:
+		[1]: MobileControlEvents_upvr (readonly)
+		[2]: Frame_upvr (readonly)
+	]]
+	MobileControlEvents_upvr.DribbleLeft:Fire(false)
+	doHighlight(Frame_upvr.DribbleLeftButton, false)
+end)
+Frame_upvr.DribbleRightButton.InputBegan:Connect(function() -- Line 63
+	--[[ Upvalues[2]:
+		[1]: MobileControlEvents_upvr (readonly)
+		[2]: Frame_upvr (readonly)
+	]]
+	MobileControlEvents_upvr.DribbleRight:Fire(true)
+	doHighlight(Frame_upvr.DribbleRightButton, true)
+end)
+Frame_upvr.DribbleRightButton.InputEnded:Connect(function() -- Line 68
+	--[[ Upvalues[2]:
+		[1]: MobileControlEvents_upvr (readonly)
+		[2]: Frame_upvr (readonly)
+	]]
+	MobileControlEvents_upvr.DribbleRight:Fire(false)
+	doHighlight(Frame_upvr.DribbleRightButton, false)
+end)
+Frame_upvr.KickLowButton.InputBegan:Connect(function() -- Line 73
+	--[[ Upvalues[2]:
+		[1]: MobileControlEvents_upvr (readonly)
+		[2]: Frame_upvr (readonly)
+	]]
+	MobileControlEvents_upvr.M2:Fire(true)
+	doHighlight(Frame_upvr.KickLowButton, true)
+end)
+Frame_upvr.KickLowButton.InputEnded:Connect(function() -- Line 78
+	--[[ Upvalues[2]:
+		[1]: MobileControlEvents_upvr (readonly)
+		[2]: Frame_upvr (readonly)
+	]]
+	MobileControlEvents_upvr.M2:Fire(false)
+	doHighlight(Frame_upvr.KickLowButton, false)
+end)
+Frame_upvr.KickHighButton.InputBegan:Connect(function() -- Line 83
+	--[[ Upvalues[2]:
+		[1]: MobileControlEvents_upvr (readonly)
+		[2]: Frame_upvr (readonly)
+	]]
+	MobileControlEvents_upvr.M1:Fire(true)
+	doHighlight(Frame_upvr.KickHighButton, true)
+end)
+Frame_upvr.KickHighButton.InputEnded:Connect(function() -- Line 88
+	--[[ Upvalues[2]:
+		[1]: MobileControlEvents_upvr (readonly)
+		[2]: Frame_upvr (readonly)
+	]]
+	MobileControlEvents_upvr.M1:Fire(false)
+	doHighlight(Frame_upvr.KickHighButton, false)
+end)
+Frame_upvr.PhysicalButton.InputBegan:Connect(function() -- Line 93
+	--[[ Upvalues[2]:
+		[1]: MobileControlEvents_upvr (readonly)
+		[2]: Frame_upvr (readonly)
+	]]
+	MobileControlEvents_upvr.Physical:Fire(true)
+	doHighlight(Frame_upvr.PhysicalButton, true)
+end)
+Frame_upvr.PhysicalButton.InputEnded:Connect(function() -- Line 98
+	--[[ Upvalues[2]:
+		[1]: MobileControlEvents_upvr (readonly)
+		[2]: Frame_upvr (readonly)
+	]]
+	MobileControlEvents_upvr.Physical:Fire(false)
+	doHighlight(Frame_upvr.PhysicalButton, false)
+end)
+Frame_upvr.SlideTackleButton.Activated:Connect(function() -- Line 103
+	--[[ Upvalues[2]:
+		[1]: MobileControlEvents_upvr (readonly)
+		[2]: Frame_upvr (readonly)
+	]]
+	MobileControlEvents_upvr.SlideTackle:Fire()
+	doHighlight(Frame_upvr.SlideTackleButton)
+end)
+Frame_upvr.MarkPass.Activated:Connect(function() -- Line 108
+	--[[ Upvalues[2]:
+		[1]: MobileControlEvents_upvr (readonly)
+		[2]: Frame_upvr (readonly)
+	]]
+	MobileControlEvents_upvr.MarkPass:Fire()
+	doHighlight(Frame_upvr.MarkPass)
+end)
+Frame_upvr.Emote.Activated:Connect(function() -- Line 113
+	--[[ Upvalues[2]:
+		[1]: MobileControlEvents_upvr (readonly)
+		[2]: Frame_upvr (readonly)
+	]]
+	MobileControlEvents_upvr.Emote:Fire()
+	doHighlight(Frame_upvr.Emote)
+end)
+Frame_upvr.Shiftlock.Activated:Connect(function() -- Line 118
+	--[[ Upvalues[2]:
+		[1]: MobileControlEvents_upvr (readonly)
+		[2]: Frame_upvr (readonly)
+	]]
+	MobileControlEvents_upvr.shiftLock:Fire()
+	doHighlight(Frame_upvr.Shiftlock)
+end)
+local var30_upvw = false
+Frame_upvr.ToggleSprint.Activated:Connect(function() -- Line 124
+	--[[ Upvalues[3]:
+		[1]: var30_upvw (read and write)
+		[2]: MobileControlEvents_upvr (readonly)
+		[3]: Frame_upvr (readonly)
+	]]
+	var30_upvw = not var30_upvw
+	MobileControlEvents_upvr.SprintToggle:Fire(var30_upvw)
+	doHighlight(Frame_upvr.ToggleSprint, var30_upvw)
+end)
+Frame_upvr.SkillButton.Activated:Connect(function() -- Line 131
+	--[[ Upvalues[2]:
+		[1]: MobileControlEvents_upvr (readonly)
+		[2]: Frame_upvr (readonly)
+	]]
+	MobileControlEvents_upvr.UseSkill:Fire()
+	doHighlight(Frame_upvr.SkillButton)
+end)
+local var33_upvw = false
+Frame_upvr.ToggleControlSprint.Activated:Connect(function() -- Line 137
+	--[[ Upvalues[3]:
+		[1]: var33_upvw (read and write)
+		[2]: MobileControlEvents_upvr (readonly)
+		[3]: Frame_upvr (readonly)
+	]]
+	var33_upvw = not var33_upvw
+	MobileControlEvents_upvr.ControlSprintToggle:Fire(var33_upvw)
+	doHighlight(Frame_upvr.ToggleControlSprint, var33_upvw)
+end)

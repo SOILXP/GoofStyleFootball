@@ -1,0 +1,20 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerGui.Reset
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:52
+-- Luau version 6, Types version 3
+-- Time taken: 0.000415 seconds
+
+-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+Instance.new("BindableEvent").Event:connect(function() -- Line 4
+	game.ReplicatedStorage.Remotes.Reset:FireServer()
+end)
+-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+-- KONSTANTERROR: [27] 22. Error Block 10 start (CF ANALYSIS FAILED)
+print("coregui being slow for ResetButtonCallback")
+wait(0.2)
+-- KONSTANTERROR: [27] 22. Error Block 10 end (CF ANALYSIS FAILED)
+-- KONSTANTERROR: [18] 14. Error Block 2 start (CF ANALYSIS FAILED)
+-- KONSTANTERROR: [18] 14. Error Block 2 end (CF ANALYSIS FAILED)

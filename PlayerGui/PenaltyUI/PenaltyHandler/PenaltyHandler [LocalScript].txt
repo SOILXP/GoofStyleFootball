@@ -1,0 +1,408 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerGui.PenaltyUI.PenaltyHandler
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:49
+-- Luau version 6, Types version 3
+-- Time taken: 0.009253 seconds
+
+local topFrame_upvr = script.Parent.topFrame
+local bottomFrame_upvr = script.Parent.bottomFrame
+local SHOTTYPE_upvr = bottomFrame_upvr.SHOTTYPE
+local TimingBar_upvr = script.Parent.TimingBar
+local Bar_upvr = TimingBar_upvr.Bar
+local tbl_upvr = {"CENTER", "BOTTOM LEFT", "TOP LEFT", "BOTTOM RIGHT", "TOP RIGHT"}
+local LocalPlayer_upvr = game.Players.LocalPlayer
+local Character_upvr = LocalPlayer_upvr.Character
+if not Character_upvr then
+	Character_upvr = LocalPlayer_upvr.CharacterAdded:Wait()
+end
+Character_upvr:WaitForChild("Humanoid")
+function pullUp() -- Line 29
+	--[[ Upvalues[2]:
+		[1]: topFrame_upvr (readonly)
+		[2]: bottomFrame_upvr (readonly)
+	]]
+	topFrame_upvr.Position = UDim2.new(0, 0, 0, -150)
+	bottomFrame_upvr.Position = UDim2.new(0, 0, 1, 150)
+	game:GetService("TweenService"):Create(topFrame_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0, 0, 0, 0);
+	}):Play()
+	game:GetService("TweenService"):Create(bottomFrame_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0, 0, 1, 0);
+	}):Play()
+end
+function dropAway() -- Line 40
+	--[[ Upvalues[2]:
+		[1]: topFrame_upvr (readonly)
+		[2]: bottomFrame_upvr (readonly)
+	]]
+	topFrame_upvr.Position = UDim2.new(0, 0, 0, 0)
+	bottomFrame_upvr.Position = UDim2.new(0, 0, 1, 0)
+	game:GetService("TweenService"):Create(topFrame_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0, 0, 0, -150);
+	}):Play()
+	game:GetService("TweenService"):Create(bottomFrame_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0, 0, 1, 150);
+	}):Play()
+end
+function handleTiming() -- Line 51
+	--[[ Upvalues[2]:
+		[1]: TimingBar_upvr (readonly)
+		[2]: Bar_upvr (readonly)
+	]]
+	TimingBar_upvr.Position = UDim2.new(0.5, 0, 1, 50)
+	game:GetService("TweenService"):Create(TimingBar_upvr, TweenInfo.new(0.45, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0.5, 0, 1, -200);
+	}):Play()
+	Bar_upvr.Position = UDim2.new(0, 0, 0.5, 0)
+	task.wait(0.4)
+	local any_Create_result1_upvr = game:GetService("TweenService"):Create(Bar_upvr, TweenInfo.new(0.75, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {
+		Position = UDim2.new(1, 0, 0.5, 0);
+	})
+	any_Create_result1_upvr:Play()
+	local var17_upvw
+	var17_upvw = any_Create_result1_upvr.Completed:Connect(function() -- Line 62
+		--[[ Upvalues[2]:
+			[1]: var17_upvw (read and write)
+			[2]: Bar_upvr (copied, readonly)
+		]]
+		var17_upvw:Disconnect()
+		game:GetService("TweenService"):Create(Bar_upvr, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0, 0, 0.5, 0);
+		}):Play()
+	end)
+	local var19_upvw = var17_upvw
+	local var21_upvw
+	var21_upvw = any_Create_result1_upvr:GetPropertyChangedSignal("PlaybackState"):Connect(function() -- Line 68
+		--[[ Upvalues[3]:
+			[1]: any_Create_result1_upvr (readonly)
+			[2]: var19_upvw (read and write)
+			[3]: var21_upvw (read and write)
+		]]
+		if any_Create_result1_upvr.PlaybackState == Enum.PlaybackState.Paused then
+			var19_upvw:Disconnect()
+			var21_upvw:Disconnect()
+		end
+	end)
+	any_Create_result1_upvr.Destroying:Once(function() -- Line 74
+		--[[ Upvalues[2]:
+			[1]: var21_upvw (read and write)
+			[2]: var19_upvw (read and write)
+		]]
+		var21_upvw:Disconnect()
+		var19_upvw:Disconnect()
+	end)
+	return any_Create_result1_upvr
+end
+function hideTimingBar() -- Line 81
+	--[[ Upvalues[1]:
+		[1]: TimingBar_upvr (readonly)
+	]]
+	game:GetService("TweenService"):Create(TimingBar_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0.5, 0, 1, 50);
+	}):Play()
+end
+function clearMarkers() -- Line 87
+	for _, v in pairs(game.Workspace.gameArea.Field.GoalboxAway:GetDescendants()) do
+		if v:IsA("ParticleEmitter") and v.Name == "SpotMarker" then
+			v.Enabled = false
+		end
+	end
+	for _, v_2 in pairs(game.Workspace.gameArea.Field.GoalboxHome:GetDescendants()) do
+		if v_2:IsA("ParticleEmitter") and v_2.Name == "SpotMarker" then
+			v_2.Enabled = false
+		end
+	end
+end
+local CurrentCamera_upvr = game.Workspace.CurrentCamera
+local any_LoadAnimation_result1_upvr_2 = Character_upvr.Humanoid.Animator:LoadAnimation(game.ReplicatedStorage.AnimFolder:FindFirstChild(LocalPlayer_upvr.Data.animationType.Value).PenaltyIdle)
+local mouse_upvr = LocalPlayer_upvr:GetMouse()
+local COUNTDOWN_upvr = topFrame_upvr.COUNTDOWN
+local ButtonRight_upvr = SHOTTYPE_upvr.ButtonRight
+local ButtonLeft_upvr = SHOTTYPE_upvr.ButtonLeft
+local ConfirmButton_upvr = SHOTTYPE_upvr.ConfirmButton
+local any_LoadAnimation_result1_upvr = Character_upvr.Humanoid.Animator:LoadAnimation(game.ReplicatedStorage.AnimFolder:FindFirstChild(LocalPlayer_upvr.Data.animationType.Value).PenaltyShotL)
+local any_LoadAnimation_result1_upvr_3 = Character_upvr.Humanoid.Animator:LoadAnimation(game.ReplicatedStorage.AnimFolder:FindFirstChild(LocalPlayer_upvr.Data.animationType.Value).PenaltyShotR)
+local UserInputService_upvr = game:GetService("UserInputService")
+game.ReplicatedStorage.Remotes.Penalty.OnClientEvent:Connect(function() -- Line 107
+	--[[ Upvalues[15]:
+		[1]: Character_upvr (readonly)
+		[2]: LocalPlayer_upvr (readonly)
+		[3]: CurrentCamera_upvr (readonly)
+		[4]: any_LoadAnimation_result1_upvr_2 (readonly)
+		[5]: mouse_upvr (readonly)
+		[6]: COUNTDOWN_upvr (readonly)
+		[7]: SHOTTYPE_upvr (readonly)
+		[8]: tbl_upvr (readonly)
+		[9]: ButtonRight_upvr (readonly)
+		[10]: ButtonLeft_upvr (readonly)
+		[11]: ConfirmButton_upvr (readonly)
+		[12]: any_LoadAnimation_result1_upvr (readonly)
+		[13]: any_LoadAnimation_result1_upvr_3 (readonly)
+		[14]: UserInputService_upvr (readonly)
+		[15]: Bar_upvr (readonly)
+	]]
+	local var45_upvr
+	if not var45_upvr then
+	else
+		if LocalPlayer_upvr.SelectedTeam.Value == "Away" then
+			var45_upvr = "Home"
+		else
+			var45_upvr = "Away"
+		end
+		local var63_upvw
+		local Folder_2_upvr = Instance.new("Folder")
+		Folder_2_upvr.Name = "CameraOverride"
+		Folder_2_upvr.Parent = Character_upvr.Status
+		task.spawn(function() -- Line 117
+			--[[ Upvalues[1]:
+				[1]: CurrentCamera_upvr (copied, readonly)
+			]]
+			repeat
+				wait()
+				CurrentCamera_upvr.CameraType = Enum.CameraType.Scriptable
+			until CurrentCamera_upvr.CameraType == Enum.CameraType.Scriptable
+		end)
+		any_LoadAnimation_result1_upvr_2:Play()
+		local ShootoutCameraPos_upvr = game.Workspace.PlayerPositions[LocalPlayer_upvr.SelectedTeam.Value.."Team"].ShootoutCameraPos
+		CurrentCamera_upvr.CFrame = ShootoutCameraPos_upvr.CFrame
+		task.wait(3)
+		pullUp()
+		local BindableEvent_upvr = Instance.new("BindableEvent")
+		local var53_upvw = false
+		task.spawn(function() -- Line 142
+			--[[ Upvalues[3]:
+				[1]: COUNTDOWN_upvr (copied, readonly)
+				[2]: var53_upvw (read and write)
+				[3]: BindableEvent_upvr (readonly)
+			]]
+			local var56 = 10
+			COUNTDOWN_upvr.Text = var56
+			for _ = 1, 10 do
+				task.wait(1)
+				if var53_upvw == true then return end
+				COUNTDOWN_upvr.Text = var56 - 1
+				local clone_6 = game.ReplicatedStorage.UISounds.countdown_tick:Clone()
+				clone_6.Parent = game.Workspace
+				clone_6:Play()
+				game.Debris:AddItem(clone_6, 3)
+			end
+			BindableEvent_upvr:Fire()
+		end)
+		local var58_upvw = 1
+		SHOTTYPE_upvr.Text = tbl_upvr[var58_upvw]
+		clearMarkers()
+		var63_upvw = game.Workspace.gameArea.Field
+		var63_upvw = tbl_upvr[var58_upvw]
+		var63_upvw["Goalbox"..var45_upvr][var63_upvw].Attachment.SpotMarker.Enabled = true
+		function var63_upvw() -- Line 190
+			--[[ Upvalues[2]:
+				[1]: var53_upvw (read and write)
+				[2]: BindableEvent_upvr (readonly)
+			]]
+			local clone_7 = game.ReplicatedStorage.UISounds["ui-confirm1"]:Clone()
+			clone_7.Parent = game.Workspace
+			clone_7:Play()
+			game.Debris:AddItem(clone_7, 3)
+			var53_upvw = true
+			BindableEvent_upvr:Fire()
+		end
+		BindableEvent_upvr.Event:Wait()
+		game:GetService("RunService").RenderStepped:Connect(function() -- Line 127
+			--[[ Upvalues[3]:
+				[1]: CurrentCamera_upvr (copied, readonly)
+				[2]: ShootoutCameraPos_upvr (readonly)
+				[3]: mouse_upvr (copied, readonly)
+			]]
+			game:service("TweenService"):Create(CurrentCamera_upvr, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				CFrame = ShootoutCameraPos_upvr.CFrame * CFrame.Angles(math.rad((mouse_upvr.Y - mouse_upvr.ViewSizeY / 2) / mouse_upvr.ViewSizeY * -10), math.rad((mouse_upvr.X - mouse_upvr.ViewSizeX / 2) / mouse_upvr.ViewSizeX * -10), 0);
+			}):Play()
+		end):Disconnect()
+		game:service("TweenService"):Create(CurrentCamera_upvr, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			CFrame = Character_upvr.Neck_CameraSubject.CFrame * CFrame.new(Character_upvr.Humanoid.CameraOffset.X, 0.5, 0);
+		}):Play()
+		var63_upvw = 0.2
+		task.delay(var63_upvw, function() -- Line 203
+			--[[ Upvalues[2]:
+				[1]: CurrentCamera_upvr (copied, readonly)
+				[2]: Folder_2_upvr (readonly)
+			]]
+			repeat
+				wait()
+				CurrentCamera_upvr.CameraType = Enum.CameraType.Custom
+			until CurrentCamera_upvr.CameraType == Enum.CameraType.Custom
+			Folder_2_upvr:Destroy()
+		end)
+		dropAway()
+		clearMarkers()
+		ButtonRight_upvr.MouseButton1Click:Connect(function() -- Line 164
+			--[[ Upvalues[4]:
+				[1]: var58_upvw (read and write)
+				[2]: SHOTTYPE_upvr (copied, readonly)
+				[3]: tbl_upvr (copied, readonly)
+				[4]: var45_upvr (readonly)
+			]]
+			local clone_2 = game.ReplicatedStorage.UISounds["ui-click"]:Clone()
+			clone_2.Parent = game.Workspace
+			clone_2:Play()
+			game.Debris:AddItem(clone_2, 3)
+			var58_upvw += 1
+			if 5 < var58_upvw then
+				var58_upvw = 1
+			end
+			SHOTTYPE_upvr.Text = tbl_upvr[var58_upvw]
+			clearMarkers()
+			game.Workspace.gameArea.Field["Goalbox"..var45_upvr][tbl_upvr[var58_upvw]].Attachment.SpotMarker.Enabled = true
+		end):Disconnect()
+		ButtonLeft_upvr.MouseButton1Click:Connect(function() -- Line 177
+			--[[ Upvalues[4]:
+				[1]: var58_upvw (read and write)
+				[2]: SHOTTYPE_upvr (copied, readonly)
+				[3]: tbl_upvr (copied, readonly)
+				[4]: var45_upvr (readonly)
+			]]
+			local clone = game.ReplicatedStorage.UISounds["ui-click"]:Clone()
+			clone.Parent = game.Workspace
+			clone:Play()
+			game.Debris:AddItem(clone, 3)
+			var58_upvw -= 1
+			if var58_upvw < 1 then
+				var58_upvw = 5
+			end
+			SHOTTYPE_upvr.Text = tbl_upvr[var58_upvw]
+			clearMarkers()
+			game.Workspace.gameArea.Field["Goalbox"..var45_upvr][tbl_upvr[var58_upvw]].Attachment.SpotMarker.Enabled = true
+		end):Disconnect()
+		ConfirmButton_upvr.MouseButton1Click:Connect(var63_upvw):Disconnect()
+		local var67_upvw = false
+		var63_upvw = any_LoadAnimation_result1_upvr_2:Stop
+		var63_upvw()
+		var63_upvw = nil
+		if var58_upvw ~= 4 and var58_upvw ~= 5 then
+			var63_upvw = any_LoadAnimation_result1_upvr
+		else
+			var63_upvw = any_LoadAnimation_result1_upvr_3
+		end
+		var63_upvw:Play()
+		local var68_upvw
+		local var69_upvw
+		local var71_upvw
+		var71_upvw = game.ReplicatedStorage.Remotes.GoalClient.OnClientEvent:Connect(function() -- Line 226
+			--[[ Upvalues[4]:
+				[1]: var63_upvw (read and write)
+				[2]: var71_upvw (read and write)
+				[3]: var68_upvw (read and write)
+				[4]: var69_upvw (read and write)
+			]]
+			task.wait(3)
+			var63_upvw:Stop()
+			var71_upvw:Disconnect()
+			var68_upvw:Disconnect()
+			var69_upvw:Disconnect()
+		end)
+		local var72_upvw = var71_upvw
+		var68_upvw = game.ReplicatedStorage.Remotes.OOBClient.OnClientEvent:Connect(function() -- Line 233
+			--[[ Upvalues[4]:
+				[1]: var63_upvw (read and write)
+				[2]: var72_upvw (read and write)
+				[3]: var68_upvw (read and write)
+				[4]: var69_upvw (read and write)
+			]]
+			task.wait(2)
+			var63_upvw:Stop()
+			var72_upvw:Disconnect()
+			var68_upvw:Disconnect()
+			var69_upvw:Disconnect()
+		end)
+		var69_upvw = game.ReplicatedStorage.ChildAdded:Connect(function(arg1) -- Line 240
+			--[[ Upvalues[4]:
+				[1]: var63_upvw (read and write)
+				[2]: var72_upvw (read and write)
+				[3]: var68_upvw (read and write)
+				[4]: var69_upvw (read and write)
+			]]
+			if arg1.Name == "RedCalled" then
+				task.wait(2)
+				var63_upvw:Stop()
+				var72_upvw:Disconnect()
+				var68_upvw:Disconnect()
+				var69_upvw:Disconnect()
+			end
+		end)
+		local handleTiming_result1_upvr = handleTiming()
+		local var77_upvw
+		var77_upvw = UserInputService_upvr.InputBegan:Connect(function(arg1) -- Line 250
+			--[[ Upvalues[4]:
+				[1]: Bar_upvr (copied, readonly)
+				[2]: var67_upvw (read and write)
+				[3]: handleTiming_result1_upvr (readonly)
+				[4]: var77_upvw (read and write)
+			]]
+			if arg1.UserInputType == Enum.UserInputType.MouseButton1 or arg1.KeyCode == Enum.KeyCode.ButtonR1 or arg1.KeyCode == Enum.KeyCode.ButtonL1 then
+				if 0.9 < Bar_upvr.Position.X.Scale then
+					local clone_8 = game.ReplicatedStorage.UISounds.ui_achieve:Clone()
+					clone_8.Parent = game.Workspace
+					clone_8:Play()
+					game.Debris:AddItem(clone_8, 3)
+					var67_upvw = true
+				else
+					local clone_3 = game.ReplicatedStorage.UISounds["ui-error3"]:Clone()
+					clone_3.Parent = game.Workspace
+					clone_3:Play()
+					game.Debris:AddItem(clone_3, 3)
+				end
+				handleTiming_result1_upvr:Pause()
+				var77_upvw:Disconnect()
+			end
+		end)
+		local var80_upvw = var77_upvw
+		LocalPlayer_upvr.PlayerGui.Buttons.penButtonFrame.TextButton.Visible = true
+		task.wait(0.867)
+		handleTiming_result1_upvr:Cancel()
+		var80_upvw:Disconnect()
+		LocalPlayer_upvr.PlayerGui.Buttons.penButtonFrame.TextButton.Activated:Connect(function() -- Line 269
+			--[[ Upvalues[5]:
+				[1]: Bar_upvr (copied, readonly)
+				[2]: var67_upvw (read and write)
+				[3]: handleTiming_result1_upvr (readonly)
+				[4]: LocalPlayer_upvr (copied, readonly)
+				[5]: var80_upvw (read and write)
+			]]
+			if 0.9 < Bar_upvr.Position.X.Scale then
+				local clone_5 = game.ReplicatedStorage.UISounds.ui_achieve:Clone()
+				clone_5.Parent = game.Workspace
+				clone_5:Play()
+				game.Debris:AddItem(clone_5, 3)
+				var67_upvw = true
+			else
+				local clone_4 = game.ReplicatedStorage.UISounds["ui-error3"]:Clone()
+				clone_4.Parent = game.Workspace
+				clone_4:Play()
+				game.Debris:AddItem(clone_4, 3)
+			end
+			handleTiming_result1_upvr:Pause()
+			LocalPlayer_upvr.PlayerGui.Buttons.penButtonFrame.TextButton.Visible = false
+			var80_upvw:Disconnect()
+		end):Disconnect()
+		task.delay(0.4, function() -- Line 290
+			--[[ Upvalues[1]:
+				[1]: LocalPlayer_upvr (copied, readonly)
+			]]
+			hideTimingBar()
+			LocalPlayer_upvr.PlayerGui.Buttons.penButtonFrame.TextButton.Visible = false
+		end)
+		game.ReplicatedStorage.Remotes.Penalty:FireServer(tbl_upvr[var58_upvw], var67_upvw)
+		Character_upvr.HumanoidRootPart.Anchored = false
+		local Folder = Instance.new("Folder")
+		Folder.Name = "CameraLocked"
+		Folder.Parent = Character_upvr.Status
+		game.Debris:AddItem(Folder, 0.5)
+		local BodyVelocity = Instance.new("BodyVelocity")
+		BodyVelocity.Velocity = Vector3.new(0, 15, 0) + Character_upvr.HumanoidRootPart.CFrame.rightVector * -15 + Character_upvr.HumanoidRootPart.CFrame.lookVector * 15
+		BodyVelocity.MaxForce = Vector3.new(100000, 100000, 100000)
+		BodyVelocity.Parent = Character_upvr.HumanoidRootPart
+		game.Debris:AddItem(BodyVelocity, 0.15)
+	end
+end)

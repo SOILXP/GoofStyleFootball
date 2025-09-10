@@ -1,0 +1,342 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerGui.Menu.ServerListHandler
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:31
+-- Luau version 6, Types version 3
+-- Time taken: 0.007927 seconds
+
+local ServerFrame_upvr = script.Parent.ServerFrame
+local ServerList_upvr = ServerFrame_upvr.ServerList
+local searchBar_upvr = ServerFrame_upvr.searchBar
+local RegionSortButton_upvr = ServerFrame_upvr.RegionSortButton
+local RegionsSelection_upvr = RegionSortButton_upvr.RegionsSelection
+local _v4Button_upvr = ServerFrame_upvr["4v4Button"]
+local _v7Button_upvr = ServerFrame_upvr["7v7Button"]
+local _1v11Button_upvr = ServerFrame_upvr["11v11Button"]
+local PrivateServerFrame_upvr = ServerFrame_upvr.PrivateServerFrame
+function updateServerResults(arg1) -- Line 23
+	--[[ Upvalues[1]:
+		[1]: ServerList_upvr (readonly)
+	]]
+	for _, v in pairs(ServerList_upvr:GetChildren()) do
+		if v:IsA("Frame") then
+			if arg1 ~= "" then
+				if string.sub(string.lower(v.ServerName.Text), 1, #arg1) == string.sub(arg1, 1, #arg1) then
+					v.Visible = true
+				else
+					v.Visible = false
+				end
+			else
+				v.Visible = true
+			end
+		end
+	end
+end
+searchBar_upvr:GetPropertyChangedSignal("Text"):Connect(function() -- Line 40
+	--[[ Upvalues[1]:
+		[1]: searchBar_upvr (readonly)
+	]]
+	updateServerResults(searchBar_upvr.Text)
+end)
+local tbl_upvr = {
+	["7v7"] = 18972674759;
+	["4v4"] = 18124732355;
+	["11v11"] = 18935841239;
+}
+local var17_upvw = "11v11"
+local function getFriendsInServer_upvr(arg1, arg2) -- Line 53, Named "getFriendsInServer"
+	local pcall_result1_2, pcall_result2_2 = pcall(function() -- Line 54
+		return game.Players.LocalPlayer:GetFriendsOnline(200)
+	end)
+	if pcall_result1_2 and pcall_result2_2 then
+		local pairs_result1_9, pairs_result2_3, pairs_result3_10 = pairs(pcall_result2_2)
+		if 3 >= 0 then
+			-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [15.9]
+			if nil.IsOnline then
+				-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+				if nil.GameId == arg1 then
+					local ImageLabel = Instance.new("ImageLabel")
+					-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+					ImageLabel.Image = game.Players:GetUserThumbnailAsync(nil.VisitorId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size48x48)
+					ImageLabel.Parent = arg2
+					ImageLabel.BackgroundTransparency = 1
+				end
+			end
+			-- KONSTANTWARNING: GOTO [12] #11
+		end
+	else
+		warn(pcall_result2_2)
+	end
+end
+local function getServers_upvr() -- Line 76, Named "getServers"
+	--[[ Upvalues[4]:
+		[1]: ServerList_upvr (readonly)
+		[2]: var17_upvw (read and write)
+		[3]: tbl_upvr (readonly)
+		[4]: getFriendsInServer_upvr (readonly)
+	]]
+	for _, v_2 in pairs(ServerList_upvr:GetChildren()) do
+		if v_2:IsA("Frame") then
+			v_2:Destroy()
+		end
+	end
+	for _, v_3_upvr in pairs(game.ReplicatedStorage.Remotes.getServerList:InvokeServer()) do
+		if v_3_upvr.serverType == var17_upvw then
+			local serverId_upvr = v_3_upvr.serverId
+			local region = v_3_upvr.region
+			if region == "" then
+				region = "UNKNOWN REGION"
+			end
+			local clone_3 = script.ServerTemplate:Clone()
+			clone_3:WaitForChild("JoinButton")
+			local var51 = "14"
+			if var17_upvw == "4v4" then
+				var51 = '8'
+			elseif var17_upvw == "11v11" then
+				var51 = "22"
+			end
+			clone_3.ServerName.Text = v_3_upvr.serverName
+			clone_3.Players.Text = v_3_upvr.players..'/'..var51
+			clone_3.ServerRegion.Text = region
+			clone_3.serverID.Text = serverId_upvr
+			clone_3.serverTime.Text = v_3_upvr.serverAge
+			clone_3.JoinButton.MouseButton1Click:Connect(function() -- Line 108
+				--[[ Upvalues[3]:
+					[1]: tbl_upvr (copied, readonly)
+					[2]: v_3_upvr (readonly)
+					[3]: serverId_upvr (readonly)
+				]]
+				game:GetService("TeleportService"):TeleportToPlaceInstance(tbl_upvr[v_3_upvr.serverType], serverId_upvr)
+			end)
+			getFriendsInServer_upvr(serverId_upvr, clone_3.friendsInServer)
+			clone_3.Parent = ServerList_upvr
+		end
+	end
+	sortServers()
+	getRegions()
+end
+function sortServers() -- Line 122
+	--[[ Upvalues[1]:
+		[1]: ServerList_upvr (readonly)
+	]]
+	local tbl_2 = {}
+	for _, v_4 in pairs(ServerList_upvr:GetChildren()) do
+		if v_4:IsA("Frame") then
+			table.insert(tbl_2, {
+				serverObj = v_4;
+				Players = tonumber(string.sub(v_4.Players.Text, 1, string.find(v_4.Players.Text, '/') - 1));
+			})
+		end
+	end
+	table.sort(tbl_2, function(arg1, arg2) -- Line 129
+		local var63
+		if arg2.Players >= arg1.Players then
+			var63 = false
+		else
+			var63 = true
+		end
+		return var63
+	end)
+	for i_5, v_5 in ipairs(tbl_2) do
+		print(i_5.." | "..v_5.Players)
+		v_5.serverObj.LayoutOrder = i_5
+	end
+end
+function getRegions() -- Line 138
+	--[[ Upvalues[3]:
+		[1]: RegionsSelection_upvr (readonly)
+		[2]: ServerList_upvr (readonly)
+		[3]: RegionSortButton_upvr (readonly)
+	]]
+	for _, v_6 in pairs(RegionsSelection_upvr:GetChildren()) do
+		if v_6:IsA("TextButton") then
+			v_6:Destroy()
+		end
+	end
+	local clone_2 = script.Region:Clone()
+	clone_2.Text = "Any ("..(#ServerList_upvr:GetChildren() - 1)..')'
+	clone_2.MouseButton1Click:Connect(function() -- Line 147
+		--[[ Upvalues[2]:
+			[1]: RegionSortButton_upvr (copied, readonly)
+			[2]: ServerList_upvr (copied, readonly)
+		]]
+		RegionSortButton_upvr.Text = "Any ("..(#ServerList_upvr:GetChildren() - 1)..')'
+		for _, v_7 in pairs(ServerList_upvr:GetChildren()) do
+			if v_7:IsA("Frame") then
+				v_7.Visible = true
+			end
+		end
+	end)
+	clone_2.Parent = RegionsSelection_upvr
+	local tbl = {}
+	for _, v_8 in pairs(ServerList_upvr:GetChildren()) do
+		local var97
+		if var97 then
+			var97 = false
+			for i_9, _ in pairs(tbl) do
+				if i_9 == v_8.ServerRegion.Text then
+					var97 = true
+				end
+			end
+			if var97 then
+				local Text = v_8.ServerRegion.Text
+				tbl[Text] += 1
+			else
+				tbl[v_8.ServerRegion.Text] = 1
+			end
+		end
+	end
+	for i_10_upvr, v_10_upvr in pairs(tbl) do
+		local clone = script.Region:Clone()
+		clone.Text = i_10_upvr.." ("..v_10_upvr..')'
+		clone.MouseButton1Click:Connect(function() -- Line 174
+			--[[ Upvalues[4]:
+				[1]: RegionSortButton_upvr (copied, readonly)
+				[2]: i_10_upvr (readonly)
+				[3]: v_10_upvr (readonly)
+				[4]: ServerList_upvr (copied, readonly)
+			]]
+			RegionSortButton_upvr.Text = i_10_upvr.." ("..v_10_upvr..')'
+			for _, v_11 in pairs(ServerList_upvr:GetChildren()) do
+				if v_11:IsA("Frame") and v_11.ServerRegion.Text == i_10_upvr then
+					v_11.Visible = true
+				elseif v_11:IsA("Frame") then
+					v_11.Visible = false
+				end
+			end
+		end)
+		clone.Parent = RegionsSelection_upvr
+	end
+end
+script.Parent.LeftFrame.ServerListButton.MouseButton1Click:Connect(function() -- Line 189
+	--[[ Upvalues[4]:
+		[1]: ServerFrame_upvr (readonly)
+		[2]: getServers_upvr (readonly)
+		[3]: RegionSortButton_upvr (readonly)
+		[4]: RegionsSelection_upvr (readonly)
+	]]
+	ServerFrame_upvr.Visible = not ServerFrame_upvr.Visible
+	getServers_upvr()
+	RegionSortButton_upvr.Text = "REGION SORT"
+	RegionsSelection_upvr.Visible = false
+end)
+ServerFrame_upvr.CloseButton.MouseButton1Click:Connect(function() -- Line 196
+	--[[ Upvalues[1]:
+		[1]: ServerFrame_upvr (readonly)
+	]]
+	ServerFrame_upvr.Visible = not ServerFrame_upvr.Visible
+end)
+RegionSortButton_upvr.MouseButton1Click:Connect(function() -- Line 200
+	--[[ Upvalues[1]:
+		[1]: RegionsSelection_upvr (readonly)
+	]]
+	RegionsSelection_upvr.Visible = not RegionsSelection_upvr.Visible
+end)
+_v4Button_upvr.MouseButton1Click:Connect(function() -- Line 204
+	--[[ Upvalues[5]:
+		[1]: var17_upvw (read and write)
+		[2]: _v4Button_upvr (readonly)
+		[3]: _v7Button_upvr (readonly)
+		[4]: _1v11Button_upvr (readonly)
+		[5]: getServers_upvr (readonly)
+	]]
+	var17_upvw = "4v4"
+	game:GetService("TweenService"):Create(_v4Button_upvr.UIStroke, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Thickness = 2;
+		Transparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(_v7Button_upvr.UIStroke, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Thickness = 1;
+		Transparency = 0.5;
+	}):Play()
+	game:GetService("TweenService"):Create(_1v11Button_upvr.UIStroke, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Thickness = 1;
+		Transparency = 0.5;
+	}):Play()
+	getServers_upvr()
+end)
+_v7Button_upvr.MouseButton1Click:Connect(function() -- Line 221
+	--[[ Upvalues[5]:
+		[1]: var17_upvw (read and write)
+		[2]: _v7Button_upvr (readonly)
+		[3]: _v4Button_upvr (readonly)
+		[4]: _1v11Button_upvr (readonly)
+		[5]: getServers_upvr (readonly)
+	]]
+	var17_upvw = "7v7"
+	game:GetService("TweenService"):Create(_v7Button_upvr.UIStroke, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Thickness = 2;
+		Transparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(_v4Button_upvr.UIStroke, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Thickness = 1;
+		Transparency = 0.5;
+	}):Play()
+	game:GetService("TweenService"):Create(_1v11Button_upvr.UIStroke, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Thickness = 1;
+		Transparency = 0.5;
+	}):Play()
+	getServers_upvr()
+end)
+_1v11Button_upvr.MouseButton1Click:Connect(function() -- Line 238
+	--[[ Upvalues[5]:
+		[1]: var17_upvw (read and write)
+		[2]: _1v11Button_upvr (readonly)
+		[3]: _v4Button_upvr (readonly)
+		[4]: _v7Button_upvr (readonly)
+		[5]: getServers_upvr (readonly)
+	]]
+	var17_upvw = "11v11"
+	game:GetService("TweenService"):Create(_1v11Button_upvr.UIStroke, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Thickness = 2;
+		Transparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(_v4Button_upvr.UIStroke, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Thickness = 1;
+		Transparency = 0.5;
+	}):Play()
+	game:GetService("TweenService"):Create(_v7Button_upvr.UIStroke, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Thickness = 1;
+		Transparency = 0.5;
+	}):Play()
+	getServers_upvr()
+end)
+ServerFrame_upvr.JoinRandomButton.MouseButton1Click:Connect(function() -- Line 255
+	--[[ Upvalues[2]:
+		[1]: tbl_upvr (readonly)
+		[2]: var17_upvw (read and write)
+	]]
+	game:GetService("TeleportService"):Teleport(tbl_upvr[var17_upvw], game.Players.LocalPlayer)
+end)
+getServers_upvr()
+ServerFrame_upvr.RefreshButton.MouseButton1Click:Connect(getServers_upvr)
+ServerFrame_upvr.PrivateServerButton.MouseButton1Click:Connect(function() -- Line 263
+	--[[ Upvalues[1]:
+		[1]: PrivateServerFrame_upvr (readonly)
+	]]
+	PrivateServerFrame_upvr.Visible = not PrivateServerFrame_upvr.Visible
+end)
+PrivateServerFrame_upvr.CodeJoinButton.MouseButton1Click:Connect(function() -- Line 267
+	--[[ Upvalues[1]:
+		[1]: PrivateServerFrame_upvr (readonly)
+	]]
+	game.ReplicatedStorage.Remotes.JoinPS:FireServer(PrivateServerFrame_upvr.codeEnter.Text)
+	PrivateServerFrame_upvr.codeEnter.Text = ""
+end)
+PrivateServerFrame_upvr.GenerateServerButton.MouseButton1Click:Connect(function() -- Line 272
+	--[[ Upvalues[3]:
+		[1]: tbl_upvr (readonly)
+		[2]: var17_upvw (read and write)
+		[3]: PrivateServerFrame_upvr (readonly)
+	]]
+	game.ReplicatedStorage.Remotes.MakePS:FireServer(tbl_upvr[var17_upvw])
+	PrivateServerFrame_upvr.codeEnter.Text = ""
+end)
+PrivateServerFrame_upvr.CloseButton.MouseButton1Click:Connect(function() -- Line 277
+	--[[ Upvalues[1]:
+		[1]: PrivateServerFrame_upvr (readonly)
+	]]
+	PrivateServerFrame_upvr.Visible = not PrivateServerFrame_upvr.Visible
+end)

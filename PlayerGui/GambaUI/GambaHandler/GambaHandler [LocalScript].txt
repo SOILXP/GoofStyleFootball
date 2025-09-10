@@ -1,0 +1,211 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerGui.GambaUI.GambaHandler
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:21
+-- Luau version 6, Types version 3
+-- Time taken: 0.004860 seconds
+
+local UpperShutter_upvr = script.Parent.UpperShutter
+local LowerShutter_upvr = script.Parent.LowerShutter
+local MiddleFrame_upvr = script.Parent.MiddleFrame
+function shutter() -- Line 16
+	--[[ Upvalues[2]:
+		[1]: UpperShutter_upvr (readonly)
+		[2]: LowerShutter_upvr (readonly)
+	]]
+	UpperShutter_upvr.Visible = true
+	LowerShutter_upvr.Visible = true
+	game:GetService("TweenService"):Create(LowerShutter_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Size = UDim2.new(1, 0, 0.55, 0);
+	}):Play()
+	game:GetService("TweenService"):Create(UpperShutter_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Size = UDim2.new(1, 0, 0.55, 0);
+	}):Play()
+end
+function unshutter() -- Line 27
+	--[[ Upvalues[2]:
+		[1]: LowerShutter_upvr (readonly)
+		[2]: UpperShutter_upvr (readonly)
+	]]
+	task.spawn(function() -- Line 28
+		--[[ Upvalues[2]:
+			[1]: LowerShutter_upvr (copied, readonly)
+			[2]: UpperShutter_upvr (copied, readonly)
+		]]
+		game:GetService("TweenService"):Create(LowerShutter_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Size = UDim2.new(1, 0, 0, 0);
+		}):Play()
+		game:GetService("TweenService"):Create(UpperShutter_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Size = UDim2.new(1, 0, 0, 0);
+		}):Play()
+		task.wait(0.5)
+		UpperShutter_upvr.Visible = false
+		LowerShutter_upvr.Visible = false
+	end)
+end
+raritycolors = {
+	Common = Color3.new(0, 0.666667, 0.156863);
+	Rare = Color3.new(0.262745, 0.462745, 0.792157);
+	Epic = Color3.new(0.792157, 0, 0.862745);
+	Legendary = Color3.new(1, 0, 0);
+} -- Setting global
+local LocalPlayer_upvr = game.Players.LocalPlayer
+local SpecialVignette_upvr = script.Parent.SpecialVignette
+local Vignette_upvr = script.Parent.Vignette
+local Flashbang_upvr = script.Parent.Flashbang
+local ItemName_upvr = MiddleFrame_upvr.ItemName
+local Icon_upvr = MiddleFrame_upvr.Icon
+local Duplicate_upvr = MiddleFrame_upvr.Duplicate
+game.ReplicatedStorage.Remotes.Gamba.OnClientEvent:Connect(function(arg1, arg2) -- Line 48
+	--[[ Upvalues[8]:
+		[1]: LocalPlayer_upvr (readonly)
+		[2]: SpecialVignette_upvr (readonly)
+		[3]: Vignette_upvr (readonly)
+		[4]: Flashbang_upvr (readonly)
+		[5]: ItemName_upvr (readonly)
+		[6]: Icon_upvr (readonly)
+		[7]: Duplicate_upvr (readonly)
+		[8]: MiddleFrame_upvr (readonly)
+	]]
+	local SOME = game.ReplicatedStorage.ItemInfo:FindFirstChild(arg1)
+	if not SOME then
+	else
+		local Value = SOME.Rarity.Value
+		if game.MarketplaceService:UserOwnsGamePassAsync(LocalPlayer_upvr.UserId, 1213278715) or string.find(LocalPlayer_upvr.Data.Inventory.Value, "SkipRolls") then
+			SpecialVignette_upvr.ImageColor3 = raritycolors[Value]
+			Vignette_upvr.ImageColor3 = Color3.new(1, 1, 1)
+			Flashbang_upvr.ImageColor3 = raritycolors[Value]
+			ItemName_upvr.TextColor3 = raritycolors[Value]
+			ItemName_upvr.Text = string.upper(arg1)
+			Icon_upvr.Image = SOME.itemIcon.Texture
+			ItemName_upvr.TextTransparency = 0
+			Icon_upvr.ImageTransparency = 0
+			Duplicate_upvr.TextTransparency = 0
+			local clone_6 = game.ReplicatedStorage.UISounds.caseOpen:Clone()
+			clone_6.Parent = game.Workspace
+			clone_6:Play()
+			game.Debris:AddItem(clone_6, 3)
+			shutter()
+			task.wait(0.1)
+			game:GetService("TweenService"):Create(Vignette_upvr, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+				ImageTransparency = 0;
+				ImageColor3 = raritycolors[Value];
+			}):Play()
+			task.wait(0.1)
+			game:GetService("TweenService"):Create(Vignette_upvr, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				ImageTransparency = 1;
+			}):Play()
+			game:GetService("TweenService"):Create(Flashbang_upvr, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				ImageTransparency = 0;
+			}):Play()
+		else
+			SpecialVignette_upvr.ImageColor3 = raritycolors[Value]
+			Vignette_upvr.ImageColor3 = Color3.new(1, 1, 1)
+			Flashbang_upvr.ImageColor3 = raritycolors[Value]
+			ItemName_upvr.TextColor3 = raritycolors[Value]
+			ItemName_upvr.Text = string.upper(arg1)
+			Icon_upvr.Image = SOME.itemIcon.Texture
+			ItemName_upvr.TextTransparency = 0
+			Icon_upvr.ImageTransparency = 0
+			Duplicate_upvr.TextTransparency = 0
+			local clone_4 = game.ReplicatedStorage.UISounds.caseOpen:Clone()
+			clone_4.Parent = game.Workspace
+			clone_4:Play()
+			game.Debris:AddItem(clone_4, 3)
+			shutter()
+			task.wait(1)
+			local clone_7 = game.ReplicatedStorage.UISounds.PullSFX:Clone()
+			clone_7.Parent = game.Workspace
+			clone_7:Play()
+			game:GetService("TweenService"):Create(clone_7, TweenInfo.new(2.8, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {
+				Volume = 1;
+			}):Play()
+			game.Debris:AddItem(clone_7, 3)
+			if Value == "Legendary" then
+				local clone = game.ReplicatedStorage.UISounds.PullSFXSpecial:Clone()
+				clone.Parent = game.Workspace
+				clone:Play()
+				game:GetService("TweenService"):Create(clone, TweenInfo.new(2.8, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {
+					Volume = 0.8;
+				}):Play()
+				game.Debris:AddItem(clone, 3)
+			end
+			game:GetService("TweenService"):Create(Vignette_upvr, TweenInfo.new(2.8, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+				ImageTransparency = 0;
+				ImageColor3 = raritycolors[Value];
+			}):Play()
+			task.wait(2.8)
+			game:GetService("TweenService"):Create(Vignette_upvr, TweenInfo.new(2.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				ImageTransparency = 1;
+			}):Play()
+			game:GetService("TweenService"):Create(Flashbang_upvr, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				ImageTransparency = 0;
+			}):Play()
+		end
+		task.delay(0.1, function() -- Line 125
+			--[[ Upvalues[4]:
+				[1]: MiddleFrame_upvr (copied, readonly)
+				[2]: arg2 (readonly)
+				[3]: Duplicate_upvr (copied, readonly)
+				[4]: Flashbang_upvr (copied, readonly)
+			]]
+			MiddleFrame_upvr.Visible = true
+			if arg2 ~= nil then
+				Duplicate_upvr.Visible = true
+				Duplicate_upvr.Text = '+'..arg2.." COINS (DUPLICATE)"
+			end
+			game:GetService("TweenService"):Create(Flashbang_upvr, TweenInfo.new(1.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+				ImageTransparency = 1;
+			}):Play()
+		end)
+		if Value == "Legendary" then
+			local clone_5 = game.ReplicatedStorage.UISounds.Unlock_ra:Clone()
+			clone_5.Parent = game.Workspace
+			clone_5:Play()
+			game.Debris:AddItem(clone_5, 3)
+			game:GetService("TweenService"):Create(SpecialVignette_upvr, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				ImageTransparency = 0;
+			}):Play()
+			task.delay(0.1, function() -- Line 143
+				--[[ Upvalues[1]:
+					[1]: SpecialVignette_upvr (copied, readonly)
+				]]
+				game:GetService("TweenService"):Create(SpecialVignette_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+					ImageTransparency = 1;
+				}):Play()
+			end)
+		elseif Value == "Rare" or Value == "Epic" then
+			local clone_3 = game.ReplicatedStorage.UISounds.ui_count_complete:Clone()
+			clone_3.Parent = game.Workspace
+			clone_3:Play()
+			game.Debris:AddItem(clone_3, 3)
+		else
+			local clone_2 = game.ReplicatedStorage.UISounds.Item_Box_Get2:Clone()
+			clone_2.Parent = game.Workspace
+			clone_2:Play()
+			game.Debris:AddItem(clone_2, 3)
+		end
+		task.delay(2.3, function() -- Line 159
+			--[[ Upvalues[3]:
+				[1]: ItemName_upvr (copied, readonly)
+				[2]: Duplicate_upvr (copied, readonly)
+				[3]: Icon_upvr (copied, readonly)
+			]]
+			game:GetService("TweenService"):Create(ItemName_upvr, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+				TextTransparency = 1;
+			}):Play()
+			game:GetService("TweenService"):Create(Duplicate_upvr, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+				TextTransparency = 1;
+			}):Play()
+			game:GetService("TweenService"):Create(Icon_upvr, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+				ImageTransparency = 1;
+			}):Play()
+		end)
+		task.wait(2.5)
+		MiddleFrame_upvr.Visible = false
+		Duplicate_upvr.Visible = false
+		unshutter()
+	end
+end)

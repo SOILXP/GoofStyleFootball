@@ -1,0 +1,517 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerGui.GameEndScreen.WinHandler
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:22
+-- Luau version 6, Types version 3
+-- Time taken: 0.016878 seconds
+
+local UpperShutter_upvr = script.Parent.UpperShutter
+local LowerShutter_upvr = script.Parent.LowerShutter
+local GameEnd_upvr = script.Parent.GameEnd
+local bottomFrame_upvr = script.Parent.bottomFrame
+LowerShutter_upvr.Size = UDim2.new(1, 0, 0.55, 0)
+UpperShutter_upvr.Size = UDim2.new(1, 0, 0.55, 0)
+script.Parent.LOADING.Visible = true
+repeat
+	task.wait(0.3)
+	local var5
+	if var5 == 1 then
+		script.Parent.LOADING.Text = "LOADING."
+	elseif var5 == 2 then
+		script.Parent.LOADING.Text = "LOADING.."
+	elseif var5 == 3 then
+		script.Parent.LOADING.Text = "LOADING..."
+		var5 = 0
+	end
+	var5 += 1
+until game.Players.LocalPlayer:FindFirstChild("dataLoaded")
+game:GetService("TweenService"):Create(LowerShutter_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+	Size = UDim2.new(1, 0, 0, 0);
+}):Play()
+game:GetService("TweenService"):Create(UpperShutter_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+	Size = UDim2.new(1, 0, 0, 0);
+}):Play()
+game:GetService("TweenService"):Create(script.Parent.LOADING, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+	TextTransparency = 1;
+	TextStrokeTransparency = 1;
+}):Play()
+task.delay(0.5, function() -- Line 40
+	script.Parent.LOADING.Visible = false
+end)
+function shutter() -- Line 44
+	--[[ Upvalues[2]:
+		[1]: UpperShutter_upvr (readonly)
+		[2]: LowerShutter_upvr (readonly)
+	]]
+	if game.Players.LocalPlayer:GetAttribute("Freecam") then
+	else
+		UpperShutter_upvr.Visible = true
+		LowerShutter_upvr.Visible = true
+		game:GetService("TweenService"):Create(LowerShutter_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Size = UDim2.new(1, 0, 0.55, 0);
+		}):Play()
+		game:GetService("TweenService"):Create(UpperShutter_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Size = UDim2.new(1, 0, 0.55, 0);
+		}):Play()
+		task.delay(2, function() -- Line 54
+			--[[ Upvalues[2]:
+				[1]: LowerShutter_upvr (copied, readonly)
+				[2]: UpperShutter_upvr (copied, readonly)
+			]]
+			game.Lighting.Blur.Size = 2
+			task.wait(0.5)
+			game:GetService("TweenService"):Create(LowerShutter_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Size = UDim2.new(1, 0, 0, 0);
+			}):Play()
+			game:GetService("TweenService"):Create(UpperShutter_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Size = UDim2.new(1, 0, 0, 0);
+			}):Play()
+			task.wait(0.5)
+			UpperShutter_upvr.Visible = false
+			LowerShutter_upvr.Visible = false
+		end)
+	end
+end
+local RewardsFrame_upvr = script.Parent.RewardsFrame
+function rewardsDisplay(arg1, arg2) -- Line 69
+	--[[ Upvalues[1]:
+		[1]: RewardsFrame_upvr (readonly)
+	]]
+	game:GetService("TweenService"):Create(RewardsFrame_upvr.lineDivider, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		BackgroundTransparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(RewardsFrame_upvr.Coins, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(RewardsFrame_upvr.Coins, TweenInfo.new(1.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+		TextSize = 25;
+	}):Play()
+	game:GetService("TweenService"):Create(RewardsFrame_upvr.EXP, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(RewardsFrame_upvr.EXP, TweenInfo.new(1.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+		TextSize = 25;
+	}):Play()
+	game:GetService("TweenService"):Create(RewardsFrame_upvr.CoinsImage, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		ImageTransparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(RewardsFrame_upvr.CoinsImage, TweenInfo.new(1.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Size = UDim2.new(0, 60, 0, 60);
+	}):Play()
+	game:GetService("TweenService"):Create(RewardsFrame_upvr.EXPImage, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		ImageTransparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(RewardsFrame_upvr.EXPImage, TweenInfo.new(1.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Size = UDim2.new(0, 60, 0, 60);
+	}):Play()
+	local clone_8 = game.ReplicatedStorage.UISounds.ui_starbar_fill:Clone()
+	clone_8.Parent = game.Workspace
+	clone_8:Play()
+	game.Debris:AddItem(clone_8, 3)
+	RewardsFrame_upvr.EXP.Text = "+0 EXP"
+	RewardsFrame_upvr.Coins.Text = "+0 COINS"
+	task.spawn(function() -- Line 103
+		--[[ Upvalues[2]:
+			[1]: arg2 (readonly)
+			[2]: RewardsFrame_upvr (copied, readonly)
+		]]
+		local floored_2 = math.floor(arg2 / 84)
+		for i = 1, 84 do
+			RewardsFrame_upvr.EXP.Text = '+'..(floored_2 * i).." EXP"
+			game:GetService("RunService").RenderStepped:Wait()
+		end
+		game:GetService("TweenService"):Create(RewardsFrame_upvr.EXPImage, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+			Size = UDim2.new(0, 75, 0, 75);
+		}):Play()
+		game:GetService("TweenService"):Create(RewardsFrame_upvr.EXP, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+			TextSize = 30;
+		}):Play()
+	end)
+	task.spawn(function() -- Line 116
+		--[[ Upvalues[2]:
+			[1]: arg1 (readonly)
+			[2]: RewardsFrame_upvr (copied, readonly)
+		]]
+		local floored = math.floor(arg1 / 84)
+		for i_2 = 1, 84 do
+			RewardsFrame_upvr.Coins.Text = '+'..(floored * i_2).." COINS"
+			game:GetService("RunService").RenderStepped:Wait()
+		end
+		game:GetService("TweenService"):Create(RewardsFrame_upvr.CoinsImage, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+			Size = UDim2.new(0, 75, 0, 75);
+		}):Play()
+		game:GetService("TweenService"):Create(RewardsFrame_upvr.Coins, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+			TextSize = 30;
+		}):Play()
+	end)
+	task.delay(1.4, function() -- Line 129
+		--[[ Upvalues[1]:
+			[1]: RewardsFrame_upvr (copied, readonly)
+		]]
+		local clone_12 = game.ReplicatedStorage.UISounds.ui_starbar_launch:Clone()
+		clone_12.Parent = game.Workspace
+		clone_12:Play()
+		game.Debris:AddItem(clone_12, 3)
+		local clone_7 = game.ReplicatedStorage.UISounds.ui_count_complete:Clone()
+		clone_7.Parent = game.Workspace
+		clone_7:Play()
+		game.Debris:AddItem(clone_7, 3)
+		task.wait(2.5)
+		game:GetService("TweenService"):Create(RewardsFrame_upvr.lineDivider, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			BackgroundTransparency = 1;
+		}):Play()
+		game:GetService("TweenService"):Create(RewardsFrame_upvr.Coins, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			TextTransparency = 1;
+		}):Play()
+		game:GetService("TweenService"):Create(RewardsFrame_upvr.EXP, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			TextTransparency = 1;
+		}):Play()
+		game:GetService("TweenService"):Create(RewardsFrame_upvr.CoinsImage, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			ImageTransparency = 1;
+		}):Play()
+		game:GetService("TweenService"):Create(RewardsFrame_upvr.CoinsImage, TweenInfo.new(1.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Size = UDim2.new(0, 50, 0, 50);
+		}):Play()
+		game:GetService("TweenService"):Create(RewardsFrame_upvr.EXPImage, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			ImageTransparency = 1;
+		}):Play()
+		game:GetService("TweenService"):Create(RewardsFrame_upvr.EXPImage, TweenInfo.new(1.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Size = UDim2.new(0, 50, 0, 50);
+		}):Play()
+	end)
+end
+local CurrentCamera_upvr = workspace.CurrentCamera
+local topFrame_upvr = script.Parent.topFrame
+local TeamInfo_upvr = game.ReplicatedStorage.TeamInfo
+local MVP_upvr = bottomFrame_upvr.MVP
+local topScore_upvr = bottomFrame_upvr.topScore
+local topAssists_upvr = bottomFrame_upvr.topAssists
+game.ReplicatedStorage.Remotes.WinClient.OnClientEvent:Connect(function(arg1, arg2, arg3, arg4, arg5, arg6) -- Line 163
+	--[[ Upvalues[10]:
+		[1]: GameEnd_upvr (readonly)
+		[2]: CurrentCamera_upvr (readonly)
+		[3]: topFrame_upvr (readonly)
+		[4]: TeamInfo_upvr (readonly)
+		[5]: bottomFrame_upvr (readonly)
+		[6]: MVP_upvr (readonly)
+		[7]: topScore_upvr (readonly)
+		[8]: topAssists_upvr (readonly)
+		[9]: UpperShutter_upvr (readonly)
+		[10]: LowerShutter_upvr (readonly)
+	]]
+	-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+	shutter()
+	local clone_10 = game.ReplicatedStorage.UISounds.ui_start_travel:Clone()
+	clone_10.Parent = game.Workspace
+	clone_10:Play()
+	game.Debris:AddItem(clone_10, 3)
+	local var56
+	if arg6 then
+		var56 = "MERCY RULE"
+	else
+		var56 = "FULL TIME"
+	end
+	GameEnd_upvr.Text = var56
+	var56 = 0.5
+	task.wait(var56)
+	var56 = Enum.CameraType.Scriptable
+	CurrentCamera_upvr.CameraType = var56
+	var56 = "Folder"
+	local any = Instance.new(var56)
+	var56 = "CameraOverride"
+	any.Name = var56
+	var56 = game.Players.LocalPlayer.Character.Status
+	any.Parent = var56
+	var56 = nil
+	var56 = game:GetService("RunService").RenderStepped:Connect(function() -- Line 175
+		--[[ Upvalues[1]:
+			[1]: CurrentCamera_upvr (copied, readonly)
+		]]
+		CurrentCamera_upvr.CFrame = game.Workspace.GameEndPositions.Camera.CFrame
+	end)
+	game:GetService("TweenService"):Create(GameEnd_upvr, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 0;
+		TextStrokeTransparency = 0.5;
+	}):Play()
+	task.wait(2)
+	game:GetService("TweenService"):Create(GameEnd_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 1;
+		TextStrokeTransparency = 1;
+	}):Play()
+	if arg1 == game.Players.LocalPlayer.SelectedTeam.Value then
+	else
+	end
+	topFrame_upvr.Outcome.Text = "LOSS"
+	if arg1 ~= game.Players.LocalPlayer.SelectedTeam.Value or not Color3.new(0, 1, 0) then
+	end
+	topFrame_upvr.Outcome.TextColor3 = Color3.new(1, 0, 0)
+	if arg1 ~= game.Players.LocalPlayer.SelectedTeam.Value or not Color3.new(0, 1, 0) then
+	end
+	topFrame_upvr.Outcome.TextStrokeColor3 = Color3.new(1, 0, 0)
+	topFrame_upvr.Score.Text = TeamInfo_upvr.HomeTeamPoints.Value.."  -  "..TeamInfo_upvr.AwayTeamPoints.Value
+	game:GetService("TweenService"):Create(bottomFrame_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0, 0, 1, 0);
+	}):Play()
+	game:GetService("TweenService"):Create(topFrame_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0, 0, 0, 0);
+	}):Play()
+	local clone_2 = game.ReplicatedStorage.UISounds.ui_start_travel:Clone()
+	clone_2.Parent = game.Workspace
+	clone_2:Play()
+	game.Debris:AddItem(clone_2, 3)
+	local clone_9 = game.ReplicatedStorage.UISounds.ui_starbar_launch:Clone()
+	clone_9.Parent = game.Workspace
+	clone_9:Play()
+	game.Debris:AddItem(clone_9, 3)
+	task.wait(1)
+	if arg2 == nil then
+		local LocalPlayer = game.Players.LocalPlayer
+	end
+	if arg3 == nil then
+		local LocalPlayer_3 = game.Players.LocalPlayer
+	end
+	if arg4 == nil then
+		local LocalPlayer_2 = game.Players.LocalPlayer
+	end
+	MVP_upvr.plrName.Text = "MVP - "..LocalPlayer.DisplayName
+	topScore_upvr.plrName.Text = "TOP SCORER - "..LocalPlayer_3.DisplayName
+	topAssists_upvr.plrName.Text = "TOP ASSISTS - "..LocalPlayer_2.DisplayName
+	MVP_upvr.Info.Text = LocalPlayer.Points.Value.." POINTS"
+	topScore_upvr.Info.Text = LocalPlayer_3.GoalsThisGame.Value.." GOALS"
+	topAssists_upvr.Info.Text = LocalPlayer_2.AssistsThisGame.Value.." ASSISTS"
+	local clone_5 = game.ReplicatedStorage.UISounds.ui_starbar_impact_1:Clone()
+	clone_5.Parent = game.Workspace
+	clone_5:Play()
+	game.Debris:AddItem(clone_5, 3)
+	game:GetService("TweenService"):Create(topAssists_upvr, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		BackgroundTransparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(topAssists_upvr.Arrow, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		ImageTransparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(topAssists_upvr.plrName, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 0;
+		TextStrokeTransparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(topAssists_upvr.Info, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 0;
+		TextStrokeTransparency = 0;
+	}):Play()
+	task.delay(0.1, function() -- Line 234
+		--[[ Upvalues[1]:
+			[1]: topAssists_upvr (copied, readonly)
+		]]
+		game:GetService("TweenService"):Create(topAssists_upvr, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			BackgroundTransparency = 0.25;
+		}):Play()
+		game:GetService("TweenService"):Create(topAssists_upvr.Arrow, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			ImageTransparency = 0.25;
+		}):Play()
+		game:GetService("TweenService"):Create(topAssists_upvr.plrName, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			TextTransparency = 0;
+			TextStrokeTransparency = 1;
+		}):Play()
+		game:GetService("TweenService"):Create(topAssists_upvr.Info, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			TextTransparency = 0;
+			TextStrokeTransparency = 1;
+		}):Play()
+	end)
+	task.wait(0.55)
+	local clone_11 = game.ReplicatedStorage.UISounds.ui_starbar_impact_2:Clone()
+	clone_11.Parent = game.Workspace
+	clone_11:Play()
+	game.Debris:AddItem(clone_11, 3)
+	game:GetService("TweenService"):Create(topScore_upvr, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		BackgroundTransparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(topScore_upvr.Arrow, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		ImageTransparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(topScore_upvr.plrName, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 0;
+		TextStrokeTransparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(topScore_upvr.Info, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 0;
+		TextStrokeTransparency = 0;
+	}):Play()
+	task.delay(0.1, function() -- Line 270
+		--[[ Upvalues[1]:
+			[1]: topScore_upvr (copied, readonly)
+		]]
+		game:GetService("TweenService"):Create(topScore_upvr, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			BackgroundTransparency = 0.25;
+		}):Play()
+		game:GetService("TweenService"):Create(topScore_upvr.Arrow, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			ImageTransparency = 0.25;
+		}):Play()
+		game:GetService("TweenService"):Create(topScore_upvr.plrName, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			TextTransparency = 0;
+			TextStrokeTransparency = 1;
+		}):Play()
+		game:GetService("TweenService"):Create(topScore_upvr.Info, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			TextTransparency = 0;
+			TextStrokeTransparency = 1;
+		}):Play()
+	end)
+	task.wait(0.55)
+	local clone_3 = game.ReplicatedStorage.UISounds.ui_starbar_impact_3:Clone()
+	clone_3.Parent = game.Workspace
+	clone_3:Play()
+	game.Debris:AddItem(clone_3, 3)
+	game:GetService("TweenService"):Create(MVP_upvr, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		BackgroundTransparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(MVP_upvr.Arrow, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		ImageTransparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(MVP_upvr.plrName, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 0;
+		TextStrokeTransparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(MVP_upvr.Info, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 0;
+		TextStrokeTransparency = 0;
+	}):Play()
+	task.delay(0.1, function() -- Line 306
+		--[[ Upvalues[1]:
+			[1]: MVP_upvr (copied, readonly)
+		]]
+		game:GetService("TweenService"):Create(MVP_upvr, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			BackgroundTransparency = 0.25;
+		}):Play()
+		game:GetService("TweenService"):Create(MVP_upvr.Arrow, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			ImageTransparency = 0.25;
+		}):Play()
+		game:GetService("TweenService"):Create(MVP_upvr.plrName, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			TextTransparency = 0;
+			TextStrokeTransparency = 1;
+		}):Play()
+		game:GetService("TweenService"):Create(MVP_upvr.Info, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			TextTransparency = 0;
+			TextStrokeTransparency = 1;
+		}):Play()
+	end)
+	task.wait(13.9)
+	local clone = game.ReplicatedStorage.UISounds.ui_start_travel:Clone()
+	clone.Parent = game.Workspace
+	clone:Play()
+	game.Debris:AddItem(clone, 3)
+	var56:Disconnect()
+	CurrentCamera_upvr.CameraType = Enum.CameraType.Custom
+	UpperShutter_upvr.Visible = true
+	LowerShutter_upvr.Visible = true
+	game:GetService("TweenService"):Create(LowerShutter_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Size = UDim2.new(1, 0, 0.55, 0);
+	}):Play()
+	game:GetService("TweenService"):Create(UpperShutter_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Size = UDim2.new(1, 0, 0.55, 0);
+	}):Play()
+	task.delay(0.5, function() -- Line 340
+		--[[ Upvalues[1]:
+			[1]: arg5 (readonly)
+		]]
+		rewardsDisplay(arg5.Coins, arg5.EXP)
+	end)
+	task.delay(4, function() -- Line 343
+		--[[ Upvalues[2]:
+			[1]: LowerShutter_upvr (copied, readonly)
+			[2]: UpperShutter_upvr (copied, readonly)
+		]]
+		local clone_4 = game.ReplicatedStorage.UISounds.ui_start_travel:Clone()
+		clone_4.Parent = game.Workspace
+		clone_4:Play()
+		game.Debris:AddItem(clone_4, 3)
+		local clone_6 = game.ReplicatedStorage.UISounds.ui_starbar_launch:Clone()
+		clone_6.Parent = game.Workspace
+		clone_6:Play()
+		game.Debris:AddItem(clone_6, 3)
+		game:GetService("TweenService"):Create(LowerShutter_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Size = UDim2.new(1, 0, 0, 0);
+		}):Play()
+		game:GetService("TweenService"):Create(UpperShutter_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Size = UDim2.new(1, 0, 0, 0);
+		}):Play()
+		task.wait(0.5)
+		UpperShutter_upvr.Visible = false
+		LowerShutter_upvr.Visible = false
+	end)
+	any:Destroy()
+	bottomFrame_upvr.Position = UDim2.new(0, 0, 1, 133)
+	topFrame_upvr.Position = UDim2.new(0, 0, 0, -133)
+	MVP_upvr.BackgroundTransparency = 1
+	MVP_upvr.Arrow.ImageTransparency = 1
+	MVP_upvr.plrName.TextTransparency = 1
+	MVP_upvr.plrName.TextStrokeTransparency = 1
+	MVP_upvr.Info.TextTransparency = 1
+	MVP_upvr.Info.TextStrokeTransparency = 1
+	topScore_upvr.BackgroundTransparency = 1
+	topScore_upvr.Arrow.ImageTransparency = 1
+	topScore_upvr.plrName.TextTransparency = 1
+	topScore_upvr.plrName.TextStrokeTransparency = 1
+	topScore_upvr.Info.TextTransparency = 1
+	topScore_upvr.Info.TextStrokeTransparency = 1
+	topAssists_upvr.BackgroundTransparency = 1
+	topAssists_upvr.Arrow.ImageTransparency = 1
+	topAssists_upvr.plrName.TextTransparency = 1
+	topAssists_upvr.plrName.TextStrokeTransparency = 1
+	topAssists_upvr.Info.TextTransparency = 1
+	topAssists_upvr.Info.TextStrokeTransparency = 1
+end)
+game.ReplicatedStorage.Remotes.DrawClient.OnClientEvent:Connect(function(arg1) -- Line 387
+	--[[ Upvalues[1]:
+		[1]: GameEnd_upvr (readonly)
+	]]
+	shutter()
+	task.wait(0.5)
+	if arg1 == true then
+		GameEnd_upvr.Text = "FULL TIME"
+	else
+		GameEnd_upvr.Text = "PENALTY SHOOTOUT"
+	end
+	game:GetService("TweenService"):Create(GameEnd_upvr, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 0;
+		TextStrokeTransparency = 0.5;
+	}):Play()
+	task.wait(2)
+	game:GetService("TweenService"):Create(GameEnd_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 1;
+		TextStrokeTransparency = 1;
+	}):Play()
+end)
+game.ReplicatedStorage.Remotes.FinalShootoutClient.OnClientEvent:Connect(function() -- Line 407
+	--[[ Upvalues[1]:
+		[1]: GameEnd_upvr (readonly)
+	]]
+	shutter()
+	task.wait(0.5)
+	GameEnd_upvr.Text = "FINAL SHOOTOUT"
+	game:GetService("TweenService"):Create(GameEnd_upvr, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 0;
+		TextStrokeTransparency = 0.5;
+	}):Play()
+	task.wait(2)
+	game:GetService("TweenService"):Create(GameEnd_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 1;
+		TextStrokeTransparency = 1;
+	}):Play()
+end)
+game.ReplicatedStorage.Remotes.HalftimeClient.OnClientEvent:Connect(function() -- Line 422
+	--[[ Upvalues[1]:
+		[1]: GameEnd_upvr (readonly)
+	]]
+	shutter()
+	task.wait(0.5)
+	GameEnd_upvr.Text = "HALF TIME"
+	game:GetService("TweenService"):Create(GameEnd_upvr, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 0;
+		TextStrokeTransparency = 0.5;
+	}):Play()
+	task.wait(2)
+	game:GetService("TweenService"):Create(GameEnd_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 1;
+		TextStrokeTransparency = 1;
+	}):Play()
+end)

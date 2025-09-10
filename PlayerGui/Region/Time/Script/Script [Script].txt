@@ -1,0 +1,8 @@
+-- Script | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerGui.Region.Time.Script
+
+-- Failed to get script bytecode, error:
+
+--[[
+Argument #1 is not a client script
+--]]

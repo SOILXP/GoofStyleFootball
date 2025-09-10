@@ -1,0 +1,502 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerGui.Menu.PSCommandHandler
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:28
+-- Luau version 6, Types version 3
+-- Time taken: 0.009333 seconds
+
+local PSOwnerID = game.ReplicatedStorage:FindFirstChild("PSOwnerID")
+if not PSOwnerID then
+	PSOwnerID = game.ReplicatedStorage:WaitForChild("PSOwnerID", 30)
+end
+if not PSOwnerID then
+else
+	if game.Players.LocalPlayer.UserId ~= PSOwnerID.Value then return end
+	local tbl_upvr_2 = {
+		Argentina = "rbxassetid://15068029862";
+		Munich = "rbxassetid://15068635815";
+		Dortmund = "rbxassetid://13460575423";
+		Brazil = "rbxassetid://15068649812";
+		ParisSaints = "rbxassetid://13552953245";
+		ManchesterU = "rbxassetid://14540294821";
+		Barcelona = "rbxassetid://316144192";
+		InterMiami = "rbxassetid://15081749904";
+		Japan = "rbxassetid://15098627666";
+		Italy = "rbxassetid://15107657423";
+		Croatia = "rbxassetid://15107652254";
+		Morocco = "rbxassetid://15107668354";
+		Canada = "rbxassetid://15107670722";
+		Portugal = "rbxassetid://15148310170";
+		Mexico = "rbxassetid://15107685948";
+		Netherlands = "rbxassetid://15107690732";
+		RealMadrid = "rbxassetid://15107692601";
+		LiverpoolFC = "rbxassetid://15107649924";
+		SeattleSoundersFC = "rbxassetid://15155280087";
+		JuventusFC = "rbxassetid://15238497443";
+		Newcastle = "rbxassetid://18897627545";
+		ManchesterCity = "rbxassetid://14243657473";
+		Germany = "rbxassetid://18640980135";
+		England = "rbxassetid://18641004985";
+		Arsenal = "rbxassetid://18652402819";
+		InterMilan = "rbxassetid://18816070754";
+		USA = "rbxassetid://18641031024";
+		Chelsea = "rbxassetid://18641029244";
+		Napoli = "rbxassetid://18641026783";
+		France = "rbxassetid://18641023325";
+		Uruguay = "rbxassetid://18641021338";
+		Roma = "rbxassetid://18641019719";
+		Lazio = "rbxassetid://18641016564";
+		SouthKorea = "rbxassetid://18641001856";
+		VascoDaGama = "rbxassetid://18640997828";
+		Ajax = "rbxassetid://18640996176";
+		Atletico = "rbxassetid://18640993960";
+		Leverkusen = "rbxassetid://18640992087";
+		Wales = "rbxassetid://18640989958";
+		Fiorentina = "rbxassetid://18640988644";
+		Spurs = "rbxassetid://18640987300";
+		ACMilan = "rbxassetid://18640984312";
+		Belgium = "rbxassetid://18641190960";
+		Spain = "rbxassetid://18672737980";
+		Scotland = "rbxassetid://18672741584";
+		Poland = "rbxassetid://18816097298";
+		Sweden = "rbxassetid://18897774513";
+		Bosnia = "rbxassetid://18897785797";
+		Denmark = "rbxassetid://18897980982";
+		Romania = "rbxassetid://18897982581";
+		Switzerland = "rbxassetid://18897984306";
+	}
+	local tbl_upvr = {
+		Argentina = "ARG";
+		Munich = "BAY";
+		Dortmund = "DOR";
+		Brazil = "BRA";
+		ParisSaints = "PSG";
+		ManchesterU = "MUN";
+		Barcelona = "FCB";
+		InterMiami = "MIA";
+		Japan = "JPN";
+		Italy = "ITA";
+		Croatia = "CRO";
+		Morocco = "MAR";
+		Canada = "CAN";
+		Portugal = "POR";
+		Mexico = "MEX";
+		Netherlands = "NED";
+		RealMadrid = "RMA";
+		LiverpoolFC = "LFC";
+		SeattleSoundersFC = "SEA";
+		JuventusFC = "JUV";
+		Newcastle = "NEW";
+		ManchesterCity = "MCI";
+		Germany = "GER";
+		England = "ENG";
+		Arsenal = "ASL";
+		InterMilan = "INT";
+		USA = "USA";
+		Chelsea = "CHE";
+		Napoli = "NAP";
+		France = "FRA";
+		Uruguay = "URU";
+		Roma = "ROM";
+		Lazio = "LAZ";
+		SouthKorea = "KOR";
+		VascoDaGama = "VAS";
+		Ajax = "AFC";
+		Atletico = "AMA";
+		Leverkusen = "B04";
+		Wales = "WAL";
+		Fiorentina = "FIO";
+		Spurs = "TOT";
+		ACMilan = "MIL";
+		Belgium = "BEL";
+		Spain = "ESP";
+		Scotland = "SCO";
+		Poland = "POL";
+		Sweden = "SWE";
+		Bosnia = "BIH";
+		Denmark = "DEN";
+		Romania = "ROU";
+		Switzerland = "SUI";
+	}
+	local teamPicker_upvr = script.Parent.teamPicker
+	local PSCommandsFrame_upvr = script.Parent.PSCommandsFrame
+	script.Parent.LeftFrame.PSCommandsButton.Visible = true
+	local ReplicatedStorage_upvr = game.ReplicatedStorage
+	local var7_upvw = false
+	local UserInputService_upvr = game:GetService("UserInputService")
+	UserInputService_upvr.InputChanged:Connect(function() -- Line 123
+		--[[ Upvalues[2]:
+			[1]: UserInputService_upvr (readonly)
+			[2]: PSCommandsFrame_upvr (readonly)
+		]]
+		if UserInputService_upvr:GetLastInputType() == Enum.UserInputType.Touch then
+			PSCommandsFrame_upvr.Position = UDim2.new(0.5, 0, 0.5, 0)
+		else
+			PSCommandsFrame_upvr.Position = UDim2.new(0.23, 0, 0.5, 0)
+		end
+	end)
+	local Slider_upvr = script:WaitForChild("Slider")
+	local mouse_upvr = game.Players.LocalPlayer:GetMouse()
+	local function makeSlider(arg1, arg2) -- Line 131
+		--[[ Upvalues[3]:
+			[1]: Slider_upvr (readonly)
+			[2]: var7_upvw (read and write)
+			[3]: mouse_upvr (readonly)
+		]]
+		local clone_upvr = Slider_upvr:clone()
+		clone_upvr.Parent = arg1
+		clone_upvr.Position = UDim2.new(arg2, 0, 0.5, 0)
+		local X_upvr = arg1.AbsolutePosition.X
+		local X_upvr_2 = arg1.AbsoluteSize.X
+		clone_upvr.MouseButton1Down:connect(function() -- Line 137
+			--[[ Upvalues[5]:
+				[1]: var7_upvw (copied, read and write)
+				[2]: mouse_upvr (copied, readonly)
+				[3]: X_upvr (readonly)
+				[4]: X_upvr_2 (readonly)
+				[5]: clone_upvr (readonly)
+			]]
+			if var7_upvw then
+			else
+				var7_upvw = true
+				repeat
+					clone_upvr.Position = UDim2.new(math.round(Snap(math.clamp((mouse_upvr.X - X_upvr) / X_upvr_2, 0, 1), 0.02) * 100) / 100, 0, 0.5, 0)
+					game:GetService("RunService").RenderStepped:wait()
+				until not var7_upvw
+			end
+		end)
+		return clone_upvr
+	end
+	local makeSlider_result1_upvr = makeSlider(PSCommandsFrame_upvr.ShotPower, 0)
+	local makeSlider_result1_upvr_2 = makeSlider(PSCommandsFrame_upvr.RunSpeed, 0)
+	local function update() -- Line 157
+		--[[ Upvalues[2]:
+			[1]: ReplicatedStorage_upvr (readonly)
+			[2]: PSCommandsFrame_upvr (readonly)
+		]]
+		if ReplicatedStorage_upvr:FindFirstChild("NoSkillUsage") then
+			PSCommandsFrame_upvr.noSkillsButton.toggle.BackgroundColor3 = Color3.new(0, 0.666667, 0)
+		else
+			PSCommandsFrame_upvr.noSkillsButton.toggle.BackgroundColor3 = Color3.new(0.666667, 0, 0)
+		end
+		if ReplicatedStorage_upvr:FindFirstChild("noLevelRequirement") then
+			PSCommandsFrame_upvr.noSkillReqsButton.toggle.BackgroundColor3 = Color3.new(0, 0.666667, 0)
+		else
+			PSCommandsFrame_upvr.noSkillReqsButton.toggle.BackgroundColor3 = Color3.new(0.666667, 0, 0)
+		end
+		if ReplicatedStorage_upvr:FindFirstChild("timerPaused") then
+			PSCommandsFrame_upvr.PauseTimerButton.toggle.BackgroundColor3 = Color3.new(0, 0.666667, 0)
+		else
+			PSCommandsFrame_upvr.PauseTimerButton.toggle.BackgroundColor3 = Color3.new(0.666667, 0, 0)
+		end
+		if ReplicatedStorage_upvr:FindFirstChild("NoSkillCD") then
+			PSCommandsFrame_upvr.NoSkillCDButton.toggle.BackgroundColor3 = Color3.new(0, 0.666667, 0)
+		else
+			PSCommandsFrame_upvr.NoSkillCDButton.toggle.BackgroundColor3 = Color3.new(0.666667, 0, 0)
+		end
+		if ReplicatedStorage_upvr:FindFirstChild("firstPersonLock") then
+			PSCommandsFrame_upvr.lockFirstPerson.toggle.BackgroundColor3 = Color3.new(0, 0.666667, 0)
+		else
+			PSCommandsFrame_upvr.lockFirstPerson.toggle.BackgroundColor3 = Color3.new(0.666667, 0, 0)
+		end
+		if ReplicatedStorage_upvr:FindFirstChild("noPlayReset") then
+			PSCommandsFrame_upvr.noPlayResetButton.toggle.BackgroundColor3 = Color3.new(0, 0.666667, 0)
+		else
+			PSCommandsFrame_upvr.noPlayResetButton.toggle.BackgroundColor3 = Color3.new(0.666667, 0, 0)
+		end
+		if ReplicatedStorage_upvr:FindFirstChild("InfiniteStamina") then
+			PSCommandsFrame_upvr.InfiniteStamina.toggle.BackgroundColor3 = Color3.new(0, 0.666667, 0)
+		else
+			PSCommandsFrame_upvr.InfiniteStamina.toggle.BackgroundColor3 = Color3.new(0.666667, 0, 0)
+		end
+		if ReplicatedStorage_upvr:FindFirstChild("NoFullSprint") then
+			PSCommandsFrame_upvr.FullSprintOff.toggle.BackgroundColor3 = Color3.new(0, 0.666667, 0)
+		else
+			PSCommandsFrame_upvr.FullSprintOff.toggle.BackgroundColor3 = Color3.new(0.666667, 0, 0)
+		end
+		if ReplicatedStorage_upvr:FindFirstChild("gkReplacement") then
+			PSCommandsFrame_upvr.GKReplacer.toggle.BackgroundColor3 = Color3.new(0, 0.666667, 0)
+		else
+			PSCommandsFrame_upvr.GKReplacer.toggle.BackgroundColor3 = Color3.new(0.666667, 0, 0)
+		end
+		if ReplicatedStorage_upvr:FindFirstChild("lockedHitbox") then
+			PSCommandsFrame_upvr.LockedHitbox.toggle.BackgroundColor3 = Color3.new(0, 0.666667, 0)
+		else
+			PSCommandsFrame_upvr.LockedHitbox.toggle.BackgroundColor3 = Color3.new(0.666667, 0, 0)
+		end
+		if ReplicatedStorage_upvr:FindFirstChild("NoTeamLimits") then
+			PSCommandsFrame_upvr.DisableTeamLimits.toggle.BackgroundColor3 = Color3.new(0, 0.666667, 0)
+		else
+			PSCommandsFrame_upvr.DisableTeamLimits.toggle.BackgroundColor3 = Color3.new(0.666667, 0, 0)
+		end
+	end
+	ReplicatedStorage_upvr.ChildAdded:Connect(update)
+	ReplicatedStorage_upvr.ChildRemoved:Connect(update)
+	function Snap(arg1, arg2) -- Line 218
+		return arg1 - arg1 % arg2
+	end
+	function sliderValToMult1(arg1) -- Line 222
+		if arg1 < 0.1 then
+			return 1
+		end
+		if arg1 < 0.2 then
+			return 1.2
+		end
+		if arg1 < 0.3 then
+			return 1.4
+		end
+		if arg1 < 0.4 then
+			return 1.6
+		end
+		if arg1 < 0.5 then
+			return 1.8
+		end
+		if arg1 < 0.6 then
+			return 2
+		end
+		if arg1 < 0.7 then
+			return 3
+		end
+		if arg1 < 0.8 then
+			return 4
+		end
+		if arg1 < 0.9 then
+			return 5
+		end
+		return 5
+	end
+	function sliderValToMult2(arg1) -- Line 253
+		if arg1 < 0.1 then
+			return 1
+		end
+		if arg1 < 0.2 then
+			return 1.2
+		end
+		if arg1 < 0.3 then
+			return 1.4
+		end
+		if arg1 < 0.4 then
+			return 1.6
+		end
+		if arg1 < 0.5 then
+			return 1.8
+		end
+		if arg1 < 0.6 then
+			return 2
+		end
+		if arg1 < 0.7 then
+			return 2.2
+		end
+		if arg1 < 0.8 then
+			return 2.4
+		end
+		if arg1 < 0.9 then
+			return 2.6
+		end
+		return 3
+	end
+	game:GetService("UserInputService").InputEnded:connect(function(arg1) -- Line 284
+		--[[ Upvalues[3]:
+			[1]: var7_upvw (read and write)
+			[2]: makeSlider_result1_upvr (readonly)
+			[3]: makeSlider_result1_upvr_2 (readonly)
+		]]
+		if arg1.UserInputType == Enum.UserInputType.MouseButton1 and var7_upvw == true then
+			var7_upvw = false
+			game.ReplicatedStorage.Remotes.PSCommand:FireServer("setShotPower", {
+				val = sliderValToMult1(makeSlider_result1_upvr.Position.X.Scale);
+			})
+			game.ReplicatedStorage.Remotes.PSCommand:FireServer("setRunSpeed", {
+				val = sliderValToMult2(makeSlider_result1_upvr_2.Position.X.Scale);
+			})
+		end
+	end)
+	makeSlider_result1_upvr:GetPropertyChangedSignal("Position"):Connect(function() -- Line 296
+		--[[ Upvalues[2]:
+			[1]: PSCommandsFrame_upvr (readonly)
+			[2]: makeSlider_result1_upvr (readonly)
+		]]
+		PSCommandsFrame_upvr.ShotPower.AMOUNT.Text = 'x'..sliderValToMult1(makeSlider_result1_upvr.Position.X.Scale)
+	end)
+	makeSlider_result1_upvr_2:GetPropertyChangedSignal("Position"):Connect(function() -- Line 300
+		--[[ Upvalues[2]:
+			[1]: PSCommandsFrame_upvr (readonly)
+			[2]: makeSlider_result1_upvr_2 (readonly)
+		]]
+		PSCommandsFrame_upvr.RunSpeed.AMOUNT.Text = 'x'..sliderValToMult2(makeSlider_result1_upvr_2.Position.X.Scale)
+	end)
+	script.Parent.LeftFrame.PSCommandsButton.MouseButton1Click:Connect(function() -- Line 304
+		--[[ Upvalues[2]:
+			[1]: PSCommandsFrame_upvr (readonly)
+			[2]: teamPicker_upvr (readonly)
+		]]
+		PSCommandsFrame_upvr.Visible = not PSCommandsFrame_upvr.Visible
+		teamPicker_upvr.Visible = false
+	end)
+	PSCommandsFrame_upvr.CloseButton.MouseButton1Click:Connect(function() -- Line 309
+		--[[ Upvalues[2]:
+			[1]: PSCommandsFrame_upvr (readonly)
+			[2]: teamPicker_upvr (readonly)
+		]]
+		PSCommandsFrame_upvr.Visible = not PSCommandsFrame_upvr.Visible
+		teamPicker_upvr.Visible = false
+	end)
+	PSCommandsFrame_upvr.PauseTimerButton.MouseButton1Click:Connect(function() -- Line 314
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("PauseTimer")
+	end)
+	PSCommandsFrame_upvr.EndMatchButton.MouseButton1Click:Connect(function() -- Line 318
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("EndGame")
+	end)
+	PSCommandsFrame_upvr.GKReplacer.MouseButton1Click:Connect(function() -- Line 322
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("ToggleGKReplacement")
+	end)
+	PSCommandsFrame_upvr.lockFirstPerson.MouseButton1Click:Connect(function() -- Line 326
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("ToggleFirstPersonLock")
+	end)
+	PSCommandsFrame_upvr.NoSkillCDButton.MouseButton1Click:Connect(function() -- Line 330
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("NoSkillCooldown")
+	end)
+	PSCommandsFrame_upvr.noSkillsButton.MouseButton1Click:Connect(function() -- Line 334
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("NoSkillUsage")
+	end)
+	PSCommandsFrame_upvr.noSkillReqsButton.MouseButton1Click:Connect(function() -- Line 338
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("NoSkillReqs")
+	end)
+	PSCommandsFrame_upvr.noPlayResetButton.MouseButton1Click:Connect(function() -- Line 342
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("DisablePlayReset")
+	end)
+	PSCommandsFrame_upvr.InfiniteStamina.MouseButton1Click:Connect(function() -- Line 346
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("InfiniteStamina")
+	end)
+	PSCommandsFrame_upvr.FullSprintOff.MouseButton1Click:Connect(function() -- Line 350
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("FullSprintOff")
+	end)
+	PSCommandsFrame_upvr.DisableTeamLimits.MouseButton1Click:Connect(function() -- Line 354
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("NoTeamLimit")
+	end)
+	PSCommandsFrame_upvr.LockedHitbox.MouseButton1Click:Connect(function() -- Line 358
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("LockedHitbox")
+	end)
+	PSCommandsFrame_upvr.penShootoutButton.MouseButton1Click:Connect(function() -- Line 362
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("StartShootout")
+	end)
+	PSCommandsFrame_upvr.PlaceDefender.MouseButton1Click:Connect(function() -- Line 366
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("PlaceDefender")
+	end)
+	PSCommandsFrame_upvr.ClearDefenders.MouseButton1Click:Connect(function() -- Line 370
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("ClearDefenders")
+	end)
+	PSCommandsFrame_upvr.SetAutomaticKick.MouseButton1Click:Connect(function() -- Line 374
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("SetAutoKick")
+	end)
+	PSCommandsFrame_upvr.ClearAutoKicks.MouseButton1Click:Connect(function() -- Line 378
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("ClearAutoKick")
+	end)
+	PSCommandsFrame_upvr.BringBallButton.MouseButton1Click:Connect(function() -- Line 382
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("BringBall")
+	end)
+	PSCommandsFrame_upvr.FreeKick.MouseButton1Click:Connect(function() -- Line 386
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("FreeKick")
+	end)
+	PSCommandsFrame_upvr.KickPlayer.FocusLost:Connect(function() -- Line 390
+		--[[ Upvalues[1]:
+			[1]: PSCommandsFrame_upvr (readonly)
+		]]
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("Kick", {
+			User = PSCommandsFrame_upvr.KickPlayer.Text;
+		})
+	end)
+	PSCommandsFrame_upvr.BanPlayer.FocusLost:Connect(function() -- Line 396
+		--[[ Upvalues[1]:
+			[1]: PSCommandsFrame_upvr (readonly)
+		]]
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("Ban", {
+			User = PSCommandsFrame_upvr.BanPlayer.Text;
+		})
+	end)
+	PSCommandsFrame_upvr.SetHalfLength.FocusLost:Connect(function() -- Line 402
+		--[[ Upvalues[1]:
+			[1]: PSCommandsFrame_upvr (readonly)
+		]]
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("SetHalfLength", {
+			t = PSCommandsFrame_upvr.SetHalfLength.Text;
+		})
+	end)
+	PSCommandsFrame_upvr.HomeTeamShirt.FocusLost:Connect(function() -- Line 408
+		--[[ Upvalues[1]:
+			[1]: PSCommandsFrame_upvr (readonly)
+		]]
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("SetHomeShirt", {
+			id = PSCommandsFrame_upvr.HomeTeamShirt.Text;
+		})
+	end)
+	PSCommandsFrame_upvr.AwayTeamShirt.FocusLost:Connect(function() -- Line 414
+		--[[ Upvalues[1]:
+			[1]: PSCommandsFrame_upvr (readonly)
+		]]
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("SetAwayShirt", {
+			id = PSCommandsFrame_upvr.AwayTeamShirt.Text;
+		})
+	end)
+	PSCommandsFrame_upvr.HomeTeamPants.FocusLost:Connect(function() -- Line 420
+		--[[ Upvalues[1]:
+			[1]: PSCommandsFrame_upvr (readonly)
+		]]
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("SetHomePants", {
+			id = PSCommandsFrame_upvr.HomeTeamPants.Text;
+		})
+	end)
+	PSCommandsFrame_upvr.AwayTeamPants.FocusLost:Connect(function() -- Line 426
+		--[[ Upvalues[1]:
+			[1]: PSCommandsFrame_upvr (readonly)
+		]]
+		game.ReplicatedStorage.Remotes.PSCommand:FireServer("SetAwayPants", {
+			id = PSCommandsFrame_upvr.AwayTeamPants.Text;
+		})
+	end)
+	local var58_upvw = "nil"
+	function setupteamframe() -- Line 436
+		--[[ Upvalues[4]:
+			[1]: tbl_upvr (readonly)
+			[2]: tbl_upvr_2 (readonly)
+			[3]: teamPicker_upvr (readonly)
+			[4]: var58_upvw (read and write)
+		]]
+		for i_upvr, v in pairs(tbl_upvr) do
+			local clone = script.TeamTemplate:Clone()
+			clone.Text = v
+			clone.Icon.Image = tbl_upvr_2[i_upvr]
+			clone.MouseButton1Click:Connect(function() -- Line 441
+				--[[ Upvalues[3]:
+					[1]: teamPicker_upvr (copied, readonly)
+					[2]: var58_upvw (copied, read and write)
+					[3]: i_upvr (readonly)
+				]]
+				teamPicker_upvr.Visible = false
+				game.ReplicatedStorage.Remotes.PSCommand:FireServer("Set"..var58_upvw.."Team", {
+					Team = i_upvr;
+				})
+			end)
+			clone.Parent = teamPicker_upvr
+		end
+	end
+	setupteamframe()
+	PSCommandsFrame_upvr.SelectHomeTeam.MouseButton1Click:Connect(function() -- Line 453
+		--[[ Upvalues[2]:
+			[1]: var58_upvw (read and write)
+			[2]: teamPicker_upvr (readonly)
+		]]
+		var58_upvw = "Home"
+		teamPicker_upvr.Visible = not teamPicker_upvr.Visible
+	end)
+	PSCommandsFrame_upvr.SelectAwayTeam.MouseButton1Click:Connect(function() -- Line 458
+		--[[ Upvalues[2]:
+			[1]: var58_upvw (read and write)
+			[2]: teamPicker_upvr (readonly)
+		]]
+		var58_upvw = "Away"
+		teamPicker_upvr.Visible = not teamPicker_upvr.Visible
+	end)
+end

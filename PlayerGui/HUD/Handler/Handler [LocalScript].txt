@@ -1,0 +1,199 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerGui.HUD.Handler
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:23
+-- Luau version 6, Types version 3
+-- Time taken: 0.005059 seconds
+
+local LocalPlayer_upvr = game.Players.LocalPlayer
+local Character = LocalPlayer_upvr.Character
+if not Character then
+	Character = LocalPlayer_upvr.CharacterAdded:Wait()
+end
+local StaminaFrame_upvr = script.Parent.StaminaFrame
+local SkillCD_upvr = script.Parent.SkillCD
+local UserInputService_upvr = game:GetService("UserInputService")
+LocalPlayer_upvr:WaitForChild("Settings"):WaitForChild("Controls")
+local Stamina_upvr = Character:WaitForChild("Stats"):WaitForChild("Stamina")
+local MaxStamina_upvr = Character:WaitForChild("Stats"):WaitForChild("MaxStamina")
+local SelectedSkill_upvr = LocalPlayer_upvr:WaitForChild("Data"):WaitForChild("SelectedSkill")
+local MainBar_upvr = script.Parent.StaminaFrame.Stamina.MainBar
+Stamina_upvr.Changed:Connect(function() -- Line 14
+	--[[ Upvalues[2]:
+		[1]: MainBar_upvr (readonly)
+		[2]: Stamina_upvr (readonly)
+	]]
+	game:GetService("TweenService"):Create(MainBar_upvr, TweenInfo.new(0.125, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+		Size = UDim2.new(Stamina_upvr.Value / 100, 0, 1, 0);
+	}):Play()
+end)
+local GreyBar_upvr = script.Parent.StaminaFrame.Stamina.GreyBar
+local tick_result1_upvw = tick()
+MaxStamina_upvr.Changed:Connect(function() -- Line 21
+	--[[ Upvalues[3]:
+		[1]: GreyBar_upvr (readonly)
+		[2]: MaxStamina_upvr (readonly)
+		[3]: tick_result1_upvw (read and write)
+	]]
+	game:GetService("TweenService"):Create(GreyBar_upvr, TweenInfo.new(0.125, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+		Size = UDim2.new(math.abs(MaxStamina_upvr.Value - 100) / 100, 0, 1, 0);
+	}):Play()
+	if 0.5 < tick() - tick_result1_upvw then
+		tick_result1_upvw = tick()
+		game.ReplicatedStorage.Remotes.UpdateMaxStaminaRejoin:FireServer(MaxStamina_upvr.Value)
+	end
+end)
+LocalPlayer_upvr.ChildAdded:Connect(function(arg1) -- Line 31
+	--[[ Upvalues[2]:
+		[1]: StaminaFrame_upvr (readonly)
+		[2]: SkillCD_upvr (readonly)
+	]]
+	if arg1.Name == "InPlay" then
+		StaminaFrame_upvr.Visible = true
+		SkillCD_upvr.Visible = true
+	end
+end)
+LocalPlayer_upvr.ChildRemoved:Connect(function(arg1) -- Line 38
+	--[[ Upvalues[2]:
+		[1]: StaminaFrame_upvr (readonly)
+		[2]: SkillCD_upvr (readonly)
+	]]
+	if arg1.Name == "InPlay" then
+		StaminaFrame_upvr.Visible = false
+		SkillCD_upvr.Visible = false
+	end
+end)
+game.ReplicatedStorage.ChildAdded:Connect(function(arg1) -- Line 45
+	--[[ Upvalues[2]:
+		[1]: StaminaFrame_upvr (readonly)
+		[2]: SkillCD_upvr (readonly)
+	]]
+	if arg1.Name == "EndScreen" then
+		StaminaFrame_upvr.Visible = false
+		SkillCD_upvr.Visible = false
+	end
+end)
+local function _(arg1) -- Line 52, Named "trunc"
+	local tostring_result1 = tostring(arg1)
+	local string_find_result1_2 = string.find(arg1, '.', 1, true)
+	if string_find_result1_2 then
+		return string.sub(tostring_result1, 1, string_find_result1_2 + 1)
+	end
+	return tostring_result1..".0"
+end
+SelectedSkill_upvr.Changed:Connect(function() -- Line 62
+	--[[ Upvalues[2]:
+		[1]: SkillCD_upvr (readonly)
+		[2]: SelectedSkill_upvr (readonly)
+	]]
+	SkillCD_upvr.SkillName.Text = string.upper(SelectedSkill_upvr.Value)
+end)
+LocalPlayer_upvr.Settings.Controls.Skill.Changed:Connect(function() -- Line 66
+	--[[ Upvalues[2]:
+		[1]: SkillCD_upvr (readonly)
+		[2]: LocalPlayer_upvr (readonly)
+	]]
+	SkillCD_upvr.Keybind.Text = '['..string.upper(LocalPlayer_upvr.Settings.Controls.Skill.Value)..']'
+end)
+SkillCD_upvr.Keybind.Text = '['..string.upper(LocalPlayer_upvr.Settings.Controls.Skill.Value)..']'
+LocalPlayer_upvr.SelectedPosition.Changed:Connect(function() -- Line 71
+	--[[ Upvalues[2]:
+		[1]: LocalPlayer_upvr (readonly)
+		[2]: SkillCD_upvr (readonly)
+	]]
+	if LocalPlayer_upvr.SelectedPosition.Value == "GK" then
+		SkillCD_upvr.SkillName.Text = string.upper(LocalPlayer_upvr.Data.GoalieSkill.Value)
+	else
+		SkillCD_upvr.SkillName.Text = string.upper(LocalPlayer_upvr.Data.SelectedSkill.Value)
+	end
+end)
+SkillCD_upvr.SkillName.Text = string.upper(SelectedSkill_upvr.Value)
+game.ReplicatedStorage.Remotes.skillCD.OnClientEvent:Connect(function(arg1) -- Line 81
+	--[[ Upvalues[3]:
+		[1]: SkillCD_upvr (readonly)
+		[2]: LocalPlayer_upvr (readonly)
+		[3]: SelectedSkill_upvr (readonly)
+	]]
+	if game.ReplicatedStorage:FindFirstChild("NoSkillCD") then
+	else
+		game:GetService("TweenService"):Create(SkillCD_upvr, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			BackgroundColor3 = Color3.new(0.95, 0, 0);
+		}):Play()
+		game:GetService("TweenService"):Create(SkillCD_upvr.SkillName, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			TextColor3 = Color3.new(0.95, 0, 0);
+		}):Play()
+		game:GetService("TweenService"):Create(SkillCD_upvr.Keybind, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			TextColor3 = Color3.new(0.95, 0, 0);
+		}):Play()
+		game:GetService("TweenService"):Create(SkillCD_upvr, TweenInfo.new(arg1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {
+			Size = UDim2.new(0, 0, 0, 2);
+		}):Play()
+		task.delay(arg1 - 0.25, function() -- Line 96
+			--[[ Upvalues[1]:
+				[1]: SkillCD_upvr (copied, readonly)
+			]]
+			game:GetService("TweenService"):Create(SkillCD_upvr, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				BackgroundColor3 = Color3.new(1, 1, 1);
+			}):Play()
+			game:GetService("TweenService"):Create(SkillCD_upvr.SkillName, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				TextColor3 = Color3.new(1, 1, 1);
+			}):Play()
+			game:GetService("TweenService"):Create(SkillCD_upvr.Keybind, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				TextColor3 = Color3.new(1, 1, 1);
+			}):Play()
+			game:GetService("TweenService"):Create(SkillCD_upvr, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Size = UDim2.new(0, 300, 0, 2);
+			}):Play()
+		end)
+		local var35_upvr = tick() + arg1
+		local any_Connect_result1_upvr = game:GetService("RunService").RenderStepped:Connect(function() -- Line 110
+			--[[ Upvalues[2]:
+				[1]: SkillCD_upvr (copied, readonly)
+				[2]: var35_upvr (readonly)
+			]]
+			local var36 = var35_upvr - tick()
+			local string_find_result1 = string.find(var36, '.', 1, true)
+			local var38
+			if string_find_result1 then
+				var38 = string.sub(tostring(var36), 1, string_find_result1 + 1)
+			else
+				-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+				var38 = tostring(var36)..".0"
+			end
+			SkillCD_upvr.SkillName.Text = var38..'s'
+		end)
+		task.delay(arg1, function() -- Line 113
+			--[[ Upvalues[4]:
+				[1]: any_Connect_result1_upvr (readonly)
+				[2]: LocalPlayer_upvr (copied, readonly)
+				[3]: SkillCD_upvr (copied, readonly)
+				[4]: SelectedSkill_upvr (copied, readonly)
+			]]
+			any_Connect_result1_upvr:Disconnect()
+			if LocalPlayer_upvr.SelectedPosition.Value == "GK" then
+				SkillCD_upvr.SkillName.Text = string.upper(LocalPlayer_upvr.Data.GoalieSkill.Value)
+			else
+				SkillCD_upvr.SkillName.Text = string.upper(SelectedSkill_upvr.Value)
+			end
+		end)
+	end
+end)
+UserInputService_upvr.InputChanged:Connect(function() -- Line 124
+	--[[ Upvalues[3]:
+		[1]: UserInputService_upvr (readonly)
+		[2]: SkillCD_upvr (readonly)
+		[3]: LocalPlayer_upvr (readonly)
+	]]
+	if UserInputService_upvr.GamepadEnabled == true then
+		SkillCD_upvr.Keybind.Text = "[X]"
+	else
+		SkillCD_upvr.Keybind.Text = '['..string.upper(LocalPlayer_upvr.Settings.Controls.Skill.Value)..']'
+	end
+end)
+if UserInputService_upvr.GamepadEnabled == true then
+	SkillCD_upvr.Keybind.Text = "[X]"
+else
+	SkillCD_upvr.Keybind.Text = '['..string.upper(LocalPlayer_upvr.Settings.Controls.Skill.Value)..']'
+end

@@ -1,0 +1,64 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerGui.Menu.PlayButton.hoverHandler
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:29
+-- Luau version 6, Types version 3
+-- Time taken: 0.001397 seconds
+
+local Parent_upvr = script.Parent
+local PlayButton_upvr = script.Parent.PlayButton
+local hasGameStarted_upvr = game.ReplicatedStorage.hasGameStarted
+if hasGameStarted_upvr.Value == true then
+	PlayButton_upvr.Text = "PLAY"
+	PlayButton_upvr.BackgroundColor3 = Color3.new(0, 0.66667, 0)
+end
+local any_MouseEnterLeaveEvent_result1, any_MouseEnterLeaveEvent_result2 = require(game.ReplicatedStorage.Modules.MouseHoverModule).MouseEnterLeaveEvent(PlayButton_upvr)
+any_MouseEnterLeaveEvent_result1:Connect(function() -- Line 12
+	--[[ Upvalues[2]:
+		[1]: Parent_upvr (readonly)
+		[2]: PlayButton_upvr (readonly)
+	]]
+	if Parent_upvr.Visible == false then
+	else
+		local clone = game.ReplicatedStorage.UISounds._click:Clone()
+		clone.Parent = game.Workspace
+		clone:Play()
+		game.Debris:AddItem(clone, 0.5)
+		game:GetService("TweenService"):Create(PlayButton_upvr, TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+			Size = UDim2.new(0, 265, 0, 52);
+			TextSize = 32;
+		}):Play()
+	end
+end)
+any_MouseEnterLeaveEvent_result2:Connect(function() -- Line 25
+	--[[ Upvalues[2]:
+		[1]: Parent_upvr (readonly)
+		[2]: PlayButton_upvr (readonly)
+	]]
+	if Parent_upvr.Visible == false then
+	else
+		game:GetService("TweenService"):Create(PlayButton_upvr, TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+			Size = UDim2.new(0, 250, 0, 44);
+			TextSize = 28;
+		}):Play()
+	end
+end)
+game.ReplicatedStorage.hasGameStarted.Changed:Connect(function() -- Line 35
+	--[[ Upvalues[2]:
+		[1]: hasGameStarted_upvr (readonly)
+		[2]: PlayButton_upvr (readonly)
+	]]
+	if hasGameStarted_upvr.Value == false then
+		PlayButton_upvr.Text = "SELECT TEAM"
+		game:GetService("TweenService"):Create(PlayButton_upvr, TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+			BackgroundColor3 = Color3.new(0.66667, 0.66667, 0);
+		}):Play()
+	else
+		PlayButton_upvr.Text = "PLAY"
+		game:GetService("TweenService"):Create(PlayButton_upvr, TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+			BackgroundColor3 = Color3.new(0, 0.66667, 0);
+		}):Play()
+	end
+end)

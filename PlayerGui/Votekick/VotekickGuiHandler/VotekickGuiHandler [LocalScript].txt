@@ -1,0 +1,263 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerGui.Votekick.VotekickGuiHandler
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:53
+-- Luau version 6, Types version 3
+-- Time taken: 0.005068 seconds
+
+local Remotes = game.ReplicatedStorage:WaitForChild("Remotes")
+local PlayerVoted_upvr = Remotes:WaitForChild("PlayerVoted")
+local Parent = script.Parent
+local SelectReason_upvr = Parent:WaitForChild("SelectReason")
+local PlayerListContainer_upvr = Parent:WaitForChild("PlayerListContainer")
+PlayerListContainer_upvr.Visible = false
+local PlayerListScroller_upvr = PlayerListContainer_upvr:WaitForChild("PlayerListScroller")
+local PopupContainer_upvr = Parent:WaitForChild("PopupContainer")
+game.Players.LocalPlayer:WaitForChild("SelectedTeam")
+local var10_upvw = false
+local NotificationLabel_upvr = script.Parent.NotificationLabel
+function notification(arg1) -- Line 30
+	--[[ Upvalues[1]:
+		[1]: NotificationLabel_upvr (readonly)
+	]]
+	local clone_3 = game.ReplicatedStorage.UISounds["ui-error4"]:Clone()
+	clone_3.Parent = game.Workspace
+	clone_3:Play()
+	game.Debris:AddItem(clone_3, 3)
+	NotificationLabel_upvr.Text = arg1
+	NotificationLabel_upvr.TextTransparency = 1
+	NotificationLabel_upvr.TextStrokeTransparency = 1
+	game:GetService("TweenService"):Create(NotificationLabel_upvr, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 0;
+		TextStrokeTransparency = 0.75;
+	}):Play()
+	task.delay(1, function() -- Line 42
+		--[[ Upvalues[1]:
+			[1]: NotificationLabel_upvr (copied, readonly)
+		]]
+		game:GetService("TweenService"):Create(NotificationLabel_upvr, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			TextTransparency = 1;
+			TextStrokeTransparency = 1;
+		}):Play()
+	end)
+end
+local VotekickMessage_upvr = PopupContainer_upvr:WaitForChild("VotekickMessage")
+local Reason_upvr = PopupContainer_upvr:WaitForChild("Reason")
+function onVotekickStarted(arg1, arg2, arg3) -- Line 50
+	--[[ Upvalues[5]:
+		[1]: var10_upvw (read and write)
+		[2]: PlayerListContainer_upvr (readonly)
+		[3]: VotekickMessage_upvr (readonly)
+		[4]: Reason_upvr (readonly)
+		[5]: PopupContainer_upvr (readonly)
+	]]
+	local clone = game.ReplicatedStorage.UISounds["ui-opened1"]:Clone()
+	clone.Parent = game.Workspace
+	clone:Play()
+	game.Debris:AddItem(clone, 2)
+	var10_upvw = true
+	PlayerListContainer_upvr.Visible = false
+	VotekickMessage_upvr.Text = '<'..arg2.DisplayName.."> HAS INITIATED A VOTEKICK ON <"..arg1.DisplayName..'>'
+	Reason_upvr.Text = "REASON: <"..arg3..'>'
+	PopupContainer_upvr.Visible = true
+end
+function onVotekickEnded(arg1, arg2) -- Line 64
+	--[[ Upvalues[2]:
+		[1]: var10_upvw (read and write)
+		[2]: PopupContainer_upvr (readonly)
+	]]
+	var10_upvw = false
+	PopupContainer_upvr.Visible = false
+	if arg1 == "CHILLY" or arg1 == "RYO" then
+		notification('<'..arg2.."> CANNOT BE KICKED. DO NOT DO THAT AGAIN.")
+	else
+		if arg1 == true then
+			notification('<'..arg2.."> WAS KICKED DUE TO POPULAR VOTE.")
+			return
+		end
+		if arg1 == false then
+			notification('<'..arg2.."> WAS NOT KICKED.")
+		end
+	end
+end
+Remotes:WaitForChild("VotekickStarted").OnClientEvent:Connect(onVotekickStarted)
+Remotes:WaitForChild("VotekickEnded").OnClientEvent:Connect(onVotekickEnded)
+function yesClicked() -- Line 83
+	--[[ Upvalues[3]:
+		[1]: var10_upvw (read and write)
+		[2]: PlayerVoted_upvr (readonly)
+		[3]: PopupContainer_upvr (readonly)
+	]]
+	if var10_upvw then
+		PlayerVoted_upvr:FireServer(true)
+		PopupContainer_upvr.Visible = false
+	end
+end
+function noClicked() -- Line 91
+	--[[ Upvalues[3]:
+		[1]: var10_upvw (read and write)
+		[2]: PlayerVoted_upvr (readonly)
+		[3]: PopupContainer_upvr (readonly)
+	]]
+	if var10_upvw then
+		PlayerVoted_upvr:FireServer(false)
+		PopupContainer_upvr.Visible = false
+	end
+end
+PopupContainer_upvr:WaitForChild("VoteYesButton").MouseButton1Click:Connect(yesClicked)
+PopupContainer_upvr:WaitForChild("VoteNoButton").MouseButton1Click:Connect(noClicked)
+function removePlayerFrame(arg1) -- Line 104
+	--[[ Upvalues[1]:
+		[1]: PlayerListScroller_upvr (readonly)
+	]]
+	local SOME = PlayerListScroller_upvr:FindFirstChild(arg1.Name)
+	if SOME then
+		SOME:Destroy()
+	end
+end
+local PlayerFrameTemplate_upvr = script:WaitForChild("PlayerFrameTemplate")
+function createPlayerFrame(arg1) -- Line 114
+	--[[ Upvalues[3]:
+		[1]: PlayerFrameTemplate_upvr (readonly)
+		[2]: PlayerListContainer_upvr (readonly)
+		[3]: PlayerListScroller_upvr (readonly)
+	]]
+	local clone_2 = PlayerFrameTemplate_upvr:Clone()
+	clone_2.Name = arg1.Name
+	clone_2.PlayerName.Text = arg1.DisplayName
+	clone_2.PlayerImage.Image = game.Players:GetUserThumbnailAsync(arg1.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size60x60)
+	clone_2.VotekickButton.MouseButton1Click:Connect(function() -- Line 124
+		--[[ Upvalues[2]:
+			[1]: arg1 (readonly)
+			[2]: PlayerListContainer_upvr (copied, readonly)
+		]]
+		if arg1.SelectedTeam.Value == game.Players.LocalPlayer.SelectedTeam.Value then
+			getReason(arg1)
+		else
+			notification("CANNOT VOTE TO KICK A PLAYER WHO IS NOT ON YOUR TEAM.")
+			PlayerListContainer_upvr.Visible = false
+		end
+	end)
+	clone_2.Parent = PlayerListScroller_upvr
+end
+local StartVotekick_upvr = Remotes:WaitForChild("StartVotekick")
+function getReason(arg1) -- Line 137
+	--[[ Upvalues[4]:
+		[1]: PlayerListContainer_upvr (readonly)
+		[2]: SelectReason_upvr (readonly)
+		[3]: var10_upvw (read and write)
+		[4]: StartVotekick_upvr (readonly)
+	]]
+	PlayerListContainer_upvr.Visible = false
+	SelectReason_upvr.Visible = true
+	for _, v_upvr in pairs(SelectReason_upvr:GetChildren()) do
+		if v_upvr.Name ~= "CloseButton" and v_upvr:IsA("TextButton") then
+			local any_Connect_result1_upvw = v_upvr.MouseButton1Click:Connect(function() -- Line 142
+				--[[ Upvalues[5]:
+					[1]: var10_upvw (copied, read and write)
+					[2]: StartVotekick_upvr (copied, readonly)
+					[3]: arg1 (readonly)
+					[4]: v_upvr (readonly)
+					[5]: SelectReason_upvr (copied, readonly)
+				]]
+				if not var10_upvw then
+					StartVotekick_upvr:FireServer(arg1, tonumber(v_upvr.Name))
+					SelectReason_upvr.Visible = false
+				end
+			end)
+			StartVotekick_upvr.OnClientEvent:Once(function() -- Line 148
+				--[[ Upvalues[1]:
+					[1]: any_Connect_result1_upvw (read and write)
+				]]
+				any_Connect_result1_upvw:Disconnect()
+			end)
+			SelectReason_upvr.CloseButton.MouseButton1Click:Once(function() -- Line 151
+				--[[ Upvalues[1]:
+					[1]: any_Connect_result1_upvw (read and write)
+				]]
+				any_Connect_result1_upvw:Disconnect()
+			end)
+		end
+	end
+end
+SelectReason_upvr.CloseButton.MouseButton1Click:Connect(function() -- Line 159
+	--[[ Upvalues[1]:
+		[1]: SelectReason_upvr (readonly)
+	]]
+	SelectReason_upvr.Visible = false
+end)
+function createCurrentPlayerFrames() -- Line 163
+	for _, v_2 in pairs(game.Players:GetPlayers()) do
+		if v_2 ~= game.Players.LocalPlayer and v_2.SelectedTeam.Value == game.Players.LocalPlayer.SelectedTeam.Value then
+			createPlayerFrame(v_2)
+		end
+	end
+end
+function doPlayerFrame() -- Line 172
+	--[[ Upvalues[1]:
+		[1]: PlayerListScroller_upvr (readonly)
+	]]
+	for _, v_3 in pairs(PlayerListScroller_upvr:GetChildren()) do
+		if v_3:IsA("Frame") then
+			v_3:Destroy()
+		end
+	end
+	createCurrentPlayerFrames()
+end
+createCurrentPlayerFrames()
+game.Players.PlayerAdded:Connect(function(arg1) -- Line 183
+	createPlayerFrame(arg1)
+	arg1:WaitForChild("SelectedTeam").Changed:Connect(function() -- Line 186
+		doPlayerFrame()
+	end)
+end)
+for _, v_4 in pairs(game.Players:GetPlayers()) do
+	if v_4:FindFirstChild("SelectedTeam") and v_4 ~= game.Players.LocalPlayer then
+		v_4.SelectedTeam.Changed:Connect(function() -- Line 198
+			doPlayerFrame()
+		end)
+	end
+end
+game.Players.LocalPlayer:WaitForChild("SelectedTeam").Changed:Connect(function() -- Line 203
+	--[[ Upvalues[1]:
+		[1]: PlayerListContainer_upvr (readonly)
+	]]
+	PlayerListContainer_upvr.Visible = false
+end)
+game.Players.PlayerRemoving:Connect(removePlayerFrame)
+function togglePlayerListVisibility() -- Line 209
+	--[[ Upvalues[2]:
+		[1]: var10_upvw (read and write)
+		[2]: PlayerListContainer_upvr (readonly)
+	]]
+	if game.Players.LocalPlayer.Data.Level.Value < 50 then
+		notification("MUST BE LEVEL 50+ TO INITIATE A VOTEKICK")
+	else
+		if game.Players.LocalPlayer.SelectedTeam.Value == "N/A" then
+			notification("MUST BE ON A TEAM TO VOTEKICK")
+			return
+		end
+		if game.ReplicatedStorage:FindFirstChild("VotekickCD") then
+			notification("VOTEKICKING IS ON COOLDOWN.")
+			return
+		end
+		if game.ReplicatedStorage.hasGameStarted.Value == false then
+			notification("CANNOT VOTEKICK DURING INTERMISSION.")
+			return
+		end
+		if var10_upvw then
+			notification("THERE IS A VOTEKICK IN PROGRESS.")
+			return
+		end
+		PlayerListContainer_upvr.Visible = not PlayerListContainer_upvr.Visible
+	end
+end
+script.Parent.Parent.Menu.LeftFrame:WaitForChild("VotekickButton").MouseButton1Click:Connect(togglePlayerListVisibility)
+PlayerListContainer_upvr:WaitForChild("CloseButton").MouseButton1Click:Connect(function() -- Line 234
+	--[[ Upvalues[1]:
+		[1]: PlayerListContainer_upvr (readonly)
+	]]
+	PlayerListContainer_upvr.Visible = false
+end)

@@ -1,0 +1,206 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerGui.Menu.CustomizationFrame.ColorSelectorHandler
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:24
+-- Luau version 6, Types version 3
+-- Time taken: 0.003660 seconds
+
+local LocalPlayer_upvr = game.Players.LocalPlayer
+local ColorSelector = script.Parent:WaitForChild("ColorSelector")
+local Color_upvr = ColorSelector:FindFirstChild("Color")
+LocalPlayer_upvr:WaitForChild("dataLoaded")
+local var4_upvw = false
+local Slider_upvr = script:WaitForChild("Slider")
+local mouse_upvr = LocalPlayer_upvr:GetMouse()
+local function makeSlider(arg1, arg2) -- Line 17
+	--[[ Upvalues[3]:
+		[1]: Slider_upvr (readonly)
+		[2]: var4_upvw (read and write)
+		[3]: mouse_upvr (readonly)
+	]]
+	local clone_2_upvr = Slider_upvr:clone()
+	clone_2_upvr.Parent = arg1
+	clone_2_upvr.Position = UDim2.new(arg2, 0, 0.5, 0)
+	local X_upvr = arg1.AbsolutePosition.X
+	local X_upvr_2 = arg1.AbsoluteSize.X
+	clone_2_upvr.MouseButton1Down:connect(function() -- Line 23
+		--[[ Upvalues[5]:
+			[1]: var4_upvw (copied, read and write)
+			[2]: mouse_upvr (copied, readonly)
+			[3]: X_upvr (readonly)
+			[4]: X_upvr_2 (readonly)
+			[5]: clone_2_upvr (readonly)
+		]]
+		if var4_upvw then
+		else
+			var4_upvw = true
+			repeat
+				clone_2_upvr.Position = UDim2.new(math.round(Snap(math.clamp((mouse_upvr.X - X_upvr) / X_upvr_2, 0, 1), 0.02) * 100) / 100, 0, 0.5, 0)
+				game:GetService("RunService").RenderStepped:wait()
+			until not var4_upvw
+		end
+	end)
+	return clone_2_upvr
+end
+function Snap(arg1, arg2) -- Line 41
+	return arg1 - arg1 % arg2
+end
+game:GetService("UserInputService").InputEnded:connect(function(arg1) -- Line 44
+	--[[ Upvalues[1]:
+		[1]: var4_upvw (read and write)
+	]]
+	if arg1.UserInputType == Enum.UserInputType.MouseButton1 then
+		var4_upvw = false
+	end
+end)
+local Value_upvw = LocalPlayer_upvr.Data.AccessoryColor.Value
+local any_ToHSV_result1_upvw, any_ToHSV_result2_upvw, any_ToHSV_result3_upvw = Value_upvw:ToHSV()
+local makeSlider_result1_upvr = makeSlider(ColorSelector.Hue, any_ToHSV_result1_upvw)
+local makeSlider_result1_upvr_2 = makeSlider(ColorSelector.Saturation, any_ToHSV_result2_upvw / 0.95)
+local makeSlider_result1_upvr_3 = makeSlider(ColorSelector.Value, (any_ToHSV_result3_upvw - 0.05) / 0.9)
+local function _() -- Line 58, Named "updateColor"
+	--[[ Upvalues[2]:
+		[1]: Color_upvr (readonly)
+		[2]: Value_upvw (read and write)
+	]]
+	Color_upvr.BackgroundColor3 = Value_upvw
+end
+Color_upvr.BackgroundColor3 = Value_upvw
+makeSlider_result1_upvr:GetPropertyChangedSignal("Position"):connect(function() -- Line 62
+	--[[ Upvalues[6]:
+		[1]: any_ToHSV_result1_upvw (read and write)
+		[2]: makeSlider_result1_upvr (readonly)
+		[3]: Value_upvw (read and write)
+		[4]: any_ToHSV_result2_upvw (read and write)
+		[5]: any_ToHSV_result3_upvw (read and write)
+		[6]: Color_upvr (readonly)
+	]]
+	any_ToHSV_result1_upvw = makeSlider_result1_upvr.Position.X.Scale
+	Value_upvw = Color3.fromHSV(any_ToHSV_result1_upvw, any_ToHSV_result2_upvw, any_ToHSV_result3_upvw)
+	Color_upvr.BackgroundColor3 = Value_upvw
+end)
+makeSlider_result1_upvr_2:GetPropertyChangedSignal("Position"):connect(function() -- Line 68
+	--[[ Upvalues[6]:
+		[1]: any_ToHSV_result2_upvw (read and write)
+		[2]: makeSlider_result1_upvr_2 (readonly)
+		[3]: Value_upvw (read and write)
+		[4]: any_ToHSV_result1_upvw (read and write)
+		[5]: any_ToHSV_result3_upvw (read and write)
+		[6]: Color_upvr (readonly)
+	]]
+	any_ToHSV_result2_upvw = makeSlider_result1_upvr_2.Position.X.Scale * 0.95
+	Value_upvw = Color3.fromHSV(any_ToHSV_result1_upvw, any_ToHSV_result2_upvw, any_ToHSV_result3_upvw)
+	Color_upvr.BackgroundColor3 = Value_upvw
+end)
+makeSlider_result1_upvr_3:GetPropertyChangedSignal("Position"):connect(function() -- Line 75
+	--[[ Upvalues[6]:
+		[1]: any_ToHSV_result3_upvw (read and write)
+		[2]: makeSlider_result1_upvr_3 (readonly)
+		[3]: Value_upvw (read and write)
+		[4]: any_ToHSV_result1_upvw (read and write)
+		[5]: any_ToHSV_result2_upvw (read and write)
+		[6]: Color_upvr (readonly)
+	]]
+	any_ToHSV_result3_upvw = makeSlider_result1_upvr_3.Position.X.Scale * 0.95
+	Value_upvw = Color3.fromHSV(any_ToHSV_result1_upvw, any_ToHSV_result2_upvw, any_ToHSV_result3_upvw)
+	Color_upvr.BackgroundColor3 = Value_upvw
+end)
+local var22_upvw = 0
+local var23_upvw = 0
+local var24_upvw = 0
+local Red_upvr = ColorSelector.Red
+local Green_upvr = ColorSelector.Green
+local Blue_upvr = ColorSelector.Blue
+Red_upvr.FocusLost:Connect(function() -- Line 88
+	--[[ Upvalues[6]:
+		[1]: Red_upvr (readonly)
+		[2]: var22_upvw (read and write)
+		[3]: Value_upvw (read and write)
+		[4]: var23_upvw (read and write)
+		[5]: var24_upvw (read and write)
+		[6]: Color_upvr (readonly)
+	]]
+	local var29
+	if type(tonumber(Red_upvr.Text)) ~= "number" then
+		Red_upvr.Text = ""
+	else
+		if var29 < 0 then
+			var29 = 0
+		elseif 255 < var29 then
+			var29 = 255
+		end
+		var22_upvw = var29
+		Red_upvr.Text = var22_upvw
+		Value_upvw = Color3.fromRGB(var22_upvw, var23_upvw, var24_upvw)
+		Color_upvr.BackgroundColor3 = Value_upvw
+	end
+end)
+Green_upvr.FocusLost:Connect(function() -- Line 105
+	--[[ Upvalues[6]:
+		[1]: Green_upvr (readonly)
+		[2]: var23_upvw (read and write)
+		[3]: Value_upvw (read and write)
+		[4]: var22_upvw (read and write)
+		[5]: var24_upvw (read and write)
+		[6]: Color_upvr (readonly)
+	]]
+	local var31
+	if type(tonumber(Green_upvr.Text)) ~= "number" then
+		Green_upvr.Text = ""
+	else
+		if var31 < 0 then
+			var31 = 0
+		elseif 255 < var31 then
+			var31 = 255
+		end
+		var23_upvw = var31
+		Green_upvr.Text = var23_upvw
+		Value_upvw = Color3.fromRGB(var22_upvw, var23_upvw, var24_upvw)
+		Color_upvr.BackgroundColor3 = Value_upvw
+	end
+end)
+Blue_upvr.FocusLost:Connect(function() -- Line 122
+	--[[ Upvalues[6]:
+		[1]: Blue_upvr (readonly)
+		[2]: var24_upvw (read and write)
+		[3]: Value_upvw (read and write)
+		[4]: var22_upvw (read and write)
+		[5]: var23_upvw (read and write)
+		[6]: Color_upvr (readonly)
+	]]
+	local var33
+	if type(tonumber(Blue_upvr.Text)) ~= "number" then
+		Blue_upvr.Text = ""
+	else
+		if var33 < 0 then
+			var33 = 0
+		elseif 255 < var33 then
+			var33 = 255
+		end
+		var24_upvw = var33
+		Blue_upvr.Text = var24_upvw
+		Value_upvw = Color3.fromRGB(var22_upvw, var23_upvw, var24_upvw)
+		Color_upvr.BackgroundColor3 = Value_upvw
+	end
+end)
+ColorSelector:WaitForChild("Submit").MouseButton1Click:connect(function() -- Line 139
+	--[[ Upvalues[2]:
+		[1]: Value_upvw (read and write)
+		[2]: LocalPlayer_upvr (readonly)
+	]]
+	game.ReplicatedStorage.Remotes.UpdateAccessoryColor:FireServer(Value_upvw)
+	local any_Once_result1_upvr = LocalPlayer_upvr.Data.AccessoryColor.Changed:Once(function() -- Line 141
+		local clone = game.ReplicatedStorage.UISounds.ui_achieve:Clone()
+		clone.Parent = game.Workspace
+		clone:Play()
+		game.Debris:AddItem(clone, 3)
+	end)
+	task.delay(0.4, function() -- Line 147
+		--[[ Upvalues[1]:
+			[1]: any_Once_result1_upvr (readonly)
+		]]
+		any_Once_result1_upvr:Disconnect()
+	end)
+end)

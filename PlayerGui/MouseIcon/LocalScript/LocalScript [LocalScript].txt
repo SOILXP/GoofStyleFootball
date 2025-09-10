@@ -1,0 +1,182 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerGui.MouseIcon.LocalScript
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:46
+-- Luau version 6, Types version 3
+-- Time taken: 0.003759 seconds
+
+local UserInputService_upvr = game:GetService("UserInputService")
+local LocalPlayer_upvr = game.Players.LocalPlayer
+local Controls_upvr = LocalPlayer_upvr:WaitForChild("Settings"):WaitForChild("Controls")
+local MouseIcon = script.Parent.MouseIcon
+local CurveLeft_upvr = MouseIcon.CurveLeft
+local CurveRight_upvr = MouseIcon.CurveRight
+local Topspin_upvr = MouseIcon.Topspin
+local var8_upvw = false
+UserInputService_upvr.InputBegan:Connect(function(arg1) -- Line 15
+	--[[ Upvalues[7]:
+		[1]: Controls_upvr (readonly)
+		[2]: LocalPlayer_upvr (readonly)
+		[3]: var8_upvw (read and write)
+		[4]: UserInputService_upvr (readonly)
+		[5]: CurveRight_upvr (readonly)
+		[6]: CurveLeft_upvr (readonly)
+		[7]: Topspin_upvr (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [7] 5. Error Block 2 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [7] 5. Error Block 2 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [89] 60. Error Block 29 start (CF ANALYSIS FAILED)
+	if var8_upvw == true then
+		if arg1.KeyCode == Enum.KeyCode[Controls_upvr.CurveRight.Value] then
+			CurveRight_upvr.Visible = true
+			return
+		end
+		if arg1.KeyCode == Enum.KeyCode[Controls_upvr.CurveLeft.Value] then
+			CurveLeft_upvr.Visible = true
+			return
+		end
+		if arg1.KeyCode == Enum.KeyCode[Controls_upvr.Topspin.Value] then
+			Topspin_upvr.Visible = true
+		end
+	end
+	-- KONSTANTERROR: [89] 60. Error Block 29 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [142] 94. Error Block 22 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [142] 94. Error Block 22 end (CF ANALYSIS FAILED)
+end)
+UserInputService_upvr.InputEnded:Connect(function(arg1) -- Line 40
+	--[[ Upvalues[6]:
+		[1]: Controls_upvr (readonly)
+		[2]: LocalPlayer_upvr (readonly)
+		[3]: var8_upvw (read and write)
+		[4]: CurveRight_upvr (readonly)
+		[5]: CurveLeft_upvr (readonly)
+		[6]: Topspin_upvr (readonly)
+	]]
+	if Controls_upvr.SpinToggle.Value == false then
+		local var12
+		if LocalPlayer_upvr.Settings.Misc.CurveVisual.Value == true then
+			local function INLINED_2() -- Internal function, doesn't exist in bytecode
+				var12 = Enum.UserInputType.MouseButton2
+				return var12
+			end
+			if Controls_upvr.Flipped.Value ~= true or not INLINED_2() then
+				var12 = Enum.UserInputType.MouseButton1
+			end
+			if arg1.UserInputType == var12 then
+				var8_upvw = false
+				var12 = false
+				CurveRight_upvr.Visible = var12
+				var12 = false
+				CurveLeft_upvr.Visible = var12
+				var12 = false
+				Topspin_upvr.Visible = var12
+			end
+			if var8_upvw == true then
+				var12 = Enum.KeyCode[Controls_upvr.CurveRight.Value]
+				if arg1.KeyCode == var12 then
+					var12 = false
+					CurveRight_upvr.Visible = var12
+					return
+				end
+				var12 = Enum.KeyCode[Controls_upvr.CurveLeft.Value]
+				if arg1.KeyCode == var12 then
+					var12 = false
+					CurveLeft_upvr.Visible = var12
+					return
+				end
+				var12 = Enum.KeyCode[Controls_upvr.Topspin.Value]
+				if arg1.KeyCode == var12 then
+					var12 = false
+					Topspin_upvr.Visible = var12
+				end
+			end
+		end
+	end
+end)
+local Character = LocalPlayer_upvr.Character
+if not Character then
+	Character = LocalPlayer_upvr.CharacterAdded:Wait()
+end
+local SelectedCurve_upvr = Character.Stats.SelectedCurve
+SelectedCurve_upvr.Changed:Connect(function() -- Line 63
+	--[[ Upvalues[6]:
+		[1]: LocalPlayer_upvr (readonly)
+		[2]: CurveLeft_upvr (readonly)
+		[3]: CurveRight_upvr (readonly)
+		[4]: Topspin_upvr (readonly)
+		[5]: Controls_upvr (readonly)
+		[6]: SelectedCurve_upvr (readonly)
+	]]
+	if LocalPlayer_upvr.Settings.Misc.CurveVisual.Value == false then
+		CurveLeft_upvr.Visible = false
+		CurveRight_upvr.Visible = false
+		Topspin_upvr.Visible = false
+	else
+		if Controls_upvr.SpinToggle.Value == false then return end
+		if SelectedCurve_upvr.Value == "Left" then
+			CurveLeft_upvr.Visible = true
+			CurveRight_upvr.Visible = false
+			Topspin_upvr.Visible = false
+			return
+		end
+		if SelectedCurve_upvr.Value == "Right" then
+			CurveLeft_upvr.Visible = false
+			CurveRight_upvr.Visible = true
+			Topspin_upvr.Visible = false
+			return
+		end
+		if SelectedCurve_upvr.Value == "Top" then
+			CurveLeft_upvr.Visible = false
+			CurveRight_upvr.Visible = false
+			Topspin_upvr.Visible = true
+			return
+		end
+		CurveLeft_upvr.Visible = false
+		CurveRight_upvr.Visible = false
+		Topspin_upvr.Visible = false
+	end
+end)
+local var17_upvw = 0
+UserInputService_upvr.InputChanged:Connect(function(arg1, arg2) -- Line 92
+	--[[ Upvalues[5]:
+		[1]: LocalPlayer_upvr (readonly)
+		[2]: CurveLeft_upvr (readonly)
+		[3]: CurveRight_upvr (readonly)
+		[4]: Topspin_upvr (readonly)
+		[5]: var17_upvw (read and write)
+	]]
+	if LocalPlayer_upvr.Settings.Misc.CurveVisual.Value == true and arg1.UserInputType == Enum.UserInputType.Gamepad1 and arg1.KeyCode == Enum.KeyCode.Thumbstick1 then
+		if 0.75 <= arg1.Position.X then
+			CurveLeft_upvr.Visible = false
+			CurveRight_upvr.Visible = true
+			Topspin_upvr.Visible = false
+			var17_upvw = 3
+		elseif arg1.Position.X <= -0.75 then
+			CurveLeft_upvr.Visible = true
+			CurveRight_upvr.Visible = false
+			Topspin_upvr.Visible = false
+			var17_upvw = 2
+		elseif 0.75 <= arg1.Position.Y then
+			CurveLeft_upvr.Visible = false
+			CurveRight_upvr.Visible = false
+			Topspin_upvr.Visible = false
+			var17_upvw = 4
+		elseif arg1.Position.Y <= -0.75 then
+			CurveLeft_upvr.Visible = false
+			CurveRight_upvr.Visible = false
+			Topspin_upvr.Visible = true
+			var17_upvw = 1
+		else
+			var17_upvw = 4
+		end
+		if arg1.Position.Magnitude < 0.4 then
+			CurveLeft_upvr.Visible = false
+			CurveRight_upvr.Visible = false
+			Topspin_upvr.Visible = false
+		end
+	end
+end)

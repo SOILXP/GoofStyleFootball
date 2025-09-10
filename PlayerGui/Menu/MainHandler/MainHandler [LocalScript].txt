@@ -1,0 +1,3761 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerGui.Menu.MainHandler
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:26
+-- Luau version 6, Types version 3
+-- Time taken: 0.216809 seconds
+
+-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+local MenuButtons_upvr = script.Parent.MenuButtons
+local LeftFrame_2 = script.Parent.LeftFrame
+local PlayButton_upvr_2 = script.Parent.PlayButton
+local PosSelectFrame_upvr_2 = script.Parent.PosSelectFrame
+local TeamSelectFrame_upvr_2 = script.Parent.TeamSelectFrame
+local SkillFrame_upvr_2 = script.Parent.SkillFrame
+local StatsFrame_upvr_2 = script.Parent.StatsFrame
+local Holder_upvr_3 = script.Parent.Coins.Holder
+local Holder_upvr_2 = script.Parent.EXP.Holder
+local CustomizationFrame_upvr_2 = script.Parent.CustomizationFrame
+local ColorSelector_upvr_2 = CustomizationFrame_upvr_2.ColorSelector
+local LocalPlayer_upvr_3 = game.Players.LocalPlayer
+local tbl_54_upvr = {
+	Argentina = "rbxassetid://8131230537";
+	Brazil = "rbxassetid://11705710978";
+	Germany = "rbxassetid://8120346775";
+	France = "rbxassetid://13539436075";
+	England = "rbxassetid://4807448";
+	Scotland = "rbxassetid://12261193582";
+	Wales = "rbxassetid://4460818460";
+	Spain = "rbxassetid://13397364163";
+	USA = "rbxassetid://60169251";
+	Japan = "rbxassetid://8131128121";
+	Italy = "rbxassetid://11919934085";
+	Croatia = "rbxassetid://12220234274";
+	Morocco = "rbxassetid://12598544754";
+	Canada = "rbxassetid://12300382903";
+	Portugal = "rbxassetid://13707539058";
+	Mexico = "rbxassetid://713432113";
+	Netherlands = "rbxassetid://198692974";
+	[""] = "rbxassetid://10201001615";
+}
+local var935_upvr
+repeat
+	task.wait()
+until LocalPlayer_upvr_3:FindFirstChild("dataLoaded")
+repeat
+	task.wait()
+until game.ReplicatedStorage.TeamInfo.CurrentAwayTeam.Value == "" or game.ReplicatedStorage.TeamInfo.CurrentHomeTeam.Value ~= ""
+local Accomplishments_upvr = StatsFrame_upvr_2.PickCategoryFrame.Accomplishments
+local PersonalStats_upvr = StatsFrame_upvr_2.PickCategoryFrame.PersonalStats
+local PersonalStatsFrame_upvr = StatsFrame_upvr_2.PersonalStatsFrame
+Accomplishments_upvr.MouseButton1Click:Connect(function() -- Line 45
+	--[[ Upvalues[4]:
+		[1]: Accomplishments_upvr (readonly)
+		[2]: PersonalStats_upvr (readonly)
+		[3]: StatsFrame_upvr_2 (readonly)
+		[4]: PersonalStatsFrame_upvr (readonly)
+	]]
+	game:GetService("TweenService"):Create(Accomplishments_upvr, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 0.5;
+	}):Play()
+	game:GetService("TweenService"):Create(PersonalStats_upvr, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 1;
+	}):Play()
+	StatsFrame_upvr_2.LeftFrame.Visible = true
+	StatsFrame_upvr_2.SelectionFrame.Visible = true
+	PersonalStatsFrame_upvr.Visible = false
+end)
+PersonalStats_upvr.MouseButton1Click:Connect(function() -- Line 57
+	--[[ Upvalues[4]:
+		[1]: PersonalStats_upvr (readonly)
+		[2]: Accomplishments_upvr (readonly)
+		[3]: StatsFrame_upvr_2 (readonly)
+		[4]: PersonalStatsFrame_upvr (readonly)
+	]]
+	game:GetService("TweenService"):Create(PersonalStats_upvr, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 0.5;
+	}):Play()
+	game:GetService("TweenService"):Create(Accomplishments_upvr, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 1;
+	}):Play()
+	StatsFrame_upvr_2.LeftFrame.Visible = false
+	StatsFrame_upvr_2.SelectionFrame.Visible = false
+	PersonalStatsFrame_upvr.Visible = true
+end)
+local StatSpread_upvr_2 = PersonalStatsFrame_upvr.RadarFrame.StatSpread
+local vector2_2_upvr = Vector2.new(106, 106)
+local vector2_5_upvr = Vector2.new(0.5, 0.5)
+local ImageLabel_upvr = Instance.new("ImageLabel")
+ImageLabel_upvr.BackgroundTransparency = 1
+ImageLabel_upvr.AnchorPoint = vector2_5_upvr
+ImageLabel_upvr.BorderSizePixel = 0
+local function draw2dTriangle_upvr(arg1, arg2, arg3, arg4, arg5, arg6) -- Line 83, Named "draw2dTriangle"
+	--[[ Upvalues[2]:
+		[1]: ImageLabel_upvr (readonly)
+		[2]: vector2_5_upvr (readonly)
+	]]
+	-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+	local var949 = arg2 - arg1
+	local var950 = arg3 - arg1
+	local var951 = arg3 - arg2
+	local any_Dot_result1_2 = var949:Dot(var949)
+	local any_Dot_result1_3 = var950:Dot(var950)
+	local any_Dot_result1_4 = var951:Dot(var951)
+	local var955
+	local var956
+	if any_Dot_result1_3 < any_Dot_result1_2 and any_Dot_result1_4 < any_Dot_result1_2 then
+		var956 = arg3
+		local var957 = var956
+	elseif any_Dot_result1_4 < any_Dot_result1_3 and any_Dot_result1_2 < any_Dot_result1_3 then
+		var955 = var956
+		var956 = var955
+	end
+	local var958 = var955 - var956
+	local unit_2 = (var957 - var955).unit
+	local any_Cross_result1 = unit_2:Cross(var958)
+	if 0 > any_Cross_result1 then
+		local _ = false
+		-- KONSTANTWARNING: Skipped task `defvar` above
+	else
+	end
+	if true then
+	else
+	end
+	local var962 = math.deg(math.atan2(unit_2.y, unit_2.x)) + 180
+	local var963 = (var956 + var955) / 2
+	local var964 = (var956 + var957) / 2
+	if not arg5 then
+	end
+	local clone_48 = ImageLabel_upvr:Clone()
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	if true then
+	else
+	end
+	clone_48.Image = "rbxassetid://15444410184"
+	clone_48.AnchorPoint = vector2_5_upvr
+	clone_48.Size = UDim2.new(0, math.abs(unit_2:Dot(var958)), 0, any_Cross_result1)
+	clone_48.Position = UDim2.new(0, var963.x, 0, var963.y)
+	clone_48.Rotation = var962
+	clone_48.Parent = arg4
+	if not arg6 then
+	end
+	local clone_15 = ImageLabel_upvr:Clone()
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	if true then
+	else
+	end
+	clone_15.Image = "rbxassetid://15444411230"
+	clone_15.AnchorPoint = vector2_5_upvr
+	clone_15.Size = UDim2.new(0, math.abs(unit_2:Dot(var957 - var956)), 0, any_Cross_result1)
+	clone_15.Position = UDim2.new(0, var964.x, 0, var964.y)
+	clone_15.Rotation = var962
+	clone_15.Parent = arg4
+	local UIGradient = Instance.new("UIGradient")
+	UIGradient.Transparency = NumberSequence.new({NumberSequenceKeypoint.new(0, 0.4), NumberSequenceKeypoint.new(1, 1)})
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	if not true or not clone_48 then
+	end
+	UIGradient.Parent = clone_15
+	local UIGradient_4 = Instance.new("UIGradient")
+	UIGradient_4.Transparency = NumberSequence.new({NumberSequenceKeypoint.new(0, 1), NumberSequenceKeypoint.new(1, 0.4)})
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	if not true or not clone_15 then
+	end
+	UIGradient_4.Parent = clone_48
+	return clone_48, clone_15
+end
+local tbl_18_upvr = {"DRB", "SHO", "OFF", "DEF", "SPD", "PAS"}
+local function DrawLine_upvr(arg1, arg2, arg3) -- Line 138, Named "DrawLine"
+	local vector2 = Vector2.new((arg1.X + arg2.X) / 2, (arg1.Y + arg2.Y) / 2)
+	local Frame_2 = Instance.new("Frame")
+	Frame_2.Size = UDim2.new(0, math.sqrt(math.pow(arg1.X - arg2.X, 2) + math.pow(arg1.Y - arg2.Y, 2)) + 1, 0, arg3)
+	Frame_2.AnchorPoint = Vector2.new(0.5, 0.5)
+	Frame_2.Position = UDim2.new(0, vector2.X, 0, vector2.Y)
+	Frame_2.Rotation = math.deg(math.atan2(arg1.Y - arg2.Y, arg1.X - arg2.X))
+	local UIGradient_5 = Instance.new("UIGradient")
+	UIGradient_5.Transparency = NumberSequence.new({NumberSequenceKeypoint.new(0, 0), NumberSequenceKeypoint.new(0.2, 0), NumberSequenceKeypoint.new(0.5, 0.8), NumberSequenceKeypoint.new(0.8, 0), NumberSequenceKeypoint.new(1, 0)})
+	UIGradient_5.Parent = Frame_2
+	local UICorner_2 = Instance.new("UICorner")
+	UICorner_2.CornerRadius = UDim.new(0.5, 0)
+	UICorner_2.Parent = Frame_2
+	return Frame_2
+end
+function getRank(arg1) -- Line 157
+	if arg1 <= 20 then
+		return 'E'
+	end
+	if arg1 <= 35 then
+		return 'D'
+	end
+	if arg1 <= 50 then
+		return 'C'
+	end
+	if arg1 <= 65 then
+		return 'B'
+	end
+	if arg1 <= 80 then
+		return 'A'
+	end
+	if arg1 <= 95 then
+		return 'S'
+	end
+	return "SS"
+end
+function getMedian(arg1) -- Line 175
+	local module_2 = {}
+	for i, v in pairs(arg1) do
+		table.insert(module_2, v)
+	end
+	table.sort(module_2)
+	if #module_2 % 2 == 0 then
+		v = #module_2
+		i = v / 2
+		v = #module_2 / 2 + 1
+		i = module_2[v]
+		return (module_2[i] + i) / 2
+	end
+	return module_2[math.ceil(#module_2 / 2)]
+end
+function drawStatBackground() -- Line 191
+	--[[ Upvalues[3]:
+		[1]: vector2_2_upvr (readonly)
+		[2]: DrawLine_upvr (readonly)
+		[3]: StatSpread_upvr_2 (readonly)
+	]]
+	for i_2 = 1, 6 do
+		local radians = math.rad(i_2 * 360 / 6 + 30)
+		local var987 = radians - 1.0471975511965976
+		local var988 = vector2_2_upvr + Vector2.new(math.sin(var987) * 1, math.cos(var987) * 1) * 105
+		local DrawLine_upvr_result1_2 = DrawLine_upvr(vector2_2_upvr, var988, 2)
+		DrawLine_upvr_result1_2.BorderSizePixel = 0
+		DrawLine_upvr_result1_2.ZIndex = 4
+		DrawLine_upvr_result1_2.Parent = StatSpread_upvr_2
+		DrawLine_upvr_result1_2.BackgroundColor3 = Color3.new(0.509804, 0.509804, 0.509804)
+		DrawLine_upvr_result1_2.Name = "Background"
+		local DrawLine_upvr_result1 = DrawLine_upvr(var988, vector2_2_upvr + Vector2.new(math.sin(radians) * 1, math.cos(radians) * 1) * 105, 2)
+		DrawLine_upvr_result1.BorderSizePixel = 0
+		DrawLine_upvr_result1.ZIndex = 4
+		DrawLine_upvr_result1.Parent = StatSpread_upvr_2
+		DrawLine_upvr_result1.BackgroundColor3 = Color3.new(0.509804, 0.509804, 0.509804)
+		DrawLine_upvr_result1.Name = "Background"
+	end
+end
+function comma_value(arg1) -- Line 223
+	local var991
+	repeat
+		local string_gsub_result1, string_gsub_result2_2 = string.gsub(var991, "^(-?%d+)(%d%d%d)", "%1,%2")
+		var991 = string_gsub_result1
+	until string_gsub_result2_2 == 0
+	return var991
+end
+local function _(arg1) -- Line 235, Named "GetHighest"
+	local var1001
+	for _, v_2 in ipairs(arg1) do
+		if var1001 < v_2 then
+			var1001 = v_2
+		end
+	end
+	return var1001
+end
+function getPlayerValue() -- Line 254
+	--[[ Upvalues[1]:
+		[1]: LocalPlayer_upvr_3 (readonly)
+	]]
+	-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+	local any_InvokeServer_result1_13 = game.ReplicatedStorage.Remotes.getAttributePoints:InvokeServer("Overall")
+	local tbl_66 = {}
+	local var1047
+	for _, v_3 in pairs(any_InvokeServer_result1_13.STR) do
+		table.insert(tbl_66, pointsLogorithmicToRating(v_3))
+	end
+	for _, v_4 in pairs(any_InvokeServer_result1_13.MID) do
+		var1047 = pointsLogorithmicToRating(v_4)
+		table.insert({}, var1047)
+		local var1052
+	end
+	for _, v_5 in pairs(any_InvokeServer_result1_13.DEF) do
+		var1047 = table.insert
+		var1047({}, pointsLogorithmicToRating(v_5))
+		local var1057
+	end
+	for _, v_6 in pairs(any_InvokeServer_result1_13.KPR) do
+		table.insert({}, pointsLogorithmicToRating(v_6))
+		local var1062
+	end
+	for _, v_7 in ipairs({getMedian(tbl_66), getMedian(var1052), getMedian(var1057), getMedian(var1062)}) do
+		if 0 < v_7 then
+		end
+	end
+	local getRank_result1 = getRank(v_7)
+	if getRank_result1 == 'D' then
+		local _ = 4
+	elseif getRank_result1 == 'C' then
+	elseif getRank_result1 == 'B' then
+	elseif getRank_result1 == 'A' then
+	elseif getRank_result1 == 'S' then
+	elseif getRank_result1 == "SS" then
+	end
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x5)
+	return '$'..comma_value(math.floor(0 + LocalPlayer_upvr_3.Data.Wins.Value * 100 * 324 + LocalPlayer_upvr_3.Data.Goals.Value * 50 * 324 + LocalPlayer_upvr_3.Data.Assists.Value * 40 * 324 + LocalPlayer_upvr_3.Data.Passes.Value * 20 * 324 + LocalPlayer_upvr_3.Data.Tackles.Value * 25 * 324 + LocalPlayer_upvr_3.Data.Saves.Value * 75 * 324))
+end
+function pointsLogorithmicToRating(arg1) -- Line 308
+	local var1069
+	repeat
+		var1069 += 1
+	until arg1 - var1069 * 2.5 - var1069 < 0
+	var1069 -= 1
+	if 99 < var1069 then
+		var1069 = 99
+	end
+	if var1069 < 0 then
+		var1069 = 0
+	end
+	return var1069
+end
+local LeftFrame_upvr_2 = PersonalStatsFrame_upvr.LeftFrame
+LeftFrame_upvr_2.plrName.Text = string.upper(LocalPlayer_upvr_3.DisplayName)
+LeftFrame_upvr_2.plrIcon.Image = game.Players:GetUserThumbnailAsync(LocalPlayer_upvr_3.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size100x100)
+LeftFrame_upvr_2.Origin.Image = tbl_54_upvr[LocalPlayer_upvr_3.Data.Origin.Value]
+LocalPlayer_upvr_3.Data.Origin.Changed:Connect(function() -- Line 326
+	--[[ Upvalues[3]:
+		[1]: LeftFrame_upvr_2 (readonly)
+		[2]: tbl_54_upvr (readonly)
+		[3]: LocalPlayer_upvr_3 (readonly)
+	]]
+	LeftFrame_upvr_2.Origin.Image = tbl_54_upvr[LocalPlayer_upvr_3.Data.Origin.Value]
+end)
+local SelectionFrame_upvr_3 = PersonalStatsFrame_upvr.SelectionFrame
+local var1073_upvw = "STR"
+local RadarFrame_upvr_2 = PersonalStatsFrame_upvr.RadarFrame
+function updateStatSpread(arg1) -- Line 333
+	--[[ Upvalues[9]:
+		[1]: var1073_upvw (read and write)
+		[2]: RadarFrame_upvr_2 (readonly)
+		[3]: LeftFrame_upvr_2 (readonly)
+		[4]: StatSpread_upvr_2 (readonly)
+		[5]: tbl_18_upvr (readonly)
+		[6]: vector2_2_upvr (readonly)
+		[7]: DrawLine_upvr (readonly)
+		[8]: PersonalStatsFrame_upvr (readonly)
+		[9]: draw2dTriangle_upvr (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 53 start (CF ANALYSIS FAILED)
+	var1073_upvw = arg1
+	local any_InvokeServer_result1_2 = game.ReplicatedStorage.Remotes.getAttributePoints:InvokeServer(arg1)
+	if var1073_upvw ~= arg1 then return end
+	if arg1 == "KPR" then
+		local _ = {any_InvokeServer_result1_2.DIVPoints, any_InvokeServer_result1_2.HANPoints, any_InvokeServer_result1_2.KICPoints, any_InvokeServer_result1_2.REFPoints, any_InvokeServer_result1_2.SPDPoints, any_InvokeServer_result1_2.POSPoints}
+		RadarFrame_upvr_2.DRB.Text = "DIV"
+		RadarFrame_upvr_2.SHO.Text = "HAN"
+		RadarFrame_upvr_2.OFF.Text = "KIC"
+		RadarFrame_upvr_2.DEF.Text = "REF"
+		RadarFrame_upvr_2.SPD.Text = "SPD"
+		RadarFrame_upvr_2.PAS.Text = "POS"
+		LeftFrame_upvr_2.DRB.Text = "DIV"
+		LeftFrame_upvr_2.SHO.Text = "HAN"
+		LeftFrame_upvr_2.OFF.Text = "KIC"
+		LeftFrame_upvr_2.DEF.Text = "REF"
+		LeftFrame_upvr_2.SPD.Text = "SPD"
+		LeftFrame_upvr_2.PAS.Text = "POS"
+	else
+		local _ = {any_InvokeServer_result1_2.DRBPoints, any_InvokeServer_result1_2.SHOPoints, any_InvokeServer_result1_2.OFFPoints, any_InvokeServer_result1_2.DEFPoints, any_InvokeServer_result1_2.SPDPoints, any_InvokeServer_result1_2.PASPoints}
+		RadarFrame_upvr_2.DRB.Text = "DRB"
+		RadarFrame_upvr_2.SHO.Text = "SHO"
+		RadarFrame_upvr_2.OFF.Text = "OFF"
+		RadarFrame_upvr_2.DEF.Text = "DEF"
+		RadarFrame_upvr_2.SPD.Text = "SPD"
+		RadarFrame_upvr_2.PAS.Text = "PAS"
+		LeftFrame_upvr_2.DRB.Text = "DRB"
+		LeftFrame_upvr_2.SHO.Text = "SHO"
+		LeftFrame_upvr_2.OFF.Text = "OFF"
+		LeftFrame_upvr_2.DEF.Text = "DEF"
+		LeftFrame_upvr_2.SPD.Text = "SPD"
+		LeftFrame_upvr_2.PAS.Text = "PAS"
+	end
+	if arg1 == "Overall" then
+		-- KONSTANTWARNING: GOTO [223] #146
+	end
+	-- KONSTANTERROR: [0] 1. Error Block 53 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [207] 134. Error Block 49 start (CF ANALYSIS FAILED)
+	if arg1 == "STR" then
+		-- KONSTANTWARNING: GOTO [223] #146
+	end
+	-- KONSTANTERROR: [207] 134. Error Block 49 end (CF ANALYSIS FAILED)
+end
+updateStatSpread("STR")
+drawStatBackground()
+SelectionFrame_upvr_3.STRButton.MouseButton1Click:Connect(function() -- Line 448
+	--[[ Upvalues[1]:
+		[1]: SelectionFrame_upvr_3 (readonly)
+	]]
+	game:GetService("TweenService"):Create(SelectionFrame_upvr_3.STRButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeColor3 = Color3.new(1, 1, 1);
+	}):Play()
+	for _, v_8 in pairs(SelectionFrame_upvr_3:GetChildren()) do
+		if v_8:IsA("TextButton") and v_8 ~= SelectionFrame_upvr_3.STRButton then
+			game:GetService("TweenService"):Create(v_8, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				TextStrokeColor3 = Color3.new(0, 0, 0);
+			}):Play()
+		end
+	end
+	local clone_41 = game.ReplicatedStorage.UISounds["ui-confirm1"]:Clone()
+	clone_41.Parent = game.Workspace
+	clone_41:Play()
+	game.Debris:AddItem(clone_41, 3)
+	updateStatSpread("STR")
+end)
+SelectionFrame_upvr_3.MIDButton.MouseButton1Click:Connect(function() -- Line 466
+	--[[ Upvalues[1]:
+		[1]: SelectionFrame_upvr_3 (readonly)
+	]]
+	game:GetService("TweenService"):Create(SelectionFrame_upvr_3.MIDButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeColor3 = Color3.new(1, 1, 1);
+	}):Play()
+	for _, v_9 in pairs(SelectionFrame_upvr_3:GetChildren()) do
+		if v_9:IsA("TextButton") and v_9 ~= SelectionFrame_upvr_3.MIDButton then
+			game:GetService("TweenService"):Create(v_9, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				TextStrokeColor3 = Color3.new(0, 0, 0);
+			}):Play()
+		end
+	end
+	local clone_40 = game.ReplicatedStorage.UISounds["ui-confirm1"]:Clone()
+	clone_40.Parent = game.Workspace
+	clone_40:Play()
+	game.Debris:AddItem(clone_40, 3)
+	updateStatSpread("MID")
+end)
+SelectionFrame_upvr_3.DEFButton.MouseButton1Click:Connect(function() -- Line 484
+	--[[ Upvalues[1]:
+		[1]: SelectionFrame_upvr_3 (readonly)
+	]]
+	game:GetService("TweenService"):Create(SelectionFrame_upvr_3.DEFButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeColor3 = Color3.new(1, 1, 1);
+	}):Play()
+	for _, v_10 in pairs(SelectionFrame_upvr_3:GetChildren()) do
+		if v_10:IsA("TextButton") and v_10 ~= SelectionFrame_upvr_3.DEFButton then
+			game:GetService("TweenService"):Create(v_10, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				TextStrokeColor3 = Color3.new(0, 0, 0);
+			}):Play()
+		end
+	end
+	local clone_17 = game.ReplicatedStorage.UISounds["ui-confirm1"]:Clone()
+	clone_17.Parent = game.Workspace
+	clone_17:Play()
+	game.Debris:AddItem(clone_17, 3)
+	updateStatSpread("DEF")
+end)
+SelectionFrame_upvr_3.KPRButton.MouseButton1Click:Connect(function() -- Line 503
+	--[[ Upvalues[1]:
+		[1]: SelectionFrame_upvr_3 (readonly)
+	]]
+	game:GetService("TweenService"):Create(SelectionFrame_upvr_3.KPRButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeColor3 = Color3.new(1, 1, 1);
+	}):Play()
+	for _, v_11 in pairs(SelectionFrame_upvr_3:GetChildren()) do
+		if v_11:IsA("TextButton") and v_11 ~= SelectionFrame_upvr_3.KPRButton then
+			game:GetService("TweenService"):Create(v_11, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				TextStrokeColor3 = Color3.new(0, 0, 0);
+			}):Play()
+		end
+	end
+	local clone_4 = game.ReplicatedStorage.UISounds["ui-confirm1"]:Clone()
+	clone_4.Parent = game.Workspace
+	clone_4:Play()
+	game.Debris:AddItem(clone_4, 3)
+	updateStatSpread("KPR")
+end)
+local LeftFrame_upvr = StatsFrame_upvr_2.LeftFrame
+LeftFrame_upvr.plrName.Text = string.upper(LocalPlayer_upvr_3.DisplayName)
+LeftFrame_upvr.plrIcon.Image = game.Players:GetUserThumbnailAsync(LocalPlayer_upvr_3.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size100x100)
+function setStatsForSelection(arg1) -- Line 525
+	--[[ Upvalues[2]:
+		[1]: LeftFrame_upvr (readonly)
+		[2]: LocalPlayer_upvr_3 (readonly)
+	]]
+	if arg1 == "Overall" then
+		LeftFrame_upvr.WINS.Amount.Text = LocalPlayer_upvr_3.Data.Wins.Value
+		LeftFrame_upvr.LOSSES.Amount.Text = LocalPlayer_upvr_3.Data.Losses.Value
+		LeftFrame_upvr.GOALS.Amount.Text = LocalPlayer_upvr_3.Data.Goals.Value
+		LeftFrame_upvr.ASSISTS.Amount.Text = LocalPlayer_upvr_3.Data.Assists.Value
+		LeftFrame_upvr.PASSES.Amount.Text = LocalPlayer_upvr_3.Data.Passes.Value
+		LeftFrame_upvr.TACKLES.Amount.Text = LocalPlayer_upvr_3.Data.Tackles.Value
+		LeftFrame_upvr.SAVES.Amount.Text = LocalPlayer_upvr_3.Data.Saves.Value
+		LeftFrame_upvr.OOB.Amount.Text = LocalPlayer_upvr_3.Data.Penalties.Value
+	else
+		local any_InvokeServer_result1_7 = game.ReplicatedStorage.Remotes.getPosStats:InvokeServer(arg1)
+		LeftFrame_upvr.WINS.Amount.Text = any_InvokeServer_result1_7.Wins
+		LeftFrame_upvr.LOSSES.Amount.Text = any_InvokeServer_result1_7.Losses
+		LeftFrame_upvr.GOALS.Amount.Text = any_InvokeServer_result1_7.Goals
+		LeftFrame_upvr.ASSISTS.Amount.Text = any_InvokeServer_result1_7.Assists
+		LeftFrame_upvr.PASSES.Amount.Text = any_InvokeServer_result1_7.Passes
+		LeftFrame_upvr.TACKLES.Amount.Text = any_InvokeServer_result1_7.Tackles
+		LeftFrame_upvr.SAVES.Amount.Text = any_InvokeServer_result1_7.Saves
+		LeftFrame_upvr.OOB.Amount.Text = any_InvokeServer_result1_7.OOB
+	end
+end
+StatsFrame_upvr_2.SelectionFrame.STRButton.MouseButton1Click:Connect(function() -- Line 548
+	--[[ Upvalues[1]:
+		[1]: LeftFrame_upvr (readonly)
+	]]
+	local clone_37 = game.ReplicatedStorage.UISounds["ui-confirm1"]:Clone()
+	clone_37.Parent = game.Workspace
+	clone_37:Play()
+	game.Debris:AddItem(clone_37, 3)
+	LeftFrame_upvr.posLabel.Text = "FORWARD"
+	setStatsForSelection("STR")
+end)
+StatsFrame_upvr_2.SelectionFrame.MIDButton.MouseButton1Click:Connect(function() -- Line 557
+	--[[ Upvalues[1]:
+		[1]: LeftFrame_upvr (readonly)
+	]]
+	local clone_36 = game.ReplicatedStorage.UISounds["ui-confirm1"]:Clone()
+	clone_36.Parent = game.Workspace
+	clone_36:Play()
+	game.Debris:AddItem(clone_36, 3)
+	LeftFrame_upvr.posLabel.Text = "MIDFIELDER"
+	setStatsForSelection("MID")
+end)
+StatsFrame_upvr_2.SelectionFrame.DEFButton.MouseButton1Click:Connect(function() -- Line 566
+	--[[ Upvalues[1]:
+		[1]: LeftFrame_upvr (readonly)
+	]]
+	local clone_49 = game.ReplicatedStorage.UISounds["ui-confirm1"]:Clone()
+	clone_49.Parent = game.Workspace
+	clone_49:Play()
+	game.Debris:AddItem(clone_49, 3)
+	LeftFrame_upvr.posLabel.Text = "DEFENDER"
+	setStatsForSelection("DEF")
+end)
+StatsFrame_upvr_2.SelectionFrame.KPRButton.MouseButton1Click:Connect(function() -- Line 575
+	--[[ Upvalues[1]:
+		[1]: LeftFrame_upvr (readonly)
+	]]
+	local clone_51 = game.ReplicatedStorage.UISounds["ui-confirm1"]:Clone()
+	clone_51.Parent = game.Workspace
+	clone_51:Play()
+	game.Debris:AddItem(clone_51, 3)
+	LeftFrame_upvr.posLabel.Text = "GOALKEEPER"
+	setStatsForSelection("KPR")
+end)
+StatsFrame_upvr_2.SelectionFrame.OVRButton.MouseButton1Click:Connect(function() -- Line 584
+	--[[ Upvalues[1]:
+		[1]: LeftFrame_upvr (readonly)
+	]]
+	local clone_61 = game.ReplicatedStorage.UISounds["ui-confirm1"]:Clone()
+	clone_61.Parent = game.Workspace
+	clone_61:Play()
+	game.Debris:AddItem(clone_61, 3)
+	LeftFrame_upvr.posLabel.Text = "OVERALL"
+	setStatsForSelection("Overall")
+end)
+setStatsForSelection("Overall")
+LocalPlayer_upvr_3.Data.EXP.Changed:Connect(function() -- Line 595
+	--[[ Upvalues[2]:
+		[1]: Holder_upvr_2 (readonly)
+		[2]: LocalPlayer_upvr_3 (readonly)
+	]]
+	Holder_upvr_2.Bar.Bar.Size = UDim2.new((LocalPlayer_upvr_3.Data.EXP.Value) / (LocalPlayer_upvr_3.Data.Level.Value * 500), 0, 1, 0)
+end)
+LocalPlayer_upvr_3.Data.Level.Changed:Connect(function() -- Line 599
+	--[[ Upvalues[2]:
+		[1]: Holder_upvr_2 (readonly)
+		[2]: LocalPlayer_upvr_3 (readonly)
+	]]
+	Holder_upvr_2.Level.Text = LocalPlayer_upvr_3.Data.Level.Value
+end)
+Holder_upvr_2.Bar.Bar.Size = UDim2.new((LocalPlayer_upvr_3.Data.EXP.Value) / (LocalPlayer_upvr_3.Data.Level.Value * 500), 0, 1, 0)
+Holder_upvr_2.Level.Text = LocalPlayer_upvr_3.Data.Level.Value
+LocalPlayer_upvr_3.Data.Coins.Changed:Connect(function() -- Line 605
+	--[[ Upvalues[2]:
+		[1]: Holder_upvr_3 (readonly)
+		[2]: LocalPlayer_upvr_3 (readonly)
+	]]
+	Holder_upvr_3.Amount.Text = LocalPlayer_upvr_3.Data.Coins.Value
+end)
+Holder_upvr_3.Amount.Text = LocalPlayer_upvr_3.Data.Coins.Value
+local NotificationLabel_upvr_2 = script.Parent.NotificationLabel
+function notification(arg1) -- Line 610
+	--[[ Upvalues[1]:
+		[1]: NotificationLabel_upvr_2 (readonly)
+	]]
+	local clone_34 = game.ReplicatedStorage.UISounds["ui-error4"]:Clone()
+	clone_34.Parent = game.Workspace
+	clone_34:Play()
+	game.Debris:AddItem(clone_34, 3)
+	NotificationLabel_upvr_2.Text = arg1
+	NotificationLabel_upvr_2.TextTransparency = 1
+	NotificationLabel_upvr_2.TextStrokeTransparency = 1
+	game:GetService("TweenService"):Create(NotificationLabel_upvr_2, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 0;
+		TextStrokeTransparency = 0.75;
+	}):Play()
+	task.delay(1, function() -- Line 622
+		--[[ Upvalues[1]:
+			[1]: NotificationLabel_upvr_2 (copied, readonly)
+		]]
+		game:GetService("TweenService"):Create(NotificationLabel_upvr_2, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			TextTransparency = 1;
+			TextStrokeTransparency = 1;
+		}):Play()
+	end)
+end
+local var1134_upvw = "Field"
+function setupSkillsFrame(arg1) -- Line 632
+	--[[ Upvalues[3]:
+		[1]: var1134_upvw (read and write)
+		[2]: SkillFrame_upvr_2 (readonly)
+		[3]: LocalPlayer_upvr_3 (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 82 start (CF ANALYSIS FAILED)
+	var1134_upvw = arg1
+	local pairs_result1_37, _, pairs_result3_10 = pairs(SkillFrame_upvr_2.SkillList:GetChildren())
+	local var1150
+	for _, v_12 in pairs_result1_37, var1150, pairs_result3_10 do
+		if v_12:IsA("TextButton") then
+			v_12:Destroy()
+		end
+	end
+	local tbl_107 = {}
+	var1150 = pairs(game.ReplicatedStorage.SkillInfo:GetChildren())
+	local pairs_result1_8, pairs_result2_6, pairs_result3_42 = pairs(game.ReplicatedStorage.SkillInfo:GetChildren())
+	for _, v_13 in pairs_result1_8, pairs_result2_6, pairs_result3_42 do
+		if arg1 ~= "Goalie" or v_13:FindFirstChild("Goalie") or arg1 ~= "Field" or not v_13:FindFirstChild("Goalie") then
+			table.insert(tbl_107, {
+				Level = v_13.Level.Value;
+				skillName = v_13.Name;
+			})
+		end
+	end
+	pairs_result1_8 = table.sort
+	pairs_result1_8(tbl_107, function(arg1_4, arg2) -- Line 647
+		local var1157
+		if arg1_4.Level >= arg2.Level then
+			var1157 = false
+		else
+			var1157 = true
+		end
+		return var1157
+	end)
+	pairs_result1_8 = pairs(tbl_107)
+	local pairs_result1_22_upvr, pairs_result2_44, pairs_result3_38 = pairs(tbl_107)
+	for var1180, var1189 in pairs_result1_22_upvr, pairs_result2_44, pairs_result3_38 do
+		local SOME_3_upvr = game.ReplicatedStorage.SkillInfo:FindFirstChild(var1189.skillName)
+		if SOME_3_upvr then
+			local clone_45_upvr = script.skillTemplate:Clone()
+			clone_45_upvr.Parent = SkillFrame_upvr_2.SkillList
+			clone_45_upvr.Text = string.upper(SOME_3_upvr.Name)
+			clone_45_upvr.skillIcon.Image = SOME_3_upvr:FindFirstChild("skillIcon").Value
+			clone_45_upvr.Type.Value = SOME_3_upvr.Type.Value
+			if SOME_3_upvr.Name == LocalPlayer_upvr_3.Data.SelectedSkill.Value or SOME_3_upvr.Name == LocalPlayer_upvr_3.Data.GoalieSkill.Value then
+				clone_45_upvr.UIStroke.Color = Color3.new(1, 1, 1)
+			end
+			local var1163_upvw
+			if LocalPlayer_upvr_3.Data.Level.Value < SOME_3_upvr.Level.Value and not game.ReplicatedStorage:FindFirstChild("noLevelRequirement") then
+				var1163_upvw = true
+				clone_45_upvr.Locked.Visible = true
+				clone_45_upvr.LockedBG.Visible = true
+				clone_45_upvr.LevelReq.Visible = true
+				clone_45_upvr.LevelReq.Text = "LEVEL "..SOME_3_upvr.Level.Value
+			end
+			local any_Connect_result1_upvr_2 = clone_45_upvr.MouseButton1Click:Connect(function() -- Line 669
+				--[[ Upvalues[5]:
+					[1]: var1163_upvw (read and write)
+					[2]: clone_45_upvr (readonly)
+					[3]: SkillFrame_upvr_2 (copied, readonly)
+					[4]: SOME_3_upvr (readonly)
+					[5]: LocalPlayer_upvr_3 (copied, readonly)
+				]]
+				if var1163_upvw == true then
+					local clone_9 = game.ReplicatedStorage.UISounds["ui-error4"]:Clone()
+					clone_9.Parent = game.Workspace
+					clone_9:Play()
+					game.Debris:AddItem(clone_9, 3)
+					task.spawn(function() -- Line 675
+						--[[ Upvalues[1]:
+							[1]: clone_45_upvr (copied, readonly)
+						]]
+						game:GetService("TweenService"):Create(clone_45_upvr.Locked, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+							Rotation = 45;
+						}):Play()
+						task.wait(0.1)
+						game:GetService("TweenService"):Create(clone_45_upvr.Locked, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+							Rotation = -45;
+						}):Play()
+						task.wait(0.1)
+						game:GetService("TweenService"):Create(clone_45_upvr.Locked, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+							Rotation = 0;
+						}):Play()
+					end)
+				else
+					game:GetService("TweenService"):Create(clone_45_upvr.UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+						Color = Color3.new(1, 1, 1);
+					}):Play()
+					for _, v_46 in pairs(SkillFrame_upvr_2.SkillList:GetChildren()) do
+						if v_46:IsA("TextButton") and v_46 ~= clone_45_upvr then
+							game:GetService("TweenService"):Create(v_46.UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+								Color = Color3.fromRGB(108, 115, 122);
+							}):Play()
+						end
+					end
+					local RightFrame_4 = SkillFrame_upvr_2.RightFrame
+					RightFrame_4.skillIcon.Image = SOME_3_upvr.skillIcon.Value
+					RightFrame_4.skillName.Text = string.upper(SOME_3_upvr.Name)
+					RightFrame_4.skillDescription.Text = SOME_3_upvr.Description.Value
+					RightFrame_4.skillType.Text = string.upper(SOME_3_upvr.Type.Value).." TYPE"
+					if SOME_3_upvr.Name == LocalPlayer_upvr_3.Data.SelectedSkill.Value or SOME_3_upvr.Name == LocalPlayer_upvr_3.Data.GoalieSkill.Value then
+						RightFrame_4.selectButton.Text = "SELECTED"
+						return
+					end
+					RightFrame_4.selectButton.Text = "SELECT"
+				end
+			end)
+			clone_45_upvr.Destroying:Once(function() -- Line 711
+				--[[ Upvalues[1]:
+					[1]: any_Connect_result1_upvr_2 (readonly)
+				]]
+				any_Connect_result1_upvr_2:Disconnect()
+			end)
+		end
+	end
+	pairs_result1_22_upvr = LocalPlayer_upvr_3.Name
+	local function INLINED_10() -- Internal function, doesn't exist in bytecode
+		pairs_result1_22_upvr = LocalPlayer_upvr_3.Name
+		return pairs_result1_22_upvr == "xAbruptum"
+	end
+	local function INLINED_11() -- Internal function, doesn't exist in bytecode
+		pairs_result1_22_upvr = LocalPlayer_upvr_3.Name
+		return pairs_result1_22_upvr == "kaitoudono"
+	end
+	local function INLINED_12() -- Internal function, doesn't exist in bytecode
+		pairs_result1_22_upvr = LocalPlayer_upvr_3.name
+		return pairs_result1_22_upvr == "MistyKuvo"
+	end
+	if pairs_result1_22_upvr == "Yayuzzo" or INLINED_10() or INLINED_11() or INLINED_12() or arg1 == "Field" then
+		pairs_result1_22_upvr = script.skillTemplate:Clone()
+		pairs_result1_22_upvr.Parent = SkillFrame_upvr_2.SkillList
+		pairs_result1_22_upvr.Text = "GODSPEED"
+		pairs_result1_22_upvr.skillIcon.Image = "http://www.roblox.com/asset/?id=5902417546"
+		var1189 = LocalPlayer_upvr_3
+		var1180 = var1189.Data
+		if var1180.SelectedSkill.Value == "Godspeed" then
+			var1180 = 1
+			var1189 = 1
+			SOME_3_upvr = 1
+			pairs_result1_22_upvr.UIStroke.Color = Color3.new(var1180, var1189, SOME_3_upvr)
+		end
+		function var1180() -- Line 725
+			--[[ Upvalues[3]:
+				[1]: pairs_result1_22_upvr (readonly)
+				[2]: SkillFrame_upvr_2 (copied, readonly)
+				[3]: LocalPlayer_upvr_3 (copied, readonly)
+			]]
+			game:GetService("TweenService"):Create(pairs_result1_22_upvr.UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Color = Color3.new(1, 1, 1);
+			}):Play()
+			for _, v_15 in pairs(SkillFrame_upvr_2.SkillList:GetChildren()) do
+				if v_15:IsA("TextButton") and v_15 ~= pairs_result1_22_upvr then
+					game:GetService("TweenService"):Create(v_15.UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+						Color = Color3.fromRGB(108, 115, 122);
+					}):Play()
+				end
+			end
+			local RightFrame_2 = SkillFrame_upvr_2.RightFrame
+			RightFrame_2.skillIcon.Image = "http://www.roblox.com/asset/?id=5902417546"
+			RightFrame_2.skillName.Text = "GODSPEED"
+			RightFrame_2.skillDescription.Text = "godspeed godspeed godspeed"
+			RightFrame_2.skillType.Text = "SPEED TYPE"
+			if LocalPlayer_upvr_3.Data.SelectedSkill.Value == "Godspeed" then
+				RightFrame_2.selectButton.Text = "SELECTED"
+			else
+				RightFrame_2.selectButton.Text = "SELECT"
+			end
+		end
+		local any_Connect_result1_upvr = pairs_result1_22_upvr.MouseButton1Click:Connect(var1180)
+		function var1189() -- Line 747
+			--[[ Upvalues[1]:
+				[1]: any_Connect_result1_upvr (readonly)
+			]]
+			any_Connect_result1_upvr:Disconnect()
+		end
+		pairs_result1_22_upvr.Destroying:Once(var1189)
+	end
+	pairs_result1_22_upvr = nil
+	any_Connect_result1_upvr = LocalPlayer_upvr_3.Data.SelectedSkill.Value
+	if any_Connect_result1_upvr == "Godspeed" then
+		any_Connect_result1_upvr = SkillFrame_upvr_2.RightFrame
+		local var1191 = any_Connect_result1_upvr
+		var1191.skillIcon.Image = "http://www.roblox.com/asset/?id=5902417546"
+		var1191.skillName.Text = "GODSPEED"
+		var1191.skillDescription.Text = "godspeed godspeed godspeed"
+		var1191.skillType.Text = "SPEED TYPE"
+		var1191.selectButton.Text = "SELECTED"
+		-- KONSTANTWARNING: GOTO [430] #269
+	end
+	-- KONSTANTERROR: [0] 1. Error Block 82 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [346] 220. Error Block 83 start (CF ANALYSIS FAILED)
+	if arg1 == "Field" then
+		var1191 = game.ReplicatedStorage.SkillInfo
+		SOME_3_upvr = LocalPlayer_upvr_3.Data
+		var1191 = var1191:FindFirstChild(SOME_3_upvr.SelectedSkill.Value)
+		pairs_result1_22_upvr = var1191
+	else
+		var1191 = game.ReplicatedStorage.SkillInfo
+		SOME_3_upvr = LocalPlayer_upvr_3.Data
+		var1191 = var1191:FindFirstChild(SOME_3_upvr.GoalieSkill.Value)
+		pairs_result1_22_upvr = var1191
+	end
+	var1191 = SkillFrame_upvr_2.RightFrame
+	local var1192 = var1191
+	var1192.skillIcon.Image = pairs_result1_22_upvr.skillIcon.Value
+	var1192.skillName.Text = string.upper(pairs_result1_22_upvr.Name)
+	var1192.skillDescription.Text = pairs_result1_22_upvr.Description.Value
+	SOME_3_upvr = " TYPE"
+	var1192.skillType.Text = string.upper(pairs_result1_22_upvr.Type.Value)..SOME_3_upvr
+	var1192.selectButton.Text = "SELECTED"
+	var1192 = LocalPlayer_upvr_3.Name
+	local var1193_upvr
+	if var1193_upvr == "ChillyDedM8" and arg1 == "Field" then
+		var1193_upvr = script.skillTemplate:Clone()
+		var1193_upvr.Parent = SkillFrame_upvr_2.SkillList
+		var1193_upvr.Text = "EXPLOSIVE RUSH"
+		var1193_upvr.skillIcon.Image = "http://www.roblox.com/asset/?id=15485263286"
+		SOME_3_upvr = LocalPlayer_upvr_3
+		if SOME_3_upvr.Data.SelectedSkill.Value == "Explosive Rush" then
+			SOME_3_upvr = 1
+			var1193_upvr.UIStroke.Color = Color3.new(1, SOME_3_upvr, 1)
+		end
+		local any_Connect_result1_upvr_3 = var1193_upvr.MouseButton1Click:Connect(function() -- Line 781
+			--[[ Upvalues[3]:
+				[1]: var1193_upvr (readonly)
+				[2]: SkillFrame_upvr_2 (copied, readonly)
+				[3]: LocalPlayer_upvr_3 (copied, readonly)
+			]]
+			game:GetService("TweenService"):Create(var1193_upvr.UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Color = Color3.new(1, 1, 1);
+			}):Play()
+			for _, v_16 in pairs(SkillFrame_upvr_2.SkillList:GetChildren()) do
+				if v_16:IsA("TextButton") and v_16 ~= var1193_upvr then
+					game:GetService("TweenService"):Create(v_16.UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+						Color = Color3.fromRGB(108, 115, 122);
+					}):Play()
+				end
+			end
+			local RightFrame_3 = SkillFrame_upvr_2.RightFrame
+			RightFrame_3.skillIcon.Image = "http://www.roblox.com/asset/?id=15485263286"
+			RightFrame_3.skillName.Text = "EXPLOSIVE RUSH"
+			RightFrame_3.skillDescription.Text = "Catch up."
+			RightFrame_3.skillType.Text = "SPEED TYPE"
+			if LocalPlayer_upvr_3.Data.SelectedSkill.Value == "Explosive Rush" then
+				RightFrame_3.selectButton.Text = "SELECTED"
+			else
+				RightFrame_3.selectButton.Text = "SELECT"
+			end
+		end)
+		function SOME_3_upvr() -- Line 803
+			--[[ Upvalues[1]:
+				[1]: any_Connect_result1_upvr_3 (readonly)
+			]]
+			any_Connect_result1_upvr_3:Disconnect()
+		end
+		var1193_upvr.Destroying:Once(SOME_3_upvr)
+	end
+	var1193_upvr = nil
+	SOME_3_upvr = LocalPlayer_upvr_3
+	any_Connect_result1_upvr_3 = SOME_3_upvr.Data.SelectedSkill.Value
+	if any_Connect_result1_upvr_3 == "Explosive Rush" then
+		any_Connect_result1_upvr_3 = SkillFrame_upvr_2.RightFrame
+		local var1205 = any_Connect_result1_upvr_3
+		var1205.skillIcon.Image = "http://www.roblox.com/asset/?id=5902417546"
+		var1205.skillName.Text = "EXPLOSIVE RUSH"
+		var1205.skillDescription.Text = "Catch up."
+		var1205.skillType.Text = "SPEED TYPE"
+		var1205.selectButton.Text = "SELECTED"
+	else
+		if arg1 == "Field" then
+			var1205 = game.ReplicatedStorage.SkillInfo
+			SOME_3_upvr = LocalPlayer_upvr_3.Data.SelectedSkill
+			var1205 = var1205:FindFirstChild(SOME_3_upvr.Value)
+			var1193_upvr = var1205
+		else
+			var1205 = game.ReplicatedStorage.SkillInfo
+			SOME_3_upvr = LocalPlayer_upvr_3.Data.GoalieSkill
+			var1205 = var1205:FindFirstChild(SOME_3_upvr.Value)
+			var1193_upvr = var1205
+		end
+		var1205 = SkillFrame_upvr_2.RightFrame
+		local var1206 = var1205
+		SOME_3_upvr = var1193_upvr.skillIcon
+		var1206.skillIcon.Image = SOME_3_upvr.Value
+		SOME_3_upvr = var1193_upvr.Name
+		var1206.skillName.Text = string.upper(SOME_3_upvr)
+		SOME_3_upvr = var1193_upvr.Description
+		var1206.skillDescription.Text = SOME_3_upvr.Value
+		SOME_3_upvr = string.upper(var1193_upvr.Type.Value)
+		var1206.skillType.Text = SOME_3_upvr.." TYPE"
+		var1206.selectButton.Text = "SELECTED"
+		-- KONSTANTERROR: [346] 220. Error Block 83 end (CF ANALYSIS FAILED)
+	end
+end
+task.spawn(function() -- Line 830
+	--[[ Upvalues[1]:
+		[1]: LocalPlayer_upvr_3 (readonly)
+	]]
+	repeat
+		task.wait()
+	until LocalPlayer_upvr_3.Data.SelectedSkill.Value ~= ""
+	setupSkillsFrame("Field")
+end)
+SkillFrame_upvr_2.PickCategoryFrame.FieldSkillsButton.MouseButton1Click:Connect(function() -- Line 835
+	--[[ Upvalues[1]:
+		[1]: SkillFrame_upvr_2 (readonly)
+	]]
+	game:GetService("TweenService"):Create(SkillFrame_upvr_2.PickCategoryFrame.FieldSkillsButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 0.5;
+	}):Play()
+	game:GetService("TweenService"):Create(SkillFrame_upvr_2.PickCategoryFrame.GoalieSkillsButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 1;
+	}):Play()
+	setupSkillsFrame("Field")
+end)
+SkillFrame_upvr_2.PickCategoryFrame.GoalieSkillsButton.MouseButton1Click:Connect(function() -- Line 845
+	--[[ Upvalues[1]:
+		[1]: SkillFrame_upvr_2 (readonly)
+	]]
+	game:GetService("TweenService"):Create(SkillFrame_upvr_2.PickCategoryFrame.GoalieSkillsButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 0.5;
+	}):Play()
+	game:GetService("TweenService"):Create(SkillFrame_upvr_2.PickCategoryFrame.FieldSkillsButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 1;
+	}):Play()
+	setupSkillsFrame("Goalie")
+end)
+function updateSkillResults(arg1) -- Line 856
+	--[[ Upvalues[1]:
+		[1]: SkillFrame_upvr_2 (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	local pairs_result1_41, pairs_result2_41, pairs_result3_16 = pairs(SkillFrame_upvr_2.SkillList:GetChildren())
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [83] 58. Error Block 13 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [83] 58. Error Block 13 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [10] 8. Error Block 22 start (CF ANALYSIS FAILED)
+	-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [83.6]
+	if nil then
+		if arg1 ~= "" then
+			-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [83.7]
+			-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [83.8]
+			if nil == nil then
+			else
+			end
+			-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+			if nil == false then
+				-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [83.9]
+				if nil == nil then
+					-- KONSTANTWARNING: GOTO [83] #58
+				end
+				-- KONSTANTWARNING: GOTO [83] #58
+			end
+		else
+		end
+	end
+	-- KONSTANTERROR: [10] 8. Error Block 22 end (CF ANALYSIS FAILED)
+end
+SkillFrame_upvr_2.searchBar:GetPropertyChangedSignal("Text"):Connect(function() -- Line 880
+	--[[ Upvalues[1]:
+		[1]: SkillFrame_upvr_2 (readonly)
+	]]
+	updateSkillResults(SkillFrame_upvr_2.searchBar.Text)
+end)
+SkillFrame_upvr_2.RightFrame.selectButton.MouseButton1Click:Connect(function() -- Line 884
+	--[[ Upvalues[1]:
+		[1]: SkillFrame_upvr_2 (readonly)
+	]]
+	local var1226
+	for _, v_17 in pairs(game.ReplicatedStorage.SkillInfo:GetChildren()) do
+		if string.lower(v_17.Name) == string.lower(SkillFrame_upvr_2.RightFrame.skillName.Text) then
+			var1226 = v_17.Name
+		end
+	end
+	if SkillFrame_upvr_2.RightFrame.skillName.Text == "GODSPEED" then
+		var1226 = "Godspeed"
+	end
+	if SkillFrame_upvr_2.RightFrame.skillName.Text == "EXPLOSIVE RUSH" then
+		var1226 = "Explosive Rush"
+	end
+	local any_InvokeServer_result1_12 = game.ReplicatedStorage.Remotes.SelectSkill:InvokeServer(var1226)
+	if any_InvokeServer_result1_12 == "MissingLevel" then
+		local clone_31 = game.ReplicatedStorage.UISounds["ui-error4"]:Clone()
+		clone_31.Parent = game.Workspace
+		clone_31:Play()
+		game.Debris:AddItem(clone_31, 3)
+	else
+		if any_InvokeServer_result1_12 == "Success" then
+			local clone_6 = game.ReplicatedStorage.UISounds["ui-confirm1"]:Clone()
+			clone_6.Parent = game.Workspace
+			clone_6:Play()
+			game.Debris:AddItem(clone_6, 3)
+			SkillFrame_upvr_2.RightFrame.selectButton.Text = "SELECTED"
+			return
+		end
+		if any_InvokeServer_result1_12 == nil then
+			local clone_19 = game.ReplicatedStorage.UISounds["ui-error4"]:Clone()
+			clone_19.Parent = game.Workspace
+			clone_19:Play()
+			game.Debris:AddItem(clone_19, 3)
+		end
+	end
+end)
+MenuButtons_upvr.SkillsButton.MouseButton1Click:Connect(function() -- Line 917
+	--[[ Upvalues[3]:
+		[1]: SkillFrame_upvr_2 (readonly)
+		[2]: var1134_upvw (read and write)
+		[3]: StatsFrame_upvr_2 (readonly)
+	]]
+	if SkillFrame_upvr_2.Visible == false then
+		closeTeamSelect()
+		script.Parent.SettingsFrame.Visible = false
+		setupSkillsFrame(var1134_upvw)
+		game:GetService("TweenService"):Create(StatsFrame_upvr_2, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0.5, 0, 1, 170);
+		}):Play()
+		task.delay(0.35, function() -- Line 925
+			--[[ Upvalues[1]:
+				[1]: StatsFrame_upvr_2 (copied, readonly)
+			]]
+			StatsFrame_upvr_2.Visible = false
+		end)
+		SkillFrame_upvr_2.Visible = true
+		game:GetService("TweenService"):Create(SkillFrame_upvr_2, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0.5, 0, 0.5, 0);
+		}):Play()
+	else
+		game:GetService("TweenService"):Create(SkillFrame_upvr_2, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0.5, 0, 1, 230);
+		}):Play()
+		task.delay(0.35, function() -- Line 936
+			--[[ Upvalues[1]:
+				[1]: SkillFrame_upvr_2 (copied, readonly)
+			]]
+			SkillFrame_upvr_2.Visible = false
+		end)
+	end
+end)
+MenuButtons_upvr.StatsButton.MouseButton1Click:Connect(function() -- Line 942
+	--[[ Upvalues[2]:
+		[1]: StatsFrame_upvr_2 (readonly)
+		[2]: SkillFrame_upvr_2 (readonly)
+	]]
+	if StatsFrame_upvr_2.Visible == false then
+		closeTeamSelect()
+		script.Parent.SettingsFrame.Visible = false
+		game:GetService("TweenService"):Create(SkillFrame_upvr_2, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0.5, 0, 1, 230);
+		}):Play()
+		task.delay(0.35, function() -- Line 949
+			--[[ Upvalues[1]:
+				[1]: SkillFrame_upvr_2 (copied, readonly)
+			]]
+			SkillFrame_upvr_2.Visible = false
+		end)
+		task.spawn(function() -- Line 952
+			--[[ Upvalues[1]:
+				[1]: StatsFrame_upvr_2 (copied, readonly)
+			]]
+			StatsFrame_upvr_2.TitleFrame.MoneyValue.Text = getPlayerValue()
+		end)
+		StatsFrame_upvr_2.Visible = true
+		game:GetService("TweenService"):Create(StatsFrame_upvr_2, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0.5, 0, 0.5, 0);
+		}):Play()
+	else
+		game:GetService("TweenService"):Create(StatsFrame_upvr_2, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0.5, 0, 1, 170);
+		}):Play()
+		task.delay(0.35, function() -- Line 964
+			--[[ Upvalues[1]:
+				[1]: StatsFrame_upvr_2 (copied, readonly)
+			]]
+			StatsFrame_upvr_2.Visible = false
+		end)
+	end
+end)
+SkillFrame_upvr_2.TitleFrame.CancelButton.MouseButton1Click:Connect(function() -- Line 970
+	--[[ Upvalues[1]:
+		[1]: SkillFrame_upvr_2 (readonly)
+	]]
+	game:GetService("TweenService"):Create(SkillFrame_upvr_2, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0.5, 0, 1, 230);
+	}):Play()
+	task.delay(0.35, function() -- Line 974
+		--[[ Upvalues[1]:
+			[1]: SkillFrame_upvr_2 (copied, readonly)
+		]]
+		SkillFrame_upvr_2.Visible = false
+	end)
+end)
+StatsFrame_upvr_2.TitleFrame.CancelButton.MouseButton1Click:Connect(function() -- Line 979
+	--[[ Upvalues[1]:
+		[1]: StatsFrame_upvr_2 (readonly)
+	]]
+	game:GetService("TweenService"):Create(StatsFrame_upvr_2, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0.5, 0, 1, 170);
+	}):Play()
+	task.delay(0.35, function() -- Line 983
+		--[[ Upvalues[1]:
+			[1]: StatsFrame_upvr_2 (copied, readonly)
+		]]
+		StatsFrame_upvr_2.Visible = false
+	end)
+end)
+local EquipFrame_upvr_2 = CustomizationFrame_upvr_2.EquipFrame
+local ItemsFrame_upvr = CustomizationFrame_upvr_2.ItemsFrame
+local SelectFrame_upvr = CustomizationFrame_upvr_2.SelectFrame
+local tbl_91_upvr = {
+	Default = "http://www.roblox.com/asset/?id=8215214363";
+	LongSleeve = "rbxassetid://16728126739";
+	Tracksuit = "rbxassetid://16728138036";
+	Undershirt = "rbxassetid://18565763187";
+	None = "rbxassetid://18295163188";
+	BlackGloves = "rbxassetid://18566362734";
+	WhiteGloves = "rbxassetid://104532564191542";
+	BlackFacemask = "rbxassetid://122170710702541";
+	WhiteFacemask = "rbxassetid://96362968821852";
+	BlackWristband = "rbxassetid://134371080571386";
+	WhiteWristband = "rbxassetid://72720706206318";
+}
+local tbl_93_upvr = {
+	Default = "DEFAULT";
+	LongSleeve = "LONG SLEEVE";
+	Undershirt = "JERSEY W/ UNDERSHIRT";
+	Tracksuit = "TRACKSUIT";
+	None = "NONE";
+	BlackGloves = "BLACK GLOVES";
+	WhiteGloves = "WHITE GLOVES";
+	BlackFacemask = "BLACK FACEMASK";
+	WhiteFacemask = "WHITE FACEMASK";
+	BlackWristband = "BLACK WRISTBAND";
+	WhiteWristband = "WHITE WRISTBAND";
+}
+local tbl_70_upvr = {
+	Common = Color3.new(1, 1, 1);
+	Rare = Color3.new(0.262745, 0.462745, 0.792157);
+	Epic = Color3.new(0.792157, 0, 0.862745);
+	Legendary = Color3.new(1, 0, 0);
+}
+function updateShirtType() -- Line 1029
+	--[[ Upvalues[4]:
+		[1]: SelectFrame_upvr (readonly)
+		[2]: tbl_93_upvr (readonly)
+		[3]: LocalPlayer_upvr_3 (readonly)
+		[4]: tbl_91_upvr (readonly)
+	]]
+	local var1256
+	local function INLINED_13() -- Internal function, doesn't exist in bytecode
+		var1256 = tbl_93_upvr[LocalPlayer_upvr_3.Data.shirtType.Value]
+		return var1256
+	end
+	if tbl_93_upvr[LocalPlayer_upvr_3.Data.shirtType.Value] == nil or not INLINED_13() then
+		var1256 = "DEFAULT"
+	end
+	SelectFrame_upvr.ShirtsButton.CurrentlyEquipped.Text = var1256
+	var1256 = tbl_91_upvr
+	if var1256[LocalPlayer_upvr_3.Data.shirtType.Value] ~= nil then
+		var1256 = SelectFrame_upvr.ShirtsButton
+		local function INLINED_14() -- Internal function, doesn't exist in bytecode
+			var1256 = tbl_91_upvr[LocalPlayer_upvr_3.Data.shirtType.Value]
+			return var1256
+		end
+		if tbl_91_upvr[LocalPlayer_upvr_3.Data.shirtType.Value] == nil or not INLINED_14() then
+			var1256 = "http://www.roblox.com/asset/?id=8215214363"
+		end
+		var1256.Icon.Image = var1256
+	end
+end
+updateShirtType()
+LocalPlayer_upvr_3.Data.shirtType.Changed:Connect(updateShirtType)
+function updateAnimationType() -- Line 1038
+	--[[ Upvalues[3]:
+		[1]: LocalPlayer_upvr_3 (readonly)
+		[2]: SelectFrame_upvr (readonly)
+		[3]: tbl_70_upvr (readonly)
+	]]
+	local SOME = game.ReplicatedStorage.ItemInfo:FindFirstChild(LocalPlayer_upvr_3.Data.animationType.Value)
+	if SOME then
+		SelectFrame_upvr.AnimationsButton.CurrentlyEquipped.TextColor3 = tbl_70_upvr[SOME.Rarity.Value]
+		SelectFrame_upvr.AnimationsButton.CurrentlyEquipped.Text = string.upper(SOME.Name)
+		SelectFrame_upvr.AnimationsButton.Icon.Image = SOME.itemIcon.Texture
+	end
+end
+updateAnimationType()
+LocalPlayer_upvr_3.Data.animationType.Changed:Connect(updateAnimationType)
+function updateAccessory() -- Line 1049
+	--[[ Upvalues[4]:
+		[1]: SelectFrame_upvr (readonly)
+		[2]: tbl_93_upvr (readonly)
+		[3]: LocalPlayer_upvr_3 (readonly)
+		[4]: tbl_91_upvr (readonly)
+	]]
+	local var1258
+	local function INLINED_15() -- Internal function, doesn't exist in bytecode
+		var1258 = tbl_93_upvr[LocalPlayer_upvr_3.Data.Accessory.Value]
+		return var1258
+	end
+	if tbl_93_upvr[LocalPlayer_upvr_3.Data.Accessory.Value] == nil or not INLINED_15() then
+		var1258 = "NONE"
+	end
+	SelectFrame_upvr.AccessoriesButton.CurrentlyEquipped.Text = var1258
+	var1258 = tbl_91_upvr
+	if var1258[LocalPlayer_upvr_3.Data.Accessory.Value] ~= nil then
+		var1258 = SelectFrame_upvr.AccessoriesButton
+		local function INLINED_16() -- Internal function, doesn't exist in bytecode
+			var1258 = tbl_91_upvr[LocalPlayer_upvr_3.Data.Accessory.Value]
+			return var1258
+		end
+		if tbl_91_upvr[LocalPlayer_upvr_3.Data.Accessory.Value] == nil or not INLINED_16() then
+			var1258 = "http://www.roblox.com/asset/?id=18295163188"
+		end
+		var1258.Icon.Image = var1258
+	end
+end
+updateAccessory()
+LocalPlayer_upvr_3.Data.Accessory.Changed:Connect(updateAccessory)
+function updateScoreAura() -- Line 1058
+	--[[ Upvalues[3]:
+		[1]: LocalPlayer_upvr_3 (readonly)
+		[2]: SelectFrame_upvr (readonly)
+		[3]: tbl_70_upvr (readonly)
+	]]
+	local SOME_20 = game.ReplicatedStorage.ItemInfo:FindFirstChild(LocalPlayer_upvr_3.Data.ScoreAura.Value)
+	if SOME_20 then
+		SelectFrame_upvr.AuraButton.CurrentlyEquipped.TextColor3 = tbl_70_upvr[SOME_20.Rarity.Value]
+		SelectFrame_upvr.AuraButton.CurrentlyEquipped.Text = string.upper(SOME_20.Name)
+		SelectFrame_upvr.AuraButton.Icon.Image = SOME_20.itemIcon.Texture
+	end
+end
+updateScoreAura()
+LocalPlayer_upvr_3.Data.ScoreAura.Changed:Connect(updateScoreAura)
+function updateMVPEyes() -- Line 1069
+	--[[ Upvalues[3]:
+		[1]: LocalPlayer_upvr_3 (readonly)
+		[2]: SelectFrame_upvr (readonly)
+		[3]: tbl_70_upvr (readonly)
+	]]
+	local SOME_18 = game.ReplicatedStorage.ItemInfo:FindFirstChild(LocalPlayer_upvr_3.Data.MVPEyes.Value)
+	if SOME_18 then
+		SelectFrame_upvr.EyesButton.CurrentlyEquipped.TextColor3 = tbl_70_upvr[SOME_18.Rarity.Value]
+		SelectFrame_upvr.EyesButton.CurrentlyEquipped.Text = string.upper(SOME_18.Name)
+		SelectFrame_upvr.EyesButton.Icon.Image = SOME_18.itemIcon.Texture
+	end
+end
+updateMVPEyes()
+LocalPlayer_upvr_3.Data.MVPEyes.Changed:Connect(updateMVPEyes)
+function updateGoalCeleb() -- Line 1080
+	--[[ Upvalues[3]:
+		[1]: LocalPlayer_upvr_3 (readonly)
+		[2]: SelectFrame_upvr (readonly)
+		[3]: tbl_70_upvr (readonly)
+	]]
+	local SOME_16 = game.ReplicatedStorage.ItemInfo:FindFirstChild(LocalPlayer_upvr_3.Data.GoalCelebration.Value)
+	if SOME_16 then
+		SelectFrame_upvr.GoalCelebButton.CurrentlyEquipped.TextColor3 = tbl_70_upvr[SOME_16.Rarity.Value]
+		SelectFrame_upvr.GoalCelebButton.CurrentlyEquipped.Text = string.upper(SOME_16.Name)
+		SelectFrame_upvr.GoalCelebButton.Icon.Image = SOME_16.itemIcon.Texture
+	end
+end
+updateGoalCeleb()
+LocalPlayer_upvr_3.Data.GoalCelebration.Changed:Connect(updateGoalCeleb)
+function updateWinCeleb() -- Line 1091
+	--[[ Upvalues[3]:
+		[1]: LocalPlayer_upvr_3 (readonly)
+		[2]: SelectFrame_upvr (readonly)
+		[3]: tbl_70_upvr (readonly)
+	]]
+	local SOME_11 = game.ReplicatedStorage.ItemInfo:FindFirstChild(LocalPlayer_upvr_3.Data.WinCelebration.Value)
+	if SOME_11 then
+		SelectFrame_upvr.WinCelebButton.CurrentlyEquipped.TextColor3 = tbl_70_upvr[SOME_11.Rarity.Value]
+		SelectFrame_upvr.WinCelebButton.CurrentlyEquipped.Text = string.upper(SOME_11.Name)
+		SelectFrame_upvr.WinCelebButton.Icon.Image = SOME_11.itemIcon.Texture
+	end
+end
+updateWinCeleb()
+LocalPlayer_upvr_3.Data.WinCelebration.Changed:Connect(updateWinCeleb)
+local ItemInfo_upvr_2 = game.ReplicatedStorage.ItemInfo
+function runCustomizationSetup() -- Line 1104
+	--[[ Upvalues[4]:
+		[1]: ItemsFrame_upvr (readonly)
+		[2]: LocalPlayer_upvr_3 (readonly)
+		[3]: ItemInfo_upvr_2 (readonly)
+		[4]: tbl_70_upvr (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 79 start (CF ANALYSIS FAILED)
+	local var1287
+	for _, v_18 in pairs(ItemsFrame_upvr.AurasFrame:GetChildren()) do
+		var1287 = v_18:IsA("ImageButton")
+		if var1287 then
+			var1287 = v_18:Destroy
+			var1287()
+		end
+	end
+	for _, v_19 in pairs(ItemsFrame_upvr.AnimationFrame:GetChildren()) do
+		var1287 = v_19:IsA("ImageButton")
+		if var1287 then
+			var1287 = v_19:Destroy
+			var1287()
+		end
+	end
+	for _, v_20 in pairs(ItemsFrame_upvr.EyesFrame:GetChildren()) do
+		var1287 = v_20:IsA("ImageButton")
+		if var1287 then
+			var1287 = v_20:Destroy
+			var1287()
+		end
+	end
+	for _, v_21 in pairs(ItemsFrame_upvr.GoalCelebFrame:GetChildren()) do
+		var1287 = v_21:IsA("ImageButton")
+		if var1287 then
+			var1287 = v_21:Destroy
+			var1287()
+		end
+	end
+	for _, v_22 in pairs(ItemsFrame_upvr.WinCelebFrame:GetChildren()) do
+		var1287 = v_22:IsA("ImageButton")
+		if var1287 then
+			var1287 = v_22:Destroy
+			var1287()
+		end
+	end
+	local pairs_result1, pairs_result2_37, pairs_result3_26 = pairs(ItemsFrame_upvr:GetDescendants())
+	-- KONSTANTERROR: [0] 1. Error Block 79 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [176] 123. Error Block 30 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [176] 123. Error Block 30 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [118] 83. Error Block 83 start (CF ANALYSIS FAILED)
+	-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [176.6]
+	if nil then
+		-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+		if not nil then
+			-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+			if nil then
+				-- KONSTANTWARNING: GOTO [176] #123
+			end
+		else
+			-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x2)
+			if nil and nil then
+			end
+		end
+	end
+	-- KONSTANTERROR: [118] 83. Error Block 83 end (CF ANALYSIS FAILED)
+end
+runCustomizationSetup()
+MenuButtons_upvr.CustomizeButton.MouseButton1Click:Connect(function() -- Line 1199
+	--[[ Upvalues[4]:
+		[1]: ColorSelector_upvr_2 (readonly)
+		[2]: CustomizationFrame_upvr_2 (readonly)
+		[3]: MenuButtons_upvr (readonly)
+		[4]: PlayButton_upvr_2 (readonly)
+	]]
+	ColorSelector_upvr_2.Visible = false
+	runCustomizationSetup()
+	game:GetService("TweenService"):Create(CustomizationFrame_upvr_2.ItemsFrame, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0, 0, 0.5, 0);
+	}):Play()
+	game:GetService("TweenService"):Create(CustomizationFrame_upvr_2.SelectFrame, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(1, 0, 1, 0);
+	}):Play()
+	game:GetService("TweenService"):Create(CustomizationFrame_upvr_2.CancelButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0.5, 0, 0.95, 0);
+	}):Play()
+	MenuButtons_upvr.Visible = false
+	PlayButton_upvr_2.Visible = false
+end)
+CustomizationFrame_upvr_2.CancelButton.MouseButton1Click:Connect(function() -- Line 1215
+	--[[ Upvalues[5]:
+		[1]: ColorSelector_upvr_2 (readonly)
+		[2]: CustomizationFrame_upvr_2 (readonly)
+		[3]: EquipFrame_upvr_2 (readonly)
+		[4]: MenuButtons_upvr (readonly)
+		[5]: PlayButton_upvr_2 (readonly)
+	]]
+	ColorSelector_upvr_2.Visible = false
+	game:GetService("TweenService"):Create(CustomizationFrame_upvr_2.ItemsFrame, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0, -350, 0.5, 0);
+	}):Play()
+	game:GetService("TweenService"):Create(CustomizationFrame_upvr_2.SelectFrame, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(1, 800, 1, 0);
+	}):Play()
+	game:GetService("TweenService"):Create(CustomizationFrame_upvr_2.CancelButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0.5, 0, 0.95, 200);
+	}):Play()
+	game:GetService("TweenService"):Create(EquipFrame_upvr_2, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0.5, 0, 1, 150);
+	}):Play()
+	MenuButtons_upvr.Visible = true
+	PlayButton_upvr_2.Visible = true
+end)
+local ShirtsFrame_upvr = ItemsFrame_upvr.ShirtsFrame
+local AccessoriesFrame_upvr = ItemsFrame_upvr.AccessoriesFrame
+local var1314_upvw
+local var1315_upvw = "shirtType"
+SelectFrame_upvr.AnimationsButton.MouseButton1Click:Connect(function() -- Line 1240
+	--[[ Upvalues[6]:
+		[1]: EquipFrame_upvr_2 (readonly)
+		[2]: var1314_upvw (read and write)
+		[3]: var1315_upvw (read and write)
+		[4]: ItemsFrame_upvr (readonly)
+		[5]: ColorSelector_upvr_2 (readonly)
+		[6]: SelectFrame_upvr (readonly)
+	]]
+	game:GetService("TweenService"):Create(EquipFrame_upvr_2, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0.5, 0, 1, 150);
+	}):Play()
+	var1314_upvw = nil
+	var1315_upvw = "animationType"
+	ItemsFrame_upvr.AnimationFrame.Visible = true
+	ColorSelector_upvr_2.Visible = false
+	game:GetService("TweenService"):Create(SelectFrame_upvr.AnimationsButton.UIStroke, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Thickness = 4;
+		Color = Color3.new(1, 1, 1);
+		Transparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(SelectFrame_upvr.AnimationsButton.Icon, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Size = UDim2.new(0, 105, 0, 90);
+	}):Play()
+	for _, v_23 in pairs(ItemsFrame_upvr:GetChildren()) do
+		if v_23:IsA("Frame") or v_23:IsA("ScrollingFrame") then
+			if v_23 ~= ItemsFrame_upvr.AnimationFrame then
+				v_23.Visible = false
+			end
+		end
+	end
+	for _, v_24 in pairs(SelectFrame_upvr:GetChildren()) do
+		if v_24:IsA("ImageButton") and v_24 ~= SelectFrame_upvr.AnimationsButton then
+			game:GetService("TweenService"):Create(v_24.UIStroke, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Thickness = 2;
+				Color = Color3.new(0.498039, 0.529412, 0.560784);
+				Transparency = 0.25;
+			}):Play()
+			game:GetService("TweenService"):Create(v_24.Icon, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Size = UDim2.new(0, 97, 0, 85);
+			}):Play()
+		end
+	end
+end)
+SelectFrame_upvr.ShirtsButton.MouseButton1Click:Connect(function() -- Line 1275
+	--[[ Upvalues[6]:
+		[1]: EquipFrame_upvr_2 (readonly)
+		[2]: var1314_upvw (read and write)
+		[3]: var1315_upvw (read and write)
+		[4]: ItemsFrame_upvr (readonly)
+		[5]: ColorSelector_upvr_2 (readonly)
+		[6]: SelectFrame_upvr (readonly)
+	]]
+	game:GetService("TweenService"):Create(EquipFrame_upvr_2, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0.5, 0, 1, 150);
+	}):Play()
+	var1314_upvw = nil
+	var1315_upvw = "shirtType"
+	ItemsFrame_upvr.ShirtsFrame.Visible = true
+	ColorSelector_upvr_2.Visible = false
+	game:GetService("TweenService"):Create(SelectFrame_upvr.ShirtsButton.UIStroke, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Thickness = 4;
+		Color = Color3.new(1, 1, 1);
+		Transparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(SelectFrame_upvr.ShirtsButton.Icon, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Size = UDim2.new(0, 105, 0, 90);
+	}):Play()
+	for _, v_25 in pairs(ItemsFrame_upvr:GetChildren()) do
+		if v_25:IsA("Frame") or v_25:IsA("ScrollingFrame") then
+			if v_25 ~= ItemsFrame_upvr.ShirtsFrame then
+				v_25.Visible = false
+			end
+		end
+	end
+	for _, v_26 in pairs(SelectFrame_upvr:GetChildren()) do
+		if v_26:IsA("ImageButton") and v_26 ~= SelectFrame_upvr.ShirtsButton then
+			game:GetService("TweenService"):Create(v_26.UIStroke, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Thickness = 2;
+				Color = Color3.new(0.498039, 0.529412, 0.560784);
+				Transparency = 0.25;
+			}):Play()
+			game:GetService("TweenService"):Create(v_26.Icon, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Size = UDim2.new(0, 97, 0, 85);
+			}):Play()
+		end
+	end
+end)
+SelectFrame_upvr.AccessoriesButton.MouseButton1Click:Connect(function() -- Line 1311
+	--[[ Upvalues[7]:
+		[1]: ColorSelector_upvr_2 (readonly)
+		[2]: LocalPlayer_upvr_3 (readonly)
+		[3]: EquipFrame_upvr_2 (readonly)
+		[4]: var1314_upvw (read and write)
+		[5]: var1315_upvw (read and write)
+		[6]: ItemsFrame_upvr (readonly)
+		[7]: SelectFrame_upvr (readonly)
+	]]
+	ColorSelector_upvr_2.Color.BackgroundColor3 = LocalPlayer_upvr_3.Data.AccessoryColor.Value
+	ColorSelector_upvr_2.Visible = true
+	game:GetService("TweenService"):Create(EquipFrame_upvr_2, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0.5, 0, 1, 150);
+	}):Play()
+	var1314_upvw = nil
+	var1315_upvw = "Accessory"
+	ItemsFrame_upvr.AccessoriesFrame.Visible = true
+	game:GetService("TweenService"):Create(SelectFrame_upvr.AccessoriesButton.UIStroke, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Thickness = 4;
+		Color = Color3.new(1, 1, 1);
+		Transparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(SelectFrame_upvr.AccessoriesButton.Icon, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Size = UDim2.new(0, 105, 0, 90);
+	}):Play()
+	for _, v_27 in pairs(ItemsFrame_upvr:GetChildren()) do
+		if v_27:IsA("Frame") or v_27:IsA("ScrollingFrame") then
+			if v_27 ~= ItemsFrame_upvr.AccessoriesFrame then
+				v_27.Visible = false
+			end
+		end
+	end
+	for _, v_28 in pairs(SelectFrame_upvr:GetChildren()) do
+		if v_28:IsA("ImageButton") and v_28 ~= SelectFrame_upvr.AccessoriesButton then
+			game:GetService("TweenService"):Create(v_28.UIStroke, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Thickness = 2;
+				Color = Color3.new(0.498039, 0.529412, 0.560784);
+				Transparency = 0.25;
+			}):Play()
+			game:GetService("TweenService"):Create(v_28.Icon, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Size = UDim2.new(0, 97, 0, 85);
+			}):Play()
+		end
+	end
+end)
+SelectFrame_upvr.AuraButton.MouseButton1Click:Connect(function() -- Line 1348
+	--[[ Upvalues[6]:
+		[1]: ColorSelector_upvr_2 (readonly)
+		[2]: EquipFrame_upvr_2 (readonly)
+		[3]: var1314_upvw (read and write)
+		[4]: var1315_upvw (read and write)
+		[5]: ItemsFrame_upvr (readonly)
+		[6]: SelectFrame_upvr (readonly)
+	]]
+	ColorSelector_upvr_2.Visible = false
+	game:GetService("TweenService"):Create(EquipFrame_upvr_2, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0.5, 0, 1, 150);
+	}):Play()
+	var1314_upvw = nil
+	var1315_upvw = "ScoreAura"
+	ItemsFrame_upvr.AurasFrame.Visible = true
+	game:GetService("TweenService"):Create(SelectFrame_upvr.AuraButton.UIStroke, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Thickness = 4;
+		Color = Color3.new(1, 1, 1);
+		Transparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(SelectFrame_upvr.AuraButton.Icon, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Size = UDim2.new(0, 105, 0, 90);
+	}):Play()
+	for _, v_29 in pairs(ItemsFrame_upvr:GetChildren()) do
+		if v_29:IsA("Frame") or v_29:IsA("ScrollingFrame") then
+			if v_29 ~= ItemsFrame_upvr.AurasFrame then
+				v_29.Visible = false
+			end
+		end
+	end
+	for _, v_30 in pairs(SelectFrame_upvr:GetChildren()) do
+		if v_30:IsA("ImageButton") and v_30 ~= SelectFrame_upvr.AuraButton then
+			game:GetService("TweenService"):Create(v_30.UIStroke, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Thickness = 2;
+				Color = Color3.new(0.498039, 0.529412, 0.560784);
+				Transparency = 0.25;
+			}):Play()
+			game:GetService("TweenService"):Create(v_30.Icon, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Size = UDim2.new(0, 97, 0, 85);
+			}):Play()
+		end
+	end
+end)
+SelectFrame_upvr.EyesButton.MouseButton1Click:Connect(function() -- Line 1383
+	--[[ Upvalues[6]:
+		[1]: ColorSelector_upvr_2 (readonly)
+		[2]: EquipFrame_upvr_2 (readonly)
+		[3]: var1314_upvw (read and write)
+		[4]: var1315_upvw (read and write)
+		[5]: ItemsFrame_upvr (readonly)
+		[6]: SelectFrame_upvr (readonly)
+	]]
+	ColorSelector_upvr_2.Visible = false
+	game:GetService("TweenService"):Create(EquipFrame_upvr_2, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0.5, 0, 1, 150);
+	}):Play()
+	var1314_upvw = nil
+	var1315_upvw = "MVPEyes"
+	ItemsFrame_upvr.EyesFrame.Visible = true
+	game:GetService("TweenService"):Create(SelectFrame_upvr.EyesButton.UIStroke, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Thickness = 4;
+		Color = Color3.new(1, 1, 1);
+		Transparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(SelectFrame_upvr.EyesButton.Icon, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Size = UDim2.new(0, 105, 0, 90);
+	}):Play()
+	for _, v_31 in pairs(ItemsFrame_upvr:GetChildren()) do
+		if v_31:IsA("Frame") or v_31:IsA("ScrollingFrame") then
+			if v_31 ~= ItemsFrame_upvr.EyesFrame then
+				v_31.Visible = false
+			end
+		end
+	end
+	for _, v_32 in pairs(SelectFrame_upvr:GetChildren()) do
+		if v_32:IsA("ImageButton") and v_32 ~= SelectFrame_upvr.EyesButton then
+			game:GetService("TweenService"):Create(v_32.UIStroke, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Thickness = 2;
+				Color = Color3.new(0.498039, 0.529412, 0.560784);
+				Transparency = 0.25;
+			}):Play()
+			game:GetService("TweenService"):Create(v_32.Icon, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Size = UDim2.new(0, 97, 0, 85);
+			}):Play()
+		end
+	end
+end)
+SelectFrame_upvr.GoalCelebButton.MouseButton1Click:Connect(function() -- Line 1418
+	--[[ Upvalues[6]:
+		[1]: ColorSelector_upvr_2 (readonly)
+		[2]: EquipFrame_upvr_2 (readonly)
+		[3]: var1314_upvw (read and write)
+		[4]: var1315_upvw (read and write)
+		[5]: ItemsFrame_upvr (readonly)
+		[6]: SelectFrame_upvr (readonly)
+	]]
+	ColorSelector_upvr_2.Visible = false
+	game:GetService("TweenService"):Create(EquipFrame_upvr_2, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0.5, 0, 1, 150);
+	}):Play()
+	var1314_upvw = nil
+	var1315_upvw = "GoalCelebration"
+	ItemsFrame_upvr.GoalCelebFrame.Visible = true
+	game:GetService("TweenService"):Create(SelectFrame_upvr.GoalCelebButton.UIStroke, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Thickness = 4;
+		Color = Color3.new(1, 1, 1);
+		Transparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(SelectFrame_upvr.GoalCelebButton.Icon, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Size = UDim2.new(0, 105, 0, 90);
+	}):Play()
+	for _, v_33 in pairs(ItemsFrame_upvr:GetChildren()) do
+		if v_33:IsA("Frame") or v_33:IsA("ScrollingFrame") then
+			if v_33 ~= ItemsFrame_upvr.GoalCelebFrame then
+				v_33.Visible = false
+			end
+		end
+	end
+	for _, v_34 in pairs(SelectFrame_upvr:GetChildren()) do
+		if v_34:IsA("ImageButton") and v_34 ~= SelectFrame_upvr.GoalCelebButton then
+			game:GetService("TweenService"):Create(v_34.UIStroke, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Thickness = 2;
+				Color = Color3.new(0.498039, 0.529412, 0.560784);
+				Transparency = 0.25;
+			}):Play()
+			game:GetService("TweenService"):Create(v_34.Icon, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Size = UDim2.new(0, 97, 0, 85);
+			}):Play()
+		end
+	end
+end)
+SelectFrame_upvr.WinCelebButton.MouseButton1Click:Connect(function() -- Line 1453
+	--[[ Upvalues[6]:
+		[1]: ColorSelector_upvr_2 (readonly)
+		[2]: EquipFrame_upvr_2 (readonly)
+		[3]: var1314_upvw (read and write)
+		[4]: var1315_upvw (read and write)
+		[5]: ItemsFrame_upvr (readonly)
+		[6]: SelectFrame_upvr (readonly)
+	]]
+	ColorSelector_upvr_2.Visible = false
+	game:GetService("TweenService"):Create(EquipFrame_upvr_2, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0.5, 0, 1, 150);
+	}):Play()
+	var1314_upvw = nil
+	var1315_upvw = "WinCelebration"
+	ItemsFrame_upvr.WinCelebFrame.Visible = true
+	game:GetService("TweenService"):Create(SelectFrame_upvr.WinCelebButton.UIStroke, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Thickness = 4;
+		Color = Color3.new(1, 1, 1);
+		Transparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(SelectFrame_upvr.WinCelebButton.Icon, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Size = UDim2.new(0, 105, 0, 90);
+	}):Play()
+	for _, v_35 in pairs(ItemsFrame_upvr:GetChildren()) do
+		if v_35:IsA("Frame") or v_35:IsA("ScrollingFrame") then
+			if v_35 ~= ItemsFrame_upvr.WinCelebFrame then
+				v_35.Visible = false
+			end
+		end
+	end
+	for _, v_36 in pairs(SelectFrame_upvr:GetChildren()) do
+		if v_36:IsA("ImageButton") and v_36 ~= SelectFrame_upvr.WinCelebButton then
+			game:GetService("TweenService"):Create(v_36.UIStroke, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Thickness = 2;
+				Color = Color3.new(0.498039, 0.529412, 0.560784);
+				Transparency = 0.25;
+			}):Play()
+			game:GetService("TweenService"):Create(v_36.Icon, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Size = UDim2.new(0, 97, 0, 85);
+			}):Play()
+		end
+	end
+end)
+EquipFrame_upvr_2.EquipButton.MouseButton1Click:Connect(function() -- Line 1489
+	--[[ Upvalues[3]:
+		[1]: var1314_upvw (read and write)
+		[2]: var1315_upvw (read and write)
+		[3]: EquipFrame_upvr_2 (readonly)
+	]]
+	if var1314_upvw ~= nil then
+		game.ReplicatedStorage.Remotes.EquipCosmetic:FireServer(var1315_upvw, var1314_upvw)
+		local clone_8 = game.ReplicatedStorage.UISounds["ui-confirm1"]:Clone()
+		clone_8.Parent = game.Workspace
+		clone_8:Play()
+		game.Debris:AddItem(clone_8, 2)
+		EquipFrame_upvr_2.EquipButton.Text = "EQUIPPED"
+	end
+end)
+function showConfirmation(arg1) -- Line 1502
+	--[[ Upvalues[1]:
+		[1]: CustomizationFrame_upvr_2 (readonly)
+	]]
+	CustomizationFrame_upvr_2.PopupContainer.Visible = true
+	CustomizationFrame_upvr_2.PopupContainer.PurchaseText.Text = "WOULD YOU LIKE TO PURCHASE <"..arg1.Type.Text.."> for "..arg1.Price.Text..'?'
+	local var1431_upvw
+	var1431_upvw = CustomizationFrame_upvr_2.PopupContainer.YesButton.MouseButton1Click:Connect(function() -- Line 1506
+		--[[ Upvalues[3]:
+			[1]: arg1 (readonly)
+			[2]: var1431_upvw (read and write)
+			[3]: CustomizationFrame_upvr_2 (copied, readonly)
+		]]
+		if game.ReplicatedStorage.Remotes.BuyCheck:InvokeServer(arg1.Name) == nil then
+			local clone_16 = game.ReplicatedStorage.UISounds["ui-error4"]:Clone()
+			clone_16.Parent = game.Workspace
+			clone_16:Play()
+			game.Debris:AddItem(clone_16, 3)
+			task.spawn(function() -- Line 1513
+				--[[ Upvalues[1]:
+					[1]: arg1 (copied, readonly)
+				]]
+				game:GetService("TweenService"):Create(arg1.Locked, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					Rotation = 45;
+				}):Play()
+				task.wait(0.1)
+				game:GetService("TweenService"):Create(arg1.Locked, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					Rotation = -45;
+				}):Play()
+				task.wait(0.1)
+				game:GetService("TweenService"):Create(arg1.Locked, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					Rotation = 0;
+				}):Play()
+			end)
+		else
+			if arg1:FindFirstChild("Locked") then
+				arg1.Locked.Visible = false
+				arg1.LockedBG.Visible = false
+				if arg1:FindFirstChild("Price") then
+					arg1.Price.Visible = false
+				end
+				local clone_25 = game.ReplicatedStorage.UISounds.Item_Box_Get2:Clone()
+				clone_25.Parent = game.Workspace
+				clone_25:Play()
+				game.Debris:AddItem(clone_25, 2)
+			end
+			var1431_upvw:Disconnect()
+			CustomizationFrame_upvr_2.PopupContainer.Visible = false
+		end
+	end)
+	local var1439_upvw
+	var1439_upvw = CustomizationFrame_upvr_2.PopupContainer.NoButton.MouseButton1Click:Connect(function() -- Line 1541
+		--[[ Upvalues[3]:
+			[1]: var1431_upvw (read and write)
+			[2]: var1439_upvw (read and write)
+			[3]: CustomizationFrame_upvr_2 (copied, readonly)
+		]]
+		var1431_upvw:Disconnect()
+		var1439_upvw:Disconnect()
+		CustomizationFrame_upvr_2.PopupContainer.Visible = false
+	end)
+end
+function doSelection(arg1) -- Line 1548
+	--[[ Upvalues[3]:
+		[1]: LocalPlayer_upvr_3 (readonly)
+		[2]: EquipFrame_upvr_2 (readonly)
+		[3]: var1314_upvw (read and write)
+	]]
+	if not table.find(string.split(LocalPlayer_upvr_3.Data.Inventory.Value), arg1.Name) and arg1:FindFirstChild("Price") then
+		game:GetService("TweenService"):Create(EquipFrame_upvr_2, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0.5, 0, 1, 150);
+		}):Play()
+		showConfirmation(arg1)
+	else
+		if var1314_upvw == arg1.Name then
+			var1314_upvw = nil
+			game:GetService("TweenService"):Create(EquipFrame_upvr_2, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Position = UDim2.new(0.5, 0, 1, 150);
+			}):Play()
+			game:GetService("TweenService"):Create(arg1.UIStroke, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Color = Color3.new(0.498039, 0.529412, 0.560784);
+				Thickness = 2;
+				Transparency = 0.25;
+			}):Play()
+			return
+		end
+		for _, v_47 in pairs(arg1.Parent:GetChildren()) do
+			if v_47 ~= arg1 and v_47:IsA("ImageButton") then
+				game:GetService("TweenService"):Create(v_47.UIStroke, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					Color = Color3.new(0.498039, 0.529412, 0.560784);
+					Thickness = 2;
+					Transparency = 0.25;
+				}):Play()
+			end
+		end
+		var1314_upvw = arg1.Name
+		game:GetService("TweenService"):Create(EquipFrame_upvr_2, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0.5, 0, 1, -125);
+		}):Play()
+		game:GetService("TweenService"):Create(arg1.UIStroke, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Color = Color3.new(1, 1, 1);
+			Thickness = 3;
+			Transparency = 0;
+		}):Play()
+		EquipFrame_upvr_2.EquipButton.Text = "EQUIP"
+		for _, v_48 in pairs(LocalPlayer_upvr_3.Data:GetChildren()) do
+			if v_48:IsA("StringValue") and v_48.Value == arg1.Name then
+				EquipFrame_upvr_2.EquipButton.Text = "EQUIPPED"
+				return
+			end
+		end
+	end
+end
+ShirtsFrame_upvr.Default.MouseButton1Click:Connect(function() -- Line 1596
+	--[[ Upvalues[1]:
+		[1]: ShirtsFrame_upvr (readonly)
+	]]
+	doSelection(ShirtsFrame_upvr.Default)
+end)
+ShirtsFrame_upvr.LongSleeve.MouseButton1Click:Connect(function() -- Line 1600
+	--[[ Upvalues[1]:
+		[1]: ShirtsFrame_upvr (readonly)
+	]]
+	doSelection(ShirtsFrame_upvr.LongSleeve)
+end)
+ShirtsFrame_upvr.Undershirt.MouseButton1Click:Connect(function() -- Line 1604
+	--[[ Upvalues[1]:
+		[1]: ShirtsFrame_upvr (readonly)
+	]]
+	doSelection(ShirtsFrame_upvr.Undershirt)
+end)
+ShirtsFrame_upvr.Tracksuit.MouseButton1Click:Connect(function() -- Line 1608
+	--[[ Upvalues[1]:
+		[1]: ShirtsFrame_upvr (readonly)
+	]]
+	doSelection(ShirtsFrame_upvr.Tracksuit)
+end)
+AccessoriesFrame_upvr.None.MouseButton1Click:Connect(function() -- Line 1612
+	--[[ Upvalues[1]:
+		[1]: AccessoriesFrame_upvr (readonly)
+	]]
+	doSelection(AccessoriesFrame_upvr.None)
+end)
+AccessoriesFrame_upvr.BlackGloves.MouseButton1Click:Connect(function() -- Line 1616
+	--[[ Upvalues[1]:
+		[1]: AccessoriesFrame_upvr (readonly)
+	]]
+	doSelection(AccessoriesFrame_upvr.BlackGloves)
+end)
+AccessoriesFrame_upvr.WhiteGloves.MouseButton1Click:Connect(function() -- Line 1620
+	--[[ Upvalues[1]:
+		[1]: AccessoriesFrame_upvr (readonly)
+	]]
+	doSelection(AccessoriesFrame_upvr.WhiteGloves)
+end)
+AccessoriesFrame_upvr.BlackFaceMask.MouseButton1Click:Connect(function() -- Line 1624
+	--[[ Upvalues[1]:
+		[1]: AccessoriesFrame_upvr (readonly)
+	]]
+	doSelection(AccessoriesFrame_upvr.BlackFaceMask)
+end)
+AccessoriesFrame_upvr.WhiteFaceMask.MouseButton1Click:Connect(function() -- Line 1628
+	--[[ Upvalues[1]:
+		[1]: AccessoriesFrame_upvr (readonly)
+	]]
+	doSelection(AccessoriesFrame_upvr.WhiteFaceMask)
+end)
+AccessoriesFrame_upvr.WhiteWristband.MouseButton1Click:Connect(function() -- Line 1632
+	--[[ Upvalues[1]:
+		[1]: AccessoriesFrame_upvr (readonly)
+	]]
+	doSelection(AccessoriesFrame_upvr.WhiteWristband)
+end)
+AccessoriesFrame_upvr.BlackWristband.MouseButton1Click:Connect(function() -- Line 1636
+	--[[ Upvalues[1]:
+		[1]: AccessoriesFrame_upvr (readonly)
+	]]
+	doSelection(AccessoriesFrame_upvr.BlackWristband)
+end)
+local TeamInfo_upvr = game.ReplicatedStorage.TeamInfo
+local tbl_51_upvr = {
+	Argentina = "Argentina";
+	Munich = "Munich";
+	Dortmund = "Dortmund";
+	Brazil = "Brazil";
+	ParisSaints = "Paris";
+	ManchesterU = "Manchester Utd.";
+	Barcelona = "Barcelona";
+	InterMiami = "Inter Miami";
+	Japan = "Japan";
+	Italy = "Italy";
+	Croatia = "Croatia";
+	Morocco = "Morocco";
+	Canada = "Canada";
+	Portugal = "Portugal";
+	Mexico = "Mexico";
+	Netherlands = "Netherlands";
+	RealMadrid = "Real Madrid";
+	LiverpoolFC = "Liverpool FC";
+	SeattleSoundersFC = "Seattle Sounders";
+	JuventusFC = "Juventus FC";
+	Newcastle = "Newcastle Utd.";
+	ManchesterCity = "Man. City";
+	Germany = "Germany";
+	England = "England";
+	Arsenal = "Arsenal";
+	InterMilan = "Inter Milan";
+	USA = "USA";
+	Chelsea = "Chelsea";
+	Spain = "Spain";
+	Scotland = "Scotland";
+	Napoli = "Napoli";
+	France = "France";
+	Uruguay = "Uruguay";
+	Roma = "Roma";
+	Lazio = "Lazio";
+	SouthKorea = "South Korea";
+	VascoDaGama = "Vasco da Gama";
+	Ajax = "AFC Ajax";
+	Atletico = "Atletico Madrid";
+	Leverkusen = "B04 Leverkusen";
+	Wales = "Wales";
+	Fiorentina = "Fiorentina";
+	Spurs = "Tottenham Hotspurs";
+	ACMilan = "AC Milan";
+	Belgium = "Belgium";
+	Poland = "Poland";
+	Sweden = "Sweden";
+	Bosnia = "Bosnia & Herzegovina";
+	Denmark = "Denmark";
+	Romania = "Romania";
+	Switzerland = "Switzerland";
+}
+local tbl_124_upvr = {}
+var935_upvr = 0.666667
+tbl_124_upvr.Argentina = Color3.new(0, var935_upvr, 1)
+var935_upvr = 0
+tbl_124_upvr.Munich = Color3.new(0.6, var935_upvr, 0)
+var935_upvr = 0.858824
+tbl_124_upvr.Dortmund = Color3.new(1, var935_upvr, 0.14902)
+var935_upvr = 1
+tbl_124_upvr.Brazil = Color3.new(0.929412, var935_upvr, 0.172549)
+var935_upvr = 0
+tbl_124_upvr.ParisSaints = Color3.new(0.054902, var935_upvr, 0.364706)
+var935_upvr = 0
+tbl_124_upvr.ManchesterU = Color3.new(1, var935_upvr, 0)
+var935_upvr = 0.254902
+tbl_124_upvr.Barcelona = Color3.new(0, var935_upvr, 0.647059)
+var935_upvr = 0.14902
+tbl_124_upvr.InterMiami = Color3.new(0.14902, var935_upvr, 0.14902)
+var935_upvr = 1
+tbl_124_upvr.Japan = Color3.new(1, var935_upvr, 1)
+var935_upvr = 236
+tbl_124_upvr.Italy = Color3.fromRGB(236, var935_upvr, 236)
+var935_upvr = 87
+tbl_124_upvr.Croatia = Color3.fromRGB(4, var935_upvr, 162)
+var935_upvr = 12
+tbl_124_upvr.Morocco = Color3.fromRGB(200, var935_upvr, 12)
+var935_upvr = 230
+tbl_124_upvr.Canada = Color3.fromRGB(230, var935_upvr, 230)
+var935_upvr = 105
+tbl_124_upvr.Portugal = Color3.fromRGB(13, var935_upvr, 56)
+var935_upvr = 25
+tbl_124_upvr.Mexico = Color3.fromRGB(20, var935_upvr, 39)
+var935_upvr = 128
+tbl_124_upvr.Netherlands = Color3.fromRGB(255, var935_upvr, 0)
+var935_upvr = 0.654902
+tbl_124_upvr.Belgium = Color3.new(0.980392, var935_upvr, 0)
+var935_upvr = 227
+tbl_124_upvr.RealMadrid = Color3.fromRGB(227, var935_upvr, 227)
+var935_upvr = 44
+tbl_124_upvr.LiverpoolFC = Color3.fromRGB(14, var935_upvr, 43)
+var935_upvr = 95
+tbl_124_upvr.SeattleSoundersFC = Color3.fromRGB(10, var935_upvr, 170)
+var935_upvr = 0
+tbl_124_upvr.JuventusFC = Color3.fromRGB(0, var935_upvr, 0)
+var935_upvr = 255
+tbl_124_upvr.Newcastle = Color3.fromRGB(255, var935_upvr, 255)
+var935_upvr = 228
+tbl_124_upvr.ManchesterCity = Color3.fromRGB(138, var935_upvr, 255)
+var935_upvr = 37
+tbl_124_upvr.Germany = Color3.fromRGB(170, var935_upvr, 11)
+var935_upvr = 0
+tbl_124_upvr.Arsenal = Color3.fromRGB(197, var935_upvr, 0)
+var935_upvr = 107
+tbl_124_upvr.InterMilan = Color3.fromRGB(28, var935_upvr, 255)
+var935_upvr = 33
+tbl_124_upvr.USA = Color3.fromRGB(170, var935_upvr, 33)
+var935_upvr = 55
+tbl_124_upvr.Chelsea = Color3.fromRGB(51, var935_upvr, 170)
+var935_upvr = 134
+tbl_124_upvr.Napoli = Color3.fromRGB(81, var935_upvr, 232)
+var935_upvr = 56
+tbl_124_upvr.France = Color3.fromRGB(1, var935_upvr, 157)
+var935_upvr = 155
+tbl_124_upvr.Uruguay = Color3.fromRGB(69, var935_upvr, 235)
+var935_upvr = 38
+tbl_124_upvr.Roma = Color3.fromRGB(208, var935_upvr, 8)
+var935_upvr = 138
+tbl_124_upvr.Lazio = Color3.fromRGB(84, var935_upvr, 208)
+var935_upvr = 210
+tbl_124_upvr.England = Color3.fromRGB(196, var935_upvr, 243)
+var935_upvr = 243
+tbl_124_upvr.SouthKorea = Color3.fromRGB(243, var935_upvr, 243)
+var935_upvr = 243
+tbl_124_upvr.VascoDaGama = Color3.fromRGB(243, var935_upvr, 243)
+var935_upvr = 99
+tbl_124_upvr.Ajax = Color3.fromRGB(255, var935_upvr, 99)
+var935_upvr = 4
+tbl_124_upvr.Atletico = Color3.fromRGB(172, var935_upvr, 4)
+var935_upvr = 12
+tbl_124_upvr.Leverkusen = Color3.fromRGB(143, var935_upvr, 12)
+var935_upvr = 182
+tbl_124_upvr.Wales = Color3.fromRGB(77, var935_upvr, 77)
+var935_upvr = 64
+tbl_124_upvr.Fiorentina = Color3.fromRGB(124, var935_upvr, 208)
+var935_upvr = 208
+tbl_124_upvr.Spurs = Color3.fromRGB(208, var935_upvr, 208)
+var935_upvr = 20
+tbl_124_upvr.ACMilan = Color3.fromRGB(197, var935_upvr, 20)
+var935_upvr = 14
+tbl_124_upvr.Spain = Color3.fromRGB(213, var935_upvr, 0)
+var935_upvr = 80
+tbl_124_upvr.Scotland = Color3.fromRGB(56, var935_upvr, 136)
+var935_upvr = 0
+tbl_124_upvr.Poland = Color3.new(1, var935_upvr, 0.0156863)
+var935_upvr = 0.501961
+tbl_124_upvr.Sweden = Color3.new(0.192157, var935_upvr, 1)
+var935_upvr = 0.211765
+tbl_124_upvr.Bosnia = Color3.new(0.172549, var935_upvr, 0.772549)
+var935_upvr = 0
+tbl_124_upvr.Denmark = Color3.new(0.819608, var935_upvr, 0.0117647)
+var935_upvr = 0.819608
+tbl_124_upvr.Romania = Color3.new(1, var935_upvr, 0.0980392)
+var935_upvr = 0
+tbl_124_upvr.Switzerland = Color3.new(0.827451, var935_upvr, 0)
+local tbl_76_upvr = {
+	Argentina = "rbxassetid://15068029862";
+	Munich = "rbxassetid://15068635815";
+	Dortmund = "rbxassetid://13460575423";
+	Brazil = "rbxassetid://15068649812";
+	ParisSaints = "rbxassetid://13552953245";
+	ManchesterU = "rbxassetid://14540294821";
+	Barcelona = "rbxassetid://316144192";
+	InterMiami = "rbxassetid://15081749904";
+	Japan = "rbxassetid://15098627666";
+	Italy = "rbxassetid://15107657423";
+	Croatia = "rbxassetid://15107652254";
+	Morocco = "rbxassetid://15107668354";
+	Canada = "rbxassetid://15107670722";
+	Portugal = "rbxassetid://15148310170";
+	Mexico = "rbxassetid://15107685948";
+	Netherlands = "rbxassetid://15107690732";
+	RealMadrid = "rbxassetid://15107692601";
+	LiverpoolFC = "rbxassetid://15107649924";
+	SeattleSoundersFC = "rbxassetid://15155280087";
+	JuventusFC = "rbxassetid://15238497443";
+	Newcastle = "rbxassetid://18897627545";
+	ManchesterCity = "rbxassetid://14243657473";
+	Germany = "rbxassetid://18640980135";
+	England = "rbxassetid://18641004985";
+	Arsenal = "rbxassetid://18652402819";
+	InterMilan = "rbxassetid://18816070754";
+	USA = "rbxassetid://18641031024";
+	Chelsea = "rbxassetid://18641029244";
+	Napoli = "rbxassetid://18641026783";
+	France = "rbxassetid://18641023325";
+	Uruguay = "rbxassetid://18641021338";
+	Roma = "rbxassetid://18641019719";
+	Lazio = "rbxassetid://18641016564";
+	SouthKorea = "rbxassetid://18641001856";
+	VascoDaGama = "rbxassetid://18640997828";
+	Ajax = "rbxassetid://18640996176";
+	Atletico = "rbxassetid://18640993960";
+	Leverkusen = "rbxassetid://18640992087";
+	Wales = "rbxassetid://18640989958";
+	Fiorentina = "rbxassetid://18640988644";
+	Spurs = "rbxassetid://18640987300";
+	ACMilan = "rbxassetid://18640984312";
+	Belgium = "rbxassetid://18641190960";
+	Spain = "rbxassetid://18672737980";
+	Scotland = "rbxassetid://18672741584";
+	Poland = "rbxassetid://18816097298";
+	Sweden = "rbxassetid://18897774513";
+	Bosnia = "rbxassetid://18897785797";
+	Denmark = "rbxassetid://18897980982";
+	Romania = "rbxassetid://18897982581";
+	Switzerland = "rbxassetid://18897984306";
+}
+var935_upvr = game.Players
+local LocalPlayer_upvr_4 = var935_upvr.LocalPlayer
+var935_upvr = LocalPlayer_upvr_4.Character
+if not var935_upvr then
+	var935_upvr = LocalPlayer_upvr_4.CharacterAdded:Wait()
+end
+if LocalPlayer_upvr_4:FindFirstChild("InPlay") then
+	PlayButton_upvr_2.Visible = false
+	MenuButtons_upvr.Visible = false
+end
+LocalPlayer_upvr_4.ChildAdded:Connect(function(arg1) -- Line 1815
+	--[[ Upvalues[8]:
+		[1]: Holder_upvr_3 (readonly)
+		[2]: Holder_upvr_2 (readonly)
+		[3]: SkillFrame_upvr_2 (readonly)
+		[4]: PlayButton_upvr_2 (readonly)
+		[5]: MenuButtons_upvr (readonly)
+		[6]: CustomizationFrame_upvr_2 (readonly)
+		[7]: ColorSelector_upvr_2 (readonly)
+		[8]: EquipFrame_upvr_2 (readonly)
+	]]
+	if arg1.Name == "InPlay" then
+		Holder_upvr_3.Parent.Visible = false
+		Holder_upvr_2.Parent.Visible = false
+		SkillFrame_upvr_2.Position = UDim2.new(0.5, 0, 1, 230)
+		SkillFrame_upvr_2.Visible = false
+		PlayButton_upvr_2.Visible = false
+		MenuButtons_upvr.Visible = false
+		CustomizationFrame_upvr_2.ItemsFrame.Position = UDim2.new(0, -350, 0.5, 0)
+		CustomizationFrame_upvr_2.SelectFrame.Position = UDim2.new(1, 800, 1, 0)
+		CustomizationFrame_upvr_2.CancelButton.Position = UDim2.new(0.5, 0, 0.95, 200)
+		ColorSelector_upvr_2.Visible = false
+		EquipFrame_upvr_2.Position = UDim2.new(0, -125, 0.5, 150)
+	end
+end)
+LocalPlayer_upvr_4.ChildRemoved:Connect(function(arg1) -- Line 1831
+	--[[ Upvalues[4]:
+		[1]: Holder_upvr_3 (readonly)
+		[2]: Holder_upvr_2 (readonly)
+		[3]: PlayButton_upvr_2 (readonly)
+		[4]: MenuButtons_upvr (readonly)
+	]]
+	if arg1.Name == "InPlay" then
+		Holder_upvr_3.Parent.Visible = true
+		Holder_upvr_2.Parent.Visible = true
+		if game.ReplicatedStorage:FindFirstChild("EndScreen") then
+			repeat
+				task.wait()
+			until not game.ReplicatedStorage:FindFirstChild("EndScreen")
+		end
+		PlayButton_upvr_2.Visible = true
+		MenuButtons_upvr.Visible = true
+	end
+end)
+local var1474_upvw = false
+TeamInfo_upvr.CurrentHomeTeam.Changed:Connect(function() -- Line 1845
+	--[[ Upvalues[4]:
+		[1]: TeamSelectFrame_upvr_2 (readonly)
+		[2]: tbl_124_upvr (readonly)
+		[3]: tbl_51_upvr (readonly)
+		[4]: tbl_76_upvr (readonly)
+	]]
+	local Value_4 = game.ReplicatedStorage.TeamInfo.CurrentHomeTeam.Value
+	local HomeTeam_2 = TeamSelectFrame_upvr_2.SelectionFrame.HomeTeam
+	HomeTeam_2.BackgroundColor3 = tbl_124_upvr[Value_4]
+	HomeTeam_2.Vignette.ImageColor3 = tbl_124_upvr[Value_4]
+	HomeTeam_2.teamName.Text = tbl_51_upvr[Value_4]
+	HomeTeam_2.Crest.Image = tbl_76_upvr[Value_4]
+end)
+TeamInfo_upvr.CurrentAwayTeam.Changed:Connect(function() -- Line 1854
+	--[[ Upvalues[4]:
+		[1]: TeamSelectFrame_upvr_2 (readonly)
+		[2]: tbl_124_upvr (readonly)
+		[3]: tbl_51_upvr (readonly)
+		[4]: tbl_76_upvr (readonly)
+	]]
+	local Value_3 = game.ReplicatedStorage.TeamInfo.CurrentAwayTeam.Value
+	local AwayTeam_3 = TeamSelectFrame_upvr_2.SelectionFrame.AwayTeam
+	AwayTeam_3.BackgroundColor3 = tbl_124_upvr[Value_3]
+	AwayTeam_3.Vignette.ImageColor3 = tbl_124_upvr[Value_3]
+	AwayTeam_3.teamName.Text = tbl_51_upvr[Value_3]
+	AwayTeam_3.Crest.Image = tbl_76_upvr[Value_3]
+end)
+TeamInfo_upvr.HomeTeamPlayers.Changed:Connect(function() -- Line 1863
+	--[[ Upvalues[2]:
+		[1]: TeamSelectFrame_upvr_2 (readonly)
+		[2]: TeamInfo_upvr (readonly)
+	]]
+	updatePositionTables()
+	TeamSelectFrame_upvr_2.SelectionFrame.HomeTeam.plrCount.Text = TeamInfo_upvr.HomeTeamPlayers.Value.."/11"
+end)
+TeamInfo_upvr.AwayTeamPlayers.Changed:Connect(function() -- Line 1868
+	--[[ Upvalues[2]:
+		[1]: TeamSelectFrame_upvr_2 (readonly)
+		[2]: TeamInfo_upvr (readonly)
+	]]
+	updatePositionTables()
+	TeamSelectFrame_upvr_2.SelectionFrame.AwayTeam.plrCount.Text = TeamInfo_upvr.AwayTeamPlayers.Value.."/11"
+end)
+TeamSelectFrame_upvr_2.SelectionFrame.HomeTeam.plrCount.Text = TeamInfo_upvr.HomeTeamPlayers.Value.."/11"
+TeamSelectFrame_upvr_2.SelectionFrame.AwayTeam.plrCount.Text = TeamInfo_upvr.AwayTeamPlayers.Value.."/11"
+local tbl_9_upvw = {
+	LW = nil;
+	CF = nil;
+	RW = nil;
+	LAM = nil;
+	RAM = nil;
+	CDM = nil;
+	LCB = nil;
+	RCB = nil;
+	LWB = nil;
+	RWB = nil;
+	GK = nil;
+}
+local tbl_74_upvw = {
+	LW = nil;
+	CF = nil;
+	RW = nil;
+	LAM = nil;
+	RAM = nil;
+	CDM = nil;
+	LCB = nil;
+	RCB = nil;
+	LWB = nil;
+	RWB = nil;
+	GK = nil;
+}
+function updatePositionTables() -- Line 1902
+	--[[ Upvalues[2]:
+		[1]: tbl_9_upvw (read and write)
+		[2]: tbl_74_upvw (read and write)
+	]]
+	tbl_9_upvw = {
+		LW = nil;
+		CF = nil;
+		RW = nil;
+		LAM = nil;
+		RAM = nil;
+		CDM = nil;
+		LCB = nil;
+		RCB = nil;
+		LWB = nil;
+		RWB = nil;
+		GK = nil;
+	}
+	tbl_74_upvw = {
+		LW = nil;
+		CF = nil;
+		RW = nil;
+		LAM = nil;
+		RAM = nil;
+		CDM = nil;
+		LCB = nil;
+		RCB = nil;
+		LWB = nil;
+		RWB = nil;
+		GK = nil;
+	}
+	for _, v_37 in pairs(game.Players:GetPlayers()) do
+		if v_37:FindFirstChild("dataLoaded") then
+			if v_37.SelectedTeam.Value == "Home" then
+				tbl_9_upvw[v_37.SelectedPosition.Value] = string.upper(v_37.DisplayName)
+			elseif v_37.SelectedTeam.Value == "Away" then
+				tbl_74_upvw[v_37.SelectedPosition.Value] = string.upper(v_37.DisplayName)
+			end
+		end
+	end
+end
+function openTeamSelect() -- Line 1939
+	--[[ Upvalues[6]:
+		[1]: var1474_upvw (read and write)
+		[2]: TeamSelectFrame_upvr_2 (readonly)
+		[3]: tbl_124_upvr (readonly)
+		[4]: tbl_51_upvr (readonly)
+		[5]: tbl_76_upvr (readonly)
+		[6]: PosSelectFrame_upvr_2 (readonly)
+	]]
+	if var1474_upvw == true then
+	else
+		local Value_7 = game.ReplicatedStorage.TeamInfo.CurrentHomeTeam.Value
+		local HomeTeam_3 = TeamSelectFrame_upvr_2.SelectionFrame.HomeTeam
+		HomeTeam_3.BackgroundColor3 = tbl_124_upvr[Value_7]
+		HomeTeam_3.Vignette.ImageColor3 = tbl_124_upvr[Value_7]
+		HomeTeam_3.teamName.Text = tbl_51_upvr[Value_7]
+		HomeTeam_3.Crest.Image = tbl_76_upvr[Value_7]
+		local Value_5 = game.ReplicatedStorage.TeamInfo.CurrentAwayTeam.Value
+		local AwayTeam_2 = TeamSelectFrame_upvr_2.SelectionFrame.AwayTeam
+		AwayTeam_2.BackgroundColor3 = tbl_124_upvr[Value_5]
+		AwayTeam_2.Vignette.ImageColor3 = tbl_124_upvr[Value_5]
+		AwayTeam_2.teamName.Text = tbl_51_upvr[Value_5]
+		AwayTeam_2.Crest.Image = tbl_76_upvr[Value_5]
+		var1474_upvw = true
+		TeamSelectFrame_upvr_2.Visible = true
+		TeamSelectFrame_upvr_2.Position = UDim2.new(0.5, 0, 1, 200)
+		TeamSelectFrame_upvr_2.CancelButton.Position = UDim2.new(0.5, 0, 1, 35)
+		PosSelectFrame_upvr_2.Position = UDim2.new(0.5, 0, 0.5, 0)
+		PosSelectFrame_upvr_2.CancelButton.Position = UDim2.new(0.5, 0, 1, 35)
+		game:GetService("TweenService"):Create(TeamSelectFrame_upvr_2, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0.5, 0, 0.5, 0);
+		}):Play()
+	end
+end
+local var1497_upvw = "N/A"
+function closeTeamSelect() -- Line 1968
+	--[[ Upvalues[4]:
+		[1]: var1474_upvw (read and write)
+		[2]: var1497_upvw (read and write)
+		[3]: TeamSelectFrame_upvr_2 (readonly)
+		[4]: PosSelectFrame_upvr_2 (readonly)
+	]]
+	if var1474_upvw == false then
+	else
+		var1497_upvw = "N/A"
+		game:GetService("TweenService"):Create(TeamSelectFrame_upvr_2, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
+			Position = UDim2.new(0.5, 0, 1, 200);
+		}):Play()
+		game:GetService("TweenService"):Create(TeamSelectFrame_upvr_2.CancelButton, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0.5, 0, 1, 750);
+		}):Play()
+		game:GetService("TweenService"):Create(PosSelectFrame_upvr_2, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
+			Position = UDim2.new(0.5, 0, 1, 250);
+		}):Play()
+		game:GetService("TweenService"):Create(PosSelectFrame_upvr_2.CancelButton, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0.5, 0, 1, 750);
+		}):Play()
+		task.delay(0.5, function() -- Line 1985
+			--[[ Upvalues[3]:
+				[1]: var1474_upvw (copied, read and write)
+				[2]: TeamSelectFrame_upvr_2 (copied, readonly)
+				[3]: PosSelectFrame_upvr_2 (copied, readonly)
+			]]
+			var1474_upvw = false
+			TeamSelectFrame_upvr_2.Visible = false
+			PosSelectFrame_upvr_2.Visible = false
+		end)
+	end
+end
+PlayButton_upvr_2.PlayButton.MouseButton1Click:Connect(function() -- Line 1992
+	--[[ Upvalues[2]:
+		[1]: StatsFrame_upvr_2 (readonly)
+		[2]: SkillFrame_upvr_2 (readonly)
+	]]
+	game:GetService("TweenService"):Create(StatsFrame_upvr_2, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0.5, 0, 1, 170);
+	}):Play()
+	task.delay(0.35, function() -- Line 1996
+		--[[ Upvalues[1]:
+			[1]: StatsFrame_upvr_2 (copied, readonly)
+		]]
+		StatsFrame_upvr_2.Visible = false
+	end)
+	script.Parent.SettingsFrame.Visible = false
+	game:GetService("TweenService"):Create(SkillFrame_upvr_2, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0.5, 0, 1, 230);
+	}):Play()
+	task.delay(0.35, function() -- Line 2003
+		--[[ Upvalues[1]:
+			[1]: SkillFrame_upvr_2 (copied, readonly)
+		]]
+		SkillFrame_upvr_2.Visible = false
+	end)
+	openTeamSelect()
+end)
+PosSelectFrame_upvr_2.CancelButton.MouseButton1Click:Connect(function() -- Line 2009
+	closeTeamSelect()
+end)
+TeamSelectFrame_upvr_2.CancelButton.MouseButton1Click:Connect(function() -- Line 2013
+	closeTeamSelect()
+end)
+local SelectionFrame_upvr = PosSelectFrame_upvr_2.SelectionFrame
+function handlePosSelect(arg1) -- Line 2018
+	--[[ Upvalues[4]:
+		[1]: var1497_upvw (read and write)
+		[2]: SelectionFrame_upvr (readonly)
+		[3]: tbl_9_upvw (read and write)
+		[4]: tbl_74_upvw (read and write)
+	]]
+	updatePositionTables()
+	var1497_upvw = arg1
+	if arg1 == "Home" then
+		SelectionFrame_upvr.LWButton.CurrentPlayer.Text = tbl_9_upvw.LW or ""
+		SelectionFrame_upvr.CFButton.CurrentPlayer.Text = tbl_9_upvw.CF or ""
+		SelectionFrame_upvr.RWButton.CurrentPlayer.Text = tbl_9_upvw.RW or ""
+		SelectionFrame_upvr.CAMButtonL.CurrentPlayer.Text = tbl_9_upvw.LAM or ""
+		SelectionFrame_upvr.CAMButtonR.CurrentPlayer.Text = tbl_9_upvw.RAM or ""
+		SelectionFrame_upvr.CDMButton.CurrentPlayer.Text = tbl_9_upvw.CDM or ""
+		SelectionFrame_upvr.CBButtonL.CurrentPlayer.Text = tbl_9_upvw.LCB or ""
+		SelectionFrame_upvr.CBButtonR.CurrentPlayer.Text = tbl_9_upvw.RCB or ""
+		SelectionFrame_upvr.LWBButton.CurrentPlayer.Text = tbl_9_upvw.LWB or ""
+		SelectionFrame_upvr.RWBButton.CurrentPlayer.Text = tbl_9_upvw.RWB or ""
+		SelectionFrame_upvr.GKButton.CurrentPlayer.Text = tbl_9_upvw.GK or ""
+	elseif arg1 == "Away" then
+		SelectionFrame_upvr.LWButton.CurrentPlayer.Text = tbl_74_upvw.LW or ""
+		SelectionFrame_upvr.CFButton.CurrentPlayer.Text = tbl_74_upvw.CF or ""
+		SelectionFrame_upvr.RWButton.CurrentPlayer.Text = tbl_74_upvw.RW or ""
+		SelectionFrame_upvr.CAMButtonL.CurrentPlayer.Text = tbl_74_upvw.LAM or ""
+		SelectionFrame_upvr.CAMButtonR.CurrentPlayer.Text = tbl_74_upvw.RAM or ""
+		SelectionFrame_upvr.CDMButton.CurrentPlayer.Text = tbl_74_upvw.CDM or ""
+		SelectionFrame_upvr.CBButtonL.CurrentPlayer.Text = tbl_74_upvw.LCB or ""
+		SelectionFrame_upvr.CBButtonR.CurrentPlayer.Text = tbl_74_upvw.RCB or ""
+		SelectionFrame_upvr.LWBButton.CurrentPlayer.Text = tbl_74_upvw.LWB or ""
+		SelectionFrame_upvr.RWBButton.CurrentPlayer.Text = tbl_74_upvw.RWB or ""
+		SelectionFrame_upvr.GKButton.CurrentPlayer.Text = tbl_74_upvw.GK or ""
+	end
+end
+function selectPosition(arg1) -- Line 2048
+	--[[ Upvalues[3]:
+		[1]: var1497_upvw (read and write)
+		[2]: tbl_9_upvw (read and write)
+		[3]: tbl_74_upvw (read and write)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [44] 31. Error Block 9 start (CF ANALYSIS FAILED)
+	notification("POSITION TAKEN. PLEASE SELECT A DIFFERENT POSITION.")
+	do
+		return
+	end
+	-- KONSTANTERROR: [44] 31. Error Block 9 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [49] 35. Error Block 10 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [49] 35. Error Block 10 end (CF ANALYSIS FAILED)
+end
+TeamSelectFrame_upvr_2.SelectionFrame.HomeTeam.MouseButton1Click:Connect(function() -- Line 2080
+	--[[ Upvalues[4]:
+		[1]: TeamInfo_upvr (readonly)
+		[2]: LocalPlayer_upvr_4 (readonly)
+		[3]: TeamSelectFrame_upvr_2 (readonly)
+		[4]: PosSelectFrame_upvr_2 (readonly)
+	]]
+	if 11 <= TeamInfo_upvr.HomeTeamPlayers.Value or TeamInfo_upvr.AwayTeamPlayers.Value < TeamInfo_upvr.HomeTeamPlayers.Value then
+		if LocalPlayer_upvr_4.SelectedTeam.Value ~= "Home" and not game.ReplicatedStorage:FindFirstChild("NoTeamLimits") then
+			notification("TEAM FULL. SELECT A DIFFERENT TEAM.")
+			return
+		end
+	end
+	TeamSelectFrame_upvr_2.Visible = false
+	PosSelectFrame_upvr_2.Visible = true
+	handlePosSelect("Home")
+	while PosSelectFrame_upvr_2.Visible == true do
+		task.wait()
+		handlePosSelect("Home")
+	end
+end)
+TeamSelectFrame_upvr_2.SelectionFrame.AwayTeam.MouseButton1Click:Connect(function() -- Line 2094
+	--[[ Upvalues[4]:
+		[1]: TeamInfo_upvr (readonly)
+		[2]: LocalPlayer_upvr_4 (readonly)
+		[3]: TeamSelectFrame_upvr_2 (readonly)
+		[4]: PosSelectFrame_upvr_2 (readonly)
+	]]
+	if 11 <= TeamInfo_upvr.AwayTeamPlayers.Value or TeamInfo_upvr.HomeTeamPlayers.Value < TeamInfo_upvr.AwayTeamPlayers.Value then
+		if LocalPlayer_upvr_4.SelectedTeam.Value ~= "Away" and not game.ReplicatedStorage:FindFirstChild("NoTeamLimits") then
+			notification("TEAM FULL. SELECT A DIFFERENT TEAM.")
+			return
+		end
+	end
+	TeamSelectFrame_upvr_2.Visible = false
+	PosSelectFrame_upvr_2.Visible = true
+	handlePosSelect("Away")
+	while PosSelectFrame_upvr_2.Visible == true do
+		task.wait()
+		handlePosSelect("Away")
+	end
+end)
+SelectionFrame_upvr.LWButton.MouseButton1Click:Connect(function() -- Line 2108
+	selectPosition("LW")
+end)
+SelectionFrame_upvr.CFButton.MouseButton1Click:Connect(function() -- Line 2113
+	selectPosition("CF")
+end)
+SelectionFrame_upvr.RWButton.MouseButton1Click:Connect(function() -- Line 2117
+	selectPosition("RW")
+end)
+SelectionFrame_upvr.CAMButtonL.MouseButton1Click:Connect(function() -- Line 2122
+	selectPosition("LAM")
+end)
+SelectionFrame_upvr.CAMButtonR.MouseButton1Click:Connect(function() -- Line 2126
+	selectPosition("RAM")
+end)
+SelectionFrame_upvr.CDMButton.MouseButton1Click:Connect(function() -- Line 2130
+	selectPosition("CDM")
+end)
+SelectionFrame_upvr.LWBButton.MouseButton1Click:Connect(function() -- Line 2134
+	selectPosition("LWB")
+end)
+SelectionFrame_upvr.CBButtonL.MouseButton1Click:Connect(function() -- Line 2138
+	selectPosition("LCB")
+end)
+SelectionFrame_upvr.CBButtonR.MouseButton1Click:Connect(function() -- Line 2142
+	selectPosition("RCB")
+end)
+SelectionFrame_upvr.RWBButton.MouseButton1Click:Connect(function() -- Line 2146
+	selectPosition("RWB")
+end)
+SelectionFrame_upvr.GKButton.MouseButton1Click:Connect(function() -- Line 2151
+	selectPosition("GK")
+end)
+LocalPlayer_upvr_4:WaitForChild("dataLoaded")
+local SettingsFrame_upvr = script.Parent.SettingsFrame
+local MiscFrame_upvr_2 = SettingsFrame_upvr.MiscFrame
+local ControlsFrame_upvr_2 = SettingsFrame_upvr.ControlsFrame
+local PickCategoryFrame_upvr = SettingsFrame_upvr.PickCategoryFrame
+local Misc_upvr = LocalPlayer_upvr_4.Settings.Misc
+local Controls_upvr_2 = LocalPlayer_upvr_4.Settings.Controls
+if Misc_upvr.CrowdNoise.Value == false then
+	for _, v_38 in pairs(game.Workspace.miscFX:GetDescendants()) do
+		if v_38:IsA("Sound") then
+			v_38.Volume = 0
+		end
+	end
+end
+if Misc_upvr.FootstepSounds.Value == false then
+	var935_upvr.WalkingSoundsClient.Enabled = false
+	if game.SoundService:FindFirstChild("CurrentSound") then
+		game.SoundService:FindFirstChild("CurrentSound"):Stop()
+	end
+end
+function toggle(arg1, arg2) -- Line 2180
+	local tbl_21 = {}
+	local var1534
+	local function INLINED_17() -- Internal function, doesn't exist in bytecode
+		var1534 = Color3.new(0, 0.666667, 0)
+		return var1534
+	end
+	if arg2 ~= true or not INLINED_17() then
+		var1534 = Color3.new(0.666667, 0, 0)
+	end
+	tbl_21.BackgroundColor3 = var1534
+	game:GetService("TweenService"):Create(arg1.Toggle, TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), tbl_21):Play()
+	var1534 = Enum.EasingStyle.Sine
+	local tbl_26 = {}
+	local function INLINED_18() -- Internal function, doesn't exist in bytecode
+		var1534 = UDim2.new(0.5, 1, 0.5, 0)
+		return var1534
+	end
+	if arg2 ~= true or not INLINED_18() then
+		var1534 = UDim2.new(0, -1, 0.5, 0)
+	end
+	tbl_26.Position = var1534
+	game:GetService("TweenService"):Create(arg1.Toggle.Slider, TweenInfo.new(0.25, var1534, Enum.EasingDirection.InOut), tbl_26):Play()
+end
+toggle(MiscFrame_upvr_2.CROWDNOISE, Misc_upvr.CrowdNoise.Value)
+toggle(MiscFrame_upvr_2.AURAEFFECTS, Misc_upvr.AuraEffects.Value)
+toggle(MiscFrame_upvr_2.ROBLOXSHIRT, Misc_upvr.UseRobloxShirt.Value)
+toggle(MiscFrame_upvr_2.RAIN, Misc_upvr.RainEnabled.Value)
+toggle(MiscFrame_upvr_2.SNOW, Misc_upvr.SnowEnabled.Value)
+toggle(MiscFrame_upvr_2.STORMY, Misc_upvr.StormEnabled.Value)
+toggle(MiscFrame_upvr_2.NIGHT, Misc_upvr.Night.Value)
+toggle(MiscFrame_upvr_2.FOOTSTEPS, Misc_upvr.FootstepSounds.Value)
+toggle(MiscFrame_upvr_2.SUNFLARE, Misc_upvr.SunFlare.Value)
+toggle(MiscFrame_upvr_2.GRASSVISUALS, Misc_upvr.GrassVisuals.Value)
+toggle(MiscFrame_upvr_2.CURVEVISUAL, Misc_upvr.CurveVisual.Value)
+toggle(MiscFrame_upvr_2.HIGHLIGHTS, Misc_upvr.Highlights.Value)
+toggle(MiscFrame_upvr_2.CINEMATIC, Misc_upvr.CinematicMode.Value)
+toggle(ControlsFrame_upvr_2.FLIP, Controls_upvr_2.Flipped.Value)
+toggle(ControlsFrame_upvr_2.ToggleSpin, Controls_upvr_2.SpinToggle.Value)
+MiscFrame_upvr_2.CROWDNOISE.Toggle.MouseButton1Click:Connect(function() -- Line 2204
+	--[[ Upvalues[2]:
+		[1]: MiscFrame_upvr_2 (readonly)
+		[2]: Misc_upvr (readonly)
+	]]
+	toggle(MiscFrame_upvr_2.CROWDNOISE, not Misc_upvr.CrowdNoise.Value)
+	for _, v_39 in pairs(game.Workspace.miscFX:GetDescendants()) do
+		local children = v_39:IsA("Sound")
+		if children then
+			if Misc_upvr.CrowdNoise.Value == true then
+				children = 0
+			else
+				children = v_39:GetAttribute("Volume")
+			end
+			v_39.Volume = children
+		end
+	end
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("CrowdNoise", not Misc_upvr.CrowdNoise.Value)
+end)
+MiscFrame_upvr_2.AURAEFFECTS.Toggle.MouseButton1Click:Connect(function() -- Line 2214
+	--[[ Upvalues[2]:
+		[1]: MiscFrame_upvr_2 (readonly)
+		[2]: Misc_upvr (readonly)
+	]]
+	toggle(MiscFrame_upvr_2.AURAEFFECTS, not Misc_upvr.AuraEffects.Value)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("AuraEffects", not Misc_upvr.AuraEffects.Value)
+end)
+MiscFrame_upvr_2.FOOTSTEPS.Toggle.MouseButton1Click:Connect(function() -- Line 2219
+	--[[ Upvalues[3]:
+		[1]: MiscFrame_upvr_2 (readonly)
+		[2]: Misc_upvr (readonly)
+		[3]: var935_upvr (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 9 start (CF ANALYSIS FAILED)
+	toggle(MiscFrame_upvr_2.FOOTSTEPS, not Misc_upvr.FootstepSounds.Value)
+	if Misc_upvr.FootstepSounds.Value == true then
+		var935_upvr.WalkingSoundsClient.Enabled = true
+		if game.SoundService:FindFirstChild("CurrentSound") then
+			game.SoundService:FindFirstChild("CurrentSound"):Stop()
+			-- KONSTANTWARNING: GOTO [52] #35
+		end
+	else
+		var935_upvr.WalkingSoundsClient.Enabled = false
+	end
+	-- KONSTANTERROR: [0] 1. Error Block 9 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [52] 35. Error Block 6 start (CF ANALYSIS FAILED)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("FootstepSounds", not Misc_upvr.FootstepSounds.Value)
+	-- KONSTANTERROR: [52] 35. Error Block 6 end (CF ANALYSIS FAILED)
+end)
+MiscFrame_upvr_2.SUNFLARE.Toggle.MouseButton1Click:Connect(function() -- Line 2232
+	--[[ Upvalues[2]:
+		[1]: MiscFrame_upvr_2 (readonly)
+		[2]: Misc_upvr (readonly)
+	]]
+	toggle(MiscFrame_upvr_2.SUNFLARE, not Misc_upvr.SunFlare.Value)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("SunFlare", not Misc_upvr.SunFlare.Value)
+end)
+MiscFrame_upvr_2.ROBLOXSHIRT.Toggle.MouseButton1Click:Connect(function() -- Line 2237
+	--[[ Upvalues[2]:
+		[1]: MiscFrame_upvr_2 (readonly)
+		[2]: Misc_upvr (readonly)
+	]]
+	toggle(MiscFrame_upvr_2.ROBLOXSHIRT, not Misc_upvr.UseRobloxShirt.Value)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("UseRobloxShirt", not Misc_upvr.UseRobloxShirt.Value)
+end)
+MiscFrame_upvr_2.HIGHLIGHTS.Toggle.MouseButton1Click:Connect(function() -- Line 2242
+	--[[ Upvalues[2]:
+		[1]: MiscFrame_upvr_2 (readonly)
+		[2]: Misc_upvr (readonly)
+	]]
+	toggle(MiscFrame_upvr_2.HIGHLIGHTS, not Misc_upvr.Highlights.Value)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("Highlights", not Misc_upvr.Highlights.Value)
+end)
+MiscFrame_upvr_2.RAIN.Toggle.MouseButton1Click:Connect(function() -- Line 2247
+	--[[ Upvalues[2]:
+		[1]: MiscFrame_upvr_2 (readonly)
+		[2]: Misc_upvr (readonly)
+	]]
+	toggle(MiscFrame_upvr_2.RAIN, not Misc_upvr.RainEnabled.Value)
+	toggle(MiscFrame_upvr_2.SNOW, false)
+	toggle(MiscFrame_upvr_2.STORMY, false)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("SnowEnabled", false)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("StormEnabled", false)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("RainEnabled", not Misc_upvr.RainEnabled.Value)
+end)
+MiscFrame_upvr_2.SNOW.Toggle.MouseButton1Click:Connect(function() -- Line 2256
+	--[[ Upvalues[2]:
+		[1]: MiscFrame_upvr_2 (readonly)
+		[2]: Misc_upvr (readonly)
+	]]
+	toggle(MiscFrame_upvr_2.SNOW, not Misc_upvr.SnowEnabled.Value)
+	toggle(MiscFrame_upvr_2.RAIN, false)
+	toggle(MiscFrame_upvr_2.STORMY, false)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("RainEnabled", false)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("StormEnabled", false)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("SnowEnabled", not Misc_upvr.SnowEnabled.Value)
+end)
+MiscFrame_upvr_2.STORMY.Toggle.MouseButton1Click:Connect(function() -- Line 2265
+	--[[ Upvalues[2]:
+		[1]: MiscFrame_upvr_2 (readonly)
+		[2]: Misc_upvr (readonly)
+	]]
+	toggle(MiscFrame_upvr_2.STORMY, not Misc_upvr.StormEnabled.Value)
+	toggle(MiscFrame_upvr_2.RAIN, false)
+	toggle(MiscFrame_upvr_2.SNOW, false)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("SnowEnabled", false)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("RainEnabled", false)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("StormEnabled", not Misc_upvr.StormEnabled.Value)
+end)
+MiscFrame_upvr_2.GRASSVISUALS.Toggle.MouseButton1Click:Connect(function() -- Line 2274
+	--[[ Upvalues[2]:
+		[1]: MiscFrame_upvr_2 (readonly)
+		[2]: Misc_upvr (readonly)
+	]]
+	toggle(MiscFrame_upvr_2.GRASSVISUALS, not Misc_upvr.GrassVisuals.Value)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("GrassVisuals", not Misc_upvr.GrassVisuals.Value)
+end)
+MiscFrame_upvr_2.NIGHT.Toggle.MouseButton1Click:Connect(function() -- Line 2279
+	--[[ Upvalues[2]:
+		[1]: MiscFrame_upvr_2 (readonly)
+		[2]: Misc_upvr (readonly)
+	]]
+	toggle(MiscFrame_upvr_2.NIGHT, not Misc_upvr.Night.Value)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("Night", not Misc_upvr.Night.Value)
+end)
+MiscFrame_upvr_2.CURVEVISUAL.Toggle.MouseButton1Click:Connect(function() -- Line 2284
+	--[[ Upvalues[2]:
+		[1]: MiscFrame_upvr_2 (readonly)
+		[2]: Misc_upvr (readonly)
+	]]
+	toggle(MiscFrame_upvr_2.CURVEVISUAL, not Misc_upvr.CurveVisual.Value)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("CurveVisual", not Misc_upvr.CurveVisual.Value)
+end)
+MiscFrame_upvr_2.CINEMATIC.Toggle.MouseButton1Click:Connect(function() -- Line 2290
+	--[[ Upvalues[2]:
+		[1]: MiscFrame_upvr_2 (readonly)
+		[2]: Misc_upvr (readonly)
+	]]
+	toggle(MiscFrame_upvr_2.CINEMATIC, not Misc_upvr.CinematicMode.Value)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("CinematicMode", not Misc_upvr.CinematicMode.Value)
+end)
+MiscFrame_upvr_2.CONTRAST.TextBox.FocusLost:Connect(function() -- Line 2295
+	--[[ Upvalues[2]:
+		[1]: MiscFrame_upvr_2 (readonly)
+		[2]: Misc_upvr (readonly)
+	]]
+	local _, pcall_result2_5 = pcall(function() -- Line 2296
+		--[[ Upvalues[1]:
+			[1]: MiscFrame_upvr_2 (copied, readonly)
+		]]
+		return tonumber(MiscFrame_upvr_2.CONTRAST.TextBox.Text)
+	end)
+	if not pcall_result2_5 then
+		MiscFrame_upvr_2.CONTRAST.TextBox.Text = '0'
+		notification("INVALID INPUT.")
+	else
+		if 1 < pcall_result2_5 or pcall_result2_5 < 0 then
+			MiscFrame_upvr_2.CONTRAST.TextBox.Text = '0'
+			notification("CONTRAST MUST BE BETWEEN 1 AND 0")
+			return
+		end
+		Misc_upvr.Contrast.Value = MiscFrame_upvr_2.CONTRAST.TextBox.Text
+		game.Lighting.ColorCorrection.Contrast = Misc_upvr.Contrast.Value
+	end
+end)
+Misc_upvr.Contrast.Changed:Connect(function() -- Line 2313
+	--[[ Upvalues[2]:
+		[1]: MiscFrame_upvr_2 (readonly)
+		[2]: Misc_upvr (readonly)
+	]]
+	MiscFrame_upvr_2.CONTRAST.TextBox.Text = Misc_upvr.Contrast.Value
+	game.Lighting.ColorCorrection.Contrast = Misc_upvr.Contrast.Value
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("Contrast", Misc_upvr.Contrast.Value)
+end)
+MiscFrame_upvr_2.CONTRAST.TextBox.Text = Misc_upvr.Contrast.Value
+game.Lighting.ColorCorrection.Contrast = Misc_upvr.Contrast.Value
+MiscFrame_upvr_2.BRIGHTNESS.TextBox.FocusLost:Connect(function() -- Line 2322
+	--[[ Upvalues[2]:
+		[1]: MiscFrame_upvr_2 (readonly)
+		[2]: Misc_upvr (readonly)
+	]]
+	local _, pcall_result2_3 = pcall(function() -- Line 2323
+		--[[ Upvalues[1]:
+			[1]: MiscFrame_upvr_2 (copied, readonly)
+		]]
+		return tonumber(MiscFrame_upvr_2.BRIGHTNESS.TextBox.Text)
+	end)
+	if not pcall_result2_3 then
+		MiscFrame_upvr_2.BRIGHTNESS.TextBox.Text = '0'
+		notification("INVALID INPUT.")
+	else
+		if 15 < pcall_result2_3 or pcall_result2_3 < 0 then
+			MiscFrame_upvr_2.BRIGHTNESS.TextBox.Text = '0'
+			notification("BRIGHTNESS MUST BE BETWEEN 15 AND 0.")
+			return
+		end
+		Misc_upvr.Brightness.Value = MiscFrame_upvr_2.BRIGHTNESS.TextBox.Text
+		game.Lighting.Brightness = Misc_upvr.Brightness.Value
+	end
+end)
+Misc_upvr.Brightness.Changed:Connect(function() -- Line 2340
+	--[[ Upvalues[2]:
+		[1]: MiscFrame_upvr_2 (readonly)
+		[2]: Misc_upvr (readonly)
+	]]
+	MiscFrame_upvr_2.BRIGHTNESS.TextBox.Text = Misc_upvr.Brightness.Value
+	game.Lighting.Brightness = Misc_upvr.Brightness.Value
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("Brightness", Misc_upvr.Brightness.Value)
+	for _, v_40 in ipairs(game.Workspace.miscFX.NightLights:GetDescendants()) do
+		if v_40:IsA("Light") then
+			v_40.Brightness = Misc_upvr.Brightness.Value * 0.8
+		end
+	end
+end)
+MiscFrame_upvr_2.BRIGHTNESS.TextBox.Text = Misc_upvr.Brightness.Value
+game.Lighting.Brightness = Misc_upvr.Brightness.Value
+for _, v_41 in ipairs(game.Workspace.miscFX.NightLights:GetDescendants()) do
+	if v_41:IsA("Light") then
+		v_41.Brightness = Misc_upvr.Brightness.Value * 0.8
+	end
+end
+MiscFrame_upvr_2.NUMBER.TextBox.FocusLost:Connect(function() -- Line 2360
+	--[[ Upvalues[1]:
+		[1]: MiscFrame_upvr_2 (readonly)
+	]]
+	local _, pcall_result2 = pcall(function() -- Line 2361
+		--[[ Upvalues[1]:
+			[1]: MiscFrame_upvr_2 (copied, readonly)
+		]]
+		return tonumber(MiscFrame_upvr_2.NUMBER.TextBox.Text)
+	end)
+	if not pcall_result2 then
+		MiscFrame_upvr_2.NUMBER.TextBox.Text = '0'
+		notification("INVALID INPUT.")
+	else
+		if 99 < pcall_result2 or pcall_result2 < 0 then
+			MiscFrame_upvr_2.NUMBER.TextBox.Text = '0'
+			notification("JERSEY NUMBERS MUST BE BETWEEN 1 AND 99. USE 0 TO DISABLE.")
+			return
+		end
+		if game.ReplicatedStorage.Remotes.updateJerseyNumber:InvokeServer(MiscFrame_upvr_2.NUMBER.TextBox.Text) == true then return end
+		notification("AN ERROR HAS OCCURRED.")
+		MiscFrame_upvr_2.NUMBER.TextBox.Text = '0'
+	end
+end)
+Misc_upvr.JerseyNumber.Changed:Connect(function() -- Line 2382
+	--[[ Upvalues[2]:
+		[1]: MiscFrame_upvr_2 (readonly)
+		[2]: Misc_upvr (readonly)
+	]]
+	MiscFrame_upvr_2.NUMBER.TextBox.Text = Misc_upvr.JerseyNumber.Value
+end)
+MiscFrame_upvr_2.NUMBER.TextBox.Text = Misc_upvr.JerseyNumber.Value
+LeftFrame_2.SettingsButton.MouseButton1Click:Connect(function() -- Line 2387
+	--[[ Upvalues[3]:
+		[1]: SettingsFrame_upvr (readonly)
+		[2]: StatsFrame_upvr_2 (readonly)
+		[3]: SkillFrame_upvr_2 (readonly)
+	]]
+	if SettingsFrame_upvr.Visible == false then
+		game:GetService("TweenService"):Create(StatsFrame_upvr_2, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0.5, 0, 1, 170);
+		}):Play()
+		task.delay(0.35, function() -- Line 2392
+			--[[ Upvalues[1]:
+				[1]: StatsFrame_upvr_2 (copied, readonly)
+			]]
+			StatsFrame_upvr_2.Visible = false
+		end)
+		closeTeamSelect()
+		game:GetService("TweenService"):Create(SkillFrame_upvr_2, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0.5, 0, 1, 230);
+		}):Play()
+		task.delay(0.35, function() -- Line 2399
+			--[[ Upvalues[1]:
+				[1]: SkillFrame_upvr_2 (copied, readonly)
+			]]
+			SkillFrame_upvr_2.Visible = false
+		end)
+	end
+	SettingsFrame_upvr.Visible = not SettingsFrame_upvr.Visible
+end)
+PickCategoryFrame_upvr.MiscButton.MouseButton1Click:Connect(function() -- Line 2407
+	--[[ Upvalues[2]:
+		[1]: PickCategoryFrame_upvr (readonly)
+		[2]: SettingsFrame_upvr (readonly)
+	]]
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr.MiscButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 0.5;
+	}):Play()
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr.ControlsButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 1;
+	}):Play()
+	SettingsFrame_upvr.MiscFrame.Visible = true
+	SettingsFrame_upvr.ControlsFrame.Visible = false
+end)
+PickCategoryFrame_upvr.ControlsButton.MouseButton1Click:Connect(function() -- Line 2418
+	--[[ Upvalues[2]:
+		[1]: PickCategoryFrame_upvr (readonly)
+		[2]: SettingsFrame_upvr (readonly)
+	]]
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr.ControlsButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 0.5;
+	}):Play()
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr.MiscButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 1;
+	}):Play()
+	SettingsFrame_upvr.ControlsFrame.Visible = true
+	SettingsFrame_upvr.MiscFrame.Visible = false
+end)
+SettingsFrame_upvr.TitleFrame.CancelButton.MouseButton1Click:Connect(function() -- Line 2430
+	--[[ Upvalues[1]:
+		[1]: SettingsFrame_upvr (readonly)
+	]]
+	SettingsFrame_upvr.Visible = false
+end)
+local UserInputService_upvr_2 = game:GetService("UserInputService")
+function getTextForKey(arg1) -- Line 2435
+	--[[ Upvalues[1]:
+		[1]: UserInputService_upvr_2 (readonly)
+	]]
+	if arg1 == Enum.KeyCode.LeftShift then
+		return "LSHIFT"
+	end
+	if arg1 == Enum.KeyCode.LeftControl then
+		return "LCTRL"
+	end
+	if arg1 == Enum.KeyCode.LeftAlt then
+		return "L-ALT"
+	end
+	if arg1 == Enum.KeyCode.RightShift then
+		return "RSHIFT"
+	end
+	if arg1 == Enum.KeyCode.RightControl then
+		return "RCTRL"
+	end
+	if arg1 == Enum.KeyCode.RightAlt then
+		return "R-ALT"
+	end
+	return UserInputService_upvr_2:GetStringForKeyCode(arg1)
+end
+ControlsFrame_upvr_2.SkillBind.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.Skill.Value])
+ControlsFrame_upvr_2.TackleBind.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.SlideTackle.Value])
+ControlsFrame_upvr_2.ShoveBind.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.Shove.Value])
+ControlsFrame_upvr_2.MarkPassBind.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.MarkPass.Value])
+ControlsFrame_upvr_2.SprintBind.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.Sprint.Value])
+ControlsFrame_upvr_2.EmoteBind.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.Emote.Value])
+ControlsFrame_upvr_2.CurveLeft.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.CurveLeft.Value])
+ControlsFrame_upvr_2.CurveRight.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.CurveRight.Value])
+ControlsFrame_upvr_2.Topspin.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.Topspin.Value])
+ControlsFrame_upvr_2.DribbleLeft.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.DribbleLeft.Value])
+ControlsFrame_upvr_2.DribbleRight.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.DribbleRight.Value])
+ControlsFrame_upvr_2.controlledSprint.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.ControlSprint.Value])
+local tbl_63_upvr = {Enum.KeyCode.W, Enum.KeyCode.A, Enum.KeyCode.S, Enum.KeyCode.D, Enum.KeyCode.KeypadEnter, Enum.KeyCode.Return, Enum.KeyCode.Tab, Enum.KeyCode.CapsLock, Enum.KeyCode.Space, Enum.KeyCode.Backspace, Enum.KeyCode.BackSlash, Enum.KeyCode.LeftControl}
+function handleBind(arg1, arg2) -- Line 2480
+	--[[ Upvalues[4]:
+		[1]: SettingsFrame_upvr (readonly)
+		[2]: UserInputService_upvr_2 (readonly)
+		[3]: tbl_63_upvr (readonly)
+		[4]: Controls_upvr_2 (readonly)
+	]]
+	arg1.Text = ""
+	game:GetService("TweenService"):Create(SettingsFrame_upvr.BindLabel, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 0.65;
+		TextTransparency = 0;
+	}):Play()
+	local var1595_upvw = false
+	local var1597_upvw
+	var1597_upvw = UserInputService_upvr_2.InputBegan:Connect(function(arg1_5) -- Line 2487
+		--[[ Upvalues[6]:
+			[1]: tbl_63_upvr (copied, readonly)
+			[2]: arg2 (readonly)
+			[3]: var1595_upvw (read and write)
+			[4]: var1597_upvw (read and write)
+			[5]: SettingsFrame_upvr (copied, readonly)
+			[6]: arg1 (readonly)
+		]]
+		if arg1_5.UserInputType == Enum.UserInputType.Keyboard then
+			if table.find(tbl_63_upvr, arg1_5.KeyCode) then
+				if arg1_5.KeyCode == Enum.KeyCode.W or arg1_5.KeyCode == Enum.KeyCode.D or arg1_5.KeyCode == Enum.KeyCode.A or arg1_5.KeyCode == Enum.KeyCode.S or arg2 == "CurveLeft" or arg2 == "CurveRight" or arg2 == "Topspin" then
+					game.ReplicatedStorage.Remotes.UpdateInputSetting:FireServer(arg2, arg1_5.KeyCode)
+					var1595_upvw = true
+					var1597_upvw:Disconnect()
+					game:GetService("TweenService"):Create(SettingsFrame_upvr.BindLabel, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+						TextStrokeTransparency = 1;
+						TextTransparency = 1;
+					}):Play()
+					arg1.Text = getTextForKey(arg1_5.KeyCode)
+				else
+					game:GetService("TweenService"):Create(SettingsFrame_upvr.InvalidKeybindLabel, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+						TextStrokeTransparency = 0.65;
+						TextTransparency = 0;
+					}):Play()
+					local clone_33 = game.ReplicatedStorage.UISounds["ui-error4"]:Clone()
+					clone_33.Parent = game.Workspace
+					clone_33:Play()
+					game.Debris:AddItem(clone_33, 3)
+					task.delay(0.85, function() -- Line 2509
+						--[[ Upvalues[1]:
+							[1]: SettingsFrame_upvr (copied, readonly)
+						]]
+						game:GetService("TweenService"):Create(SettingsFrame_upvr.InvalidKeybindLabel, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+							TextStrokeTransparency = 1;
+							TextTransparency = 1;
+						}):Play()
+					end)
+				end
+			end
+			game.ReplicatedStorage.Remotes.UpdateInputSetting:FireServer(arg2, arg1_5.KeyCode)
+			var1595_upvw = true
+			var1597_upvw:Disconnect()
+			game:GetService("TweenService"):Create(SettingsFrame_upvr.BindLabel, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				TextStrokeTransparency = 1;
+				TextTransparency = 1;
+			}):Play()
+			arg1.Text = getTextForKey(arg1_5.KeyCode)
+		end
+	end)
+	task.delay(4, function() -- Line 2527
+		--[[ Upvalues[6]:
+			[1]: var1595_upvw (read and write)
+			[2]: arg1 (readonly)
+			[3]: Controls_upvr_2 (copied, readonly)
+			[4]: arg2 (readonly)
+			[5]: var1597_upvw (read and write)
+			[6]: SettingsFrame_upvr (copied, readonly)
+		]]
+		if var1595_upvw == true then
+		else
+			arg1.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2:FindFirstChild(arg2).Value])
+			var1597_upvw:Disconnect()
+			game:GetService("TweenService"):Create(SettingsFrame_upvr.BindLabel, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				TextStrokeTransparency = 1;
+				TextTransparency = 1;
+			}):Play()
+		end
+	end)
+end
+Controls_upvr_2.Skill.Changed:Connect(function() -- Line 2541
+	--[[ Upvalues[2]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+		[2]: Controls_upvr_2 (readonly)
+	]]
+	ControlsFrame_upvr_2.SkillBind.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.Skill.Value])
+end)
+Controls_upvr_2.SlideTackle.Changed:Connect(function() -- Line 2545
+	--[[ Upvalues[2]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+		[2]: Controls_upvr_2 (readonly)
+	]]
+	ControlsFrame_upvr_2.TackleBind.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.SlideTackle.Value])
+end)
+Controls_upvr_2.Shove.Changed:Connect(function() -- Line 2549
+	--[[ Upvalues[2]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+		[2]: Controls_upvr_2 (readonly)
+	]]
+	ControlsFrame_upvr_2.ShoveBind.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.Shove.Value])
+end)
+Controls_upvr_2.MarkPass.Changed:Connect(function() -- Line 2553
+	--[[ Upvalues[2]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+		[2]: Controls_upvr_2 (readonly)
+	]]
+	ControlsFrame_upvr_2.MarkPassBind.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.MarkPass.Value])
+end)
+Controls_upvr_2.Sprint.Changed:Connect(function() -- Line 2557
+	--[[ Upvalues[2]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+		[2]: Controls_upvr_2 (readonly)
+	]]
+	ControlsFrame_upvr_2.SprintBind.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.Sprint.Value])
+end)
+Controls_upvr_2.Emote.Changed:Connect(function() -- Line 2561
+	--[[ Upvalues[2]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+		[2]: Controls_upvr_2 (readonly)
+	]]
+	ControlsFrame_upvr_2.EmoteBind.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.Emote.Value])
+end)
+Controls_upvr_2.CurveLeft.Changed:Connect(function() -- Line 2565
+	--[[ Upvalues[2]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+		[2]: Controls_upvr_2 (readonly)
+	]]
+	ControlsFrame_upvr_2.CurveLeft.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.CurveLeft.Value])
+end)
+Controls_upvr_2.CurveRight.Changed:Connect(function() -- Line 2569
+	--[[ Upvalues[2]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+		[2]: Controls_upvr_2 (readonly)
+	]]
+	ControlsFrame_upvr_2.CurveRight.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.CurveRight.Value])
+end)
+Controls_upvr_2.Topspin.Changed:Connect(function() -- Line 2573
+	--[[ Upvalues[2]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+		[2]: Controls_upvr_2 (readonly)
+	]]
+	ControlsFrame_upvr_2.Topspin.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.Topspin.Value])
+end)
+Controls_upvr_2.DribbleLeft.Changed:Connect(function() -- Line 2577
+	--[[ Upvalues[2]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+		[2]: Controls_upvr_2 (readonly)
+	]]
+	ControlsFrame_upvr_2.DribbleLeft.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.DribbleLeft.Value])
+end)
+Controls_upvr_2.DribbleRight.Changed:Connect(function() -- Line 2581
+	--[[ Upvalues[2]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+		[2]: Controls_upvr_2 (readonly)
+	]]
+	ControlsFrame_upvr_2.DribbleRight.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.DribbleRight.Value])
+end)
+Controls_upvr_2.ControlSprint.Changed:Connect(function() -- Line 2585
+	--[[ Upvalues[2]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+		[2]: Controls_upvr_2 (readonly)
+	]]
+	ControlsFrame_upvr_2.controlledSprint.Key.Text = getTextForKey(Enum.KeyCode[Controls_upvr_2.ControlSprint.Value])
+end)
+ControlsFrame_upvr_2.SkillBind.Key.MouseButton1Click:Connect(function() -- Line 2589
+	--[[ Upvalues[1]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+	]]
+	handleBind(ControlsFrame_upvr_2.SkillBind.Key, "Skill")
+end)
+ControlsFrame_upvr_2.TackleBind.Key.MouseButton1Click:Connect(function() -- Line 2593
+	--[[ Upvalues[1]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+	]]
+	handleBind(ControlsFrame_upvr_2.TackleBind.Key, "SlideTackle")
+end)
+ControlsFrame_upvr_2.ShoveBind.Key.MouseButton1Click:Connect(function() -- Line 2597
+	--[[ Upvalues[1]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+	]]
+	handleBind(ControlsFrame_upvr_2.ShoveBind.Key, "Shove")
+end)
+ControlsFrame_upvr_2.MarkPassBind.Key.MouseButton1Click:Connect(function() -- Line 2601
+	--[[ Upvalues[1]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+	]]
+	handleBind(ControlsFrame_upvr_2.MarkPassBind.Key, "MarkPass")
+end)
+ControlsFrame_upvr_2.SprintBind.Key.MouseButton1Click:Connect(function() -- Line 2605
+	--[[ Upvalues[1]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+	]]
+	handleBind(ControlsFrame_upvr_2.SprintBind.Key, "Sprint")
+end)
+ControlsFrame_upvr_2.EmoteBind.Key.MouseButton1Click:Connect(function() -- Line 2609
+	--[[ Upvalues[1]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+	]]
+	handleBind(ControlsFrame_upvr_2.EmoteBind.Key, "Emote")
+end)
+ControlsFrame_upvr_2.CurveLeft.Key.MouseButton1Click:Connect(function() -- Line 2613
+	--[[ Upvalues[1]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+	]]
+	handleBind(ControlsFrame_upvr_2.CurveLeft.Key, "CurveLeft")
+end)
+ControlsFrame_upvr_2.CurveRight.Key.MouseButton1Click:Connect(function() -- Line 2617
+	--[[ Upvalues[1]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+	]]
+	handleBind(ControlsFrame_upvr_2.CurveRight.Key, "CurveRight")
+end)
+ControlsFrame_upvr_2.Topspin.Key.MouseButton1Click:Connect(function() -- Line 2621
+	--[[ Upvalues[1]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+	]]
+	handleBind(ControlsFrame_upvr_2.Topspin.Key, "Topspin")
+end)
+ControlsFrame_upvr_2.DribbleLeft.Key.MouseButton1Click:Connect(function() -- Line 2625
+	--[[ Upvalues[1]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+	]]
+	handleBind(ControlsFrame_upvr_2.DribbleLeft.Key, "DribbleLeft")
+end)
+ControlsFrame_upvr_2.DribbleRight.Key.MouseButton1Click:Connect(function() -- Line 2629
+	--[[ Upvalues[1]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+	]]
+	handleBind(ControlsFrame_upvr_2.DribbleRight.Key, "DribbleRight")
+end)
+ControlsFrame_upvr_2.controlledSprint.Key.MouseButton1Click:Connect(function() -- Line 2633
+	--[[ Upvalues[1]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+	]]
+	handleBind(ControlsFrame_upvr_2.controlledSprint.Key, "ControlSprint")
+end)
+ControlsFrame_upvr_2.RELEASE.Toggle.MouseButton1Click:Connect(function() -- Line 2637
+	--[[ Upvalues[2]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+		[2]: Controls_upvr_2 (readonly)
+	]]
+	toggle(ControlsFrame_upvr_2.RELEASE, not Controls_upvr_2.ReleaseDive.Value)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("ReleaseDive", not Controls_upvr_2.ReleaseDive.Value)
+end)
+ControlsFrame_upvr_2.FLIP.Toggle.MouseButton1Click:Connect(function() -- Line 2642
+	--[[ Upvalues[2]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+		[2]: Controls_upvr_2 (readonly)
+	]]
+	toggle(ControlsFrame_upvr_2.FLIP, not Controls_upvr_2.Flipped.Value)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("Flipped", not Controls_upvr_2.Flipped.Value)
+end)
+ControlsFrame_upvr_2.ToggleSpin.Toggle.MouseButton1Click:Connect(function() -- Line 2647
+	--[[ Upvalues[2]:
+		[1]: ControlsFrame_upvr_2 (readonly)
+		[2]: Controls_upvr_2 (readonly)
+	]]
+	toggle(ControlsFrame_upvr_2.ToggleSpin, not Controls_upvr_2.SpinToggle.Value)
+	game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("SpinToggle", not Controls_upvr_2.SpinToggle.Value)
+end)
+local MAP = MiscFrame_upvr_2.MAP
+local Map_upvr_2 = MAP.Map
+local DropdownArrow_upvr_4 = Map_upvr_2.DropdownArrow
+local Dropdown_upvr_4 = MAP.Dropdown
+for _, v_42_upvr in pairs(game.ReplicatedStorage.SelectableMaps:GetChildren()) do
+	local clone_50 = script.mapButtonTemplate:Clone()
+	clone_50.Text = string.upper(v_42_upvr.Name)
+	clone_50.Parent = Dropdown_upvr_4
+	clone_50.MouseButton1Click:Connect(function() -- Line 2666
+		--[[ Upvalues[4]:
+			[1]: v_42_upvr (readonly)
+			[2]: Map_upvr_2 (readonly)
+			[3]: Dropdown_upvr_4 (readonly)
+			[4]: DropdownArrow_upvr_4 (readonly)
+		]]
+		game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("MapSelection", v_42_upvr.Name)
+		Map_upvr_2.Text = string.upper(v_42_upvr.Name)
+		Dropdown_upvr_4.Visible = false
+		DropdownArrow_upvr_4.Rotation = 180
+	end)
+	local var1642_upvr
+end
+Map_upvr_2.Text = string.upper(Misc_upvr.MapSelection.Value)
+Map_upvr_2.MouseButton1Click:Connect(function() -- Line 2676
+	--[[ Upvalues[2]:
+		[1]: var1642_upvr (readonly)
+		[2]: DropdownArrow_upvr_4 (readonly)
+	]]
+	if var1642_upvr.Visible == true then
+		var1642_upvr.Visible = false
+		DropdownArrow_upvr_4.Rotation = 180
+	else
+		DropdownArrow_upvr_4.Rotation = 0
+		var1642_upvr.Visible = true
+	end
+end)
+local GRASS_2 = MiscFrame_upvr_2.GRASS
+local Grass_upvr_2 = GRASS_2.Grass
+local DropdownArrow_upvr_3 = Grass_upvr_2.DropdownArrow
+local Dropdown_upvr_3 = GRASS_2.Dropdown
+for _, v_43_upvr in pairs(game.ReplicatedStorage.SelectableGrass:GetChildren()) do
+	local clone_47 = script.mapButtonTemplate:Clone()
+	clone_47.Text = string.upper(v_43_upvr.Name)
+	clone_47.Parent = Dropdown_upvr_3
+	clone_47.MouseButton1Click:Connect(function() -- Line 2698
+		--[[ Upvalues[4]:
+			[1]: v_43_upvr (readonly)
+			[2]: Grass_upvr_2 (readonly)
+			[3]: Dropdown_upvr_3 (readonly)
+			[4]: DropdownArrow_upvr_3 (readonly)
+		]]
+		game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("GrassSelection", v_43_upvr.Name)
+		Grass_upvr_2.Text = string.upper(v_43_upvr.Name)
+		Dropdown_upvr_3.Visible = false
+		DropdownArrow_upvr_3.Rotation = 180
+	end)
+	local var1653_upvr
+end
+Grass_upvr_2.Text = string.upper(Misc_upvr.GrassSelection.Value)
+Grass_upvr_2.MouseButton1Click:Connect(function() -- Line 2708
+	--[[ Upvalues[2]:
+		[1]: var1653_upvr (readonly)
+		[2]: DropdownArrow_upvr_3 (readonly)
+	]]
+	if var1653_upvr.Visible == true then
+		var1653_upvr.Visible = false
+		DropdownArrow_upvr_3.Rotation = 180
+	else
+		DropdownArrow_upvr_3.Rotation = 0
+		var1653_upvr.Visible = true
+	end
+end)
+local POV_3 = MiscFrame_upvr_2.POV
+local POV_2_upvr = POV_3.POV
+local Dropdown_upvr_2 = POV_3.Dropdown
+for _, v_44_upvr in pairs(Dropdown_upvr_2:GetChildren()) do
+	if v_44_upvr:IsA("TextButton") then
+		local DropdownArrow_upvr_2 = POV_2_upvr.DropdownArrow
+		v_44_upvr.MouseButton1Click:Connect(function() -- Line 2726
+			--[[ Upvalues[4]:
+				[1]: v_44_upvr (readonly)
+				[2]: POV_2_upvr (readonly)
+				[3]: Dropdown_upvr_2 (readonly)
+				[4]: DropdownArrow_upvr_2 (readonly)
+			]]
+			game.ReplicatedStorage.Remotes.UpdateSetting:FireServer("POV", v_44_upvr.Name)
+			POV_2_upvr.Text = string.upper(v_44_upvr.Name)
+			Dropdown_upvr_2.Visible = false
+			DropdownArrow_upvr_2.Rotation = 180
+		end)
+	end
+end
+POV_2_upvr.Text = string.upper(Misc_upvr.POV.Value)
+POV_2_upvr.MouseButton1Click:Connect(function() -- Line 2738
+	--[[ Upvalues[2]:
+		[1]: Dropdown_upvr_2 (readonly)
+		[2]: DropdownArrow_upvr_2 (readonly)
+	]]
+	if Dropdown_upvr_2.Visible == true then
+		Dropdown_upvr_2.Visible = false
+		DropdownArrow_upvr_2.Rotation = 180
+	else
+		DropdownArrow_upvr_2.Rotation = 0
+		Dropdown_upvr_2.Visible = true
+	end
+end)
+local StoreFrame_upvr = script.Parent.StoreFrame
+local DailyShopFrame_upvr = StoreFrame_upvr.DailyShopFrame
+local AnimationsFrame_upvr_2 = StoreFrame_upvr.AnimationsFrame
+local CosmeticsFrame_upvr = StoreFrame_upvr.CosmeticsFrame
+local RobuxShopFrame_upvr = StoreFrame_upvr.RobuxShopFrame
+local PickCategoryFrame_upvr_2 = StoreFrame_upvr.PickCategoryFrame
+local PopupContainer_upvr = StoreFrame_upvr.PopupContainer
+MenuButtons_upvr.StoreButton.MouseButton1Click:Connect(function() -- Line 2758
+	--[[ Upvalues[1]:
+		[1]: StoreFrame_upvr (readonly)
+	]]
+	StoreFrame_upvr.Visible = not StoreFrame_upvr.Visible
+end)
+StoreFrame_upvr.TitleFrame.CancelButton.MouseButton1Click:Connect(function() -- Line 2762
+	--[[ Upvalues[1]:
+		[1]: StoreFrame_upvr (readonly)
+	]]
+	StoreFrame_upvr.Visible = false
+end)
+PickCategoryFrame_upvr_2.CosmeticsButton.MouseButton1Click:Connect(function() -- Line 2766
+	--[[ Upvalues[6]:
+		[1]: PickCategoryFrame_upvr_2 (readonly)
+		[2]: AnimationsFrame_upvr_2 (readonly)
+		[3]: CosmeticsFrame_upvr (readonly)
+		[4]: RobuxShopFrame_upvr (readonly)
+		[5]: StoreFrame_upvr (readonly)
+		[6]: DailyShopFrame_upvr (readonly)
+	]]
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr_2.CosmeticsButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 0.5;
+	}):Play()
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr_2.AnimationsButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 1;
+	}):Play()
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr_2.DailyShopButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 1;
+	}):Play()
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr_2.RobuxShopButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 1;
+	}):Play()
+	AnimationsFrame_upvr_2.Visible = false
+	CosmeticsFrame_upvr.Visible = true
+	RobuxShopFrame_upvr.Visible = false
+	StoreFrame_upvr.GiftRecipient.Visible = false
+	DailyShopFrame_upvr.Visible = false
+	StoreFrame_upvr.CrateInfo.Visible = true
+end)
+PickCategoryFrame_upvr_2.AnimationsButton.MouseButton1Click:Connect(function() -- Line 2787
+	--[[ Upvalues[6]:
+		[1]: PickCategoryFrame_upvr_2 (readonly)
+		[2]: AnimationsFrame_upvr_2 (readonly)
+		[3]: CosmeticsFrame_upvr (readonly)
+		[4]: RobuxShopFrame_upvr (readonly)
+		[5]: StoreFrame_upvr (readonly)
+		[6]: DailyShopFrame_upvr (readonly)
+	]]
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr_2.AnimationsButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 0.5;
+	}):Play()
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr_2.CosmeticsButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 1;
+	}):Play()
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr_2.DailyShopButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 1;
+	}):Play()
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr_2.RobuxShopButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 1;
+	}):Play()
+	AnimationsFrame_upvr_2.Visible = true
+	CosmeticsFrame_upvr.Visible = false
+	RobuxShopFrame_upvr.Visible = false
+	StoreFrame_upvr.GiftRecipient.Visible = false
+	DailyShopFrame_upvr.Visible = false
+	StoreFrame_upvr.CrateInfo.Visible = true
+end)
+PickCategoryFrame_upvr_2.DailyShopButton.MouseButton1Click:Connect(function() -- Line 2808
+	--[[ Upvalues[6]:
+		[1]: PickCategoryFrame_upvr_2 (readonly)
+		[2]: AnimationsFrame_upvr_2 (readonly)
+		[3]: CosmeticsFrame_upvr (readonly)
+		[4]: RobuxShopFrame_upvr (readonly)
+		[5]: StoreFrame_upvr (readonly)
+		[6]: DailyShopFrame_upvr (readonly)
+	]]
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr_2.CosmeticsButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 1;
+	}):Play()
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr_2.AnimationsButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 1;
+	}):Play()
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr_2.DailyShopButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 0.5;
+	}):Play()
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr_2.RobuxShopButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 1;
+	}):Play()
+	AnimationsFrame_upvr_2.Visible = false
+	CosmeticsFrame_upvr.Visible = false
+	RobuxShopFrame_upvr.Visible = false
+	StoreFrame_upvr.GiftRecipient.Visible = false
+	DailyShopFrame_upvr.Visible = true
+	StoreFrame_upvr.CrateInfo.Visible = false
+end)
+PickCategoryFrame_upvr_2.RobuxShopButton.MouseButton1Click:Connect(function() -- Line 2829
+	--[[ Upvalues[6]:
+		[1]: PickCategoryFrame_upvr_2 (readonly)
+		[2]: AnimationsFrame_upvr_2 (readonly)
+		[3]: CosmeticsFrame_upvr (readonly)
+		[4]: RobuxShopFrame_upvr (readonly)
+		[5]: StoreFrame_upvr (readonly)
+		[6]: DailyShopFrame_upvr (readonly)
+	]]
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr_2.CosmeticsButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 1;
+	}):Play()
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr_2.AnimationsButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 1;
+	}):Play()
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr_2.DailyShopButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 1;
+	}):Play()
+	game:GetService("TweenService"):Create(PickCategoryFrame_upvr_2.RobuxShopButton, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextStrokeTransparency = 0.5;
+	}):Play()
+	AnimationsFrame_upvr_2.Visible = false
+	CosmeticsFrame_upvr.Visible = false
+	RobuxShopFrame_upvr.Visible = true
+	StoreFrame_upvr.GiftRecipient.Visible = true
+	DailyShopFrame_upvr.Visible = false
+	StoreFrame_upvr.CrateInfo.Visible = false
+end)
+function getDailyShop() -- Line 2849
+	--[[ Upvalues[2]:
+		[1]: ItemInfo_upvr_2 (readonly)
+		[2]: DailyShopFrame_upvr (readonly)
+	]]
+	local any_InvokeServer_result1_4 = game.ReplicatedStorage.Remotes.getDailyShop:InvokeServer()
+	local SOME_10 = ItemInfo_upvr_2:FindFirstChild(any_InvokeServer_result1_4.Legendary)
+	DailyShopFrame_upvr.Legendary.itemNameVal.Value = SOME_10.Name
+	DailyShopFrame_upvr.Legendary.itemIcon.Image = SOME_10.itemIcon.Texture
+	DailyShopFrame_upvr.Legendary.ItemName.Text = string.upper(SOME_10.Name)
+	local SOME_9 = ItemInfo_upvr_2:FindFirstChild(any_InvokeServer_result1_4.Epic1)
+	DailyShopFrame_upvr.Epic1.itemNameVal.Value = SOME_9.Name
+	DailyShopFrame_upvr.Epic1.itemIcon.Image = SOME_9.itemIcon.Texture
+	DailyShopFrame_upvr.Epic1.ItemName.Text = string.upper(SOME_9.Name)
+	local SOME_14 = ItemInfo_upvr_2:FindFirstChild(any_InvokeServer_result1_4.Epic2)
+	DailyShopFrame_upvr.Epic2.itemNameVal.Value = SOME_14.Name
+	DailyShopFrame_upvr.Epic2.itemIcon.Image = SOME_14.itemIcon.Texture
+	DailyShopFrame_upvr.Epic2.ItemName.Text = string.upper(SOME_14.Name)
+	local SOME_8 = ItemInfo_upvr_2:FindFirstChild(any_InvokeServer_result1_4.Rare1)
+	DailyShopFrame_upvr.Rare1.itemNameVal.Value = SOME_8.Name
+	DailyShopFrame_upvr.Rare1.itemIcon.Image = SOME_8.itemIcon.Texture
+	DailyShopFrame_upvr.Rare1.ItemName.Text = string.upper(SOME_8.Name)
+	local SOME_7 = ItemInfo_upvr_2:FindFirstChild(any_InvokeServer_result1_4.Rare2)
+	DailyShopFrame_upvr.Rare2.itemNameVal.Value = SOME_7.Name
+	DailyShopFrame_upvr.Rare2.itemIcon.Image = SOME_7.itemIcon.Texture
+	DailyShopFrame_upvr.Rare2.ItemName.Text = string.upper(SOME_7.Name)
+	local SOME_6 = ItemInfo_upvr_2:FindFirstChild(any_InvokeServer_result1_4.Rare3)
+	DailyShopFrame_upvr.Rare3.itemNameVal.Value = SOME_6.Name
+	DailyShopFrame_upvr.Rare3.itemIcon.Image = SOME_6.itemIcon.Texture
+	DailyShopFrame_upvr.Rare3.ItemName.Text = string.upper(SOME_6.Name)
+end
+getDailyShop()
+game.ReplicatedStorage.Remotes.UpdateDailyShop.OnClientEvent:Connect(getDailyShop)
+local var1700_upvw = ""
+PopupContainer_upvr.YesButton.MouseButton1Click:Connect(function() -- Line 2888
+	--[[ Upvalues[2]:
+		[1]: var1700_upvw (read and write)
+		[2]: PopupContainer_upvr (readonly)
+	]]
+	if var1700_upvw ~= "" then
+		local any_InvokeServer_result1_8 = game.ReplicatedStorage.Remotes.Purchase:InvokeServer(var1700_upvw)
+		PopupContainer_upvr.Visible = false
+		if any_InvokeServer_result1_8 == "AlreadyOwned" then
+			notification("ITEM ALREADY OWNED.")
+		elseif any_InvokeServer_result1_8 == "NotEnoughCoins" then
+			notification("NOT ENOUGH COINS.")
+		elseif any_InvokeServer_result1_8 == "Failed" then
+			notification("AN UNEXPECTED ERROR HAS OCCURED.")
+		else
+			local clone_55 = game.ReplicatedStorage.UISounds.mvm_money_pickup:Clone()
+			clone_55.Parent = game.Workspace
+			clone_55:Play()
+			game.Debris:AddItem(clone_55, 3)
+			if var1700_upvw ~= "A RANDOM AURA" and var1700_upvw ~= "A RANDOM EYE" and var1700_upvw ~= "A RANDOM CELEBRATION" then
+				local clone_62 = game.ReplicatedStorage.UISounds.Item_Box_Get2:Clone()
+				clone_62.Parent = game.Workspace
+				clone_62:Play()
+				game.Debris:AddItem(clone_62, 3)
+			end
+		end
+		var1700_upvw = ""
+	end
+end)
+PopupContainer_upvr.NoButton.MouseButton1Click:Connect(function() -- Line 2915
+	--[[ Upvalues[2]:
+		[1]: var1700_upvw (read and write)
+		[2]: PopupContainer_upvr (readonly)
+	]]
+	if var1700_upvw ~= "" then
+		var1700_upvw = ""
+		PopupContainer_upvr.Visible = false
+	end
+end)
+function popup(arg1, arg2) -- Line 2922
+	--[[ Upvalues[2]:
+		[1]: var1700_upvw (read and write)
+		[2]: PopupContainer_upvr (readonly)
+	]]
+	var1700_upvw = arg1
+	PopupContainer_upvr.PurchaseText.Text = "WOULD YOU LIKE TO PURCHASE ["..string.upper(var1700_upvw).."] FOR "..arg2.." COINS?"
+	PopupContainer_upvr.Visible = true
+end
+AnimationsFrame_upvr_2.Barou.Purchase.MouseButton1Click:Connect(function() -- Line 2928
+	popup("Determined  Striker Animations", "100.0K")
+end)
+AnimationsFrame_upvr_2.Rin.Purchase.MouseButton1Click:Connect(function() -- Line 2932
+	popup("Destructive Striker Animations", "100.0K")
+end)
+AnimationsFrame_upvr_2.Shidou.Purchase.MouseButton1Click:Connect(function() -- Line 2936
+	popup("Sporadic Striker Animations", "100.0K")
+end)
+AnimationsFrame_upvr_2.Isagi.Purchase.MouseButton1Click:Connect(function() -- Line 2940
+	popup("Ordinary Striker Animations", "50.0K")
+end)
+AnimationsFrame_upvr_2.Bachira.Purchase.MouseButton1Click:Connect(function() -- Line 2944
+	popup("Freestyle Striker Animations", "100.0K")
+end)
+AnimationsFrame_upvr_2.Gagamaru.Purchase.MouseButton1Click:Connect(function() -- Line 2948
+	popup("Athletic Keeper Animations", "80.0K")
+end)
+DailyShopFrame_upvr.Legendary.Purchase.MouseButton1Click:Connect(function() -- Line 2952
+	--[[ Upvalues[1]:
+		[1]: DailyShopFrame_upvr (readonly)
+	]]
+	popup(DailyShopFrame_upvr.Legendary.itemNameVal.Value, "50.0K")
+end)
+DailyShopFrame_upvr.Epic1.Purchase.MouseButton1Click:Connect(function() -- Line 2956
+	--[[ Upvalues[1]:
+		[1]: DailyShopFrame_upvr (readonly)
+	]]
+	popup(DailyShopFrame_upvr.Epic1.itemNameVal.Value, "20.0K")
+end)
+DailyShopFrame_upvr.Epic2.Purchase.MouseButton1Click:Connect(function() -- Line 2960
+	--[[ Upvalues[1]:
+		[1]: DailyShopFrame_upvr (readonly)
+	]]
+	popup(DailyShopFrame_upvr.Epic2.itemNameVal.Value, "20.0K")
+end)
+DailyShopFrame_upvr.Rare1.Purchase.MouseButton1Click:Connect(function() -- Line 2964
+	--[[ Upvalues[1]:
+		[1]: DailyShopFrame_upvr (readonly)
+	]]
+	popup(DailyShopFrame_upvr.Rare1.itemNameVal.Value, "5.0K")
+end)
+DailyShopFrame_upvr.Rare2.Purchase.MouseButton1Click:Connect(function() -- Line 2968
+	--[[ Upvalues[1]:
+		[1]: DailyShopFrame_upvr (readonly)
+	]]
+	popup(DailyShopFrame_upvr.Rare2.itemNameVal.Value, "5.0K")
+end)
+DailyShopFrame_upvr.Rare3.Purchase.MouseButton1Click:Connect(function() -- Line 2972
+	--[[ Upvalues[1]:
+		[1]: DailyShopFrame_upvr (readonly)
+	]]
+	popup(DailyShopFrame_upvr.Rare3.itemNameVal.Value, "5.0K")
+end)
+CosmeticsFrame_upvr.ScoreAuras.Purchase.MouseButton1Click:Connect(function() -- Line 2976
+	popup("A RANDOM AURA", "3.0K")
+end)
+CosmeticsFrame_upvr.MVPEyes.Purchase.MouseButton1Click:Connect(function() -- Line 2980
+	popup("A RANDOM EYE", "3.0K")
+end)
+CosmeticsFrame_upvr.Celebrations.Purchase.MouseButton1Click:Connect(function() -- Line 2984
+	popup("A RANDOM CELEBRATION", "3.0K")
+end)
+game.ReplicatedStorage.Remotes.RobuxPurchase.OnClientEvent:Connect(function() -- Line 2988
+	local clone_14 = game.ReplicatedStorage.UISounds.mvm_money_pickup:Clone()
+	clone_14.Parent = game.Workspace
+	clone_14:Play()
+	game.Debris:AddItem(clone_14, 3)
+	local clone_13 = game.ReplicatedStorage.UISounds.Item_Box_Get2:Clone()
+	clone_13.Parent = game.Workspace
+	clone_13:Play()
+	game.Debris:AddItem(clone_13, 3)
+end)
+StoreFrame_upvr.GiftRecipient.FocusLost:Connect(function() -- Line 2999
+	--[[ Upvalues[1]:
+		[1]: StoreFrame_upvr (readonly)
+	]]
+	local Text = StoreFrame_upvr.GiftRecipient.Text
+	for _, v_45 in pairs(game.Players:GetPlayers()) do
+		if string.sub(v_45.Name, 0, #Text) == Text then
+			StoreFrame_upvr.GiftRecipient.Text = v_45.Name
+			return
+		end
+	end
+	StoreFrame_upvr.GiftRecipient.Text = ""
+end)
+RobuxShopFrame_upvr.Coins1.Purchase.MouseButton1Click:Connect(function() -- Line 3010
+	--[[ Upvalues[1]:
+		[1]: StoreFrame_upvr (readonly)
+	]]
+	game.ReplicatedStorage.Remotes.RobuxPurchase:FireServer("Coin1", StoreFrame_upvr.GiftRecipient.Text)
+end)
+RobuxShopFrame_upvr.Coins2.Purchase.MouseButton1Click:Connect(function() -- Line 3014
+	--[[ Upvalues[1]:
+		[1]: StoreFrame_upvr (readonly)
+	]]
+	game.ReplicatedStorage.Remotes.RobuxPurchase:FireServer("Coin2", StoreFrame_upvr.GiftRecipient.Text)
+end)
+RobuxShopFrame_upvr.Coins3.Purchase.MouseButton1Click:Connect(function() -- Line 3018
+	--[[ Upvalues[1]:
+		[1]: StoreFrame_upvr (readonly)
+	]]
+	game.ReplicatedStorage.Remotes.RobuxPurchase:FireServer("Coin3", StoreFrame_upvr.GiftRecipient.Text)
+end)
+RobuxShopFrame_upvr.Coins4.Purchase.MouseButton1Click:Connect(function() -- Line 3022
+	--[[ Upvalues[1]:
+		[1]: StoreFrame_upvr (readonly)
+	]]
+	game.ReplicatedStorage.Remotes.RobuxPurchase:FireServer("Coin4", StoreFrame_upvr.GiftRecipient.Text)
+end)
+RobuxShopFrame_upvr.SkipRolls.Purchase.MouseButton1Click:Connect(function() -- Line 3026
+	--[[ Upvalues[1]:
+		[1]: StoreFrame_upvr (readonly)
+	]]
+	game.ReplicatedStorage.Remotes.RobuxPurchase:FireServer("skipRolls", StoreFrame_upvr.GiftRecipient.Text)
+end)
+RobuxShopFrame_upvr.FilmMaker.Purchase.MouseButton1Click:Connect(function() -- Line 3030
+	--[[ Upvalues[1]:
+		[1]: StoreFrame_upvr (readonly)
+	]]
+	game.ReplicatedStorage.Remotes.RobuxPurchase:FireServer("filmMaker", StoreFrame_upvr.GiftRecipient.Text)
+end)
+RobuxShopFrame_upvr.PreferredJerseyNumber.Purchase.MouseButton1Click:Connect(function() -- Line 3034
+	--[[ Upvalues[1]:
+		[1]: StoreFrame_upvr (readonly)
+	]]
+	game.ReplicatedStorage.Remotes.RobuxPurchase:FireServer("prefNumber", StoreFrame_upvr.GiftRecipient.Text)
+end)
+RobuxShopFrame_upvr.AccessoryColor.Purchase.MouseButton1Click:Connect(function() -- Line 3038
+	--[[ Upvalues[1]:
+		[1]: StoreFrame_upvr (readonly)
+	]]
+	game.ReplicatedStorage.Remotes.RobuxPurchase:FireServer("customAccessoryColor", StoreFrame_upvr.GiftRecipient.Text)
+end)
+RobuxShopFrame_upvr.PSPlus.Purchase.MouseButton1Click:Connect(function() -- Line 3042
+	--[[ Upvalues[1]:
+		[1]: StoreFrame_upvr (readonly)
+	]]
+	game.ReplicatedStorage.Remotes.RobuxPurchase:FireServer("PS+", StoreFrame_upvr.GiftRecipient.Text)
+end)
+local CodesFrame_upvr = script.Parent.CodesFrame
+MenuButtons_upvr.CodesButton.MouseButton1Click:Connect(function() -- Line 3050
+	--[[ Upvalues[1]:
+		[1]: CodesFrame_upvr (readonly)
+	]]
+	CodesFrame_upvr.Visible = not CodesFrame_upvr.Visible
+end)
+CodesFrame_upvr.CancelButton.MouseButton1Click:Connect(function() -- Line 3054
+	--[[ Upvalues[1]:
+		[1]: CodesFrame_upvr (readonly)
+	]]
+	CodesFrame_upvr.Visible = false
+end)
+local CodeBox_upvr = CodesFrame_upvr.CodeBox
+function showMessage(arg1) -- Line 3061
+	--[[ Upvalues[1]:
+		[1]: CodeBox_upvr (readonly)
+	]]
+	CodeBox_upvr.PlaceholderText = arg1
+	task.delay(1, function() -- Line 3063
+		--[[ Upvalues[1]:
+			[1]: CodeBox_upvr (copied, readonly)
+		]]
+		CodeBox_upvr.PlaceholderText = "ENTER CODE"
+	end)
+end
+local var1746_upvw = false
+CodeBox_upvr.FocusLost:Connect(function() -- Line 3068
+	--[[ Upvalues[2]:
+		[1]: CodeBox_upvr (readonly)
+		[2]: var1746_upvw (read and write)
+	]]
+	if 0 < #CodeBox_upvr.Text and var1746_upvw == false then
+		var1746_upvw = true
+		task.delay(0.5, function() -- Line 3071
+			--[[ Upvalues[1]:
+				[1]: var1746_upvw (copied, read and write)
+			]]
+			var1746_upvw = false
+		end)
+		local any_InvokeServer_result1_3 = game.ReplicatedStorage.Remotes.EnterCode:InvokeServer(CodeBox_upvr.Text)
+		CodeBox_upvr.Text = ""
+		if any_InvokeServer_result1_3 == "codeExpired" then
+			showMessage("CODE HAS EXPIRED.")
+			local clone_30 = game.ReplicatedStorage.UISounds["ui-error4"]:Clone()
+			clone_30.Parent = game.Workspace
+			clone_30:Play()
+			game.Debris:AddItem(clone_30, 3)
+			return
+		end
+		if any_InvokeServer_result1_3 == "codeSubmitted" then
+			showMessage("CODE SUBMITTED. ENJOY!")
+			local clone_12 = game.ReplicatedStorage.UISounds.mvm_money_pickup:Clone()
+			clone_12.Parent = game.Workspace
+			clone_12:Play()
+			game.Debris:AddItem(clone_12, 3)
+			return
+		end
+		if any_InvokeServer_result1_3 == "codeInUse" then
+			showMessage("CODE HAS ALREADY BEEN USED.")
+			local clone_11 = game.ReplicatedStorage.UISounds["ui-error4"]:Clone()
+			clone_11.Parent = game.Workspace
+			clone_11:Play()
+			game.Debris:AddItem(clone_11, 3)
+			return
+		end
+		showMessage("CODE NOT FOUND.")
+		local clone_10 = game.ReplicatedStorage.UISounds["ui-error4"]:Clone()
+		clone_10.Parent = game.Workspace
+		clone_10:Play()
+		game.Debris:AddItem(clone_10, 3)
+	end
+end)
+local function _() -- Line 3104, Named "checkIsWeekend"
+	local wday_3 = os.date("!*t").wday
+	if wday_3 == 1 or wday_3 == 6 or wday_3 == 7 then
+		return true
+	end
+	return false
+end
+local wday_6 = os.date("!*t").wday
+if wday_6 == 1 or wday_6 == 6 or wday_6 == 7 then
+else
+end
+if false then
+	script.Parent["2xcoins"].Visible = true
+else
+	script.Parent["2xcoins"].Visible = false
+end
+task.spawn(function() -- Line 3119
+	while true do
+		local var1756
+		var1756 = var1756(30)
+		if not var1756 then break end
+		local wday_2 = os.date("!*t").wday
+		if wday_2 == 1 or wday_2 == 6 or wday_2 == 7 then
+			var1756 = true
+		else
+			var1756 = false
+		end
+		if var1756 then
+			var1756 = script.Parent["2xcoins"]
+			var1756.Visible = true
+		else
+			var1756 = script.Parent["2xcoins"]
+			var1756.Visible = false
+		end
+	end
+end)
+LeftFrame_2.HelpButton.MouseButton1Click:Connect(function() -- Line 3129
+	script.Parent.HelpFrame.Visible = not script.Parent.HelpFrame.Visible
+end)
+LeftFrame_2.UpdateLogButton.MouseButton1Click:Connect(function() -- Line 3133
+	script.Parent.UpdateLog.Visible = not script.Parent.UpdateLog.Visible
+end)
