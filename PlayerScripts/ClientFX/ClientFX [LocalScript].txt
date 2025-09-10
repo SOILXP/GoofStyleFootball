@@ -1,0 +1,506 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerScripts.ClientFX
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:23:32
+-- Luau version 6, Types version 3
+-- Time taken: 0.012187 seconds
+
+local LocalPlayer_upvr = game.Players.LocalPlayer
+repeat
+	task.wait()
+until LocalPlayer_upvr:FindFirstChild("dataLoaded")
+local ballStatus_upvr = game.Workspace.ballStatus
+local function _(arg1, arg2, arg3, arg4) -- Line 8, Named "tweenBeamTransparency"
+	-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+	local var7 = "NumberValue"
+	local any_upvr = Instance.new(var7)
+	local var9
+	if arg4 == true then
+		var7 = 1
+	else
+		var7 = 0.6
+	end
+	any_upvr.Value = var7
+	for i = 1, #arg2.Keypoints do
+		var9 = i
+		table.insert({}, var9, arg2.Keypoints[i])
+		local var11_upvr
+	end
+	any_upvr.Changed:Connect(function(arg1_2) -- Line 16
+		--[[ Upvalues[3]:
+			[1]: var11_upvr (readonly)
+			[2]: arg4 (readonly)
+			[3]: arg1 (readonly)
+		]]
+		local tbl_2 = {}
+		for i_2, v in ipairs(var11_upvr) do
+			local var21
+			local function INLINED() -- Internal function, doesn't exist in bytecode
+				var21 = v.Value + arg1_2
+				return var21
+			end
+			if arg4 ~= true or not INLINED() then
+				var21 = v.Value * arg1_2
+			end
+			if v.Value == 1 then
+				var21 = 1
+			end
+			table.insert(tbl_2, i_2, NumberSequenceKeypoint.new(v.Time, var21))
+		end
+		arg1.Transparency = NumberSequence.new(tbl_2)
+	end)
+	local tbl = {}
+	if arg4 == true then
+		var9 = 0.6
+	else
+		var9 = 1
+	end
+	tbl.Value = var9
+	local any_Create_result1 = game.TweenService:Create(any_upvr, arg3, tbl)
+	any_Create_result1.Completed:Once(function() -- Line 29
+		--[[ Upvalues[1]:
+			[1]: any_upvr (readonly)
+		]]
+		any_upvr:Destroy()
+	end)
+	any_Create_result1:Play()
+end
+fxFunctions = {
+	LocalAuraSound = function(arg1) -- Line 37
+		--[[ Upvalues[1]:
+			[1]: LocalPlayer_upvr (readonly)
+		]]
+		if not LocalPlayer_upvr.Settings.Misc.AuraEffects.Value then
+		else
+			local clone_25 = game.ReplicatedStorage.SFX:FindFirstChild("Aura"..tostring(math.random(1, 3))):Clone()
+			clone_25.Parent = arg1.TargetCharacter.HumanoidRootPart
+			clone_25:Play()
+			clone_25.Ended:Wait()
+			clone_25:Destroy()
+		end
+	end;
+	AuraTrigger = function(arg1) -- Line 46
+		--[[ Upvalues[1]:
+			[1]: LocalPlayer_upvr (readonly)
+		]]
+		-- KONSTANTERROR: [0] 1. Error Block 109 start (CF ANALYSIS FAILED)
+		if not LocalPlayer_upvr.Settings.Misc.AuraEffects.Value then return end
+		local Aura = arg1.Aura
+		if not Aura then return end
+		local pairs_result1_6, pairs_result2, pairs_result3_4 = pairs(Aura:GetChildren())
+		-- KONSTANTERROR: [0] 1. Error Block 109 end (CF ANALYSIS FAILED)
+		-- KONSTANTERROR: [572] 388. Error Block 80 start (CF ANALYSIS FAILED)
+		-- KONSTANTERROR: [572] 388. Error Block 80 end (CF ANALYSIS FAILED)
+		-- KONSTANTERROR: [26] 18. Error Block 110 start (CF ANALYSIS FAILED)
+		-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [572.9]
+		if nil == "Torso" then
+		end
+		-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [572.10]
+		-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [572.11]
+		for _, _ in nil do
+			-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [572.14]
+			local function INLINED_2() -- Internal function, doesn't exist in bytecode
+				-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+				return nil
+			end
+			if nil or INLINED_2() then
+			end
+			-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+		end
+		-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+		-- KONSTANTERROR: [26] 18. Error Block 110 end (CF ANALYSIS FAILED)
+	end;
+	BlueFlash = function(arg1) -- Line 260
+		local Highlight_upvr_2 = Instance.new("Highlight")
+		Highlight_upvr_2.FillTransparency = 1
+		Highlight_upvr_2.FillColor = Color3.new(0.12549, 0.666667, 1)
+		Highlight_upvr_2.OutlineTransparency = 1
+		Highlight_upvr_2.OutlineColor = Color3.new(0.12549, 0.666667, 1)
+		Highlight_upvr_2.Parent = arg1.Target
+		game.Debris:AddItem(Highlight_upvr_2, 3)
+		game:GetService("TweenService"):Create(Highlight_upvr_2, TweenInfo.new(0.125, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+			FillTransparency = 0;
+			OutlineTransparency = 0;
+		}):Play()
+		task.delay(0.125, function() -- Line 273
+			--[[ Upvalues[1]:
+				[1]: Highlight_upvr_2 (readonly)
+			]]
+			game:GetService("TweenService"):Create(Highlight_upvr_2, TweenInfo.new(0.125, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {
+				FillTransparency = 1;
+				OutlineTransparency = 1;
+			}):Play()
+		end)
+	end;
+	WhiteFlash = function(arg1) -- Line 280
+		local Highlight_upvr_3 = Instance.new("Highlight")
+		Highlight_upvr_3.FillTransparency = 1
+		Highlight_upvr_3.FillColor = Color3.new(1, 1, 1)
+		Highlight_upvr_3.OutlineTransparency = 1
+		Highlight_upvr_3.OutlineColor = Color3.new(1, 1, 1)
+		Highlight_upvr_3.Parent = arg1.Target
+		game.Debris:AddItem(Highlight_upvr_3, 3)
+		game:GetService("TweenService"):Create(Highlight_upvr_3, TweenInfo.new(0.125, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+			FillTransparency = 0;
+			OutlineTransparency = 0;
+		}):Play()
+		task.delay(0.125, function() -- Line 293
+			--[[ Upvalues[1]:
+				[1]: Highlight_upvr_3 (readonly)
+			]]
+			game:GetService("TweenService"):Create(Highlight_upvr_3, TweenInfo.new(0.125, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {
+				FillTransparency = 1;
+				OutlineTransparency = 1;
+			}):Play()
+		end)
+	end;
+	BlackFlash = function(arg1) -- Line 300
+		local Highlight_upvr = Instance.new("Highlight")
+		Highlight_upvr.FillTransparency = 1
+		Highlight_upvr.FillColor = Color3.new(0, 0, 0)
+		Highlight_upvr.OutlineTransparency = 1
+		Highlight_upvr.OutlineColor = Color3.new(0, 0, 0)
+		Highlight_upvr.Parent = arg1.Target
+		game.Debris:AddItem(Highlight_upvr, 3)
+		game:GetService("TweenService"):Create(Highlight_upvr, TweenInfo.new(0.125, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+			FillTransparency = 0;
+			OutlineTransparency = 0;
+		}):Play()
+		task.delay(0.125, function() -- Line 313
+			--[[ Upvalues[1]:
+				[1]: Highlight_upvr (readonly)
+			]]
+			game:GetService("TweenService"):Create(Highlight_upvr, TweenInfo.new(0.125, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {
+				FillTransparency = 1;
+				OutlineTransparency = 1;
+			}):Play()
+		end)
+	end;
+	BigShockwave = function(arg1) -- Line 320
+		local clone_5 = game.ReplicatedStorage.VFX.Shockwave:Clone()
+		clone_5.CFrame = arg1.cframe
+		clone_5.Parent = game.Workspace.FX
+		for _, v_3 in pairs(clone_5.Shockwave:GetChildren()) do
+			v_3:Emit(v_3:GetAttribute("EmitCount"))
+		end
+		game.Debris:AddItem(clone_5, 3)
+	end;
+	ImpactShockwave = function(arg1) -- Line 331
+		local clone = game.ReplicatedStorage.VFX.ImpactShockwave:Clone()
+		clone.CFrame = arg1.cframe
+		clone.Parent = game.Workspace.FX
+		for _, v_4 in pairs(clone.Attachment:GetChildren()) do
+			v_4:Emit(v_4:GetAttribute("EmitCount"))
+		end
+		game.Debris:AddItem(clone, 3)
+	end;
+	SmallShockwave = function(arg1) -- Line 342
+		local clone_4 = game.ReplicatedStorage.VFX.Shockwave:Clone()
+		clone_4.CFrame = arg1.cframe
+		clone_4.Parent = game.Workspace.FX
+		for _, v_5 in pairs(clone_4.SmallShockwave:GetChildren()) do
+			v_5:Emit(2)
+		end
+		game.Debris:AddItem(clone_4, 2)
+	end;
+	Ripple = function(arg1) -- Line 353
+		local clone_14 = game.ReplicatedStorage.VFX.Shockwave:Clone()
+		clone_14.CFrame = arg1.cframe
+		clone_14.Parent = game.Workspace.FX
+		for _, v_6_upvr in pairs(clone_14.Ripple:GetChildren()) do
+			v_6_upvr:Emit(1)
+			task.delay(0.35, function() -- Line 361
+				--[[ Upvalues[1]:
+					[1]: v_6_upvr (readonly)
+				]]
+				v_6_upvr:Emit(1)
+			end)
+		end
+		game.Debris:AddItem(clone_14, 2)
+	end;
+	Grasscutter = function(arg1) -- Line 368
+		--[[ Upvalues[1]:
+			[1]: LocalPlayer_upvr (readonly)
+		]]
+		local clone_13 = game.ReplicatedStorage.VFX.Grasscutter:FindFirstChild(arg1.side):Clone()
+		clone_13.Parent = arg1.Target.HumanoidRootPart
+		if LocalPlayer_upvr.Settings.Misc.SnowEnabled.Value == true then
+			clone_13.CUTS.Color = ColorSequence.new(Color3.new(1, 1, 1))
+		end
+		clone_13.CUTS:Emit(25)
+		game.Debris:AddItem(clone_13, 3)
+	end;
+	FakeShot = function(arg1) -- Line 379
+		local clone_7 = game.ReplicatedStorage.VFX.Shockwave.fakeShot:Clone()
+		clone_7.Parent = arg1.Target.HumanoidRootPart
+		for _, v_7 in pairs(clone_7:GetChildren()) do
+			v_7:Emit(v_7:GetAttribute("EmitCount"))
+		end
+		game.Debris:AddItem(clone_7, 2)
+	end;
+	PinpointTrivelaTrail = function(arg1) -- Line 388
+		--[[ Upvalues[1]:
+			[1]: ballStatus_upvr (readonly)
+		]]
+		local Ball_2_upvr = game.Workspace.Temp:FindFirstChild("Ball")
+		if Ball_2_upvr then
+			Ball_2_upvr.Trail.Attachment0 = nil
+			local clone_10_upvr = game.ReplicatedStorage.VFX.PinpointTrivela.CurveTrail:Clone()
+			clone_10_upvr.Parent = Ball_2_upvr
+			clone_10_upvr.Attachment0 = Ball_2_upvr.Attachment0
+			clone_10_upvr.Attachment1 = Ball_2_upvr.Attachment1
+			local clone_11_upvr = game.ReplicatedStorage.VFX.PinpointTrivela.CUTS:Clone()
+			clone_11_upvr.Parent = Ball_2_upvr
+			local clone_9_upvr = game.ReplicatedStorage.VFX.PinpointTrivela.CUTS:Clone()
+			clone_9_upvr.Parent = Ball_2_upvr
+			local var94_upvw
+			var94_upvw = ballStatus_upvr.inAir.Changed:Connect(function() -- Line 401
+				--[[ Upvalues[5]:
+					[1]: ballStatus_upvr (copied, readonly)
+					[2]: var94_upvw (read and write)
+					[3]: clone_11_upvr (readonly)
+					[4]: clone_9_upvr (readonly)
+					[5]: clone_10_upvr (readonly)
+				]]
+				if ballStatus_upvr.inAir.Value == false then
+					var94_upvw:Disconnect()
+					clone_11_upvr.Enabled = false
+					clone_9_upvr.Enabled = false
+					clone_10_upvr.Enabled = false
+				end
+			end)
+			task.delay(arg1.t or 0.5, function() -- Line 409
+				--[[ Upvalues[5]:
+					[1]: Ball_2_upvr (readonly)
+					[2]: var94_upvw (read and write)
+					[3]: clone_9_upvr (readonly)
+					[4]: clone_11_upvr (readonly)
+					[5]: clone_10_upvr (readonly)
+				]]
+				Ball_2_upvr.Trail.Attachment0 = Ball_2_upvr.Attachment0
+				var94_upvw:Disconnect()
+				clone_9_upvr.Enabled = false
+				clone_11_upvr.Enabled = false
+				clone_10_upvr.Enabled = false
+			end)
+		end
+	end;
+	CurveTrail = function(arg1) -- Line 418
+		--[[ Upvalues[1]:
+			[1]: ballStatus_upvr (readonly)
+		]]
+		local Ball_4_upvr = game.Workspace.Temp:FindFirstChild("Ball")
+		if Ball_4_upvr then
+			Ball_4_upvr.Trail.Attachment0 = nil
+			local clone_upvr = game.ReplicatedStorage.VFX.CurveShots.CurveTrail:Clone()
+			clone_upvr.Parent = Ball_4_upvr
+			clone_upvr.Attachment0 = Ball_4_upvr.Attachment0
+			clone_upvr.Attachment1 = Ball_4_upvr.Attachment1
+			local clone_21_upvr = game.ReplicatedStorage.VFX.CurveShots.SMOKE:Clone()
+			clone_21_upvr.Parent = Ball_4_upvr
+			local var101_upvw
+			var101_upvw = ballStatus_upvr.inAir.Changed:Connect(function() -- Line 429
+				--[[ Upvalues[4]:
+					[1]: ballStatus_upvr (copied, readonly)
+					[2]: var101_upvw (read and write)
+					[3]: clone_21_upvr (readonly)
+					[4]: clone_upvr (readonly)
+				]]
+				if ballStatus_upvr.inAir.Value == false then
+					var101_upvw:Disconnect()
+					clone_21_upvr.Enabled = false
+					clone_upvr.Enabled = false
+				end
+			end)
+			task.delay(arg1.t or 0.5, function() -- Line 436
+				--[[ Upvalues[4]:
+					[1]: Ball_4_upvr (readonly)
+					[2]: var101_upvw (read and write)
+					[3]: clone_21_upvr (readonly)
+					[4]: clone_upvr (readonly)
+				]]
+				Ball_4_upvr.Trail.Attachment0 = Ball_4_upvr.Attachment0
+				var101_upvw:Disconnect()
+				clone_21_upvr.Enabled = false
+				clone_upvr.Enabled = false
+			end)
+		end
+	end;
+	Knuckleball = function(arg1) -- Line 444
+		local Ball_3_upvr = game.Workspace.Temp:FindFirstChild("Ball")
+		if Ball_3_upvr then
+			Ball_3_upvr.Trail.Attachment0 = nil
+			task.delay(arg1.t or 0.5, function() -- Line 449
+				--[[ Upvalues[1]:
+					[1]: Ball_3_upvr (readonly)
+				]]
+				Ball_3_upvr.Trail.Attachment0 = Ball_3_upvr.Attachment0
+			end)
+		end
+	end;
+	PowerShotTrail = function(arg1) -- Line 454
+		local Ball = game.Workspace.Temp:FindFirstChild("Ball")
+		if Ball then
+			local PowerShotTrail = game.ReplicatedStorage.VFX.PowerShotTrail
+			local clone_18_upvr = PowerShotTrail.PowerTrail:Clone()
+			clone_18_upvr.Parent = Ball
+			local clone_8 = PowerShotTrail.Attachment0:Clone()
+			clone_8.Parent = Ball
+			local clone_26 = PowerShotTrail.Attachment1:Clone()
+			clone_26.Parent = Ball
+			clone_18_upvr.Attachment0 = clone_8
+			clone_18_upvr.Attachment1 = clone_26
+			local clone_23_upvr = PowerShotTrail.Attachment:Clone()
+			clone_23_upvr.Parent = Ball
+			local clone_22_upvr = PowerShotTrail.SPECKS:Clone()
+			clone_22_upvr.Parent = Ball
+			task.delay(0.1, function() -- Line 471
+				--[[ Upvalues[1]:
+					[1]: clone_22_upvr (readonly)
+				]]
+				clone_22_upvr.Enabled = true
+			end)
+			task.delay(arg1.t or 0.5, function() -- Line 474
+				--[[ Upvalues[3]:
+					[1]: clone_23_upvr (readonly)
+					[2]: clone_18_upvr (readonly)
+					[3]: clone_22_upvr (readonly)
+				]]
+				clone_23_upvr.CenterSpark.Enabled = false
+				clone_18_upvr.Enabled = false
+				clone_22_upvr.Enabled = false
+			end)
+		end
+	end;
+	ExplosiveBurst = function(arg1) -- Line 481
+		local Target_2 = arg1.Target
+		local clone_12 = game.ReplicatedStorage.VFX.SPDash.Shockwave1:Clone()
+		clone_12.Parent = Target_2.HumanoidRootPart
+		clone_12.CenterSpark:Emit(2)
+		game.Debris:AddItem(clone_12, 3)
+		local clone_20 = game.ReplicatedStorage.VFX.SPDash.Shockwave2:Clone()
+		clone_20.Parent = Target_2.HumanoidRootPart
+		clone_20.CenterSpark:Emit(2)
+		game.Debris:AddItem(clone_20, 3)
+		local clone_2 = game.ReplicatedStorage.VFX.SPDash.Strike:Clone()
+		clone_2.Parent = Target_2.HumanoidRootPart
+		clone_2.STRIKES:Emit(3)
+		game.Debris:AddItem(clone_12, 3)
+		local clone_24 = game.ReplicatedStorage.VFX.SPDash.Attachment0:Clone()
+		clone_24.Parent = Target_2.Torso
+		local clone_19 = game.ReplicatedStorage.VFX.SPDash.Attachment1:Clone()
+		clone_19.Parent = Target_2.Torso
+		local clone_6_upvr = game.ReplicatedStorage.VFX.SPDash.Trail:Clone()
+		clone_6_upvr.Parent = Target_2.Torso
+		clone_6_upvr.Attachment0 = clone_24
+		clone_6_upvr.Attachment1 = clone_19
+		clone_6_upvr.Enabled = true
+		game.Debris:AddItem(clone_24, 3)
+		game.Debris:AddItem(clone_19, 3)
+		game.Debris:AddItem(clone_6_upvr, 3)
+		task.delay(0.25, function() -- Line 507
+			--[[ Upvalues[1]:
+				[1]: clone_6_upvr (readonly)
+			]]
+			clone_6_upvr.Enabled = false
+		end)
+	end;
+	Godspeed = function(arg1) -- Line 511
+		local Target = arg1.Target
+		local clone_upvr_2 = game.ReplicatedStorage.VFX.Godspeed.Shockwave1:Clone()
+		clone_upvr_2.Parent = Target.HumanoidRootPart
+		clone_upvr_2.CenterSpark:Emit(2)
+		game.Debris:AddItem(clone_upvr_2, 3)
+		local clone_17_upvr = game.ReplicatedStorage.VFX.Godspeed.Shockwave2:Clone()
+		clone_17_upvr.Parent = Target.HumanoidRootPart
+		clone_17_upvr.CenterSpark:Emit(2)
+		game.Debris:AddItem(clone_17_upvr, 3)
+		local clone_3 = game.ReplicatedStorage.VFX.Godspeed.Strike:Clone()
+		clone_3.Parent = Target.HumanoidRootPart
+		clone_3.STRIKES:Emit(5)
+		clone_3.ELECTRIC:Emit(5)
+		game.Debris:AddItem(clone_upvr_2, 3)
+		task.delay(0.5, function() -- Line 526
+			--[[ Upvalues[2]:
+				[1]: clone_upvr_2 (readonly)
+				[2]: clone_17_upvr (readonly)
+			]]
+			clone_upvr_2.CenterSpark.Enabled = false
+			clone_17_upvr.CenterSpark.Enabled = false
+		end)
+	end;
+	PlanetHotline = function(arg1) -- Line 531
+		local PlanetHotline = game.ReplicatedStorage.VFX.PlanetHotline
+		local clone_16 = PlanetHotline.PlanetHotline:Clone()
+		clone_16.Brightness = 0
+		clone_16.Contrast = 0
+		clone_16.Saturation = 0
+		clone_16.Parent = game.Lighting
+		game:GetService("TweenService"):Create(clone_16, TweenInfo.new(1.25, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+			Brightness = -0.1;
+			Contrast = -2;
+			Saturation = -1;
+		}):Play()
+		game.Debris:AddItem(clone_16, 15)
+		local clone_15_upvr = PlanetHotline.Link:Clone()
+		local Attachment_2 = Instance.new("Attachment")
+		Attachment_2.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+		local Attachment = Instance.new("Attachment")
+		Attachment.Parent = arg1.Target.Character.HumanoidRootPart
+		clone_15_upvr.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+		clone_15_upvr.Attachment0 = Attachment_2
+		clone_15_upvr.Attachment1 = Attachment
+		game.Debris:AddItem(clone_15_upvr, 15)
+		game.Debris:AddItem(Attachment_2, 15)
+		game.Debris:AddItem(Attachment, 15)
+		task.spawn(function() -- Line 556
+			--[[ Upvalues[1]:
+				[1]: clone_15_upvr (readonly)
+			]]
+			for i_9 = 1, 20 do
+				clone_15_upvr.Transparency = NumberSequence.new(1 - i_9 * 0.05)
+				task.wait(0.06125)
+			end
+		end)
+	end;
+	EndPlanetHotline = function(arg1) -- Line 563
+		for _, v_8_upvr in pairs(game.Lighting:GetChildren()) do
+			if v_8_upvr.Name == "PlanetHotline" then
+				game:GetService("TweenService"):Create(v_8_upvr, TweenInfo.new(1.25, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+					Brightness = 0;
+					Contrast = 0;
+					Saturation = 0;
+				}):Play()
+				task.delay(0.5, function() -- Line 572
+					--[[ Upvalues[1]:
+						[1]: v_8_upvr (readonly)
+					]]
+					v_8_upvr:Destroy()
+				end)
+			end
+		end
+		local Link_upvr = game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("Link")
+		task.spawn(function() -- Line 577
+			--[[ Upvalues[1]:
+				[1]: Link_upvr (readonly)
+			]]
+			for i_11 = 1, 20 do
+				Link_upvr.Transparency = NumberSequence.new(i_11 * 0.05)
+				task.wait(0.06125)
+			end
+			Link_upvr:Destroy()
+		end)
+	end;
+} -- Setting global
+game.ReplicatedStorage.Remotes.ClientFX.OnClientEvent:Connect(function(arg1) -- Line 592
+	local Effect = arg1.Effect
+	if Effect == nil then
+	else
+		local pcall_result1, pcall_result2 = pcall(fxFunctions[Effect], arg1)
+		if pcall_result1 == false then
+			warn("ClientFX threw exception: | "..pcall_result2.." | when trying to execute "..Effect)
+		end
+	end
+end)

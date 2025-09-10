@@ -1,0 +1,22 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerScripts.WindController
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:10
+-- Luau version 6, Types version 3
+-- Time taken: 0.000346 seconds
+
+local WindShake = require(script.WindShake)
+require(script.WindLines):Init({
+	Direction = Vector3.new(1, 0, 0.30000);
+	Speed = 15;
+	Lifetime = 2;
+	SpawnRate = 13;
+})
+WindShake:SetDefaultSettings({
+	WindSpeed = 15;
+	WindDirection = Vector3.new(1, 0, 0.30000);
+	WindPower = 0.65;
+})
+WindShake:Init()

@@ -1,0 +1,52 @@
+-- ModuleScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerScripts.PlayerModule.ControlModule.BaseCharacterController
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:23:56
+-- Luau version 6, Types version 3
+-- Time taken: 0.000965 seconds
+
+local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
+local any_getUserFlag_result1_upvr = require(CommonUtils:WaitForChild("FlagUtil")).getUserFlag("UserUpdateInputConnections")
+local module_upvr = {}
+module_upvr.__index = module_upvr
+local zero_vector3_upvr = Vector3.new()
+local module_upvr_2 = require(CommonUtils:WaitForChild("ConnectionUtil"))
+function module_upvr.new() -- Line 38
+	--[[ Upvalues[4]:
+		[1]: module_upvr (readonly)
+		[2]: zero_vector3_upvr (readonly)
+		[3]: any_getUserFlag_result1_upvr (readonly)
+		[4]: module_upvr_2 (readonly)
+	]]
+	local setmetatable_result1 = setmetatable({}, module_upvr)
+	setmetatable_result1.enabled = false
+	setmetatable_result1.moveVector = zero_vector3_upvr
+	setmetatable_result1.moveVectorIsCameraRelative = true
+	setmetatable_result1.isJumping = false
+	if any_getUserFlag_result1_upvr then
+		setmetatable_result1._connections = module_upvr_2.new()
+	end
+	return setmetatable_result1
+end
+function module_upvr.OnRenderStepped(arg1, arg2) -- Line 52
+	--[[ Upvalues[1]:
+		[1]: any_getUserFlag_result1_upvr (readonly)
+	]]
+	assert(not any_getUserFlag_result1_upvr)
+end
+function module_upvr.GetMoveVector(arg1) -- Line 57
+	return arg1.moveVector
+end
+function module_upvr.IsMoveVectorCameraRelative(arg1) -- Line 61
+	return arg1.moveVectorIsCameraRelative
+end
+function module_upvr.GetIsJumping(arg1) -- Line 65
+	return arg1.isJumping
+end
+function module_upvr.Enable(arg1, arg2) -- Line 71
+	error("BaseCharacterController:Enable must be overridden in derived classes and should not be called.")
+	return false
+end
+return module_upvr

@@ -1,0 +1,71 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerScripts.clientMapHandler
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:16
+-- Luau version 6, Types version 3
+-- Time taken: 0.001752 seconds
+
+local Misc_upvr = game.Players.LocalPlayer:WaitForChild("Settings"):WaitForChild("Misc")
+function handleMap(arg1) -- Line 5
+	--[[ Upvalues[1]:
+		[1]: Misc_upvr (readonly)
+	]]
+	local SOME_upvr_2 = game.ReplicatedStorage.SelectableMaps:FindFirstChild(Misc_upvr.MapSelection.Value)
+	if SOME_upvr_2 then
+		task.spawn(function() -- Line 8
+			--[[ Upvalues[2]:
+				[1]: SOME_upvr_2 (readonly)
+				[2]: Misc_upvr (copied, readonly)
+			]]
+			game.ReplicatedStorage.Shutter:Fire()
+			task.wait(0.55)
+			for _, v in pairs(game.Workspace.gameArea.SelectedMap:GetChildren()) do
+				v:Destroy()
+			end
+			for i_2, v_2 in pairs(SOME_upvr_2:GetChildren()) do
+				if v_2:IsA("Model") or v_2:IsA("BasePart") then
+					v_2:Clone().Parent = game.Workspace.gameArea.SelectedMap
+				end
+			end
+			if Misc_upvr.MapSelection.Value == "Blue Lock Chamber" and Misc_upvr.Night.Value == true then
+				i_2 = 0.882353
+				v_2 = 0.882353
+				game.Lighting.Ambient = Color3.new(0.882353, i_2, v_2)
+				i_2 = 0.882353
+				v_2 = 0.882353
+				game.Lighting.OutdoorAmbient = Color3.new(0.882353, i_2, v_2)
+			end
+		end)
+	end
+end
+function handleGrass(arg1) -- Line 28
+	--[[ Upvalues[1]:
+		[1]: Misc_upvr (readonly)
+	]]
+	local SOME_upvr = game.ReplicatedStorage.SelectableGrass:FindFirstChild(Misc_upvr.GrassSelection.Value)
+	if SOME_upvr then
+		task.spawn(function() -- Line 32
+			--[[ Upvalues[1]:
+				[1]: SOME_upvr (readonly)
+			]]
+			game.ReplicatedStorage.Shutter:Fire()
+			task.wait(0.55)
+			for _, v_3 in pairs(game.Workspace.gameArea.Grass:GetChildren()) do
+				v_3:Destroy()
+			end
+			for _, v_4 in pairs(SOME_upvr:GetChildren()) do
+				if v_4:IsA("Model") or v_4:IsA("BasePart") then
+					v_4:Clone().Parent = game.Workspace.gameArea.Grass
+				end
+			end
+		end)
+	end
+end
+Misc_upvr.MapSelection.Changed:Connect(handleMap)
+Misc_upvr.GrassSelection.Changed:Connect(handleGrass)
+task.delay(1, function() -- Line 51
+	handleMap(true)
+	handleGrass(true)
+end)

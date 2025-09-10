@@ -1,0 +1,743 @@
+-- ModuleScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerScripts.PlayerModule.ControlModule
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:23:55
+-- Luau version 6, Types version 3
+-- Time taken: 0.017671 seconds
+
+local module_upvr_4 = {}
+module_upvr_4.__index = module_upvr_4
+local Players_upvr = game:GetService("Players")
+local UserInputService_upvr = game:GetService("UserInputService")
+local GuiService_upvr = game:GetService("GuiService")
+local Workspace_upvr = game:GetService("Workspace")
+local UserGameSettings_upvr = UserSettings():GetService("UserGameSettings")
+local VRService_upvr = game:GetService("VRService")
+local module_upvr_7 = require(script:WaitForChild("Keyboard"))
+local module_upvr_6 = require(script:WaitForChild("Gamepad"))
+local module_upvr = require(script:WaitForChild("DynamicThumbstick"))
+local pcall_result1, pcall_result2_2 = pcall(function() -- Line 37
+	return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickSafeAreaUpdate")
+end)
+local pcall_result1_2, pcall_result2 = pcall(function() -- Line 44
+	return UserSettings():IsUserFeatureEnabled("UserFixTouchJumpBug2")
+end)
+local var17_upvw = pcall_result1_2 and pcall_result2
+local module_upvr_2 = require(script:WaitForChild("TouchThumbstick"))
+local module_upvr_3 = require(script:WaitForChild("ClickToMoveController"))
+local module_upvr_8 = require(script:WaitForChild("TouchJump"))
+local Value_upvr = Enum.ContextActionPriority.Medium.Value
+local tbl_upvr = {
+	[Enum.TouchMovementMode.DPad] = module_upvr;
+	[Enum.DevTouchMovementMode.DPad] = module_upvr;
+	[Enum.TouchMovementMode.Thumbpad] = module_upvr;
+	[Enum.DevTouchMovementMode.Thumbpad] = module_upvr;
+	[Enum.TouchMovementMode.Thumbstick] = module_upvr_2;
+	[Enum.DevTouchMovementMode.Thumbstick] = module_upvr_2;
+	[Enum.TouchMovementMode.DynamicThumbstick] = module_upvr;
+	[Enum.DevTouchMovementMode.DynamicThumbstick] = module_upvr;
+	[Enum.TouchMovementMode.ClickToMove] = module_upvr_3;
+	[Enum.DevTouchMovementMode.ClickToMove] = module_upvr_3;
+	[Enum.TouchMovementMode.Default] = module_upvr;
+	[Enum.ComputerMovementMode.Default] = module_upvr_7;
+	[Enum.ComputerMovementMode.KeyboardMouse] = module_upvr_7;
+	[Enum.DevComputerMovementMode.KeyboardMouse] = module_upvr_7;
+	[Enum.DevComputerMovementMode.Scriptable] = nil;
+	[Enum.ComputerMovementMode.ClickToMove] = module_upvr_3;
+	[Enum.DevComputerMovementMode.ClickToMove] = module_upvr_3;
+}
+local tbl_upvr_2 = {
+	[Enum.UserInputType.Keyboard] = module_upvr_7;
+	[Enum.UserInputType.MouseButton1] = module_upvr_7;
+	[Enum.UserInputType.MouseButton2] = module_upvr_7;
+	[Enum.UserInputType.MouseButton3] = module_upvr_7;
+	[Enum.UserInputType.MouseWheel] = module_upvr_7;
+	[Enum.UserInputType.MouseMovement] = module_upvr_7;
+	[Enum.UserInputType.Gamepad1] = module_upvr_6;
+	[Enum.UserInputType.Gamepad2] = module_upvr_6;
+	[Enum.UserInputType.Gamepad3] = module_upvr_6;
+	[Enum.UserInputType.Gamepad4] = module_upvr_6;
+}
+local var24_upvw
+local module_upvr_5 = require(script:WaitForChild("VehicleController"))
+local RunService_upvr = game:GetService("RunService")
+function module_upvr_4.new() -- Line 102
+	--[[ Upvalues[8]:
+		[1]: module_upvr_4 (readonly)
+		[2]: Players_upvr (readonly)
+		[3]: module_upvr_5 (readonly)
+		[4]: Value_upvr (readonly)
+		[5]: RunService_upvr (readonly)
+		[6]: UserInputService_upvr (readonly)
+		[7]: UserGameSettings_upvr (readonly)
+		[8]: GuiService_upvr (readonly)
+	]]
+	local setmetatable_result1_upvr = setmetatable({}, module_upvr_4)
+	setmetatable_result1_upvr.controllers = {}
+	setmetatable_result1_upvr.activeControlModule = nil
+	setmetatable_result1_upvr.activeController = nil
+	setmetatable_result1_upvr.touchJumpController = nil
+	setmetatable_result1_upvr.moveFunction = Players_upvr.LocalPlayer.Move
+	setmetatable_result1_upvr.humanoid = nil
+	setmetatable_result1_upvr.lastInputType = Enum.UserInputType.None
+	setmetatable_result1_upvr.controlsEnabled = true
+	setmetatable_result1_upvr.humanoidSeatedConn = nil
+	setmetatable_result1_upvr.vehicleController = nil
+	setmetatable_result1_upvr.touchControlFrame = nil
+	setmetatable_result1_upvr.currentTorsoAngle = 0
+	setmetatable_result1_upvr.inputMoveVector = Vector3.new(0, 0, 0)
+	setmetatable_result1_upvr.vehicleController = module_upvr_5.new(Value_upvr)
+	Players_upvr.LocalPlayer.CharacterAdded:Connect(function(arg1) -- Line 128
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr (readonly)
+		]]
+		setmetatable_result1_upvr:OnCharacterAdded(arg1)
+	end)
+	Players_upvr.LocalPlayer.CharacterRemoving:Connect(function(arg1) -- Line 129
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr (readonly)
+		]]
+		setmetatable_result1_upvr:OnCharacterRemoving(arg1)
+	end)
+	if Players_upvr.LocalPlayer.Character then
+		setmetatable_result1_upvr:OnCharacterAdded(Players_upvr.LocalPlayer.Character)
+	end
+	RunService_upvr:BindToRenderStep("ControlScriptRenderstep", Enum.RenderPriority.Input.Value, function(arg1) -- Line 134
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr (readonly)
+		]]
+		setmetatable_result1_upvr:OnRenderStepped(arg1)
+	end)
+	UserInputService_upvr.LastInputTypeChanged:Connect(function(arg1) -- Line 138
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr (readonly)
+		]]
+		setmetatable_result1_upvr:OnLastInputTypeChanged(arg1)
+	end)
+	UserGameSettings_upvr:GetPropertyChangedSignal("TouchMovementMode"):Connect(function() -- Line 143
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr (readonly)
+		]]
+		setmetatable_result1_upvr:OnTouchMovementModeChange()
+	end)
+	Players_upvr.LocalPlayer:GetPropertyChangedSignal("DevTouchMovementMode"):Connect(function() -- Line 146
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr (readonly)
+		]]
+		setmetatable_result1_upvr:OnTouchMovementModeChange()
+	end)
+	UserGameSettings_upvr:GetPropertyChangedSignal("ComputerMovementMode"):Connect(function() -- Line 150
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr (readonly)
+		]]
+		setmetatable_result1_upvr:OnComputerMovementModeChange()
+	end)
+	Players_upvr.LocalPlayer:GetPropertyChangedSignal("DevComputerMovementMode"):Connect(function() -- Line 153
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr (readonly)
+		]]
+		setmetatable_result1_upvr:OnComputerMovementModeChange()
+	end)
+	setmetatable_result1_upvr.playerGui = nil
+	setmetatable_result1_upvr.touchGui = nil
+	setmetatable_result1_upvr.playerGuiAddedConn = nil
+	GuiService_upvr:GetPropertyChangedSignal("TouchControlsEnabled"):Connect(function() -- Line 162
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr (readonly)
+		]]
+		setmetatable_result1_upvr:UpdateTouchGuiVisibility()
+		setmetatable_result1_upvr:UpdateActiveControlModuleEnabled()
+	end)
+	if UserInputService_upvr.TouchEnabled then
+		setmetatable_result1_upvr.playerGui = Players_upvr.LocalPlayer:FindFirstChildOfClass("PlayerGui")
+		if setmetatable_result1_upvr.playerGui then
+			setmetatable_result1_upvr:CreateTouchGuiContainer()
+			setmetatable_result1_upvr:OnLastInputTypeChanged(UserInputService_upvr:GetLastInputType())
+			return setmetatable_result1_upvr
+		end
+		setmetatable_result1_upvr.playerGuiAddedConn = Players_upvr.LocalPlayer.ChildAdded:Connect(function(arg1) -- Line 173
+			--[[ Upvalues[2]:
+				[1]: setmetatable_result1_upvr (readonly)
+				[2]: UserInputService_upvr (copied, readonly)
+			]]
+			if arg1:IsA("PlayerGui") then
+				setmetatable_result1_upvr.playerGui = arg1
+				setmetatable_result1_upvr:CreateTouchGuiContainer()
+				setmetatable_result1_upvr.playerGuiAddedConn:Disconnect()
+				setmetatable_result1_upvr.playerGuiAddedConn = nil
+				setmetatable_result1_upvr:OnLastInputTypeChanged(UserInputService_upvr:GetLastInputType())
+			end
+		end)
+		return setmetatable_result1_upvr
+	end
+	setmetatable_result1_upvr:OnLastInputTypeChanged(UserInputService_upvr:GetLastInputType())
+	return setmetatable_result1_upvr
+end
+function module_upvr_4.GetMoveVector(arg1) -- Line 193
+	if arg1.activeController then
+		return arg1.activeController:GetMoveVector()
+	end
+	return Vector3.new(0, 0, 0)
+end
+local function _(arg1) -- Line 200, Named "NormalizeAngle"
+	arg1 = (arg1 + 12.566370614359172) % (-math.pi*2)
+	local var38 = arg1
+	if math.pi < var38 then
+		var38 -= (-math.pi*2)
+	end
+	return var38
+end
+local function _(arg1, arg2) -- Line 208, Named "AverageAngle"
+	local var39 = (arg2 - arg1 + 12.566370614359172) % (-math.pi*2)
+	if math.pi < var39 then
+		var39 -= (-math.pi*2)
+	end
+	local var40 = (arg1 + var39 / 2 + 12.566370614359172) % (-math.pi*2)
+	if math.pi < var40 then
+		var40 -= (-math.pi*2)
+	end
+	return var40
+end
+function module_upvr_4.GetEstimatedVRTorsoFrame(arg1) -- Line 213
+	--[[ Upvalues[1]:
+		[1]: VRService_upvr (readonly)
+	]]
+	local any_GetUserCFrame_result1_2 = VRService_upvr:GetUserCFrame(Enum.UserCFrame.Head)
+	local _, any_ToEulerAnglesYXZ_result2_2, _ = any_GetUserCFrame_result1_2:ToEulerAnglesYXZ()
+	local var45
+	if not VRService_upvr:GetUserCFrameEnabled(Enum.UserCFrame.RightHand) or not VRService_upvr:GetUserCFrameEnabled(Enum.UserCFrame.LeftHand) then
+		arg1.currentTorsoAngle = -any_ToEulerAnglesYXZ_result2_2
+	else
+		local var46 = any_GetUserCFrame_result1_2.Position - VRService_upvr:GetUserCFrame(Enum.UserCFrame.LeftHand).Position
+		local _ = any_GetUserCFrame_result1_2.Position - VRService_upvr:GetUserCFrame(Enum.UserCFrame.RightHand).Position
+		local _ = -math.atan2(var46.X, var46.Z)
+		var45 = _.Z
+		var45 = -math.atan2(_.X, var45) - _
+		var45 = (var45 + 12.566370614359172) % (-math.pi*2)
+		if math.pi < var45 then
+			var45 -= (-math.pi*2)
+		end
+		var45 = _ + var45 / 2
+		var45 = (var45 + 12.566370614359172) % (-math.pi*2)
+		if math.pi < var45 then
+			var45 -= (-math.pi*2)
+		end
+		-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+		if math.pi < (-any_ToEulerAnglesYXZ_result2_2 - arg1.currentTorsoAngle + 12.566370614359172) % (-math.pi*2) then
+			-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+		end
+		local var49 = (-any_ToEulerAnglesYXZ_result2_2 - arg1.currentTorsoAngle + 12.566370614359172) % (-math.pi*2) - (-math.pi*2)
+		local var50 = (var45 - arg1.currentTorsoAngle + 12.566370614359172) % (-math.pi*2)
+		if math.pi < var50 then
+			var50 -= (-math.pi*2)
+		end
+		var50 = false
+		local var51 = var50
+		if (-math.pi/2) < var50 then
+			-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+			if var50 >= (math.pi/2) then
+				var51 = false
+			else
+				var51 = true
+			end
+		end
+		if not var51 then
+		end
+		local minimum = math.min(var49, var49)
+		-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+		local maximum = math.max(var49, var49)
+		local var54 = 0
+		if 0 < minimum then
+			var54 = minimum
+		elseif maximum < 0 then
+			var54 = maximum
+		end
+		arg1.currentTorsoAngle = var54 + arg1.currentTorsoAngle
+	end
+	return CFrame.new(any_GetUserCFrame_result1_2.Position) * CFrame.fromEulerAnglesYXZ(0, -arg1.currentTorsoAngle, 0)
+end
+function module_upvr_4.GetActiveController(arg1) -- Line 257
+	return arg1.activeController
+end
+function module_upvr_4.UpdateActiveControlModuleEnabled(arg1) -- Line 262
+	--[[ Upvalues[8]:
+		[1]: var17_upvw (read and write)
+		[2]: Players_upvr (readonly)
+		[3]: module_upvr_3 (readonly)
+		[4]: module_upvr_2 (readonly)
+		[5]: module_upvr (readonly)
+		[6]: module_upvr_8 (readonly)
+		[7]: GuiService_upvr (readonly)
+		[8]: UserInputService_upvr (readonly)
+	]]
+	local function _() -- Line 264
+		--[[ Upvalues[3]:
+			[1]: arg1 (readonly)
+			[2]: var17_upvw (copied, read and write)
+			[3]: Players_upvr (copied, readonly)
+		]]
+		arg1.activeController:Enable(false)
+		if var17_upvw and arg1.touchJumpController then
+			arg1.touchJumpController:Enable(false)
+		end
+		if arg1.moveFunction then
+			arg1.moveFunction(Players_upvr.LocalPlayer, Vector3.new(0, 0, 0), true)
+		end
+	end
+	if not arg1.activeController then
+	else
+		if not arg1.controlsEnabled then
+			arg1.activeController:Enable(false)
+			if var17_upvw and arg1.touchJumpController then
+				arg1.touchJumpController:Enable(false)
+			end
+			if arg1.moveFunction then
+				arg1.moveFunction(Players_upvr.LocalPlayer, Vector3.new(0, 0, 0), true)
+			end
+			return
+		end
+		if not GuiService_upvr.TouchControlsEnabled and UserInputService_upvr.TouchEnabled and (arg1.activeControlModule == module_upvr_3 or arg1.activeControlModule == module_upvr_2 or arg1.activeControlModule == module_upvr) then
+			arg1.activeController:Enable(false)
+			if var17_upvw and arg1.touchJumpController then
+				arg1.touchJumpController:Enable(false)
+			end
+			if arg1.moveFunction then
+				arg1.moveFunction(Players_upvr.LocalPlayer, Vector3.new(0, 0, 0), true)
+			end
+			return
+		end
+		;(function() -- Line 275
+			--[[ Upvalues[7]:
+				[1]: var17_upvw (copied, read and write)
+				[2]: arg1 (readonly)
+				[3]: module_upvr_3 (copied, readonly)
+				[4]: module_upvr_2 (copied, readonly)
+				[5]: module_upvr (copied, readonly)
+				[6]: module_upvr_8 (copied, readonly)
+				[7]: Players_upvr (copied, readonly)
+			]]
+			if var17_upvw then
+				if arg1.touchControlFrame and (arg1.activeControlModule == module_upvr_3 or arg1.activeControlModule == module_upvr_2 or arg1.activeControlModule == module_upvr) then
+					if not arg1.controllers[module_upvr_8] then
+						arg1.controllers[module_upvr_8] = module_upvr_8.new()
+					end
+					arg1.touchJumpController = arg1.controllers[module_upvr_8]
+					arg1.touchJumpController:Enable(true, arg1.touchControlFrame)
+				elseif arg1.touchJumpController then
+					arg1.touchJumpController:Enable(false)
+				end
+			end
+			local var57
+			if arg1.activeControlModule == module_upvr_3 then
+				if Players_upvr.LocalPlayer.DevComputerMovementMode ~= Enum.DevComputerMovementMode.UserChoice then
+					var57 = false
+				else
+					var57 = true
+				end
+				arg1.activeController:Enable(true, var57, arg1.touchJumpController)
+			else
+				if arg1.touchControlFrame then
+					var57 = arg1.touchControlFrame
+					arg1.activeController:Enable(true, var57)
+					return
+				end
+				arg1.activeController:Enable(true)
+			end
+		end)()
+	end
+end
+function module_upvr_4.Enable(arg1, arg2) -- Line 336
+	if arg2 == nil then
+	end
+	arg1.controlsEnabled = true
+	if not arg1.activeController then
+	else
+		arg1:UpdateActiveControlModuleEnabled()
+	end
+end
+function module_upvr_4.Disable(arg1) -- Line 350
+	arg1.controlsEnabled = false
+	arg1:UpdateActiveControlModuleEnabled()
+end
+function module_upvr_4.SelectComputerMovementModule(arg1) -- Line 358
+	--[[ Upvalues[8]:
+		[1]: UserInputService_upvr (readonly)
+		[2]: Players_upvr (readonly)
+		[3]: tbl_upvr_2 (readonly)
+		[4]: var24_upvw (read and write)
+		[5]: UserGameSettings_upvr (readonly)
+		[6]: module_upvr_7 (readonly)
+		[7]: module_upvr_3 (readonly)
+		[8]: tbl_upvr (readonly)
+	]]
+	if not UserInputService_upvr.KeyboardEnabled and not UserInputService_upvr.GamepadEnabled then
+		return nil, false
+	end
+	local var58
+	local DevComputerMovementMode = Players_upvr.LocalPlayer.DevComputerMovementMode
+	if DevComputerMovementMode == Enum.DevComputerMovementMode.UserChoice then
+		var58 = tbl_upvr_2[var24_upvw]
+		if UserGameSettings_upvr.ComputerMovementMode == Enum.ComputerMovementMode.ClickToMove and var58 == module_upvr_7 then
+			var58 = module_upvr_3
+			-- KONSTANTWARNING: GOTO [48] #36
+		end
+	else
+		var58 = tbl_upvr[DevComputerMovementMode]
+		if not var58 and DevComputerMovementMode ~= Enum.DevComputerMovementMode.Scriptable then
+			warn("No character control module is associated with DevComputerMovementMode ", DevComputerMovementMode)
+		end
+	end
+	if var58 then
+		return var58, true
+	end
+	if DevComputerMovementMode == Enum.DevComputerMovementMode.Scriptable then
+		return nil, true
+	end
+	return nil, false
+end
+function module_upvr_4.SelectTouchModule(arg1) -- Line 396
+	--[[ Upvalues[4]:
+		[1]: UserInputService_upvr (readonly)
+		[2]: Players_upvr (readonly)
+		[3]: tbl_upvr (readonly)
+		[4]: UserGameSettings_upvr (readonly)
+	]]
+	if not UserInputService_upvr.TouchEnabled then
+		return nil, false
+	end
+	local var60
+	local DevTouchMovementMode = Players_upvr.LocalPlayer.DevTouchMovementMode
+	if DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice then
+		var60 = tbl_upvr[UserGameSettings_upvr.TouchMovementMode]
+	else
+		if DevTouchMovementMode == Enum.DevTouchMovementMode.Scriptable then
+			return nil, true
+		end
+		var60 = tbl_upvr[DevTouchMovementMode]
+	end
+	return var60, true
+end
+local function getGamepadRightThumbstickPosition_upvr() -- Line 412, Named "getGamepadRightThumbstickPosition"
+	--[[ Upvalues[1]:
+		[1]: UserInputService_upvr (readonly)
+	]]
+	for _, v in pairs(UserInputService_upvr:GetGamepadState(Enum.UserInputType.Gamepad1)) do
+		if v.KeyCode == Enum.KeyCode.Thumbstick2 then
+			return v.Position
+		end
+	end
+	return Vector3.new(0, 0, 0)
+end
+local function calculateRawMoveVector(arg1, arg2, arg3) -- Line 422
+	--[[ Upvalues[3]:
+		[1]: Workspace_upvr (readonly)
+		[2]: VRService_upvr (readonly)
+		[3]: getGamepadRightThumbstickPosition_upvr (readonly)
+	]]
+	-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+	local CurrentCamera = Workspace_upvr.CurrentCamera
+	if not CurrentCamera then
+		return arg3
+	end
+	local var68
+	if VRService_upvr.VREnabled and arg2.RootPart then
+		local any_GetEstimatedVRTorsoFrame_result1 = arg1:GetEstimatedVRTorsoFrame()
+		if (CurrentCamera.Focus.Position - var68.Position).Magnitude < 3 then
+			var68 *= any_GetEstimatedVRTorsoFrame_result1
+		else
+			var68 = CurrentCamera.CFrame * (any_GetEstimatedVRTorsoFrame_result1.Rotation + any_GetEstimatedVRTorsoFrame_result1.Position * CurrentCamera.HeadScale)
+		end
+	end
+	if arg2:GetState() == Enum.HumanoidStateType.Swimming then
+		if VRService_upvr.VREnabled then
+			local vector3 = Vector3.new(arg3.X, 0, arg3.Z)
+			if vector3.Magnitude < 0.01 then
+				return Vector3.new(0, 0, 0)
+			end
+			local _, any_ToEulerAnglesYXZ_result2, _ = var68:ToEulerAnglesYXZ()
+			return CFrame.fromEulerAnglesYXZ(-getGamepadRightThumbstickPosition_upvr().Y * 1.3962634015954636, math.atan2(-vector3.X, -vector3.Z) + any_ToEulerAnglesYXZ_result2, 0).LookVector
+		end
+		return var68:VectorToWorldSpace(vector3)
+	end
+	local _, _, _, any_GetComponents_result4_2, any_GetComponents_result5_2, any_GetComponents_result6_2, _, _, any_GetComponents_result9, _, _, any_GetComponents_result12 = var68:GetComponents()
+	local var86
+	if any_GetComponents_result9 < 1 and -1 < any_GetComponents_result9 then
+		var86 = any_GetComponents_result12
+		local _ = any_GetComponents_result6_2
+	else
+		var86 = any_GetComponents_result4_2
+	end
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	local squareroot = math.sqrt(var86 * var86 + (-any_GetComponents_result5_2 * math.sign(any_GetComponents_result9)) * (-any_GetComponents_result5_2 * math.sign(any_GetComponents_result9)))
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x2)
+	return Vector3.new((var86 * vector3.X + -any_GetComponents_result5_2 * math.sign(any_GetComponents_result9) * vector3.Z) / squareroot, 0, (var86 * vector3.Z - -any_GetComponents_result5_2 * math.sign(any_GetComponents_result9) * vector3.X) / squareroot)
+end
+module_upvr_4.calculateRawMoveVector = calculateRawMoveVector
+local function calculateRawMoveVector_upvr(arg1, arg2) -- Line 481, Named "calculateRawMoveVector"
+	--[[ Upvalues[2]:
+		[1]: Workspace_upvr (readonly)
+		[2]: VRService_upvr (readonly)
+	]]
+	-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+	local CurrentCamera_2 = Workspace_upvr.CurrentCamera
+	if not CurrentCamera_2 then
+		return arg2
+	end
+	if arg1:GetState() == Enum.HumanoidStateType.Swimming then
+		return CurrentCamera_2.CFrame:VectorToWorldSpace(arg2)
+	end
+	local var90
+	if VRService_upvr.VREnabled and arg1.RootPart and (arg1.RootPart.CFrame.Position - var90.Position).Magnitude < 3 then
+		var90 *= VRService_upvr:GetUserCFrame(Enum.UserCFrame.Head)
+	end
+	local _, _, _, any_GetComponents_result4, any_GetComponents_result5, any_GetComponents_result6, _, _, any_GetComponents_result9_2, _, _, any_GetComponents_result12_2 = var90:GetComponents()
+	local var103
+	if any_GetComponents_result9_2 < 1 and -1 < any_GetComponents_result9_2 then
+		var103 = any_GetComponents_result12_2
+		local _ = any_GetComponents_result6
+	else
+		var103 = any_GetComponents_result4
+	end
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	local squareroot_2 = math.sqrt(var103 * var103 + (-any_GetComponents_result5 * math.sign(any_GetComponents_result9_2)) * (-any_GetComponents_result5 * math.sign(any_GetComponents_result9_2)))
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x2)
+	return Vector3.new((var103 * arg2.X + -any_GetComponents_result5 * math.sign(any_GetComponents_result9_2) * arg2.Z) / squareroot_2, 0, (var103 * arg2.Z - -any_GetComponents_result5 * math.sign(any_GetComponents_result9_2) * arg2.X) / squareroot_2)
+end
+local any_getUserFlag_result1_upvr = require(script.Parent:WaitForChild("CommonUtils"):WaitForChild("FlagUtil")).getUserFlag("UserUpdateInputConnections")
+local zero_vector3_upvw_2 = Vector3.new()
+local zero_vector3_upvw = Vector3.new()
+local var109_upvw = 0
+local var110_upvw = 0
+local var111_upvw = 0
+function module_upvr_4.OnRenderStepped(arg1, arg2) -- Line 534
+	--[[ Upvalues[9]:
+		[1]: any_getUserFlag_result1_upvr (readonly)
+		[2]: module_upvr_6 (readonly)
+		[3]: calculateRawMoveVector_upvr (readonly)
+		[4]: zero_vector3_upvw_2 (read and write)
+		[5]: zero_vector3_upvw (read and write)
+		[6]: var109_upvw (read and write)
+		[7]: var110_upvw (read and write)
+		[8]: var111_upvw (read and write)
+		[9]: Players_upvr (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [3] 3. Error Block 2 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [3] 3. Error Block 2 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [8] 6. Error Block 3 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [8] 6. Error Block 3 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [168] 119. Error Block 57 start (CF ANALYSIS FAILED)
+	local var112
+	if var111_upvw < var112 and var112 < 0 and -0.1 < var112 then
+		-- KONSTANTERROR: [177] 125. Error Block 47 start (CF ANALYSIS FAILED)
+		var112 = 0
+		-- KONSTANTERROR: [177] 125. Error Block 47 end (CF ANALYSIS FAILED)
+	end
+	-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [180.7]
+	-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [181.8]
+	zero_vector3_upvw = Vector3.new(nil, nil, var112)
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	var109_upvw = nil
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	var110_upvw = nil
+	var111_upvw = var112
+	arg1.moveFunction(Players_upvr.LocalPlayer, zero_vector3_upvw, false)
+	-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [200.6]
+	arg1.humanoid.Jump = nil
+	-- KONSTANTERROR: [168] 119. Error Block 57 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [202] 144. Error Block 50 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [202] 144. Error Block 50 end (CF ANALYSIS FAILED)
+end
+function module_upvr_4.updateVRMoveVector(arg1, arg2) -- Line 610
+	--[[ Upvalues[1]:
+		[1]: VRService_upvr (readonly)
+	]]
+	local CurrentCamera_3 = workspace.CurrentCamera
+	local var114
+	if (CurrentCamera_3.Focus.Position - CurrentCamera_3.CFrame.Position).Magnitude < 5 then
+		var114 = true
+	end
+	if arg2.Magnitude == 0 and var114 and VRService_upvr.AvatarGestures and arg1.humanoid and not arg1.humanoid.Sit then
+		local any_GetUserCFrame_result1 = VRService_upvr:GetUserCFrame(Enum.UserCFrame.Head)
+		local var116 = (CurrentCamera_3.CFrame * (any_GetUserCFrame_result1.Rotation + any_GetUserCFrame_result1.Position * CurrentCamera_3.HeadScale) * CFrame.new(0, -0.7 * arg1.humanoid.RootPart.Size.Y / 2, 0)).Position - arg1.humanoid.RootPart.CFrame.Position
+		return Vector3.new(var116.x, 0, var116.z)
+	end
+	return arg2
+end
+function module_upvr_4.OnHumanoidSeated(arg1, arg2, arg3) -- Line 635
+	--[[ Upvalues[1]:
+		[1]: Value_upvr (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [7] 7. Error Block 12 start (CF ANALYSIS FAILED)
+	if not arg1.vehicleController then
+		arg1.vehicleController = arg1.vehicleController.new(Value_upvr)
+	end
+	arg1.vehicleController:Enable(true, arg3)
+	do
+		return
+	end
+	-- KONSTANTERROR: [7] 7. Error Block 12 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [26] 20. Error Block 10 start (CF ANALYSIS FAILED)
+	if arg1.vehicleController then
+		arg1.vehicleController:Enable(false, arg3)
+	end
+	-- KONSTANTERROR: [26] 20. Error Block 10 end (CF ANALYSIS FAILED)
+end
+function module_upvr_4.OnCharacterAdded(arg1, arg2) -- Line 650
+	arg1.humanoid = arg2:FindFirstChildOfClass("Humanoid")
+	while not arg1.humanoid do
+		arg2.ChildAdded:wait()
+		arg1.humanoid = arg2:FindFirstChildOfClass("Humanoid")
+	end
+	arg1:UpdateTouchGuiVisibility()
+	if arg1.humanoidSeatedConn then
+		arg1.humanoidSeatedConn:Disconnect()
+		arg1.humanoidSeatedConn = nil
+	end
+	arg1.humanoidSeatedConn = arg1.humanoid.Seated:Connect(function(arg1_2, arg2_2) -- Line 663
+		--[[ Upvalues[1]:
+			[1]: arg1 (readonly)
+		]]
+		arg1:OnHumanoidSeated(arg1_2, arg2_2)
+	end)
+end
+function module_upvr_4.OnCharacterRemoving(arg1, arg2) -- Line 668
+	arg1.humanoid = nil
+	arg1:UpdateTouchGuiVisibility()
+end
+function module_upvr_4.UpdateTouchGuiVisibility(arg1) -- Line 674
+	--[[ Upvalues[1]:
+		[1]: GuiService_upvr (readonly)
+	]]
+	if arg1.touchGui then
+		local humanoid = arg1.humanoid
+		if humanoid then
+			humanoid = GuiService_upvr.TouchControlsEnabled
+		end
+		arg1.touchGui.Enabled = not not humanoid
+	end
+end
+function module_upvr_4.SwitchToController(arg1, arg2) -- Line 688
+	--[[ Upvalues[6]:
+		[1]: Value_upvr (readonly)
+		[2]: var17_upvw (read and write)
+		[3]: module_upvr_3 (readonly)
+		[4]: module_upvr_2 (readonly)
+		[5]: module_upvr (readonly)
+		[6]: module_upvr_8 (readonly)
+	]]
+	if not arg2 then
+		if arg1.activeController then
+			arg1.activeController:Enable(false)
+		end
+		arg1.activeController = nil
+		arg1.activeControlModule = nil
+	else
+		if not arg1.controllers[arg2] then
+			arg1.controllers[arg2] = arg2.new(Value_upvr)
+		end
+		if arg1.activeController ~= arg1.controllers[arg2] then
+			if arg1.activeController then
+				arg1.activeController:Enable(false)
+			end
+			arg1.activeController = arg1.controllers[arg2]
+			arg1.activeControlModule = arg2
+			if not var17_upvw then
+				if arg1.touchControlFrame and (arg1.activeControlModule == module_upvr_3 or arg1.activeControlModule == module_upvr_2 or arg1.activeControlModule == module_upvr) then
+					if not arg1.controllers[module_upvr_8] then
+						arg1.controllers[module_upvr_8] = module_upvr_8.new()
+					end
+					arg1.touchJumpController = arg1.controllers[module_upvr_8]
+					arg1.touchJumpController:Enable(true, arg1.touchControlFrame)
+				elseif arg1.touchJumpController then
+					arg1.touchJumpController:Enable(false)
+				end
+			end
+			arg1:UpdateActiveControlModuleEnabled()
+		end
+	end
+end
+function module_upvr_4.OnLastInputTypeChanged(arg1, arg2) -- Line 732
+	--[[ Upvalues[2]:
+		[1]: var24_upvw (read and write)
+		[2]: tbl_upvr_2 (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 28 start (CF ANALYSIS FAILED)
+	if var24_upvw == arg2 then
+		warn("LastInputType Change listener called with current type.")
+	end
+	var24_upvw = arg2
+	if var24_upvw == Enum.UserInputType.Touch then
+		local any_SelectTouchModule_result1_2, any_SelectTouchModule_result2 = arg1:SelectTouchModule()
+		if any_SelectTouchModule_result2 then
+			while not arg1.touchControlFrame do
+				wait()
+			end
+			arg1:SwitchToController(any_SelectTouchModule_result1_2)
+			-- KONSTANTWARNING: GOTO [42] #32
+		end
+	elseif tbl_upvr_2[var24_upvw] ~= nil then
+		local any_SelectComputerMovementModule_result1 = arg1:SelectComputerMovementModule()
+		if any_SelectComputerMovementModule_result1 then
+			arg1:SwitchToController(any_SelectComputerMovementModule_result1)
+		end
+	end
+	-- KONSTANTERROR: [0] 1. Error Block 28 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [42] 32. Error Block 14 start (CF ANALYSIS FAILED)
+	arg1:UpdateTouchGuiVisibility()
+	-- KONSTANTERROR: [42] 32. Error Block 14 end (CF ANALYSIS FAILED)
+end
+function module_upvr_4.OnComputerMovementModeChange(arg1) -- Line 759
+	local any_SelectComputerMovementModule_result1_2, any_SelectComputerMovementModule_result2 = arg1:SelectComputerMovementModule()
+	if any_SelectComputerMovementModule_result2 then
+		arg1:SwitchToController(any_SelectComputerMovementModule_result1_2)
+	end
+end
+function module_upvr_4.OnTouchMovementModeChange(arg1) -- Line 766
+	local any_SelectTouchModule_result1, any_SelectTouchModule_result2_2 = arg1:SelectTouchModule()
+	if any_SelectTouchModule_result2_2 then
+		while not arg1.touchControlFrame do
+			wait()
+		end
+		arg1:SwitchToController(any_SelectTouchModule_result1)
+	end
+end
+local var129_upvw = pcall_result1 and pcall_result2_2
+function module_upvr_4.CreateTouchGuiContainer(arg1) -- Line 776
+	--[[ Upvalues[1]:
+		[1]: var129_upvw (read and write)
+	]]
+	if arg1.touchGui then
+		arg1.touchGui:Destroy()
+	end
+	arg1.touchGui = Instance.new("ScreenGui")
+	arg1.touchGui.Name = "TouchGui"
+	arg1.touchGui.ResetOnSpawn = false
+	arg1.touchGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	arg1:UpdateTouchGuiVisibility()
+	if var129_upvw then
+		arg1.touchGui.ClipToDeviceSafeArea = false
+	end
+	arg1.touchControlFrame = Instance.new("Frame")
+	arg1.touchControlFrame.Name = "TouchControlFrame"
+	arg1.touchControlFrame.Size = UDim2.new(1, 0, 1, 0)
+	arg1.touchControlFrame.BackgroundTransparency = 1
+	arg1.touchControlFrame.Parent = arg1.touchGui
+	arg1.touchGui.Parent = arg1.playerGui
+end
+function module_upvr_4.GetClickToMoveController(arg1) -- Line 799
+	--[[ Upvalues[2]:
+		[1]: module_upvr_3 (readonly)
+		[2]: Value_upvr (readonly)
+	]]
+	if not arg1.controllers[module_upvr_3] then
+		arg1.controllers[module_upvr_3] = module_upvr_3.new(Value_upvr)
+	end
+	return arg1.controllers[module_upvr_3]
+end
+return module_upvr_4.new()

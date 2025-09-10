@@ -1,0 +1,45 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerScripts.Chat
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:23:31
+-- Luau version 6, Types version 3
+-- Time taken: 0.001426 seconds
+
+local module_upvr = {Color3.fromRGB(253, 41, 67), Color3.fromRGB(1, 162, 255), Color3.fromRGB(2, 184, 87), BrickColor.new("Bright violet").Color, BrickColor.new("Bright orange").Color, BrickColor.new("Bright yellow").Color, BrickColor.new("Light reddish violet").Color, BrickColor.new("Brick yellow").Color}
+local function GetNameColor_upvr(arg1) -- Line 15, Named "GetNameColor"
+	--[[ Upvalues[1]:
+		[1]: module_upvr (readonly)
+	]]
+	local var4
+	for i = 1, #arg1 do
+		local var5 = #arg1 - i + 1
+		local var6
+		if #arg1 % 2 == 1 then
+			var5 -= 1
+		end
+		if 2 <= var5 % 4 then
+			var6 = -var6
+		end
+		var4 += var6
+	end
+	return module_upvr[var4 % #module_upvr + 1]
+end
+local Players_upvr = game:GetService("Players")
+game:GetService("TextChatService").OnIncomingMessage = function(arg1) -- Line 32
+	--[[ Upvalues[2]:
+		[1]: Players_upvr (readonly)
+		[2]: GetNameColor_upvr (readonly)
+	]]
+	if arg1.TextSource then
+		local any_GetPlayerByUserId_result1_2 = Players_upvr:GetPlayerByUserId(arg1.TextSource.UserId)
+		if any_GetPlayerByUserId_result1_2 then
+			local TextChatMessageProperties = Instance.new("TextChatMessageProperties")
+			local GetNameColor_result1_2 = GetNameColor_upvr(any_GetPlayerByUserId_result1_2.DisplayName)
+			TextChatMessageProperties.PrefixText = string.format("<font color='%s'>%s</font>", string.format("#%02X%02X%02X", GetNameColor_result1_2.R * 255, GetNameColor_result1_2.G * 255, GetNameColor_result1_2.B * 255), any_GetPlayerByUserId_result1_2.DisplayName)
+			TextChatMessageProperties.Text = arg1.Text
+			return TextChatMessageProperties
+		end
+	end
+end

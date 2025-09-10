@@ -1,0 +1,817 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerScripts.miscfx
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:17
+-- Luau version 6, Types version 3
+-- Time taken: 0.026019 seconds
+
+local ballStatus_upvr = game.Workspace.ballStatus
+game.ReplicatedStorage.Remotes.SharpEyesClient.OnClientEvent:Connect(function() -- Line 3
+	--[[ Upvalues[1]:
+		[1]: ballStatus_upvr (readonly)
+	]]
+	game:GetService("TweenService"):Create(game.Lighting.ColorCorrection, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TintColor = Color3.fromRGB(243, 171, 172);
+	}):Play()
+	local Ball_upvr = game.Workspace.Temp:FindFirstChild("Ball")
+	if not Ball_upvr then
+		Ball_upvr = game.Workspace.Temp:WaitForChild("Ball")
+	end
+	if Ball_upvr then
+		local Highlight_11 = Instance.new("Highlight")
+		Highlight_11.Parent = Ball_upvr
+		Highlight_11.Name = "SharpEyeHighlight"
+		Highlight_11.FillColor = Color3.new(0.839216, 0, 0)
+		Highlight_11.OutlineTransparency = 1
+		Highlight_11.FillTransparency = 1
+		game:GetService("TweenService"):Create(Highlight_11, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			FillTransparency = 0;
+		}):Play()
+		local any_Connect_result1_upvw = game:GetService("RunService").RenderStepped:Connect(function() -- Line 18
+			--[[ Upvalues[1]:
+				[1]: Ball_upvr (readonly)
+			]]
+			if game.Workspace.Temp:FindFirstChild("Ball") and not game.Workspace.Temp.Ball:FindFirstChild("SharpEyeHighlight") then
+				local Highlight_9 = Instance.new("Highlight")
+				Highlight_9.Parent = Ball_upvr
+				Highlight_9.Name = "SharpEyeHighlight"
+				Highlight_9.FillColor = Color3.new(0.839216, 0, 0)
+				Highlight_9.OutlineTransparency = 1
+				Highlight_9.FillTransparency = 1
+				game:GetService("TweenService"):Create(Highlight_9, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					FillTransparency = 0;
+				}):Play()
+			end
+		end)
+		local any_Connect_result1_upvw_2 = ballStatus_upvr.lastKicked.Changed:Connect(function() -- Line 31
+			--[[ Upvalues[1]:
+				[1]: ballStatus_upvr (copied, readonly)
+			]]
+			if ballStatus_upvr.lastKicked.Value == nil then
+			else
+				for _, v_17 in pairs(game.Workspace.CharacterContainer:GetChildren()) do
+					for _, v_18 in pairs(v_17:GetChildren()) do
+						if v_18.Name == "SharpEyeHighlight" then
+							v_18:Destroy()
+						end
+					end
+				end
+				local Color3_new_result1 = Color3.new(0.839216, 0.486275, 0.486275)
+				if ballStatus_upvr.lastKicked.Value.SelectedTeam.Value == game.Players.LocalPlayer.SelectedTeam.Value then
+					Color3_new_result1 = Color3.new(0, 1, 0)
+				end
+				local Highlight_2 = Instance.new("Highlight")
+				Highlight_2.Parent = ballStatus_upvr.lastKicked.Value.Character
+				Highlight_2.Name = "SharpEyeHighlight"
+				Highlight_2.FillColor = Color3_new_result1
+				Highlight_2.OutlineTransparency = 1
+				Highlight_2.FillTransparency = 1
+				game:GetService("TweenService"):Create(Highlight_2, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					FillTransparency = 0;
+				}):Play()
+			end
+		end)
+		task.delay(10, function() -- Line 56
+			--[[ Upvalues[2]:
+				[1]: any_Connect_result1_upvw (read and write)
+				[2]: any_Connect_result1_upvw_2 (read and write)
+			]]
+			any_Connect_result1_upvw:Disconnect()
+			any_Connect_result1_upvw_2:Disconnect()
+			if game.Workspace.Temp:FindFirstChild("Ball") then
+				for _, v in pairs(game.Workspace.Temp.Ball:GetChildren()) do
+					if v:IsA("Highlight") and v.Name == "SharpEyeHighlight" then
+						game:GetService("TweenService"):Create(v, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+							FillTransparency = 1;
+						}):Play()
+						game.Debris:AddItem(v, 2)
+					end
+				end
+			end
+			for _, v_2 in pairs(game.Workspace.CharacterContainer:GetChildren()) do
+				for _, v_3 in pairs(v_2:GetChildren()) do
+					if v_3.Name == "SharpEyeHighlight" then
+						v_3:Destroy()
+					end
+				end
+			end
+			game:GetService("TweenService"):Create(game.Lighting.ColorCorrection, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				TintColor = Color3.new(1, 1, 1);
+			}):Play()
+		end)
+	end
+end)
+game.ReplicatedStorage.Remotes.ScoreSFXClient.OnClientEvent:Connect(function() -- Line 83
+	if game.Players.LocalPlayer.Settings.Misc.CrowdNoise.Value == false then
+	else
+		for _, v_19 in pairs(game.Workspace.miscFX:GetChildren()) do
+			if v_19.Name == "CameraFlash" then
+				local var54_upvr = v_19["ScoreSFX"..math.random(1, 3)]
+				var54_upvr.Volume = 0
+				var54_upvr:Play()
+				game:GetService("TweenService"):Create(var54_upvr, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					Volume = 2;
+				}):Play()
+				task.delay(8, function() -- Line 93
+					--[[ Upvalues[1]:
+						[1]: var54_upvr (readonly)
+					]]
+					game:GetService("TweenService"):Create(var54_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+						Volume = 0;
+					}):Play()
+					task.wait(0.5)
+					var54_upvr:Stop()
+					var54_upvr.Volume = var54_upvr:GetAttribute("Volume")
+				end)
+			end
+		end
+	end
+end)
+game.ReplicatedStorage.Remotes.GameEndSFXClient.OnClientEvent:Connect(function() -- Line 105
+	if game.Players.LocalPlayer.Settings.Misc.CrowdNoise.Value == false then
+	else
+		for _, v_20 in pairs(game.Workspace.miscFX:GetChildren()) do
+			if v_20.Name == "CameraFlash" then
+				local var64_upvr = v_20["gameEndCrowd"..math.random(1, 2)]
+				var64_upvr.Volume = 0
+				var64_upvr:Play()
+				game:GetService("TweenService"):Create(var64_upvr, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					Volume = 2;
+				}):Play()
+				task.delay(24.2, function() -- Line 116
+					--[[ Upvalues[1]:
+						[1]: var64_upvr (readonly)
+					]]
+					game:GetService("TweenService"):Create(var64_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+						Volume = 0;
+					}):Play()
+					task.wait(0.5)
+					var64_upvr:Stop()
+					var64_upvr.Volume = var64_upvr:GetAttribute("Volume")
+				end)
+			end
+		end
+	end
+end)
+game.ReplicatedStorage.Remotes.FailSFXClient.OnClientEvent:Connect(function(arg1) -- Line 129
+	if game.Players.LocalPlayer.Settings.Misc.CrowdNoise.Value == false then
+	else
+		for _, v_21 in pairs(game.Workspace.miscFX:GetChildren()) do
+			if v_21.Name == "CameraFlash" then
+				local var74_upvr = v_21["FailSFX"..math.random(1, 3)]
+				var74_upvr.Volume = 0
+				var74_upvr:Play()
+				game:GetService("TweenService"):Create(var74_upvr, TweenInfo.new(0.75, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					Volume = 2;
+				}):Play()
+				task.delay(arg1, function() -- Line 139
+					--[[ Upvalues[1]:
+						[1]: var74_upvr (readonly)
+					]]
+					game:GetService("TweenService"):Create(var74_upvr, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+						Volume = 0;
+					}):Play()
+					task.wait(0.5)
+					var74_upvr:Stop()
+					var74_upvr.Volume = var74_upvr:GetAttribute("Volume")
+				end)
+			end
+		end
+	end
+end)
+local LocalPlayer_upvr = game.Players.LocalPlayer
+LocalPlayer_upvr:WaitForChild("dataLoaded")
+local function getMostOrLeastZ_upvr(arg1, arg2) -- Line 158, Named "getMostOrLeastZ"
+	if arg2 == true then
+		for _, v_4 in ipairs(arg1) do
+			if v_4.Character and 15.807 < v_4.Character.HumanoidRootPart.Position.Z then
+			end
+		end
+		return v_4
+	end
+	for _, v_5 in ipairs(arg1) do
+		if v_5.Character and v_5.Character.HumanoidRootPart.Position.Z < 15.807 then
+		end
+	end
+	return v_5
+end
+ballStatus_upvr.lastKicked.Changed:Connect(function() -- Line 180
+	--[[ Upvalues[3]:
+		[1]: ballStatus_upvr (readonly)
+		[2]: LocalPlayer_upvr (readonly)
+		[3]: getMostOrLeastZ_upvr (readonly)
+	]]
+	if ballStatus_upvr.lastKicked.Value == LocalPlayer_upvr and LocalPlayer_upvr.Settings.Misc.Highlights.Value == true then
+		local Ball_upvr_2 = game.Workspace.Temp:FindFirstChild("Ball")
+		if Ball_upvr_2 then
+			local Highlight_7 = Instance.new("Highlight")
+			Highlight_7.Name = "PossessionHighlight"
+			Highlight_7.Parent = Ball_upvr_2
+			Highlight_7.OutlineColor = Color3.new(1, 1, 1)
+			Highlight_7.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+			Highlight_7.OutlineTransparency = 1
+			Highlight_7.FillTransparency = 1
+			game:GetService("TweenService"):Create(Highlight_7, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				OutlineTransparency = 0;
+			}):Play()
+		end
+		for _, v_6 in pairs(game.Players:GetPlayers()) do
+			if v_6:FindFirstChild("dataLoaded") and v_6.SelectedTeam.Value == LocalPlayer_upvr.SelectedTeam.Value and v_6 ~= LocalPlayer_upvr then
+				local Highlight = Instance.new("Highlight")
+				Highlight.Name = "TeammateHighlight"
+				Highlight.Parent = v_6.Character
+				Highlight.OutlineColor = Color3.new(0, 1, 0)
+				Highlight.DepthMode = Enum.HighlightDepthMode.Occluded
+				Highlight.OutlineTransparency = 0.6
+				Highlight.FillTransparency = 1
+				game:GetService("TweenService"):Create(Highlight, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					OutlineTransparency = 0;
+				}):Play()
+			end
+		end
+		local var111_upvw
+		var111_upvw = game:GetService("RunService").RenderStepped:Connect(function() -- Line 210
+			--[[ Upvalues[5]:
+				[1]: ballStatus_upvr (copied, readonly)
+				[2]: LocalPlayer_upvr (copied, readonly)
+				[3]: var111_upvw (read and write)
+				[4]: getMostOrLeastZ_upvr (copied, readonly)
+				[5]: Ball_upvr_2 (readonly)
+			]]
+			if ballStatus_upvr.lastKicked.Value ~= LocalPlayer_upvr then
+				var111_upvw:Disconnect()
+			else
+				if LocalPlayer_upvr.SelectedTeam.Value == "Home" then
+					for _, v_22 in pairs(game.Players:GetPlayers()) do
+						if v_22.SelectedPosition.Value ~= "GK" and v_22:FindFirstChild("InPlay") and v_22.SelectedTeam.Value ~= LocalPlayer_upvr.SelectedTeam.Value then
+							table.insert({}, v_22)
+						end
+					end
+					-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+					local getMostOrLeastZ_upvr_result1_2 = getMostOrLeastZ_upvr({}, true)
+					if getMostOrLeastZ_upvr_result1_2 and not getMostOrLeastZ_upvr_result1_2.Character:FindFirstChild("OffsideHighlight") then
+						local Highlight_12 = Instance.new("Highlight")
+						Highlight_12.Name = "OffsideHighlight"
+						Highlight_12.Parent = getMostOrLeastZ_upvr_result1_2.Character
+						Highlight_12.OutlineColor = Color3.new(1, 0, 0)
+						Highlight_12.DepthMode = Enum.HighlightDepthMode.Occluded
+						Highlight_12.OutlineTransparency = 0.6
+						Highlight_12.FillTransparency = 1
+						game:GetService("TweenService"):Create(Highlight_12, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+							OutlineTransparency = 0;
+						}):Play()
+						for i_23, v_23 in pairs(game.Players:GetPlayers()) do
+							if v_23 ~= getMostOrLeastZ_upvr_result1_2 and v_23.Character:FindFirstChild("OffsideHighlight") then
+								v_23.Character.OffsideHighlight:Destroy()
+							end
+						end
+						-- KONSTANTWARNING: GOTO [306] #201
+					end
+				elseif LocalPlayer_upvr.SelectedTeam.Value == "Away" then
+					for _, v_31 in pairs(game.Players:GetPlayers()) do
+						v_23 = v_31.SelectedPosition
+						i_23 = v_23.Value
+						if i_23 ~= "GK" then
+							i_23 = v_31:FindFirstChild("InPlay")
+							if i_23 then
+								v_23 = v_31.SelectedTeam
+								i_23 = v_23.Value
+								v_23 = LocalPlayer_upvr.SelectedTeam.Value
+								if i_23 ~= v_23 then
+									v_23 = {}
+									i_23 = table.insert
+									i_23(v_23, v_31)
+								end
+							end
+						end
+					end
+					local getMostOrLeastZ_result1 = getMostOrLeastZ_upvr({}, false)
+					if getMostOrLeastZ_result1 and not getMostOrLeastZ_result1.Character:FindFirstChild("OffsideHighlight") then
+						local Highlight_3 = Instance.new("Highlight")
+						Highlight_3.Name = "OffsideHighlight"
+						Highlight_3.Parent = getMostOrLeastZ_result1.Character
+						i_23 = 0
+						Highlight_3.OutlineColor = Color3.new(1, 0, i_23)
+						Highlight_3.DepthMode = Enum.HighlightDepthMode.Occluded
+						Highlight_3.OutlineTransparency = 0.6
+						Highlight_3.FillTransparency = 1
+						i_23 = TweenInfo.new
+						v_23 = 0.25
+						i_23 = i_23(v_23, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+						v_23 = {}
+						local var170 = v_23
+						var170.OutlineTransparency = 0
+						game:GetService("TweenService"):Create(Highlight_3, i_23, var170):Play()
+						for _, v_32 in pairs(game.Players:GetPlayers()) do
+							if v_32 ~= getMostOrLeastZ_result1 and v_32.Character:FindFirstChild("OffsideHighlight") then
+								v_32.Character.OffsideHighlight:Destroy()
+							end
+						end
+					end
+				end
+				if Ball_upvr_2 and not Ball_upvr_2:FindFirstChild("PossessionHighlight") then
+					local Highlight_10 = Instance.new("Highlight")
+					Highlight_10.Name = "PossessionHighlight"
+					Highlight_10.Parent = Ball_upvr_2
+					Highlight_10.OutlineColor = Color3.new(1, 1, 1)
+					Highlight_10.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+					Highlight_10.OutlineTransparency = 1
+					Highlight_10.FillTransparency = 1
+					game:GetService("TweenService"):Create(Highlight_10, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+						OutlineTransparency = 0;
+					}):Play()
+				end
+			end
+		end)
+		local var177_upvw
+		var177_upvw = ballStatus_upvr.lastKicked.Changed:Connect(function() -- Line 300
+			--[[ Upvalues[4]:
+				[1]: ballStatus_upvr (copied, readonly)
+				[2]: LocalPlayer_upvr (copied, readonly)
+				[3]: var111_upvw (read and write)
+				[4]: var177_upvw (read and write)
+			]]
+			if ballStatus_upvr.lastKicked.Value ~= LocalPlayer_upvr then
+				var111_upvw:Disconnect()
+				var177_upvw:Disconnect()
+			end
+		end)
+	else
+		Ball_upvr_2 = game.Workspace.Temp:FindFirstChild("Ball")
+		local var178 = Ball_upvr_2
+		if var178 then
+			for _, v_24 in pairs(var178:GetChildren()) do
+				if v_24.Name == "PossessionHighlight" then
+					v_24:Destroy()
+				end
+			end
+		end
+		for _, v_25 in pairs(game.Players:GetPlayers()) do
+			if v_25.Character ~= nil and (v_25.Character:FindFirstChild("TeammateHighlight") or v_25.Character:FindFirstChild("OffsideHighlight")) then
+				for _, v_26 in pairs(v_25.Character:GetChildren()) do
+					if v_26.Name == "TeammateHighlight" then
+						v_26:Destroy()
+					end
+					if v_26.Name == "OffsideHighlight" then
+						v_26:Destroy()
+					end
+				end
+			end
+		end
+	end
+end)
+game.Workspace.Temp.ChildAdded:Connect(function(arg1) -- Line 331
+	--[[ Upvalues[2]:
+		[1]: ballStatus_upvr (readonly)
+		[2]: LocalPlayer_upvr (readonly)
+	]]
+	if arg1.Name == "Ball" and ballStatus_upvr.lastKicked.Value == LocalPlayer_upvr then
+		local Highlight_4 = Instance.new("Highlight")
+		Highlight_4.Name = "PossessionHighlight"
+		Highlight_4.Parent = arg1
+		Highlight_4.OutlineColor = Color3.new(1, 1, 1)
+		Highlight_4.DepthMode = Enum.HighlightDepthMode.Occluded
+		Highlight_4.OutlineTransparency = 1
+		Highlight_4.FillTransparency = 1
+		game:GetService("TweenService"):Create(Highlight_4, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			OutlineTransparency = 0;
+		}):Play()
+		for _, v_7 in pairs(game.Players:GetPlayers()) do
+			if v_7:FindFirstChild("dataLoaded") and v_7.SelectedTeam.Value == LocalPlayer_upvr.SelectedTeam.Value and v_7 ~= LocalPlayer_upvr then
+				local Highlight_8 = Instance.new("Highlight")
+				Highlight_8.Name = "TeammateHighlight"
+				Highlight_8.Parent = v_7.Character
+				Highlight_8.OutlineColor = Color3.new(0, 1, 0)
+				Highlight_8.DepthMode = Enum.HighlightDepthMode.Occluded
+				Highlight_8.OutlineTransparency = 0.6
+				Highlight_8.FillTransparency = 1
+				game:GetService("TweenService"):Create(Highlight_8, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					OutlineTransparency = 0;
+				}):Play()
+			end
+		end
+	end
+end)
+game.ReplicatedStorage.Remotes.passMarkerClient.OnClientEvent:Connect(function(arg1, arg2) -- Line 361
+	local pairs_result1_6, pairs_result2_14, pairs_result3_7 = pairs(game.Workspace.FX:GetChildren())
+	for _, v_8 in pairs_result1_6, pairs_result2_14, pairs_result3_7 do
+		if v_8:FindFirstChild("owner") and v_8.Name == "PassMarker" and v_8.owner.Value == arg2 then
+			v_8:Destroy()
+		end
+	end
+	pairs_result1_6 = game.ReplicatedStorage.VFX.PassMarker
+	local var206 = pairs_result1_6
+	if arg2.SelectedTeam.Value ~= game.Players.LocalPlayer.SelectedTeam.Value then
+		var206 = game.ReplicatedStorage.VFX.PassMarkerRed
+	end
+	local clone_2_upvr = var206:Clone()
+	clone_2_upvr.Parent = game.Workspace.FX
+	clone_2_upvr.Position = arg1
+	clone_2_upvr.owner.Value = arg2
+	clone_2_upvr.TitleGui.TextLabel.Text = string.upper(arg2.DisplayName)
+	game:GetService("TweenService"):Create(clone_2_upvr.TitleGui.TextLabel, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = 0;
+		TextStrokeTransparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(clone_2_upvr.sfx, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Volume = 0.25;
+	}):Play()
+	clone_2_upvr.fx.circle:Emit(1)
+	clone_2_upvr.arrowAttach.arrow:Emit(1)
+	task.delay(1.5, function() -- Line 387
+		--[[ Upvalues[1]:
+			[1]: clone_2_upvr (readonly)
+		]]
+		if clone_2_upvr == nil or clone_2_upvr.Parent == nil then
+		else
+			clone_2_upvr.fx.circle.Enabled = false
+			clone_2_upvr.arrowAttach.arrow.Enabled = false
+			game:GetService("TweenService"):Create(clone_2_upvr.TitleGui.TextLabel, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				TextTransparency = 1;
+				TextStrokeTransparency = 1;
+			}):Play()
+			game:GetService("TweenService"):Create(clone_2_upvr.sfx, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Volume = 0;
+			}):Play()
+			game.Debris:AddItem(clone_2_upvr, 1)
+		end
+	end)
+end)
+LocalPlayer_upvr.ChildAdded:Connect(function(arg1) -- Line 406
+	if arg1.Name == "InPlay" and game.Workspace:FindFirstChild("Lobby") then
+		game.Workspace.Lobby:Destroy()
+	end
+end)
+LocalPlayer_upvr.ChildRemoved:Connect(function(arg1) -- Line 415
+	if arg1.Name == "InPlay" and not game.Workspace:FindFirstChild("Lobby") then
+		game.ReplicatedStorage.Lobby:Clone().Parent = game.Workspace
+	end
+end)
+game.ReplicatedStorage.Remotes.SetCharInvisible.OnClientEvent:Connect(function(arg1, arg2) -- Line 423
+	if arg2 == true then
+		for _, v_9 in pairs(arg1:GetChildren()) do
+			if v_9:IsA("BasePart") then
+				v_9.Transparency = 1
+			end
+			if v_9:IsA("Accessory") then
+				for _, v_10 in pairs(v_9:GetChildren()) do
+					if v_10:IsA("BasePart") then
+						v_10.Transparency = 1
+					end
+				end
+			end
+		end
+		local any_Connect_result1_upvr = arg1.ChildAdded:Connect(function(arg1_2) -- Line 437
+			if arg1_2:IsA("Accessory") then
+				for _, v_11 in pairs(arg1_2:GetChildren()) do
+					if v_11:IsA("BasePart") then
+						v_11.Transparency = 1
+					end
+				end
+			end
+		end)
+		task.delay(5, function() -- Line 446
+			--[[ Upvalues[1]:
+				[1]: any_Connect_result1_upvr (readonly)
+			]]
+			any_Connect_result1_upvr:Disconnect()
+		end)
+	elseif arg2 == false then
+		any_Connect_result1_upvr = pairs(arg1:GetChildren())
+		for _, v_33 in pairs(arg1:GetChildren()) do
+			if v_33:IsA("BasePart") and v_33.Name ~= "BallWeldPos" and v_33.Name ~= "Hand" and v_33.Name ~= "HumanoidRootPart" and v_33.Name ~= "Neck_CameraSubject" and v_33.Name ~= "SlipCone" and v_33.Name ~= "CollisionBox" then
+				v_33.Transparency = 0
+			end
+			if v_33:IsA("Accessory") then
+				for _, v_34 in pairs(v_33:GetChildren()) do
+					if v_34:IsA("BasePart") then
+						v_34.Transparency = 0
+					end
+				end
+			end
+		end
+	end
+end)
+LocalPlayer_upvr:WaitForChild("dataLoaded")
+local SavedQualityLevel_upvw = UserSettings().GameSettings.SavedQualityLevel
+local var245_upvw = 5
+local var246_upvw = 10
+local var247_upvw = 0
+function doGFXLevel() -- Line 473
+	--[[ Upvalues[4]:
+		[1]: SavedQualityLevel_upvw (read and write)
+		[2]: var247_upvw (read and write)
+		[3]: var245_upvw (read and write)
+		[4]: var246_upvw (read and write)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 18 start (CF ANALYSIS FAILED)
+	if SavedQualityLevel_upvw == Enum.SavedQualitySetting.Automatic then
+		var247_upvw = 0.5
+	elseif SavedQualityLevel_upvw == Enum.SavedQualitySetting.QualityLevel10 then
+		var247_upvw = 1
+	else
+		var247_upvw = tonumber("0."..string.sub(SavedQualityLevel_upvw.Name, 13))
+	end
+	-- KONSTANTERROR: [0] 1. Error Block 18 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [52] 42. Error Block 11 start (CF ANALYSIS FAILED)
+	var245_upvw = 5
+	var246_upvw = 10
+	do
+		return
+	end
+	-- KONSTANTERROR: [52] 42. Error Block 11 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [57] 47. Error Block 12 start (CF ANALYSIS FAILED)
+	var245_upvw = 15
+	var246_upvw = 30
+	-- KONSTANTERROR: [57] 47. Error Block 12 end (CF ANALYSIS FAILED)
+end
+doGFXLevel()
+UserSettings().GameSettings:GetPropertyChangedSignal("SavedQualityLevel"):Connect(function() -- Line 500
+	--[[ Upvalues[1]:
+		[1]: SavedQualityLevel_upvw (read and write)
+	]]
+	SavedQualityLevel_upvw = UserSettings().GameSettings.SavedQualityLevel
+	doGFXLevel()
+end)
+local Settings_upvr = LocalPlayer_upvr:FindFirstChild("Settings")
+function doGrass() -- Line 508
+	--[[ Upvalues[1]:
+		[1]: Settings_upvr (readonly)
+	]]
+	if Settings_upvr.Misc.GrassVisuals.Value == true then
+		game.Workspace.Terrain:FillBlock(CFrame.new(Vector3.new(267, -10.25, 20)), Vector3.new(800, 32, 800), Enum.Material.Grass)
+	else
+		game.Workspace.Terrain:Clear()
+	end
+end
+task.delay(5, function() -- Line 516
+	doGrass()
+end)
+Settings_upvr.Misc.GrassVisuals.Changed:Connect(doGrass)
+game.Workspace:WaitForChild("Cloud")
+function doNight() -- Line 524
+	--[[ Upvalues[1]:
+		[1]: Settings_upvr (readonly)
+	]]
+	if Settings_upvr.Misc.Night.Value == true then
+		for _, v_12 in ipairs(workspace.miscFX.NightLights:GetDescendants()) do
+			if v_12:IsA("SurfaceLight") then
+				if Settings_upvr.Misc.MapSelection.Value == "Blue Lock Chamber" and v_12.Parent:GetAttribute("Higher") then
+					v_12.Enabled = false
+				else
+					v_12.Enabled = true
+				end
+			end
+		end
+		game.Lighting.ClockTime = 22
+		game.Lighting.Atmosphere.Haze = 0.2
+		if Settings_upvr.Misc.MapSelection.Value == "Blue Lock Chamber" then
+			game.Lighting.Ambient = Color3.new(0.882353, 0.882353, 0.882353)
+			game.Lighting.OutdoorAmbient = Color3.new(0.882353, 0.882353, 0.882353)
+		else
+			game.Lighting.Ambient = Color3.new(0, 0, 0)
+			game.Lighting.OutdoorAmbient = Color3.new(0, 0, 0)
+		end
+		game.Workspace.Cloud.Cloud.Transparency = NumberSequence.new(0.8)
+		game.Workspace.Cloud.Cloud.LightEmission = 1
+	else
+		for _, v_27 in ipairs(workspace.miscFX.NightLights:GetDescendants()) do
+			if v_27:IsA("SurfaceLight") then
+				v_27.Enabled = false
+			end
+		end
+		game.Lighting.Atmosphere.Haze = 2.07
+		game.Lighting.ClockTime = 13.5
+		game.Lighting.Ambient = Color3.new(0, 0, 0)
+		game.Lighting.OutdoorAmbient = Color3.new(0, 0, 0)
+		game.Workspace.Cloud.Cloud.Transparency = NumberSequence.new(0)
+		game.Workspace.Cloud.Cloud.LightEmission = 0
+	end
+end
+doNight()
+Settings_upvr.Misc.Night.Changed:Connect(doNight)
+local Character_upvr = LocalPlayer_upvr.Character
+if not Character_upvr then
+	Character_upvr = LocalPlayer_upvr.CharacterAdded:Wait()
+end
+function doCinematic() -- Line 567
+	--[[ Upvalues[3]:
+		[1]: Settings_upvr (readonly)
+		[2]: LocalPlayer_upvr (readonly)
+		[3]: Character_upvr (readonly)
+	]]
+	if Settings_upvr.Misc.CinematicMode.Value == true then
+		LocalPlayer_upvr.PlayerGui.ScoreAndTimer.Enabled = false
+		LocalPlayer_upvr.PlayerGui.HUD.Enabled = false
+		Character_upvr.HumanoidRootPart.UIAttach.ChargeGUI.Enabled = false
+	elseif Settings_upvr.Misc.CinematicMode.Value == false then
+		LocalPlayer_upvr.PlayerGui.ScoreAndTimer.Enabled = true
+		LocalPlayer_upvr.PlayerGui.HUD.Enabled = true
+		Character_upvr.HumanoidRootPart.UIAttach.ChargeGUI.Enabled = true
+	end
+end
+doCinematic()
+Settings_upvr.Misc.CinematicMode.Changed:Connect(doCinematic)
+Settings_upvr.Misc.RainEnabled.Changed:Connect(function() -- Line 581
+	--[[ Upvalues[1]:
+		[1]: Settings_upvr (readonly)
+	]]
+	if Settings_upvr.Misc.RainEnabled.Value == false then
+		game.Workspace.rain:Stop()
+		for _, v_13 in pairs(game.Lighting:GetChildren()) do
+			if v_13:IsA("Sky") then
+				v_13:Destroy()
+			end
+		end
+		game.ReplicatedStorage.Sky:Clone().Parent = game.Lighting
+		game:GetService("TweenService"):Create(game.Lighting.Atmosphere, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Density = 0.2;
+		}):Play()
+	else
+		game.Workspace.rain:Play()
+		for _, v_28 in pairs(game.Lighting:GetChildren()) do
+			if v_28:IsA("Sky") then
+				v_28:Destroy()
+			end
+		end
+		game.ReplicatedStorage.Rainy:Clone().Parent = game.Lighting
+		game:GetService("TweenService"):Create(game.Lighting.Atmosphere, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Density = 0.2;
+		}):Play()
+	end
+end)
+Settings_upvr.Misc.StormEnabled.Changed:Connect(function() -- Line 611
+	--[[ Upvalues[1]:
+		[1]: Settings_upvr (readonly)
+	]]
+	if Settings_upvr.Misc.StormEnabled.Value == false then
+		game.Workspace.Rainstorm:Stop()
+		for _, v_14 in pairs(game.Lighting:GetChildren()) do
+			if v_14:IsA("Sky") then
+				v_14:Destroy()
+			end
+		end
+		game.ReplicatedStorage.Sky:Clone().Parent = game.Lighting
+		game:GetService("TweenService"):Create(game.Lighting.Atmosphere, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Density = 0.2;
+		}):Play()
+	else
+		game.Workspace.Rainstorm:Play()
+		for _, v_29 in pairs(game.Lighting:GetChildren()) do
+			if v_29:IsA("Sky") then
+				v_29:Destroy()
+			end
+		end
+		game.ReplicatedStorage.Rainy:Clone().Parent = game.Lighting
+		game:GetService("TweenService"):Create(game.Lighting.Atmosphere, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Density = 0.4;
+		}):Play()
+	end
+end)
+local var288_upvw
+local var290_upvw
+Settings_upvr.Misc.SnowEnabled.Changed:Connect(function() -- Line 643
+	--[[ Upvalues[3]:
+		[1]: Settings_upvr (readonly)
+		[2]: var288_upvw (read and write)
+		[3]: var290_upvw (read and write)
+	]]
+	if Settings_upvr.Misc.SnowEnabled.Value == false then
+		if var288_upvw then
+			var288_upvw:Destroy()
+			var288_upvw = nil
+			var290_upvw:Disconnect()
+		end
+		game.Workspace.Terrain:SetMaterialColor(Enum.Material.Grass, Color3.new(0, 0.52549, 0.121569))
+		game.Workspace.Snowstorm:Stop()
+		for _, v_15 in pairs(game.Lighting:GetChildren()) do
+			if v_15:IsA("Sky") then
+				v_15:Destroy()
+			end
+		end
+		game.ReplicatedStorage.Sky:Clone().Parent = game.Lighting
+		for _, v_16 in ipairs(workspace.gameArea.Grass:GetChildren()) do
+			v_16.MaterialVariant = ""
+			v_16.Color = Color3.new(0.172549, 0.6, 0.0980392)
+			if v_16:IsA("UnionOperation") then
+				v_16.UsePartColor = false
+			end
+		end
+		workspace.gameArea.Surround.MaterialVariant = ""
+		workspace.gameArea.Surround.Color = Color3.new(0.172549, 0.6, 0.0980392)
+		workspace.gameArea.Surround.UsePartColor = false
+		game:GetService("TweenService"):Create(game.Lighting.Atmosphere, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Density = 0.2;
+		}):Play()
+	else
+		game.Workspace.Snowstorm:Play()
+		game.Workspace.Terrain:SetMaterialColor(Enum.Material.Grass, Color3.new(1, 1, 1))
+		game.Lighting.Sky:Destroy()
+		game.ReplicatedStorage.Rainy:Clone().Parent = game.Lighting
+		game:GetService("TweenService"):Create(game.Lighting.Atmosphere, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Density = 0.25;
+		}):Play()
+		for _, v_30 in ipairs(workspace.gameArea.Grass:GetChildren()) do
+			v_30.MaterialVariant = "SnowyGrass"
+			v_30.Color = Color3.new(0.886275, 0.886275, 0.886275)
+			if v_30:IsA("UnionOperation") then
+				v_30.UsePartColor = true
+			end
+		end
+		workspace.gameArea.Surround.MaterialVariant = "SnowyGrass"
+		workspace.gameArea.Surround.Color = Color3.new(0.886275, 0.886275, 0.886275)
+		workspace.gameArea.Surround.UsePartColor = true
+		var290_upvw = game.Workspace.gameArea.Grass.ChildAdded:Connect(function(arg1) -- Line 694
+			if arg1.Name == "FieldBase" then
+				arg1.MaterialVariant = "SnowyGrass"
+				arg1.Color = Color3.new(0.886275, 0.886275, 0.886275)
+			end
+		end)
+	end
+end)
+if Settings_upvr.Misc.RainEnabled.Value == true then
+	game.Workspace.rain:Play()
+	game.Lighting.Sky:Destroy()
+	game.ReplicatedStorage.Rainy:Clone().Parent = game.Lighting
+	game:GetService("TweenService"):Create(game.Lighting.Atmosphere, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Density = 0.2;
+	}):Play()
+end
+if Settings_upvr.Misc.StormEnabled.Value == true then
+	game.Workspace.Rainstorm:Play()
+	game.Lighting.Sky:Destroy()
+	game.ReplicatedStorage.Rainy:Clone().Parent = game.Lighting
+	game:GetService("TweenService"):Create(game.Lighting.Atmosphere, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Density = 0.4;
+	}):Play()
+end
+if Settings_upvr.Misc.SnowEnabled.Value == true then
+	game.Workspace.Snowstorm:Play()
+	game.Workspace.Terrain:SetMaterialColor(Enum.Material.Grass, Color3.new(1, 1, 1))
+	game.Lighting.Sky:Destroy()
+	game.ReplicatedStorage.Rainy:Clone().Parent = game.Lighting
+	game:GetService("TweenService"):Create(game.Lighting.Atmosphere, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Density = 0.25;
+	}):Play()
+	game.Workspace.gameArea.SelectedMap.FieldBase.MaterialVariant = "SnowyGrass"
+	game.Workspace.gameArea.SelectedMap.FieldBase.Color = Color3.new(0.886275, 0.886275, 0.886275)
+	var290_upvw = game.Workspace.gameArea.SelectedMap.ChildAdded:Connect(function(arg1) -- Line 736
+		if arg1.Name == "FieldBase" then
+			arg1.MaterialVariant = "SnowyGrass"
+			arg1.Color = Color3.new(0.886275, 0.886275, 0.886275)
+		end
+	end)
+end
+task.spawn(function() -- Line 748
+	--[[ Upvalues[1]:
+		[1]: Settings_upvr (readonly)
+	]]
+	while task.wait(math.random(1, 5) / 2) do
+		local StormEnabled = Settings_upvr.Misc.StormEnabled
+		if StormEnabled.Value ~= false then
+			if math.random(1, 2) == 1 then
+				StormEnabled = true
+			else
+				StormEnabled = false
+			end
+			formLightning(StormEnabled)
+		end
+	end
+end)
+local tbl_upvr = {}
+local LiquidModule_upvr = require(script.LiquidModule)
+task.spawn(function() -- Line 757
+	--[[ Upvalues[7]:
+		[1]: Settings_upvr (readonly)
+		[2]: var245_upvw (read and write)
+		[3]: var246_upvw (read and write)
+		[4]: tbl_upvr (readonly)
+		[5]: LiquidModule_upvr (readonly)
+		[6]: LocalPlayer_upvr (readonly)
+		[7]: var288_upvw (read and write)
+	]]
+	-- KONSTANTERROR: [306] 216. Error Block 25 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [306] 216. Error Block 25 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 36 start (CF ANALYSIS FAILED)
+	-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [306.0]
+	-- KONSTANTERROR: [0] 1. Error Block 36 end (CF ANALYSIS FAILED)
+end)
+function formLightning(arg1) -- Line 802
+	local Part = Instance.new("Part")
+	Part.Parent = game.Workspace.Temp
+	Part.Transparency = 1
+	Part.CanCollide = false
+	Part.Anchored = true
+	Part.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(math.random(-1250, 1250), 0, math.random(-1250, 1250))
+	game.Debris:AddItem(Part, 3)
+	local clone = script["lightning_strike"..math.random(1, 2)]:Clone()
+	clone.Parent = Part
+	clone.PlaybackSpeed = math.random(40, 60) / 100
+	clone:Play()
+	task.wait(0.05)
+end
+game.ReplicatedStorage.Remotes.PSCommand.OnClientEvent:Connect(function(arg1) -- Line 817
+	game.TextChatService.TextChannels.RBXGeneral:DisplaySystemMessage(arg1)
+end)

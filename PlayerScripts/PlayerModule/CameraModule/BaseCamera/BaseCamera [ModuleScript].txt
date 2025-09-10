@@ -1,0 +1,833 @@
+-- ModuleScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerScripts.PlayerModule.CameraModule.BaseCamera
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:23:35
+-- Luau version 6, Types version 3
+-- Time taken: 0.020974 seconds
+
+local pcall_result1, pcall_result2 = pcall(function() -- Line 15
+	return UserSettings():IsUserFeatureEnabled("UserFixGamepadMaxZoom")
+end)
+local any_getUserFlag_result1_upvr = require(script.Parent.Parent:WaitForChild("CommonUtils"):WaitForChild("FlagUtil")).getUserFlag("UserFixCameraOffsetJitter2")
+local module_upvr_3 = require(script.Parent:WaitForChild("CameraUtils"))
+local module_upvr_5 = require(script.Parent:WaitForChild("ZoomController"))
+local module_upvr_2 = require(script.Parent:WaitForChild("CameraInput"))
+local UserInputService_upvr = game:GetService("UserInputService")
+local UserGameSettings_upvr = UserSettings():GetService("UserGameSettings")
+local LocalPlayer_upvr = game:GetService("Players").LocalPlayer
+local module_upvr_4 = {}
+module_upvr_4.__index = module_upvr_4
+function module_upvr_4.new() -- Line 72
+	--[[ Upvalues[3]:
+		[1]: module_upvr_4 (readonly)
+		[2]: LocalPlayer_upvr (readonly)
+		[3]: UserGameSettings_upvr (readonly)
+	]]
+	local setmetatable_result1_upvr = setmetatable({}, module_upvr_4)
+	setmetatable_result1_upvr.gamepadZoomLevels = {0, 10, 20}
+	setmetatable_result1_upvr.FIRST_PERSON_DISTANCE_THRESHOLD = 1
+	setmetatable_result1_upvr.cameraType = nil
+	setmetatable_result1_upvr.cameraMovementMode = nil
+	setmetatable_result1_upvr.lastCameraTransform = nil
+	setmetatable_result1_upvr.lastUserPanCamera = tick()
+	setmetatable_result1_upvr.humanoidRootPart = nil
+	setmetatable_result1_upvr.humanoidCache = {}
+	setmetatable_result1_upvr.lastSubject = nil
+	setmetatable_result1_upvr.lastSubjectPosition = Vector3.new(0, 5, 0)
+	setmetatable_result1_upvr.lastSubjectCFrame = CFrame.new(setmetatable_result1_upvr.lastSubjectPosition)
+	setmetatable_result1_upvr.currentSubjectDistance = math.clamp(12.5, LocalPlayer_upvr.CameraMinZoomDistance, LocalPlayer_upvr.CameraMaxZoomDistance)
+	setmetatable_result1_upvr.inFirstPerson = false
+	setmetatable_result1_upvr.inMouseLockedMode = false
+	setmetatable_result1_upvr.portraitMode = false
+	setmetatable_result1_upvr.isSmallTouchScreen = false
+	setmetatable_result1_upvr.resetCameraAngle = true
+	setmetatable_result1_upvr.enabled = false
+	setmetatable_result1_upvr.PlayerGui = nil
+	setmetatable_result1_upvr.cameraChangedConn = nil
+	setmetatable_result1_upvr.viewportSizeChangedConn = nil
+	setmetatable_result1_upvr.shouldUseVRRotation = false
+	setmetatable_result1_upvr.VRRotationIntensityAvailable = false
+	setmetatable_result1_upvr.lastVRRotationIntensityCheckTime = 0
+	setmetatable_result1_upvr.lastVRRotationTime = 0
+	setmetatable_result1_upvr.vrRotateKeyCooldown = {}
+	setmetatable_result1_upvr.cameraTranslationConstraints = Vector3.new(1, 1, 1)
+	setmetatable_result1_upvr.humanoidJumpOrigin = nil
+	setmetatable_result1_upvr.trackingHumanoid = nil
+	setmetatable_result1_upvr.cameraFrozen = false
+	setmetatable_result1_upvr.subjectStateChangedConn = nil
+	setmetatable_result1_upvr.gamepadZoomPressConnection = nil
+	setmetatable_result1_upvr.mouseLockOffset = Vector3.new(0, 0, 0)
+	if LocalPlayer_upvr.Character then
+		setmetatable_result1_upvr:OnCharacterAdded(LocalPlayer_upvr.Character)
+	end
+	LocalPlayer_upvr.CharacterAdded:Connect(function(arg1) -- Line 137
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr (readonly)
+		]]
+		setmetatable_result1_upvr:OnCharacterAdded(arg1)
+	end)
+	if setmetatable_result1_upvr.playerCameraModeChangeConn then
+		setmetatable_result1_upvr.playerCameraModeChangeConn:Disconnect()
+	end
+	setmetatable_result1_upvr.playerCameraModeChangeConn = LocalPlayer_upvr:GetPropertyChangedSignal("CameraMode"):Connect(function() -- Line 142
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr (readonly)
+		]]
+		setmetatable_result1_upvr:OnPlayerCameraPropertyChange()
+	end)
+	if setmetatable_result1_upvr.minDistanceChangeConn then
+		setmetatable_result1_upvr.minDistanceChangeConn:Disconnect()
+	end
+	setmetatable_result1_upvr.minDistanceChangeConn = LocalPlayer_upvr:GetPropertyChangedSignal("CameraMinZoomDistance"):Connect(function() -- Line 147
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr (readonly)
+		]]
+		setmetatable_result1_upvr:OnPlayerCameraPropertyChange()
+	end)
+	if setmetatable_result1_upvr.maxDistanceChangeConn then
+		setmetatable_result1_upvr.maxDistanceChangeConn:Disconnect()
+	end
+	setmetatable_result1_upvr.maxDistanceChangeConn = LocalPlayer_upvr:GetPropertyChangedSignal("CameraMaxZoomDistance"):Connect(function() -- Line 152
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr (readonly)
+		]]
+		setmetatable_result1_upvr:OnPlayerCameraPropertyChange()
+	end)
+	if setmetatable_result1_upvr.playerDevTouchMoveModeChangeConn then
+		setmetatable_result1_upvr.playerDevTouchMoveModeChangeConn:Disconnect()
+	end
+	setmetatable_result1_upvr.playerDevTouchMoveModeChangeConn = LocalPlayer_upvr:GetPropertyChangedSignal("DevTouchMovementMode"):Connect(function() -- Line 157
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr (readonly)
+		]]
+		setmetatable_result1_upvr:OnDevTouchMovementModeChanged()
+	end)
+	setmetatable_result1_upvr:OnDevTouchMovementModeChanged()
+	if setmetatable_result1_upvr.gameSettingsTouchMoveMoveChangeConn then
+		setmetatable_result1_upvr.gameSettingsTouchMoveMoveChangeConn:Disconnect()
+	end
+	setmetatable_result1_upvr.gameSettingsTouchMoveMoveChangeConn = UserGameSettings_upvr:GetPropertyChangedSignal("TouchMovementMode"):Connect(function() -- Line 163
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr (readonly)
+		]]
+		setmetatable_result1_upvr:OnGameSettingsTouchMovementModeChanged()
+	end)
+	setmetatable_result1_upvr:OnGameSettingsTouchMovementModeChanged()
+	UserGameSettings_upvr:SetCameraYInvertVisible()
+	UserGameSettings_upvr:SetGamepadCameraSensitivityVisible()
+	setmetatable_result1_upvr.hasGameLoaded = game:IsLoaded()
+	if not setmetatable_result1_upvr.hasGameLoaded then
+		setmetatable_result1_upvr.gameLoadedConn = game.Loaded:Connect(function() -- Line 173
+			--[[ Upvalues[1]:
+				[1]: setmetatable_result1_upvr (readonly)
+			]]
+			setmetatable_result1_upvr.hasGameLoaded = true
+			setmetatable_result1_upvr.gameLoadedConn:Disconnect()
+			setmetatable_result1_upvr.gameLoadedConn = nil
+		end)
+	end
+	setmetatable_result1_upvr:OnPlayerCameraPropertyChange()
+	return setmetatable_result1_upvr
+end
+function module_upvr_4.GetModuleName(arg1) -- Line 185
+	return "BaseCamera"
+end
+function module_upvr_4.OnCharacterAdded(arg1, arg2) -- Line 189
+	--[[ Upvalues[2]:
+		[1]: UserInputService_upvr (readonly)
+		[2]: LocalPlayer_upvr (readonly)
+	]]
+	local resetCameraAngle = arg1.resetCameraAngle
+	if not resetCameraAngle then
+		resetCameraAngle = arg1:GetEnabled()
+	end
+	arg1.resetCameraAngle = resetCameraAngle
+	arg1.humanoidRootPart = nil
+	if UserInputService_upvr.TouchEnabled then
+		arg1.PlayerGui = LocalPlayer_upvr:WaitForChild("PlayerGui")
+		for _, v in ipairs(arg2:GetChildren()) do
+			if v:IsA("Tool") then
+				arg1.isAToolEquipped = true
+			end
+		end
+		arg2.ChildAdded:Connect(function(arg1_2) -- Line 199
+			--[[ Upvalues[1]:
+				[1]: arg1 (readonly)
+			]]
+			if arg1_2:IsA("Tool") then
+				arg1.isAToolEquipped = true
+			end
+		end)
+		arg2.ChildRemoved:Connect(function(arg1_3) -- Line 204
+			--[[ Upvalues[1]:
+				[1]: arg1 (readonly)
+			]]
+			if arg1_3:IsA("Tool") then
+				arg1.isAToolEquipped = false
+			end
+		end)
+	end
+end
+function module_upvr_4.GetHumanoidRootPart(arg1) -- Line 212
+	--[[ Upvalues[1]:
+		[1]: LocalPlayer_upvr (readonly)
+	]]
+	if not arg1.humanoidRootPart then
+		if LocalPlayer_upvr.Character then
+			local class_Humanoid_2 = LocalPlayer_upvr.Character:FindFirstChildOfClass("Humanoid")
+			if class_Humanoid_2 then
+				arg1.humanoidRootPart = class_Humanoid_2.RootPart
+			end
+		end
+	end
+	return arg1.humanoidRootPart
+end
+function module_upvr_4.GetBodyPartToFollow(arg1, arg2, arg3) -- Line 224
+	if arg2:GetState() == Enum.HumanoidStateType.Dead then
+		local Parent = arg2.Parent
+		if Parent and Parent:IsA("Model") then
+			local Head_2 = Parent:FindFirstChild("Head")
+			if not Head_2 then
+				Head_2 = arg2.RootPart
+			end
+			return Head_2
+		end
+	end
+	return arg2.RootPart
+end
+function module_upvr_4.GetSubjectCFrame(arg1) -- Line 236
+	--[[ Upvalues[1]:
+		[1]: any_getUserFlag_result1_upvr (readonly)
+	]]
+	-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+	local CurrentCamera_3 = workspace.CurrentCamera
+	local var45 = CurrentCamera_3
+	if var45 then
+		var45 = CurrentCamera_3.CameraSubject
+	end
+	if not var45 then
+		return arg1.lastSubjectCFrame
+	end
+	if var45:IsA("Humanoid") then
+		local var46
+		if var45:GetState() ~= Enum.HumanoidStateType.Dead then
+			var46 = false
+		else
+			var46 = true
+		end
+		if any_getUserFlag_result1_upvr and arg1:GetIsMouseLocked() then
+		end
+		local RootPart_5 = var45.RootPart
+		if var46 and var45.Parent and var45.Parent:IsA("Model") then
+			RootPart_5 = var45.Parent:FindFirstChild("Head") or RootPart_5
+		end
+		if RootPart_5 then
+			local var48
+			if var48 then
+				var48 = nil
+				if var45.RigType == Enum.HumanoidRigType.R15 then
+					if var45.AutomaticScalingEnabled then
+						var48 = Vector3.new(0, 1.5, 0)
+						local RootPart = var45.RootPart
+						if RootPart_5 == RootPart then
+							var48 += Vector3.new(0, (RootPart.Size.Y - Vector3.new(2, 2, 1).Y) / 2, 0)
+							-- KONSTANTWARNING: GOTO [102] #74
+						end
+					else
+						var48 = Vector3.new(0, 2, 0)
+					end
+				else
+					var48 = Vector3.new(0, 1.5, 0)
+				end
+				if var46 then
+					var48 = Vector3.new(0, 0, 0)
+				end
+				local _ = RootPart_5.CFrame * CFrame.new(var48 + Vector3.new())
+				-- KONSTANTWARNING: GOTO [137] #101
+			end
+			-- KONSTANTWARNING: GOTO [137] #101
+		end
+	else
+		RootPart_5 = "BasePart"
+		var46 = var45:IsA(RootPart_5)
+		if var46 then
+		else
+			RootPart_5 = "Model"
+			var46 = var45:IsA(RootPart_5)
+			if var46 then
+				var46 = var45.PrimaryPart
+				if var46 then
+					var46 = var45:GetPrimaryPartCFrame()
+				else
+					var46 = CFrame.new()
+				end
+			end
+		end
+	end
+	if var46 then
+		-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+		arg1.lastSubjectCFrame = var46
+	end
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	return var46
+end
+function module_upvr_4.GetSubjectVelocity(arg1) -- Line 310
+	-- KONSTANTERROR: [0] 1. Error Block 23 start (CF ANALYSIS FAILED)
+	local CurrentCamera_9 = workspace.CurrentCamera
+	local var56 = CurrentCamera_9
+	if var56 then
+		var56 = CurrentCamera_9.CameraSubject
+	end
+	if not var56 then
+		return Vector3.new(0, 0, 0)
+	end
+	if var56:IsA("BasePart") then
+		return var56.Velocity
+	end
+	if var56:IsA("Humanoid") then
+		local RootPart_7 = var56.RootPart
+		if RootPart_7 then
+			do
+				return RootPart_7.Velocity
+			end
+			-- KONSTANTWARNING: GOTO [42] #32
+		end
+	elseif var56:IsA("Model") then
+		local PrimaryPart_2 = var56.PrimaryPart
+		if PrimaryPart_2 then
+			return PrimaryPart_2.Velocity
+		end
+	end
+	-- KONSTANTERROR: [0] 1. Error Block 23 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [42] 32. Error Block 14 start (CF ANALYSIS FAILED)
+	do
+		return Vector3.new(0, 0, 0)
+	end
+	-- KONSTANTERROR: [42] 32. Error Block 14 end (CF ANALYSIS FAILED)
+end
+function module_upvr_4.GetSubjectRotVelocity(arg1) -- Line 339
+	-- KONSTANTERROR: [0] 1. Error Block 23 start (CF ANALYSIS FAILED)
+	local CurrentCamera_2 = workspace.CurrentCamera
+	local var60 = CurrentCamera_2
+	if var60 then
+		var60 = CurrentCamera_2.CameraSubject
+	end
+	if not var60 then
+		return Vector3.new(0, 0, 0)
+	end
+	if var60:IsA("BasePart") then
+		return var60.RotVelocity
+	end
+	if var60:IsA("Humanoid") then
+		local RootPart_3 = var60.RootPart
+		if RootPart_3 then
+			do
+				return RootPart_3.RotVelocity
+			end
+			-- KONSTANTWARNING: GOTO [42] #32
+		end
+	elseif var60:IsA("Model") then
+		local PrimaryPart_3 = var60.PrimaryPart
+		if PrimaryPart_3 then
+			return PrimaryPart_3.RotVelocity
+		end
+	end
+	-- KONSTANTERROR: [0] 1. Error Block 23 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [42] 32. Error Block 14 start (CF ANALYSIS FAILED)
+	do
+		return Vector3.new(0, 0, 0)
+	end
+	-- KONSTANTERROR: [42] 32. Error Block 14 end (CF ANALYSIS FAILED)
+end
+function module_upvr_4.StepZoom(arg1) -- Line 368
+	--[[ Upvalues[2]:
+		[1]: module_upvr_2 (readonly)
+		[2]: module_upvr_5 (readonly)
+	]]
+	local _ = arg1.currentSubjectDistance
+	local var65
+	if 0 < var65 then
+		var65 = nil
+		if 0 < module_upvr_2.getZoomDelta() then
+			var65 = _ + module_upvr_2.getZoomDelta() * (_ * 0.5 + 1)
+			var65 = math.max(var65, arg1.FIRST_PERSON_DISTANCE_THRESHOLD)
+		else
+			var65 = (_ + module_upvr_2.getZoomDelta()) / (1 - module_upvr_2.getZoomDelta() * 0.5)
+			var65 = math.max(var65, 0.5)
+		end
+		if var65 < arg1.FIRST_PERSON_DISTANCE_THRESHOLD then
+		end
+		arg1:SetCameraToSubjectDistance(0.5)
+	end
+	return module_upvr_5.GetZoomRadius()
+end
+function module_upvr_4.GetSubjectPosition(arg1) -- Line 393
+	--[[ Upvalues[1]:
+		[1]: any_getUserFlag_result1_upvr (readonly)
+	]]
+	-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+	-- KONSTANTERROR: [0] 1. Error Block 75 start (CF ANALYSIS FAILED)
+	local CurrentCamera_7 = game.Workspace.CurrentCamera
+	local var67 = CurrentCamera_7
+	if var67 then
+		var67 = CurrentCamera_7.CameraSubject
+	end
+	if var67 then
+		if var67:IsA("Humanoid") then
+			local var68
+			if var67:GetState() ~= Enum.HumanoidStateType.Dead then
+				var68 = false
+			else
+				var68 = true
+			end
+			if any_getUserFlag_result1_upvr and arg1:GetIsMouseLocked() then
+			end
+			local RootPart_4 = var67.RootPart
+			if var68 and var67.Parent and var67.Parent:IsA("Model") then
+				RootPart_4 = var67.Parent:FindFirstChild("Head") or RootPart_4
+			end
+			if RootPart_4 then
+				local var70
+				if var70 then
+					var70 = nil
+					if var67.RigType == Enum.HumanoidRigType.R15 then
+						if var67.AutomaticScalingEnabled then
+							var70 = Vector3.new(0, 1.5, 0)
+							if RootPart_4 == var67.RootPart then
+								var70 += Vector3.new(0, var67.RootPart.Size.Y / 2 - Vector3.new(2, 2, 1).Y / 2, 0)
+								-- KONSTANTWARNING: GOTO [106] #76
+							end
+						else
+							var70 = Vector3.new(0, 2, 0)
+						end
+					else
+						var70 = Vector3.new(0, 1.5, 0)
+					end
+					if var68 then
+						var70 = Vector3.new(0, 0, 0)
+					end
+					local _ = RootPart_4.CFrame.p + RootPart_4.CFrame:vectorToWorldSpace(var70 + Vector3.new())
+					-- KONSTANTWARNING: GOTO [181] #130
+				end
+				-- KONSTANTWARNING: GOTO [181] #130
+			end
+		else
+			RootPart_4 = "VehicleSeat"
+			var68 = var67:IsA(RootPart_4)
+			if var68 then
+				var68 = var67.CFrame.p
+				var70 = Vector3.new(0, 5, 0)
+			else
+				RootPart_4 = "SkateboardPlatform"
+				var68 = var67:IsA(RootPart_4)
+				if var68 then
+					var68 = var67.CFrame.p
+				else
+					RootPart_4 = "BasePart"
+					var68 = var67:IsA(RootPart_4)
+					if var68 then
+						var68 = var67.CFrame
+					else
+						RootPart_4 = "Model"
+						var68 = var67:IsA(RootPart_4)
+						if var68 then
+							var68 = var67.PrimaryPart
+							if var68 then
+								var68 = var67:GetPrimaryPartCFrame()
+							else
+								var68 = var67:GetModelCFrame()
+							end
+							-- KONSTANTWARNING: GOTO [181] #130
+						end
+					end
+				end
+			end
+		end
+	else
+		var68 = nil
+		return var68
+	end
+	-- KONSTANTERROR: [0] 1. Error Block 75 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [181] 130. Error Block 45 start (CF ANALYSIS FAILED)
+	arg1.lastSubject = var67
+	arg1.lastSubjectPosition = var68.p
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	do
+		return var68.p
+	end
+	-- KONSTANTERROR: [181] 130. Error Block 45 end (CF ANALYSIS FAILED)
+end
+function module_upvr_4.OnViewportSizeChanged(arg1) -- Line 470
+	--[[ Upvalues[1]:
+		[1]: UserInputService_upvr (readonly)
+	]]
+	local game_2 = game
+	local ViewportSize_2 = game_2.Workspace.CurrentCamera.ViewportSize
+	if ViewportSize_2.X >= ViewportSize_2.Y then
+		game_2 = false
+	else
+		game_2 = true
+	end
+	arg1.portraitMode = game_2
+	game_2 = UserInputService_upvr.TouchEnabled
+	if game_2 then
+		game_2 = true
+		if ViewportSize_2.Y >= 500 then
+			if ViewportSize_2.X >= 700 then
+				game_2 = false
+			else
+				game_2 = true
+			end
+		end
+	end
+	arg1.isSmallTouchScreen = game_2
+end
+function module_upvr_4.OnCurrentCameraChanged(arg1) -- Line 478
+	--[[ Upvalues[1]:
+		[1]: UserInputService_upvr (readonly)
+	]]
+	if UserInputService_upvr.TouchEnabled then
+		if arg1.viewportSizeChangedConn then
+			arg1.viewportSizeChangedConn:Disconnect()
+			arg1.viewportSizeChangedConn = nil
+		end
+		local CurrentCamera_5 = game.Workspace.CurrentCamera
+		if CurrentCamera_5 then
+			arg1:OnViewportSizeChanged()
+			arg1.viewportSizeChangedConn = CurrentCamera_5:GetPropertyChangedSignal("ViewportSize"):Connect(function() -- Line 489
+				--[[ Upvalues[1]:
+					[1]: arg1 (readonly)
+				]]
+				arg1:OnViewportSizeChanged()
+			end)
+		end
+	end
+	if arg1.cameraSubjectChangedConn then
+		arg1.cameraSubjectChangedConn:Disconnect()
+		arg1.cameraSubjectChangedConn = nil
+	end
+	local CurrentCamera_6 = game.Workspace.CurrentCamera
+	if CurrentCamera_6 then
+		arg1.cameraSubjectChangedConn = CurrentCamera_6:GetPropertyChangedSignal("CameraSubject"):Connect(function() -- Line 503
+			--[[ Upvalues[1]:
+				[1]: arg1 (readonly)
+			]]
+			arg1:OnNewCameraSubject()
+		end)
+		arg1:OnNewCameraSubject()
+	end
+end
+function module_upvr_4.OnDynamicThumbstickEnabled(arg1) -- Line 510
+	--[[ Upvalues[1]:
+		[1]: UserInputService_upvr (readonly)
+	]]
+	if UserInputService_upvr.TouchEnabled then
+		arg1.isDynamicThumbstickEnabled = true
+	end
+end
+function module_upvr_4.OnDynamicThumbstickDisabled(arg1) -- Line 516
+	arg1.isDynamicThumbstickEnabled = false
+end
+function module_upvr_4.OnGameSettingsTouchMovementModeChanged(arg1) -- Line 520
+	--[[ Upvalues[2]:
+		[1]: LocalPlayer_upvr (readonly)
+		[2]: UserGameSettings_upvr (readonly)
+	]]
+	if LocalPlayer_upvr.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice then
+		if UserGameSettings_upvr.TouchMovementMode == Enum.TouchMovementMode.DynamicThumbstick or UserGameSettings_upvr.TouchMovementMode == Enum.TouchMovementMode.Default then
+			arg1:OnDynamicThumbstickEnabled()
+			return
+		end
+		arg1:OnDynamicThumbstickDisabled()
+	end
+end
+function module_upvr_4.OnDevTouchMovementModeChanged(arg1) -- Line 531
+	--[[ Upvalues[1]:
+		[1]: LocalPlayer_upvr (readonly)
+	]]
+	if LocalPlayer_upvr.DevTouchMovementMode == Enum.DevTouchMovementMode.DynamicThumbstick then
+		arg1:OnDynamicThumbstickEnabled()
+	else
+		arg1:OnGameSettingsTouchMovementModeChanged()
+	end
+end
+function module_upvr_4.OnPlayerCameraPropertyChange(arg1) -- Line 539
+	arg1:SetCameraToSubjectDistance(arg1.currentSubjectDistance)
+end
+function module_upvr_4.InputTranslationToCameraAngleChange(arg1, arg2, arg3) -- Line 544
+	return arg2 * arg3
+end
+local var81_upvw = pcall_result1 and pcall_result2
+function module_upvr_4.GamepadZoomPress(arg1) -- Line 550
+	--[[ Upvalues[2]:
+		[1]: LocalPlayer_upvr (readonly)
+		[2]: var81_upvw (read and write)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	local _ = #arg1.gamepadZoomLevels
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [44] 33. Error Block 13 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [44] 33. Error Block 13 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [12] 10. Error Block 2 start (CF ANALYSIS FAILED)
+	-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [44.2147485261]
+	-- KONSTANTERROR: [12] 10. Error Block 2 end (CF ANALYSIS FAILED)
+end
+function module_upvr_4.Enable(arg1, arg2) -- Line 595
+	if arg1.enabled ~= arg2 then
+		arg1.enabled = arg2
+		arg1:OnEnabledChanged()
+	end
+end
+function module_upvr_4.OnEnabledChanged(arg1) -- Line 603
+	--[[ Upvalues[2]:
+		[1]: module_upvr_2 (readonly)
+		[2]: LocalPlayer_upvr (readonly)
+	]]
+	if arg1.enabled then
+		module_upvr_2.setInputEnabled(true)
+		arg1.gamepadZoomPressConnection = module_upvr_2.gamepadZoomPress:Connect(function() -- Line 607
+			--[[ Upvalues[1]:
+				[1]: arg1 (readonly)
+			]]
+			arg1:GamepadZoomPress()
+		end)
+		if LocalPlayer_upvr.CameraMode == Enum.CameraMode.LockFirstPerson then
+			arg1.currentSubjectDistance = 0.5
+			if not arg1.inFirstPerson then
+				arg1:EnterFirstPerson()
+			end
+		end
+		if arg1.cameraChangedConn then
+			arg1.cameraChangedConn:Disconnect()
+			arg1.cameraChangedConn = nil
+		end
+		arg1.cameraChangedConn = workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function() -- Line 619
+			--[[ Upvalues[1]:
+				[1]: arg1 (readonly)
+			]]
+			arg1:OnCurrentCameraChanged()
+		end)
+		arg1:OnCurrentCameraChanged()
+	else
+		module_upvr_2.setInputEnabled(false)
+		if arg1.gamepadZoomPressConnection then
+			arg1.gamepadZoomPressConnection:Disconnect()
+			arg1.gamepadZoomPressConnection = nil
+		end
+		arg1:Cleanup()
+	end
+end
+function module_upvr_4.GetEnabled(arg1) -- Line 635
+	return arg1.enabled
+end
+function module_upvr_4.Cleanup(arg1) -- Line 639
+	--[[ Upvalues[1]:
+		[1]: module_upvr_3 (readonly)
+	]]
+	if arg1.subjectStateChangedConn then
+		arg1.subjectStateChangedConn:Disconnect()
+		arg1.subjectStateChangedConn = nil
+	end
+	if arg1.viewportSizeChangedConn then
+		arg1.viewportSizeChangedConn:Disconnect()
+		arg1.viewportSizeChangedConn = nil
+	end
+	if arg1.cameraChangedConn then
+		arg1.cameraChangedConn:Disconnect()
+		arg1.cameraChangedConn = nil
+	end
+	arg1.lastCameraTransform = nil
+	arg1.lastSubjectCFrame = nil
+	module_upvr_3.restoreMouseBehavior()
+end
+local module_upvr = require(script.Parent:WaitForChild("CameraUI"))
+local module_upvr_6 = require(script.Parent:WaitForChild("CameraToggleStateController"))
+function module_upvr_4.UpdateMouseBehavior(arg1) -- Line 660
+	--[[ Upvalues[5]:
+		[1]: UserGameSettings_upvr (readonly)
+		[2]: module_upvr (readonly)
+		[3]: module_upvr_2 (readonly)
+		[4]: module_upvr_6 (readonly)
+		[5]: module_upvr_3 (readonly)
+	]]
+	local var89
+	if UserGameSettings_upvr.ComputerMovementMode ~= Enum.ComputerMovementMode.ClickToMove then
+		var89 = false
+	else
+		var89 = true
+	end
+	if arg1.isCameraToggle and var89 == false then
+		module_upvr.setCameraModeToastEnabled(true)
+		module_upvr_2.enableCameraToggleInput()
+		module_upvr_6(arg1.inFirstPerson)
+	else
+		module_upvr.setCameraModeToastEnabled(false)
+		module_upvr_2.disableCameraToggleInput()
+		if arg1.inFirstPerson or arg1.inMouseLockedMode then
+			module_upvr_3.setRotationTypeOverride(Enum.RotationType.CameraRelative)
+			module_upvr_3.setMouseBehaviorOverride(Enum.MouseBehavior.LockCenter)
+			return
+		end
+		module_upvr_3.restoreRotationType()
+		if module_upvr_2.getRotationActivated() then
+			module_upvr_3.setMouseBehaviorOverride(Enum.MouseBehavior.LockCurrentPosition)
+			return
+		end
+		module_upvr_3.restoreMouseBehavior()
+	end
+end
+function module_upvr_4.UpdateForDistancePropertyChange(arg1) -- Line 688
+	arg1:SetCameraToSubjectDistance(arg1.currentSubjectDistance)
+end
+function module_upvr_4.SetCameraToSubjectDistance(arg1, arg2) -- Line 694
+	--[[ Upvalues[2]:
+		[1]: LocalPlayer_upvr (readonly)
+		[2]: module_upvr_5 (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [9] 6. Error Block 16 start (CF ANALYSIS FAILED)
+	arg1.currentSubjectDistance = 0.5
+	if not arg1.inFirstPerson then
+		arg1:EnterFirstPerson()
+		-- KONSTANTWARNING: GOTO [52] #35
+	end
+	-- KONSTANTERROR: [9] 6. Error Block 16 end (CF ANALYSIS FAILED)
+end
+function module_upvr_4.SetCameraType(arg1, arg2) -- Line 728
+	arg1.cameraType = arg2
+end
+function module_upvr_4.GetCameraType(arg1) -- Line 733
+	return arg1.cameraType
+end
+function module_upvr_4.SetCameraMovementMode(arg1, arg2) -- Line 738
+	arg1.cameraMovementMode = arg2
+end
+function module_upvr_4.GetCameraMovementMode(arg1) -- Line 742
+	return arg1.cameraMovementMode
+end
+function module_upvr_4.SetIsMouseLocked(arg1, arg2) -- Line 746
+	arg1.inMouseLockedMode = arg2
+end
+function module_upvr_4.GetIsMouseLocked(arg1) -- Line 750
+	return arg1.inMouseLockedMode
+end
+function module_upvr_4.SetMouseLockOffset(arg1, arg2) -- Line 754
+	arg1.mouseLockOffset = arg2
+end
+function module_upvr_4.GetMouseLockOffset(arg1) -- Line 758
+	return arg1.mouseLockOffset
+end
+function module_upvr_4.InFirstPerson(arg1) -- Line 762
+	return arg1.inFirstPerson
+end
+function module_upvr_4.EnterFirstPerson(arg1) -- Line 766
+	arg1.inFirstPerson = true
+	arg1:UpdateMouseBehavior()
+end
+function module_upvr_4.LeaveFirstPerson(arg1) -- Line 771
+	arg1.inFirstPerson = false
+	arg1:UpdateMouseBehavior()
+end
+function module_upvr_4.GetCameraToSubjectDistance(arg1) -- Line 777
+	return arg1.currentSubjectDistance
+end
+function module_upvr_4.GetMeasuredDistanceToFocus(arg1) -- Line 784
+	local CurrentCamera_8 = game.Workspace.CurrentCamera
+	if CurrentCamera_8 then
+		return (CurrentCamera_8.CoordinateFrame.p - CurrentCamera_8.Focus.p).magnitude
+	end
+	return nil
+end
+function module_upvr_4.GetCameraLookVector(arg1) -- Line 792
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [7] 5. Error Block 6 start (CF ANALYSIS FAILED)
+	local LookVector = game.Workspace.CurrentCamera.CFrame.LookVector
+	if not LookVector then
+		-- KONSTANTERROR: [18] 11. Error Block 3 start (CF ANALYSIS FAILED)
+		LookVector = Vector3.new(0, 0, 1)
+		-- KONSTANTERROR: [18] 11. Error Block 3 end (CF ANALYSIS FAILED)
+	end
+	do
+		return LookVector
+	end
+	-- KONSTANTERROR: [7] 5. Error Block 6 end (CF ANALYSIS FAILED)
+end
+function module_upvr_4.CalculateNewLookCFrameFromArg(arg1, arg2, arg3) -- Line 796
+	local var92 = arg2
+	if not var92 then
+		var92 = arg1:GetCameraLookVector()
+	end
+	local arcsine = math.asin(var92.Y)
+	local vector2 = Vector2.new(arg3.X, math.clamp(arg3.Y, arcsine + -1.3962634015954636, arcsine + 1.3962634015954636))
+	return CFrame.Angles(0, -vector2.X, 0) * CFrame.new(Vector3.new(0, 0, 0), var92) * CFrame.Angles(-vector2.Y, 0, 0)
+end
+function module_upvr_4.CalculateNewLookVectorFromArg(arg1, arg2, arg3) -- Line 806
+	return arg1:CalculateNewLookCFrameFromArg(arg2, arg3).LookVector
+end
+function module_upvr_4.CalculateNewLookVectorVRFromArg(arg1, arg2) -- Line 811
+	local vector2_2 = Vector2.new(arg2.X, 0)
+	return ((CFrame.Angles(0, -vector2_2.X, 0) * CFrame.new(Vector3.new(0, 0, 0), ((arg1:GetSubjectPosition() - game.Workspace.CurrentCamera.CFrame.p) * Vector3.new(1, 0, 1)).unit) * CFrame.Angles(-vector2_2.Y, 0, 0)).LookVector * Vector3.new(1, 0, 1)).unit
+end
+function module_upvr_4.GetHumanoid(arg1) -- Line 821
+	--[[ Upvalues[1]:
+		[1]: LocalPlayer_upvr (readonly)
+	]]
+	local var96 = LocalPlayer_upvr
+	if var96 then
+		var96 = LocalPlayer_upvr.Character
+	end
+	if var96 then
+		local var97 = arg1.humanoidCache[LocalPlayer_upvr]
+		if var97 and var97.Parent == var96 then
+			return var97
+		end
+		arg1.humanoidCache[LocalPlayer_upvr] = nil
+		local class_Humanoid = var96:FindFirstChildOfClass("Humanoid")
+		if class_Humanoid then
+			arg1.humanoidCache[LocalPlayer_upvr] = class_Humanoid
+		end
+		return class_Humanoid
+	end
+	return nil
+end
+function module_upvr_4.GetHumanoidPartToFollow(arg1, arg2, arg3) -- Line 839
+	if arg3 == Enum.HumanoidStateType.Dead then
+		local Parent_2 = arg2.Parent
+		if Parent_2 then
+			local Head = Parent_2:FindFirstChild("Head")
+			if not Head then
+				Head = arg2.Torso
+			end
+			return Head
+		end
+		return arg2.Torso
+	end
+	return arg2.Torso
+end
+function module_upvr_4.OnNewCameraSubject(arg1) -- Line 853
+	if arg1.subjectStateChangedConn then
+		arg1.subjectStateChangedConn:Disconnect()
+		arg1.subjectStateChangedConn = nil
+	end
+end
+function module_upvr_4.IsInFirstPerson(arg1) -- Line 860
+	return arg1.inFirstPerson
+end
+function module_upvr_4.Update(arg1, arg2) -- Line 864
+	error("BaseCamera:Update() This is a virtual function that should never be getting called.", 2)
+end
+local VRService_upvr = game:GetService("VRService")
+function module_upvr_4.GetCameraHeight(arg1) -- Line 868
+	--[[ Upvalues[1]:
+		[1]: VRService_upvr (readonly)
+	]]
+	if VRService_upvr.VREnabled and not arg1.inFirstPerson then
+		return 0.25881904510252074 * arg1.currentSubjectDistance
+	end
+	return 0
+end
+return module_upvr_4

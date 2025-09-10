@@ -1,0 +1,265 @@
+-- ModuleScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerScripts.WindController.WindShake.Octree
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:13
+-- Luau version 6, Types version 3
+-- Time taken: 0.007359 seconds
+
+local tbl_upvr = {{0.25, 0.25, -0.25}, {-0.25, 0.25, -0.25}, {0.25, 0.25, 0.25}, {-0.25, 0.25, 0.25}, {0.25, -0.25, -0.25}, {-0.25, -0.25, -0.25}, {0.25, -0.25, 0.25}, {-0.25, -0.25, 0.25}}
+local module_upvr = {
+	ClassName = "Octree";
+}
+module_upvr.__index = module_upvr
+local GetNeighborsWithinRadius_upvr = require(script.OctreeRegionUtils).GetNeighborsWithinRadius
+function module_upvr.new() -- Line 28
+	--[[ Upvalues[1]:
+		[1]: module_upvr (readonly)
+	]]
+	return setmetatable({
+		MaxDepth = 4;
+		MaxRegionSize = table.create(3, 512);
+		RegionHashMap = {};
+	}, module_upvr)
+end
+function module_upvr.ClearNodes(arg1) -- Line 36
+	arg1.MaxDepth = 4
+	arg1.MaxRegionSize = table.create(3, 512)
+	table.clear(arg1.RegionHashMap)
+end
+function module_upvr.GetAllNodes(arg1) -- Line 42
+	local module_2 = {}
+	local var24 = 0
+	for _, v in next, arg1.RegionHashMap do
+		for _, v_2 in ipairs(v) do
+			for i_3 in next, v_2.Nodes do
+				var24 += 1
+				module_2[var24] = i_3
+			end
+		end
+	end
+	return module_2
+end
+local new_2_upvr = require(script.OctreeNode).new
+function module_upvr.CreateNode(arg1, arg2, arg3) -- Line 58
+	--[[ Upvalues[1]:
+		[1]: new_2_upvr (readonly)
+	]]
+	if typeof(arg2) ~= "Vector3" then
+		error("Bad position value")
+	end
+	if not arg3 then
+		error("Bad object value.")
+	end
+	local var28_result1 = new_2_upvr(arg1, arg3)
+	var28_result1:SetPosition(arg2)
+	return var28_result1
+end
+function module_upvr.RadiusSearch(arg1, arg2, arg3) -- Line 72
+	--[[ Upvalues[1]:
+		[1]: GetNeighborsWithinRadius_upvr (readonly)
+	]]
+	if typeof(arg2) ~= "Vector3" then
+		error("Bad position value")
+	end
+	if type(arg3) ~= "number" then
+		error("Bad radius value")
+	end
+	local X_2 = arg2.X
+	local Y = arg2.Y
+	local Z = arg2.Z
+	local var37 = arg3 + 0.8660254037844386 * arg1.MaxRegionSize[1]
+	for _, v_3 in next, arg1.RegionHashMap do
+		for _, v_4 in ipairs(v_3) do
+			local Position_2 = v_4.Position
+			local var42 = X_2 - Position_2[1]
+			local var43 = Y - Position_2[2]
+			local var44 = Z - Position_2[3]
+			if var42 * var42 + var43 * var43 + var44 * var44 <= var37 * var37 + 1e-09 then
+				local _, _ = GetNeighborsWithinRadius_upvr(v_4, arg3, X_2, Y, Z, {}, {}, arg1.MaxDepth, 0, 0)
+			end
+		end
+	end
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x2)
+	return {}, {}
+end
+local function NearestNeighborSort_upvr(arg1, arg2) -- Line 110, Named "NearestNeighborSort"
+	local var47
+	if arg1.Distance2 >= arg2.Distance2 then
+		var47 = false
+	else
+		var47 = true
+	end
+	return var47
+end
+function module_upvr.KNearestNeighborsSearch(arg1, arg2, arg3, arg4) -- Line 114
+	--[[ Upvalues[2]:
+		[1]: GetNeighborsWithinRadius_upvr (readonly)
+		[2]: NearestNeighborSort_upvr (readonly)
+	]]
+	-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+	local var76
+	if typeof(arg2) ~= "Vector3" then
+		error("Bad position value")
+	end
+	if type(arg4) ~= "number" then
+		error("Bad radius value")
+	end
+	local X = arg2.X
+	local Y_2 = arg2.Y
+	local Z_2 = arg2.Z
+	var76 = 0
+	local var80 = arg4 + 0.8660254037844386 * arg1.MaxRegionSize[1]
+	for _, v_5 in next, arg1.RegionHashMap do
+		for _, v_6 in ipairs(v_5) do
+			local Position = v_6.Position
+			local var85 = X - Position[1]
+			local var86 = Y_2 - Position[2]
+			local var87 = Z_2 - Position[3]
+			if var85 * var85 + var86 * var86 + var87 * var87 <= var80 * var80 + 1e-09 then
+				local _, var11_result2 = GetNeighborsWithinRadius_upvr(v_6, arg4, X, Y_2, Z_2, {}, {}, arg1.MaxDepth, 0, var76)
+				var76 = var11_result2
+			end
+		end
+	end
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	for i_8, v_7 in ipairs({}) do
+		table.create(var76)[i_8] = {
+			Distance2 = v_7;
+			Index = i_8;
+		}
+		local var95
+	end
+	table.sort(var95, NearestNeighborSort_upvr)
+	local minimum = math.min(var76, arg3)
+	local table_create_result1_2 = table.create(minimum)
+	local table_create_result1 = table.create(minimum)
+	for i_9 = 1, minimum do
+		local var99 = var95[i_9]
+		table_create_result1[i_9] = var99.Distance2
+		-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+		table_create_result1_2[i_9] = ({})[var99.Index]
+		local _
+	end
+	return table_create_result1_2, table_create_result1
+end
+local function GetOrCreateRegion_upvr(arg1, arg2, arg3, arg4) -- Line 171, Named "GetOrCreateRegion"
+	local RegionHashMap = arg1.RegionHashMap
+	local MaxRegionSize = arg1.MaxRegionSize
+	local _1 = MaxRegionSize[1]
+	local _2 = MaxRegionSize[2]
+	local _3_2 = MaxRegionSize[3]
+	local rounded = math.floor(arg2 / _1 + 0.5)
+	local rounded_3 = math.floor(arg3 / _2 + 0.5)
+	local rounded_2 = math.floor(arg4 / _3_2 + 0.5)
+	local var113 = rounded * 73856093 + rounded_3 * 19351301 + rounded_2 * 83492791
+	local var114 = RegionHashMap[var113]
+	if not var114 then
+		var114 = {}
+		RegionHashMap[var113] = var114
+	end
+	local var115 = _1 * rounded
+	local var116 = _2 * rounded_3
+	local var117 = _3_2 * rounded_2
+	for _, v_8 in ipairs(var114) do
+		local Position_4 = v_8.Position
+		if Position_4[1] == var115 and Position_4[2] == var116 and Position_4[3] == var117 then
+			return v_8
+		end
+	end
+	local var122 = _1 / 2
+	local var123 = _2 / 2
+	local var124 = _3_2 / 2
+	local module = {
+		Depth = 1;
+		LowerBounds = {var115 - var122, var116 - var123, var117 - var124};
+		NodeCount = 0;
+		Nodes = {};
+		Parent = nil;
+		ParentIndex = nil;
+		Position = {var115, var116, var117};
+		Size = {_1, _2, _3_2};
+		SubRegions = {};
+		UpperBounds = {var115 + var122, var116 + var123, var117 + var124};
+	}
+	table.insert(var114, module)
+	return module
+end
+function module_upvr.GetOrCreateLowestSubRegion(arg1, arg2, arg3, arg4) -- Line 216
+	--[[ Upvalues[2]:
+		[1]: GetOrCreateRegion_upvr (readonly)
+		[2]: tbl_upvr (readonly)
+	]]
+	-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+	local var135
+	for _ = GetOrCreateRegion_upvr(arg1, arg2, arg3, arg4).Depth, arg1.MaxDepth do
+		local Position_3 = var135.Position
+		local var137
+		if Position_3[1] < arg2 then
+			var137 = 1
+		else
+			var137 = 2
+		end
+		if arg3 <= Position_3[2] then
+			var137 += 4
+		end
+		if Position_3[3] <= arg4 then
+			var137 += 2
+		end
+		local SubRegions = var135.SubRegions
+		local var139
+		if not SubRegions[var137] then
+			local Size = var135.Size
+			local var141 = tbl_upvr[var137]
+			local _1_2 = Size[1]
+			local _2_2 = Size[2]
+			local _3 = Size[3]
+			local var145 = Position_3[1] + var141[1] * _1_2
+			local var146 = Position_3[2] + var141[2] * _2_2
+			local var147 = Position_3[3] + var141[3] * _3
+			local var148 = _1_2 / 2
+			local var149 = _2_2 / 2
+			local var150 = _3 / 2
+			local var151 = var148 / 2
+			local var152 = var149 / 2
+			local var153 = var150 / 2
+			local tbl_2 = {}
+			var139 = var150
+			tbl_2[1] = var148
+			tbl_2[2] = var149
+			tbl_2[3] = var139
+			local tbl_3 = {}
+			var139 = var146 + var152
+			tbl_3[1] = var145 + var151
+			tbl_3[2] = var139
+			tbl_3[3] = var147 + var153
+			local tbl = {}
+			local function INLINED() -- Internal function, doesn't exist in bytecode
+				var139 = var135.Depth + 1
+				return var139
+			end
+			if not var135 or not INLINED() then
+				var139 = 1
+			end
+			tbl.Depth = var139
+			tbl.LowerBounds = {var145 - var151, var146 - var152, var147 - var153}
+			var139 = 0
+			tbl.NodeCount = var139
+			var139 = {}
+			tbl.Nodes = var139
+			tbl.Parent = var135
+			tbl.ParentIndex = var137
+			tbl.Position = {var145, var146, var147}
+			tbl.Size = tbl_2
+			var139 = {}
+			tbl.SubRegions = var139
+			tbl.UpperBounds = tbl_3
+			local var159 = tbl
+			SubRegions[var137] = var159
+		end
+		var135 = var159
+	end
+	return var135
+end
+return module_upvr

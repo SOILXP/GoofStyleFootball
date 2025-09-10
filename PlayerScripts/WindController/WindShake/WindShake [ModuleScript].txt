@@ -1,0 +1,233 @@
+-- ModuleScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerScripts.WindController.WindShake
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:12
+-- Luau version 6, Types version 3
+-- Time taken: 0.005677 seconds
+
+local Settings_2_upvr = require(script.Settings)
+local any_new_result1_upvr = Settings_2_upvr.new(script, {
+	WindDirection = Vector3.new(0.5, 0, 0.5);
+	WindSpeed = 20;
+	WindPower = 0.5;
+})
+local BindableEvent_upvr = Instance.new("BindableEvent")
+local BindableEvent_upvr_2 = Instance.new("BindableEvent")
+local BindableEvent_upvr_3 = Instance.new("BindableEvent")
+local BindableEvent_upvr_5 = Instance.new("BindableEvent")
+local BindableEvent_upvr_4 = Instance.new("BindableEvent")
+local module = {
+	ObjectMetadata = {};
+	Octree = require(script.Octree).new();
+	Handled = 0;
+	Active = 0;
+	LastUpdate = os.clock();
+	ObjectShakeAdded = BindableEvent_upvr.Event;
+	ObjectShakeRemoved = BindableEvent_upvr_2.Event;
+	ObjectShakeUpdated = BindableEvent_upvr_3.Event;
+	Paused = BindableEvent_upvr_5.Event;
+	Resumed = BindableEvent_upvr_4.Event;
+	Connect = function(arg1, arg2, arg3) -- Line 59, Named "Connect"
+		local var10_upvr = arg1[arg2]
+		local var11
+		if typeof(var10_upvr) ~= "function" then
+			var11 = false
+		else
+			var11 = true
+		end
+		assert(var11, "Unknown function: "..arg2)
+		return arg3:Connect(function(...) -- Line 63
+			--[[ Upvalues[2]:
+				[1]: var10_upvr (readonly)
+				[2]: arg1 (readonly)
+			]]
+			return var10_upvr(arg1, ...)
+		end)
+	end;
+	AddObjectShake = function(arg1, arg2, arg3) -- Line 68, Named "AddObjectShake"
+		--[[ Upvalues[3]:
+			[1]: Settings_2_upvr (readonly)
+			[2]: any_new_result1_upvr (readonly)
+			[3]: BindableEvent_upvr (readonly)
+		]]
+		if typeof(arg2) ~= "Instance" then
+		else
+			if not arg2:IsA("BasePart") then return end
+			local ObjectMetadata = arg1.ObjectMetadata
+			if ObjectMetadata[arg2] then return end
+			arg1.Handled += 1
+			ObjectMetadata[arg2] = {
+				Node = arg1.Octree:CreateNode(arg2.Position, arg2);
+				Settings = Settings_2_upvr.new(arg2, any_new_result1_upvr);
+				Seed = math.random(1000) * 0.1;
+				Origin = arg2.CFrame;
+			}
+			arg1:UpdateObjectSettings(arg2, arg3)
+			BindableEvent_upvr:Fire(arg2)
+		end
+	end;
+	RemoveObjectShake = function(arg1, arg2) -- Line 98, Named "RemoveObjectShake"
+		--[[ Upvalues[1]:
+			[1]: BindableEvent_upvr_2 (readonly)
+		]]
+		if typeof(arg2) ~= "Instance" then
+		else
+			local ObjectMetadata_2 = arg1.ObjectMetadata
+			local var18 = ObjectMetadata_2[arg2]
+			if var18 then
+				arg1.Handled -= 1
+				ObjectMetadata_2[arg2] = nil
+				var18.Settings:Destroy()
+				var18.Node:Destroy()
+				if arg2:IsA("BasePart") then
+					arg2.CFrame = var18.Origin
+				end
+			end
+			BindableEvent_upvr_2:Fire(arg2)
+		end
+	end;
+	Update = function(arg1) -- Line 120, Named "Update"
+		local os_clock_result1 = os.clock()
+		local var24 = os_clock_result1 - arg1.LastUpdate
+		if var24 < 0.022222222222222223 then
+		else
+			arg1.LastUpdate = os_clock_result1
+			debug.profilebegin("WindShake")
+			local CurrentCamera = workspace.CurrentCamera
+			local var26 = CurrentCamera
+			if var26 then
+				var26 = CurrentCamera.CFrame
+			end
+			debug.profilebegin("Octree Search")
+			local any_RadiusSearch_result1 = arg1.Octree:RadiusSearch(var26.Position + var26.LookVector * 115, 120)
+			debug.profileend()
+			local len = #any_RadiusSearch_result1
+			arg1.Active = len
+			if len < 1 then return end
+			local table_create_result1 = table.create(len)
+			debug.profilebegin("Calc")
+			for i, v in ipairs(any_RadiusSearch_result1) do
+				local var33 = arg1.ObjectMetadata[v]
+				if 0.03333333333333333 < os_clock_result1 - (var33.LastCompute or 0) then
+					local Settings = var33.Settings
+					local Seed = var33.Seed
+					local var37 = Settings.WindPower * 0.1
+					local var38 = (os_clock_result1) * (Settings.WindSpeed * 0.08)
+					var33.Target = (var33.Origin * v.PivotOffset * CFrame.Angles(math.noise(var38, 0, Seed) * var37, math.noise(var38, 0, -Seed) * var37, math.noise(var38, 0, Seed + Seed) * var37) + (Settings.WindDirection) * ((0.5 + math.noise(var38, Seed, Seed)) * var37)) * v.PivotOffset:Inverse()
+					var33.LastCompute = os_clock_result1
+				end
+				local any_Lerp_result1 = var33.CFrame or var33.Origin:Lerp(var33.Target, math.min(1, var24 * 8))
+				var33.CFrame = any_Lerp_result1
+				table_create_result1[i] = any_Lerp_result1
+			end
+			debug.profileend()
+			workspace:BulkMoveTo(any_RadiusSearch_result1, table_create_result1, Enum.BulkMoveMode.FireCFrameChanged)
+			debug.profileend()
+		end
+	end;
+	Pause = function(arg1) -- Line 187, Named "Pause"
+		--[[ Upvalues[1]:
+			[1]: BindableEvent_upvr_5 (readonly)
+		]]
+		if arg1.UpdateConnection then
+			arg1.UpdateConnection:Disconnect()
+			arg1.UpdateConnection = nil
+		end
+		arg1.Active = 0
+		arg1.Running = false
+		BindableEvent_upvr_5:Fire()
+	end;
+}
+local RunService_upvr = game:GetService("RunService")
+function module.Resume(arg1) -- Line 199
+	--[[ Upvalues[2]:
+		[1]: RunService_upvr (readonly)
+		[2]: BindableEvent_upvr_4 (readonly)
+	]]
+	if arg1.Running then
+	else
+		arg1.Running = true
+		arg1.UpdateConnection = arg1:Connect("Update", RunService_upvr.Heartbeat)
+		BindableEvent_upvr_4:Fire()
+	end
+end
+local CollectionService_upvr = game:GetService("CollectionService")
+function module.Init(arg1) -- Line 212
+	--[[ Upvalues[2]:
+		[1]: any_new_result1_upvr (readonly)
+		[2]: CollectionService_upvr (readonly)
+	]]
+	if arg1.Initialized then
+	else
+		arg1.Initialized = true
+		if typeof(script:GetAttribute("WindPower")) ~= "number" then
+			script:SetAttribute("WindPower", any_new_result1_upvr.WindPower)
+		end
+		if typeof(script:GetAttribute("WindSpeed")) ~= "number" then
+			script:SetAttribute("WindSpeed", any_new_result1_upvr.WindSpeed)
+		end
+		if typeof(script:GetAttribute("WindDirection")) ~= "Vector3" then
+			script:SetAttribute("WindDirection", any_new_result1_upvr.WindDirection)
+		end
+		arg1:Cleanup()
+		arg1.AddedConnection = arg1:Connect("AddObjectShake", CollectionService_upvr:GetInstanceAddedSignal("WindShake"))
+		arg1.RemovedConnection = arg1:Connect("RemoveObjectShake", CollectionService_upvr:GetInstanceRemovedSignal("WindShake"))
+		for _, v_2 in pairs(CollectionService_upvr:GetTagged("WindShake")) do
+			arg1:AddObjectShake(v_2)
+		end
+		arg1:Resume()
+	end
+end
+function module.Cleanup(arg1) -- Line 254
+	if not arg1.Initialized then
+	else
+		arg1:Pause()
+		if arg1.AddedConnection then
+			arg1.AddedConnection:Disconnect()
+			arg1.AddedConnection = nil
+		end
+		if arg1.RemovedConnection then
+			arg1.RemovedConnection:Disconnect()
+			arg1.RemovedConnection = nil
+		end
+		table.clear(arg1.ObjectMetadata)
+		arg1.Octree:ClearNodes()
+		arg1.Handled = 0
+		arg1.Active = 0
+		arg1.Initialized = false
+	end
+end
+function module.UpdateObjectSettings(arg1, arg2, arg3) -- Line 279
+	--[[ Upvalues[1]:
+		[1]: BindableEvent_upvr_3 (readonly)
+	]]
+	if typeof(arg2) ~= "Instance" then
+	else
+		if typeof(arg3) ~= "table" then return end
+		if not arg1.ObjectMetadata[arg2] and arg2 ~= script then return end
+		for i_3, v_3 in pairs(arg3) do
+			arg2:SetAttribute(i_3, v_3)
+		end
+		BindableEvent_upvr_3:Fire(arg2)
+	end
+end
+function module.UpdateAllObjectSettings(arg1, arg2) -- Line 299
+	--[[ Upvalues[1]:
+		[1]: BindableEvent_upvr_3 (readonly)
+	]]
+	if typeof(arg2) ~= "table" then
+	else
+		for i_4, _ in pairs(arg1.ObjectMetadata) do
+			for i_5, v_5 in pairs(arg2) do
+				i_4:SetAttribute(i_5, v_5)
+			end
+			BindableEvent_upvr_3:Fire(i_4)
+		end
+	end
+end
+function module.SetDefaultSettings(arg1, arg2) -- Line 312
+	arg1:UpdateObjectSettings(script, arg2)
+end
+return module

@@ -1,0 +1,114 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerScripts.replicationClient
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:19
+-- Luau version 6, Types version 3
+-- Time taken: 0.002701 seconds
+
+task.spawn(function() -- Line 5
+	for _, v_upvr in pairs(game.Players:GetPlayers()) do
+		if v_upvr ~= game.Players.LocalPlayer then
+			local Character_upvr_3 = v_upvr.Character
+			if not Character_upvr_3 then
+				Character_upvr_3 = v_upvr.CharacterAdded:Wait()
+			end
+			Character_upvr_3:WaitForChild("HumanoidRootPart").Anchored = true
+			local any_Connect_result1_upvr_2 = Character_upvr_3.HumanoidRootPart:GetPropertyChangedSignal("Anchored"):Connect(function() -- Line 10
+				--[[ Upvalues[1]:
+					[1]: Character_upvr_3 (readonly)
+				]]
+				if Character_upvr_3.HumanoidRootPart.Anchored == false then
+					Character_upvr_3.HumanoidRootPart.Anchored = true
+				end
+			end)
+			local var13_upvw
+			var13_upvw = v_upvr.AncestryChanged:Connect(function() -- Line 15
+				--[[ Upvalues[3]:
+					[1]: v_upvr (readonly)
+					[2]: any_Connect_result1_upvr_2 (readonly)
+					[3]: var13_upvw (read and write)
+				]]
+				if not v_upvr:IsDescendantOf(game) then
+					any_Connect_result1_upvr_2:Disconnect()
+					var13_upvw:Disconnect()
+				end
+			end)
+		end
+	end
+end)
+game.Players.PlayerAdded:Connect(function(arg1) -- Line 25
+	local Character_upvr = arg1.Character
+	if not Character_upvr then
+		Character_upvr = arg1.CharacterAdded:Wait()
+	end
+	Character_upvr:WaitForChild("HumanoidRootPart").Anchored = true
+	local any_Connect_result1_upvr = Character_upvr.HumanoidRootPart:GetPropertyChangedSignal("Anchored"):Connect(function() -- Line 28
+		--[[ Upvalues[1]:
+			[1]: Character_upvr (readonly)
+		]]
+		if Character_upvr.HumanoidRootPart.Anchored == false then
+			Character_upvr.HumanoidRootPart.Anchored = true
+			Character_upvr.HumanoidRootPart.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+		end
+	end)
+	local var19_upvw
+	var19_upvw = arg1.AncestryChanged:Connect(function() -- Line 34
+		--[[ Upvalues[3]:
+			[1]: arg1 (readonly)
+			[2]: any_Connect_result1_upvr (readonly)
+			[3]: var19_upvw (read and write)
+		]]
+		if not arg1:IsDescendantOf(game) then
+			any_Connect_result1_upvr:Disconnect()
+			var19_upvw:Disconnect()
+		end
+	end)
+end)
+local Character_upvr_2 = game.Players.LocalPlayer.Character
+if not Character_upvr_2 then
+	Character_upvr_2 = game.Players.LocalPlayer.CharacterAdded:Wait()
+end
+Character_upvr_2:WaitForChild("HumanoidRootPart")
+task.spawn(function() -- Line 46
+	--[[ Upvalues[1]:
+		[1]: Character_upvr_2 (readonly)
+	]]
+	while true do
+		task.wait(0.03)
+		if Character_upvr_2:FindFirstChild("HumanoidRootPart") then
+			task.spawn(function() -- Line 52
+				--[[ Upvalues[1]:
+					[1]: Character_upvr_2 (copied, readonly)
+				]]
+				local _, pcall_result2_2 = pcall(function() -- Line 53
+					--[[ Upvalues[1]:
+						[1]: Character_upvr_2 (copied, readonly)
+					]]
+					game.ReplicatedStorage.Remotes.charReplicate:FireServer(Character_upvr_2.HumanoidRootPart.CFrame)
+				end)
+				if pcall_result2_2 then
+					warn(pcall_result2_2)
+				end
+				for i_2, v_2_upvr in pairs(game.ReplicatedStorage.Remotes.getCharReplicationPositions:InvokeServer()) do
+					local SOME_upvr = game.Workspace.CharacterContainer:FindFirstChild(i_2)
+					local _, pcall_result2 = pcall(function() -- Line 62
+						--[[ Upvalues[2]:
+							[1]: SOME_upvr (readonly)
+							[2]: v_2_upvr (readonly)
+						]]
+						if SOME_upvr and SOME_upvr:FindFirstChild("HumanoidRootPart") then
+							game:GetService("TweenService"):Create(SOME_upvr.HumanoidRootPart, TweenInfo.new(0.08, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+								CFrame = v_2_upvr;
+							}):Play()
+						end
+					end)
+					if pcall_result2 then
+						warn(pcall_result2)
+					end
+				end
+			end)
+		end
+	end
+end)

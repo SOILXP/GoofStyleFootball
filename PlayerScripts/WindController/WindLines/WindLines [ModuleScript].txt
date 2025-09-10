@@ -1,0 +1,141 @@
+-- ModuleScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerScripts.WindController.WindLines
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:11
+-- Luau version 6, Types version 3
+-- Time taken: 0.003318 seconds
+
+local module_upvr = {
+	UpdateQueue = table.create(10);
+}
+local RunService_upvr = game:GetService("RunService")
+function module_upvr.Init(arg1, arg2) -- Line 11
+	--[[ Upvalues[2]:
+		[1]: module_upvr (readonly)
+		[2]: RunService_upvr (readonly)
+	]]
+	module_upvr.Lifetime = arg2.Lifetime or 3
+	module_upvr.Direction = arg2.Direction or Vector3.new(1, 0, 0)
+	module_upvr.Speed = arg2.Speed or 6
+	if module_upvr.UpdateConnection then
+		module_upvr.UpdateConnection:Disconnect()
+		module_upvr.UpdateConnection = nil
+	end
+	for _, v in ipairs(module_upvr.UpdateQueue) do
+		v.Attachment0:Destroy()
+		v.Attachment1:Destroy()
+		v.Trail:Destroy()
+	end
+	table.clear(module_upvr.UpdateQueue)
+	module_upvr.LastSpawned = os.clock()
+	local var9_upvr = 1 / (arg2.SpawnRate or 25)
+	module_upvr.UpdateConnection = RunService_upvr.Heartbeat:Connect(function() -- Line 34
+		--[[ Upvalues[2]:
+			[1]: module_upvr (copied, readonly)
+			[2]: var9_upvr (readonly)
+		]]
+		local os_clock_result1 = os.clock()
+		if var9_upvr < os_clock_result1 - module_upvr.LastSpawned then
+			module_upvr:Create()
+			module_upvr.LastSpawned = os_clock_result1
+		end
+		debug.profilebegin("Wind Lines")
+		for i_2, v_2 in ipairs(module_upvr.UpdateQueue) do
+			local var16 = os_clock_result1 - v_2.StartClock
+			if v_2.Lifetime <= var16 then
+				v_2.Attachment0:Destroy()
+				v_2.Attachment1:Destroy()
+				v_2.Trail:Destroy()
+				local len = #module_upvr.UpdateQueue
+				module_upvr.UpdateQueue[i_2] = module_upvr.UpdateQueue[len]
+				module_upvr.UpdateQueue[len] = nil
+			else
+				v_2.Trail.MaxLength = 20 - (20) * (var16 / v_2.Lifetime)
+				local var18 = (os_clock_result1 + v_2.Seed) * (v_2.Speed * 0.2)
+				local Position = v_2.Position
+				v_2.Attachment0.WorldPosition = (CFrame.new(Position, Position + v_2.Direction) * CFrame.new(0, 0, v_2.Speed * -var16)).Position + Vector3.new(math.sin(var18) * 0.5, math.sin(var18) * 0.8, math.sin(var18) * 0.5)
+				v_2.Attachment1.WorldPosition = v_2.Attachment0.WorldPosition + Vector3.new(0, 0.10000, 0)
+			end
+		end
+		debug.profileend()
+	end)
+end
+function module_upvr.Cleanup(arg1) -- Line 79
+	--[[ Upvalues[1]:
+		[1]: module_upvr (readonly)
+	]]
+	if module_upvr.UpdateConnection then
+		module_upvr.UpdateConnection:Disconnect()
+		module_upvr.UpdateConnection = nil
+	end
+	for _, v_3 in ipairs(module_upvr.UpdateQueue) do
+		v_3.Attachment0:Destroy()
+		v_3.Attachment1:Destroy()
+		v_3.Trail:Destroy()
+	end
+	table.clear(module_upvr.UpdateQueue)
+end
+local tbl_upvr = {}
+local class_Terrain_upvr = workspace:FindFirstChildOfClass("Terrain")
+function module_upvr.Create(arg1, arg2) -- Line 95
+	--[[ Upvalues[3]:
+		[1]: tbl_upvr (readonly)
+		[2]: module_upvr (readonly)
+		[3]: class_Terrain_upvr (readonly)
+	]]
+	debug.profilebegin("Add Wind Line")
+	local var27 = arg2
+	if not var27 then
+		var27 = tbl_upvr
+	end
+	local var28 = var27
+	var27 = var28.Lifetime
+	local var29 = var27
+	if not var29 then
+		var29 = module_upvr.Lifetime
+	end
+	local Position_2 = var28.Position
+	if not Position_2 then
+		Position_2 = workspace.CurrentCamera.CFrame * CFrame.Angles(math.rad(math.random(-30, 70)), math.rad(math.random(-80, 80)), 0) * CFrame.new(0, 0, math.random(200, 600) * -0.1).Position
+	end
+	local Direction = var28.Direction
+	if not Direction then
+		Direction = module_upvr.Direction
+	end
+	local Speed = var28.Speed
+	if not Speed then
+		Speed = module_upvr.Speed
+	end
+	if Speed <= 0 then
+	else
+		local Attachment = Instance.new("Attachment")
+		local Attachment_2 = Instance.new("Attachment")
+		local Trail = Instance.new("Trail")
+		Trail.Attachment0 = Attachment
+		Trail.Attachment1 = Attachment_2
+		Trail.Texture = "rbxassetid://5699911427"
+		Trail.WidthScale = NumberSequence.new({NumberSequenceKeypoint.new(0, 0.5), NumberSequenceKeypoint.new(0.2, 1.5), NumberSequenceKeypoint.new(0.8, 1.5), NumberSequenceKeypoint.new(1, 0.5)})
+		Trail.Transparency = NumberSequence.new(0.7)
+		Trail.FaceCamera = true
+		Trail.Parent = Attachment
+		Attachment.WorldPosition = Position_2
+		Attachment_2.WorldPosition = Position_2 + Vector3.new(0, 0.10000, 0)
+		module_upvr.UpdateQueue[#module_upvr.UpdateQueue + 1] = {
+			Attachment0 = Attachment;
+			Attachment1 = Attachment_2;
+			Trail = Trail;
+			Lifetime = var29 + math.random(-10, 10) * 0.1;
+			Position = Position_2;
+			Direction = Direction;
+			Speed = Speed + math.random(-10, 10) * 0.1;
+			StartClock = os.clock();
+			Seed = math.random(1, 1000) * 0.1;
+		}
+		Attachment.Parent = class_Terrain_upvr
+		Attachment_2.Parent = class_Terrain_upvr
+		debug.profileend()
+	end
+end
+return module_upvr

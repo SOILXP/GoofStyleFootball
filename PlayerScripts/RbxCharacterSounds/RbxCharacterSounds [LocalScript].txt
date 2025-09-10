@@ -1,0 +1,306 @@
+-- LocalScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerScripts.RbxCharacterSounds
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:07
+-- Luau version 6, Types version 3
+-- Time taken: 0.004904 seconds
+
+local Players_upvr = game:GetService("Players")
+local function _(arg1) -- Line 12, Named "loadFlag"
+	local pcall_result1_3, pcall_result2_3 = pcall(function() -- Line 13
+		--[[ Upvalues[1]:
+			[1]: arg1 (readonly)
+		]]
+		return UserSettings():IsUserFeatureEnabled(arg1)
+	end)
+	return pcall_result1_3 and pcall_result2_3
+end
+local var13_upvr = "UserSoundsUseRelativeVelocity2"
+local pcall_result1, pcall_result2_2 = pcall(function() -- Line 13
+	--[[ Upvalues[1]:
+		[1]: var13_upvr (readonly)
+	]]
+	return UserSettings():IsUserFeatureEnabled(var13_upvr)
+end)
+local var18_upvr = "UserNewCharacterSoundsApi3"
+function var13_upvr() -- Line 13
+	--[[ Upvalues[1]:
+		[1]: var18_upvr (readonly)
+	]]
+	return UserSettings():IsUserFeatureEnabled(var18_upvr)
+end
+local pcall_result1_2, pcall_result2 = pcall(var13_upvr)
+local var17_upvr = pcall_result1_2 and pcall_result2
+pcall_result2 = pcall
+local var19_upvr = "UserFixCharSoundsEmitters"
+function var18_upvr() -- Line 13
+	--[[ Upvalues[1]:
+		[1]: var19_upvr (readonly)
+	]]
+	return UserSettings():IsUserFeatureEnabled(var19_upvr)
+end
+pcall_result2 = pcall_result2(var18_upvr)
+local pcall_result2_result1, var16_result2 = pcall_result2(var18_upvr)
+pcall_result2_result1 = {}
+local var22_upvr = pcall_result2_result1
+var16_result2 = {}
+local var23 = var16_result2
+var19_upvr = "rbxasset://sounds/action_footsteps_plastic.mp3"
+var23.SoundId = var19_upvr
+var19_upvr = true
+var23.Looped = var19_upvr
+var22_upvr.Climbing = var23
+var23 = {}
+local var24 = var23
+var19_upvr = "rbxasset://sounds/uuhhh.mp3"
+var24.SoundId = var19_upvr
+var22_upvr.Died = var24
+var24 = {}
+local var25 = var24
+var19_upvr = "rbxasset://sounds/action_falling.ogg"
+var25.SoundId = var19_upvr
+var19_upvr = true
+var25.Looped = var19_upvr
+var22_upvr.FreeFalling = var25
+var25 = {}
+local var26 = var25
+var19_upvr = "rbxasset://sounds/action_get_up.mp3"
+var26.SoundId = var19_upvr
+var22_upvr.GettingUp = var26
+var26 = {}
+local var27 = var26
+var19_upvr = "rbxasset://sounds/action_jump.mp3"
+var27.SoundId = var19_upvr
+var22_upvr.Jumping = var27
+var27 = {}
+local var28 = var27
+var19_upvr = "rbxasset://sounds/action_jump_land.mp3"
+var28.SoundId = var19_upvr
+var22_upvr.Landing = var28
+var28 = {}
+local var29 = var28
+var19_upvr = "rbxasset://sounds/action_footsteps_plastic.mp3"
+var29.SoundId = var19_upvr
+var19_upvr = true
+var29.Looped = var19_upvr
+var19_upvr = 1.85
+var29.Pitch = var19_upvr
+var22_upvr.Running = var29
+var29 = {}
+local var30 = var29
+var19_upvr = "rbxasset://sounds/impact_water.mp3"
+var30.SoundId = var19_upvr
+var22_upvr.Splash = var30
+var30 = {}
+local var31 = var30
+var19_upvr = "rbxasset://sounds/action_swim.mp3"
+var31.SoundId = var19_upvr
+var19_upvr = true
+var31.Looped = var19_upvr
+var19_upvr = 1.6
+var31.Pitch = var19_upvr
+var22_upvr.Swimming = var31
+var31 = {}
+local var32_upvr = var31
+var19_upvr = {}
+local var33 = var19_upvr
+var33.AssetId = "rbxasset://sounds/action_footsteps_plastic.mp3"
+var33.Looping = true
+var32_upvr.Climbing = var33
+var33 = {}
+local var34 = var33
+var34.AssetId = "rbxasset://sounds/uuhhh.mp3"
+var32_upvr.Died = var34
+var34 = {}
+local var35 = var34
+var35.AssetId = "rbxasset://sounds/action_falling.ogg"
+var35.Looping = true
+var32_upvr.FreeFalling = var35
+var35 = {}
+local var36 = var35
+var36.AssetId = "rbxasset://sounds/action_get_up.mp3"
+var32_upvr.GettingUp = var36
+var36 = {}
+local var37 = var36
+var37.AssetId = "rbxasset://sounds/action_jump.mp3"
+var32_upvr.Jumping = var37
+var37 = {}
+local var38 = var37
+var38.AssetId = "rbxasset://sounds/action_jump_land.mp3"
+var32_upvr.Landing = var38
+var38 = {}
+local var39 = var38
+var39.AssetId = "rbxasset://sounds/action_footsteps_plastic.mp3"
+var39.Looping = true
+var39.PlaybackSpeed = 1.85
+var32_upvr.Running = var39
+var39 = {}
+local var40 = var39
+var40.AssetId = "rbxasset://sounds/impact_water.mp3"
+var32_upvr.Splash = var40
+var40 = {}
+local map = var40
+map.AssetId = "rbxasset://sounds/action_swim.mp3"
+map.Looping = true
+map.PlaybackSpeed = 1.6
+var32_upvr.Swimming = map
+function map(arg1, arg2, arg3, arg4, arg5) -- Line 96
+	return (arg1 - arg2) * (arg5 - arg4) / (arg3 - arg2) + arg4
+end
+local function getRelativeVelocity_upvr(arg1, arg2) -- Line 100, Named "getRelativeVelocity"
+	if not arg1 then
+		return arg2
+	end
+	local var42
+	local function INLINED() -- Internal function, doesn't exist in bytecode
+		var42 = arg1.GroundSensor
+		return var42
+	end
+	if var42 and (not arg1.ActiveController:IsA("GroundController") or not INLINED()) then
+		var42 = arg1.ActiveController:IsA("ClimbController")
+		if var42 then
+			var42 = arg1.ClimbSensor
+		end
+	end
+	if var42 and var42.SensedPart then
+		return arg2 - var42.SensedPart:GetVelocityAtPosition(arg1.RootPart.Position)
+	end
+	return arg2
+end
+local function _(arg1, arg2) -- Line 117, Named "playSound"
+	--[[ Upvalues[1]:
+		[1]: var17_upvr (readonly)
+	]]
+	if not arg2 then
+		arg1.TimePosition = 0
+	end
+	if var17_upvr and arg1:IsA("AudioPlayer") then
+		arg1:Play()
+	else
+		arg1.Playing = true
+	end
+end
+local function _(arg1) -- Line 128, Named "stopSound"
+	--[[ Upvalues[1]:
+		[1]: var17_upvr (readonly)
+	]]
+	if var17_upvr and arg1:IsA("AudioPlayer") then
+		arg1:Stop()
+	else
+		arg1.Playing = false
+	end
+end
+local function _(arg1, arg2) -- Line 136, Named "playSoundIf"
+	--[[ Upvalues[1]:
+		[1]: var17_upvr (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [2] 3. Error Block 2 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [2] 3. Error Block 2 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [19] 16. Error Block 8 start (CF ANALYSIS FAILED)
+	arg1:Play()
+	do
+		return
+	end
+	-- KONSTANTERROR: [19] 16. Error Block 8 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [23] 19. Error Block 9 start (CF ANALYSIS FAILED)
+	arg1.Playing = arg2
+	-- KONSTANTERROR: [23] 19. Error Block 9 end (CF ANALYSIS FAILED)
+end
+local function _(arg1, arg2) -- Line 148, Named "setSoundLooped"
+	--[[ Upvalues[1]:
+		[1]: var17_upvr (readonly)
+	]]
+	if var17_upvr and arg1:IsA("AudioPlayer") then
+		arg1.Looping = arg2
+	else
+		arg1.Looped = arg2
+	end
+end
+local function _(arg1) -- Line 156, Named "shallowCopy"
+	local module = {}
+	for i, v in pairs(arg1) do
+		module[i] = v
+	end
+	return module
+end
+local var51_upvr = pcall_result1 and pcall_result2_2
+local SoundService_upvr = game:GetService("SoundService")
+local var53_upvr = pcall_result2_result1 and var16_result2
+local RunService_upvr = game:GetService("RunService")
+local any_new_result1_upvr = require(script:WaitForChild("AtomicBinding")).new({
+	humanoid = "Humanoid";
+	rootPart = "HumanoidRootPart";
+}, function(arg1) -- Line 164, Named "initializeSoundSystem"
+	--[[ Upvalues[9]:
+		[1]: var51_upvr (readonly)
+		[2]: var17_upvr (readonly)
+		[3]: SoundService_upvr (readonly)
+		[4]: var53_upvr (readonly)
+		[5]: Players_upvr (readonly)
+		[6]: var32_upvr (readonly)
+		[7]: var22_upvr (readonly)
+		[8]: getRelativeVelocity_upvr (readonly)
+		[9]: RunService_upvr (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [8] 7. Error Block 2 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [8] 7. Error Block 2 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [15] 12. Error Block 3 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [15] 12. Error Block 3 end (CF ANALYSIS FAILED)
+end)
+local tbl_upvr = {}
+local function characterAdded_upvr(arg1) -- Line 410, Named "characterAdded"
+	--[[ Upvalues[1]:
+		[1]: any_new_result1_upvr (readonly)
+	]]
+	any_new_result1_upvr:bindRoot(arg1)
+end
+local function characterRemoving_upvr(arg1) -- Line 414, Named "characterRemoving"
+	--[[ Upvalues[1]:
+		[1]: any_new_result1_upvr (readonly)
+	]]
+	any_new_result1_upvr:unbindRoot(arg1)
+end
+local function playerAdded(arg1) -- Line 418
+	--[[ Upvalues[4]:
+		[1]: tbl_upvr (readonly)
+		[2]: any_new_result1_upvr (readonly)
+		[3]: characterAdded_upvr (readonly)
+		[4]: characterRemoving_upvr (readonly)
+	]]
+	local var58 = tbl_upvr[arg1]
+	if not var58 then
+		var58 = {}
+		tbl_upvr[arg1] = var58
+	end
+	if arg1.Character then
+		any_new_result1_upvr:bindRoot(arg1.Character)
+	end
+	table.insert(var58, arg1.CharacterAdded:Connect(characterAdded_upvr))
+	table.insert(var58, arg1.CharacterRemoving:Connect(characterRemoving_upvr))
+end
+for _, v_3 in ipairs(Players_upvr:GetPlayers()) do
+	task.spawn(playerAdded, v_3)
+end
+Players_upvr.PlayerAdded:Connect(playerAdded)
+Players_upvr.PlayerRemoving:Connect(function(arg1) -- Line 432, Named "playerRemoving"
+	--[[ Upvalues[2]:
+		[1]: tbl_upvr (readonly)
+		[2]: any_new_result1_upvr (readonly)
+	]]
+	local var61 = tbl_upvr[arg1]
+	if var61 then
+		for _, v_2 in ipairs(var61) do
+			v_2:Disconnect()
+		end
+		tbl_upvr[arg1] = nil
+	end
+	if arg1.Character then
+		any_new_result1_upvr:unbindRoot(arg1.Character)
+	end
+end)

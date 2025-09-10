@@ -1,0 +1,163 @@
+-- ModuleScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerScripts.WindController.WindShake.Octree.OctreeNode
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:14
+-- Luau version 6, Types version 3
+-- Time taken: 0.003546 seconds
+
+local module_upvr = {
+	ClassName = "OctreeNode";
+}
+module_upvr.__index = module_upvr
+function module_upvr.new(arg1, arg2) -- Line 7
+	--[[ Upvalues[1]:
+		[1]: module_upvr (readonly)
+	]]
+	local module = {}
+	local var3 = arg1
+	if not var3 then
+		var3 = error("No octree")
+	end
+	module.Octree = var3
+	var3 = arg2
+	local var4 = var3
+	if not var4 then
+		var4 = error("No object")
+	end
+	module.Object = var4
+	module.CurrentLowestRegion = nil
+	module.Position = nil
+	module.PositionX = nil
+	module.PositionY = nil
+	module.PositionZ = nil
+	return setmetatable(module, module_upvr)
+end
+function module_upvr.KNearestNeighborsSearch(arg1, arg2, arg3) -- Line 20
+	return arg1.Octree:KNearestNeighborsSearch(arg1.Position, arg2, arg3)
+end
+function module_upvr.GetObject(arg1) -- Line 24
+	warn("OctreeNode:GetObject is deprecated.")
+	return arg1.Object
+end
+function module_upvr.RadiusSearch(arg1, arg2) -- Line 29
+	return arg1.Octree:RadiusSearch(arg1.Position, arg2)
+end
+function module_upvr.GetPosition(arg1) -- Line 33
+	warn("OctreeNode:GetPosition is deprecated.")
+	return arg1.Position
+end
+function module_upvr.GetRawPosition(arg1) -- Line 38
+	return arg1.PositionX, arg1.PositionY, arg1.PositionZ
+end
+function module_upvr.SetPosition(arg1, arg2) -- Line 42
+	-- KONSTANTERROR: [145] 97. Error Block 32 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [145] 97. Error Block 32 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 70 start (CF ANALYSIS FAILED)
+	-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [145.2]
+	-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [145.329298]
+	if nil == arg2 then
+	end
+	-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [145.5]
+	if nil then
+		-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [145.8]
+		-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x3)
+		if nil <= nil and nil <= nil then
+			-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x2)
+			-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [145.3]
+			if nil <= nil then
+				-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+				if nil <= nil then
+					-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x2)
+					-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [145.4]
+					if nil <= nil then
+						-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+						if nil <= nil then
+						end
+					end
+				end
+			end
+		end
+	end
+	-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [145.6]
+	if nil then
+		-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [145.7]
+		-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+		if nil ~= nil then
+		end
+		-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x2)
+		if nil == nil then
+		end
+		-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x2)
+		if nil ~= nil then
+			-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [145.10]
+			if not nil then
+			end
+			-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x2)
+			-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [145.11]
+			if nil <= nil then
+			end
+			-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x2)
+			-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [145.12]
+			if nil <= nil and nil then
+				if not nil then
+				end
+				-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [145.14]
+				-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+				if nil ~= nil then
+				end
+			end
+			-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [145.13]
+			if nil then
+			end
+			-- KONSTANTWARNING: GOTO [78] #50
+		end
+	else
+		local var7
+		while var7 do
+			local Nodes_2 = var7.Nodes
+			if not Nodes_2[arg1] then
+				Nodes_2[arg1] = arg1
+				var7.NodeCount += 1
+			end
+		end
+	end
+	-- KONSTANTERROR: [0] 1. Error Block 70 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [161] 109. Error Block 50 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	arg1.CurrentLowestRegion = nil
+	-- KONSTANTERROR: [161] 109. Error Block 50 end (CF ANALYSIS FAILED)
+end
+function module_upvr.Destroy(arg1) -- Line 137
+	local CurrentLowestRegion = arg1.CurrentLowestRegion
+	if CurrentLowestRegion then
+		local var10 = CurrentLowestRegion
+		while var10 do
+			local Nodes = var10.Nodes
+			if not Nodes[arg1] then
+				error("CurrentFrom.Nodes doesn't have a node here.")
+			end
+			local NodeCount = var10.NodeCount
+			if NodeCount <= 0 then
+				error("NodeCount is <= 0.")
+			end
+			local var13 = NodeCount - 1
+			Nodes[arg1] = nil
+			var10.NodeCount = var13
+			local Parent = var10.Parent
+			local ParentIndex = var10.ParentIndex
+			if var13 <= 0 and ParentIndex then
+				if not Parent then
+					error("Current.Parent doesn't exist.")
+				end
+				local SubRegions = Parent.SubRegions
+				if SubRegions[ParentIndex] ~= var10 then
+					error("Failed equality check.")
+				end
+				SubRegions[ParentIndex] = nil
+			end
+		end
+	end
+end
+return module_upvr

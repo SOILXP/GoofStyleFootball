@@ -1,0 +1,121 @@
+-- ModuleScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerScripts.WindController.WindShake.Settings
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:24:15
+-- Luau version 6, Types version 3
+-- Time taken: 0.002008 seconds
+
+local module = {}
+local tbl_upvr = {
+	WindPower = "number";
+	WindSpeed = "number";
+	WindDirection = "Vector3";
+}
+function module.new(arg1, arg2) -- Line 9
+	--[[ Upvalues[1]:
+		[1]: tbl_upvr (readonly)
+	]]
+	local table_create_result1_upvr = table.create(3)
+	local WindPower_upvw = arg1:GetAttribute("WindPower")
+	local WindSpeed_upvw = arg1:GetAttribute("WindSpeed")
+	local WindDirection_upvw = arg1:GetAttribute("WindDirection")
+	local var7_upvr
+	local function INLINED() -- Internal function, doesn't exist in bytecode
+		var7_upvr = WindPower_upvw
+		return var7_upvr
+	end
+	if typeof(WindPower_upvw) ~= tbl_upvr.WindPower or not INLINED() then
+		var7_upvr = arg2.WindPower
+	end
+	table_create_result1_upvr.WindPower = var7_upvr
+	local function INLINED_2() -- Internal function, doesn't exist in bytecode
+		var7_upvr = WindSpeed_upvw
+		return var7_upvr
+	end
+	if typeof(WindSpeed_upvw) ~= tbl_upvr.WindSpeed or not INLINED_2() then
+		var7_upvr = arg2.WindSpeed
+	end
+	table_create_result1_upvr.WindSpeed = var7_upvr
+	local function INLINED_3() -- Internal function, doesn't exist in bytecode
+		var7_upvr = WindDirection_upvw
+		return var7_upvr
+	end
+	if typeof(WindDirection_upvw) ~= tbl_upvr.WindDirection or not INLINED_3() then
+		var7_upvr = arg2.WindDirection
+	end
+	table_create_result1_upvr.WindDirection = var7_upvr
+	var7_upvr = arg1:GetAttributeChangedSignal("WindPower")
+	var7_upvr = var7_upvr:Connect(function() -- Line 24
+		--[[ Upvalues[5]:
+			[1]: WindPower_upvw (read and write)
+			[2]: arg1 (readonly)
+			[3]: table_create_result1_upvr (readonly)
+			[4]: tbl_upvr (copied, readonly)
+			[5]: arg2 (readonly)
+		]]
+		WindPower_upvw = arg1:GetAttribute("WindPower")
+		local var9
+		local function INLINED_4() -- Internal function, doesn't exist in bytecode
+			var9 = WindPower_upvw
+			return var9
+		end
+		if typeof(WindPower_upvw) ~= tbl_upvr.WindPower or not INLINED_4() then
+			var9 = arg2.WindPower
+		end
+		table_create_result1_upvr.WindPower = var9
+	end)
+	local any_Connect_result1_upvr_2 = arg1:GetAttributeChangedSignal("WindSpeed"):Connect(function() -- Line 29
+		--[[ Upvalues[5]:
+			[1]: WindSpeed_upvw (read and write)
+			[2]: arg1 (readonly)
+			[3]: table_create_result1_upvr (readonly)
+			[4]: tbl_upvr (copied, readonly)
+			[5]: arg2 (readonly)
+		]]
+		WindSpeed_upvw = arg1:GetAttribute("WindSpeed")
+		local var11
+		local function INLINED_5() -- Internal function, doesn't exist in bytecode
+			var11 = WindSpeed_upvw
+			return var11
+		end
+		if typeof(WindSpeed_upvw) ~= tbl_upvr.WindSpeed or not INLINED_5() then
+			var11 = arg2.WindSpeed
+		end
+		table_create_result1_upvr.WindSpeed = var11
+	end)
+	local any_Connect_result1_upvr = arg1:GetAttributeChangedSignal("WindDirection"):Connect(function() -- Line 34
+		--[[ Upvalues[5]:
+			[1]: WindDirection_upvw (read and write)
+			[2]: arg1 (readonly)
+			[3]: table_create_result1_upvr (readonly)
+			[4]: tbl_upvr (copied, readonly)
+			[5]: arg2 (readonly)
+		]]
+		WindDirection_upvw = arg1:GetAttribute("WindDirection")
+		local var13
+		local function INLINED_6() -- Internal function, doesn't exist in bytecode
+			var13 = WindDirection_upvw
+			return var13
+		end
+		if typeof(WindDirection_upvw) ~= tbl_upvr.WindDirection or not INLINED_6() then
+			var13 = arg2.WindDirection
+		end
+		table_create_result1_upvr.WindDirection = var13
+	end)
+	function table_create_result1_upvr.Destroy(arg1_2) -- Line 41
+		--[[ Upvalues[4]:
+			[1]: var7_upvr (readonly)
+			[2]: any_Connect_result1_upvr_2 (readonly)
+			[3]: any_Connect_result1_upvr (readonly)
+			[4]: table_create_result1_upvr (readonly)
+		]]
+		var7_upvr:Disconnect()
+		any_Connect_result1_upvr_2:Disconnect()
+		any_Connect_result1_upvr:Disconnect()
+		table.clear(table_create_result1_upvr)
+	end
+	return table_create_result1_upvr
+end
+return module

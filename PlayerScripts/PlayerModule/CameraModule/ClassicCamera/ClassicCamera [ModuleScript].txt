@@ -1,0 +1,229 @@
+-- ModuleScript | decompile
+-- FullName: Players.Isaac_Thunder2015.PlayerScripts.PlayerModule.CameraModule.ClassicCamera
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:23:40
+-- Luau version 6, Types version 3
+-- Time taken: 0.021098 seconds
+
+local module = require(script.Parent.Parent:WaitForChild("CommonUtils"):WaitForChild("FlagUtil"))
+local module_upvr_3 = require(script.Parent:WaitForChild("CameraInput"))
+local module_upvr_2 = require(script.Parent:WaitForChild("CameraUtils"))
+local module_upvr = require(script.Parent:WaitForChild("BaseCamera"))
+local setmetatable_result1_upvr = setmetatable({}, module_upvr)
+setmetatable_result1_upvr.__index = setmetatable_result1_upvr
+function setmetatable_result1_upvr.new() -- Line 41
+	--[[ Upvalues[3]:
+		[1]: module_upvr (readonly)
+		[2]: setmetatable_result1_upvr (readonly)
+		[3]: module_upvr_2 (readonly)
+	]]
+	local setmetatable_result1 = setmetatable(module_upvr.new(), setmetatable_result1_upvr)
+	setmetatable_result1.isFollowCamera = false
+	setmetatable_result1.isCameraToggle = false
+	setmetatable_result1.lastUpdate = tick()
+	setmetatable_result1.cameraToggleSpring = module_upvr_2.Spring.new(5, 0)
+	return setmetatable_result1
+end
+function setmetatable_result1_upvr.GetCameraToggleOffset(arg1, arg2) -- Line 52
+	--[[ Upvalues[2]:
+		[1]: module_upvr_3 (readonly)
+		[2]: module_upvr_2 (readonly)
+	]]
+	if arg1.isCameraToggle then
+		if module_upvr_3.getTogglePan() then
+			arg1.cameraToggleSpring.goal = math.clamp(module_upvr_2.map(arg1.currentSubjectDistance, 0.5, arg1.FIRST_PERSON_DISTANCE_THRESHOLD, 0, 1), 0, 1)
+		else
+			arg1.cameraToggleSpring.goal = 0
+		end
+		-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+		return Vector3.new(0, arg1.cameraToggleSpring:step(arg2) * (math.clamp(module_upvr_2.map(arg1.currentSubjectDistance, 0.5, 64, 0, 1), 0, 1) + 1), 0)
+	end
+	return Vector3.new()
+end
+function setmetatable_result1_upvr.SetCameraMovementMode(arg1, arg2) -- Line 70
+	--[[ Upvalues[1]:
+		[1]: module_upvr (readonly)
+	]]
+	local SetCameraMovementMode_2 = module_upvr.SetCameraMovementMode
+	SetCameraMovementMode_2(arg1, arg2)
+	if arg2 ~= Enum.ComputerCameraMovementMode.Follow then
+		SetCameraMovementMode_2 = false
+	else
+		SetCameraMovementMode_2 = true
+	end
+	arg1.isFollowCamera = SetCameraMovementMode_2
+	if arg2 ~= Enum.ComputerCameraMovementMode.CameraToggle then
+		SetCameraMovementMode_2 = false
+	else
+		SetCameraMovementMode_2 = true
+	end
+	arg1.isCameraToggle = SetCameraMovementMode_2
+end
+local any_getUserFlag_result1_upvr = module.getUserFlag("UserCameraInputDt")
+local cframe_4_upvr = CFrame.fromOrientation(-0.2617993877991494, 0, 0)
+local Players_upvr = game:GetService("Players")
+local var11_upvw = 0
+local any_getUserFlag_result1_upvr_2 = module.getUserFlag("UserFixCameraOffsetJitter2")
+function setmetatable_result1_upvr.Update(arg1, arg2) -- Line 77
+	--[[ Upvalues[7]:
+		[1]: any_getUserFlag_result1_upvr (readonly)
+		[2]: cframe_4_upvr (readonly)
+		[3]: Players_upvr (readonly)
+		[4]: module_upvr_3 (readonly)
+		[5]: var11_upvw (read and write)
+		[6]: any_getUserFlag_result1_upvr_2 (readonly)
+		[7]: module_upvr_2 (readonly)
+	]]
+	-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+	local tick_result1 = tick()
+	local var60 = tick_result1 - arg1.lastUpdate
+	local var61
+	if any_getUserFlag_result1_upvr then
+		var60 = arg2
+	end
+	local CurrentCamera = workspace.CurrentCamera
+	var61 = nil
+	if arg1.resetCameraAngle then
+		local any_GetHumanoidRootPart_result1 = arg1:GetHumanoidRootPart()
+		if any_GetHumanoidRootPart_result1 then
+			var61 = (any_GetHumanoidRootPart_result1.CFrame * cframe_4_upvr).lookVector
+		else
+			var61 = cframe_4_upvr.lookVector
+		end
+		arg1.resetCameraAngle = false
+	end
+	local any_GetHumanoid_result1_3 = arg1:GetHumanoid()
+	local CameraSubject = CurrentCamera.CameraSubject
+	if CameraSubject then
+		local children_5 = CameraSubject:IsA("VehicleSeat")
+	end
+	if CameraSubject then
+		local children_2 = CameraSubject:IsA("SkateboardPlatform")
+	end
+	if any_GetHumanoid_result1_3 then
+		if any_GetHumanoid_result1_3:GetState() ~= Enum.HumanoidStateType.Climbing then
+		else
+		end
+	end
+	if arg1.lastUpdate == nil or 1 < var60 then
+		arg1.lastCameraTransform = nil
+	end
+	local any_getRotation_result1 = module_upvr_3.getRotation(var60)
+	arg1:StepZoom()
+	if any_getRotation_result1 ~= Vector2.new() then
+		var11_upvw = 0
+		arg1.lastUserPanCamera = tick()
+	end
+	if tick_result1 - arg1.lastUserPanCamera >= 2 then
+	else
+	end
+	local any_GetSubjectPosition_result1_3 = arg1:GetSubjectPosition()
+	if any_GetSubjectPosition_result1_3 then
+		local var70
+		if Players_upvr.LocalPlayer and CurrentCamera then
+			var70 = 0.5
+			if arg1:GetCameraToSubjectDistance() < var70 then
+			end
+			var70 = arg1:GetIsMouseLocked()
+			if var70 then
+				var70 = arg1:IsInFirstPerson()
+				if not var70 then
+					var70 = arg1:CalculateNewLookCFrameFromArg(var61, any_getRotation_result1)
+					local var71
+					if any_getUserFlag_result1_upvr_2 and any_GetHumanoid_result1_3 then
+						var71 += any_GetHumanoid_result1_3.CameraOffset
+					end
+					local var72 = var71.X * var70.RightVector + var71.Y * var70.UpVector + var71.Z * var70.LookVector
+					if module_upvr_2.IsFiniteVector3(var72) then
+						-- KONSTANTWARNING: GOTO [350] #262
+					end
+					-- KONSTANTWARNING: GOTO [350] #262
+				end
+			end
+			if any_getRotation_result1 == Vector2.new() then
+				var70 = false
+			else
+				var70 = true
+			end
+			if not var70 then
+				if arg1.lastCameraTransform then
+					local var73
+					if children_5 or children_2 or arg1.isFollowCamera and true or arg1.lastUpdate and any_GetHumanoid_result1_3 and any_GetHumanoid_result1_3.Torso then
+						if arg1:IsInFirstPerson() then
+							if arg1.lastSubjectCFrame and (children_5 or children_2) or CameraSubject:IsA("BasePart") then
+								local var74 = -module_upvr_2.GetAngleBetweenXZVectors(arg1.lastSubjectCFrame.lookVector, CameraSubject.CFrame.lookVector)
+								if module_upvr_2.IsFinite(var74) then
+									var73 += Vector2.new(var74, 0)
+								end
+								var11_upvw = 0
+								-- KONSTANTWARNING: GOTO [350] #262
+							end
+						elseif not true then
+							var11_upvw = math.clamp(var11_upvw + 3.839724354387525 * var60, 0, 4.363323129985824)
+							local var75
+							if arg1:IsInFirstPerson() and (not arg1.isFollowCamera or not arg1.isClimbing) then
+								var75 = 1
+							end
+							local any_GetAngleBetweenXZVectors_result1_2 = module_upvr_2.GetAngleBetweenXZVectors(any_GetHumanoid_result1_3.Torso.CFrame.lookVector, arg1:GetCameraLookVector())
+							if module_upvr_2.IsFinite(any_GetAngleBetweenXZVectors_result1_2) and 0.0001 < math.abs(any_GetAngleBetweenXZVectors_result1_2) then
+								var73 += Vector2.new(any_GetAngleBetweenXZVectors_result1_2 * var75, 0)
+								-- KONSTANTWARNING: GOTO [350] #262
+							end
+							-- KONSTANTWARNING: GOTO [350] #262
+						end
+					elseif arg1.isFollowCamera then
+						-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x2)
+						if not arg1:IsInFirstPerson() and not true then
+							var75 = (arg1.lastCameraTransform.p) - (any_GetSubjectPosition_result1_3 + var72)
+							var75 = module_upvr_2.GetAngleBetweenXZVectors(-var75, arg1:GetCameraLookVector())
+							local var77 = var75
+							if module_upvr_2.IsFinite(var77) then
+								if 0.0001 < math.abs(var77) then
+									if 0.4 * var60 < math.abs(var77) then
+										var73 += Vector2.new(var77, 0)
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+			var70 = arg1.isFollowCamera
+			if not var70 then
+				var70 = CFrame.new
+				-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+				var70 = var70(any_GetSubjectPosition_result1_3 + var72)
+				var70 = var70.p
+				var77 = var61
+				var77 = var70 - 0.5 * arg1:CalculateNewLookVectorFromArg(var77, var73)
+			else
+				var77 = var73
+				var70 = arg1:CalculateNewLookVectorFromArg(var61, var77)
+				-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+				local cframe_3 = CFrame.new(any_GetSubjectPosition_result1_3 + var72)
+				var77 = cframe_3.p
+				-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+				var77 = cframe_3.p
+				var77 = 0
+			end
+			var70 = arg1:GetCameraToggleOffset(var60)
+			arg1.lastCameraTransform = CFrame.new(var77 - 0.5 * var70, var77) + Vector3.new(var77, arg1:GetCameraHeight(), 0) + var70
+			arg1.lastCameraFocus = cframe_3 + var70
+			local function INLINED_4() -- Internal function, doesn't exist in bytecode
+				var77 = "BasePart"
+				return CameraSubject:IsA(var77)
+			end
+			if children_5 or children_2 or INLINED_4() then
+				arg1.lastSubjectCFrame = CameraSubject.CFrame
+			else
+				arg1.lastSubjectCFrame = nil
+			end
+		end
+	end
+	arg1.lastUpdate = tick_result1
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x2)
+	return CFrame.new(var77 - 0.5 * var70, var77) + Vector3.new(var77, arg1:GetCameraHeight(), 0) + var70, cframe_3 + var70
+end
+return setmetatable_result1_upvr
