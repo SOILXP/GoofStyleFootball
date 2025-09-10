@@ -1,0 +1,142 @@
+-- ModuleScript | decompile
+-- FullName: ReplicatedStorage.Modules.timesynctest
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:25:57
+-- Luau version 6, Types version 3
+-- Time taken: 0.002805 seconds
+
+local module_upvr_2 = {}
+module_upvr_2.__index = module_upvr_2
+module_upvr_2.ClassName = "MasterClock"
+local function new(arg1, arg2) -- Line 13
+	--[[ Upvalues[1]:
+		[1]: module_upvr_2 (readonly)
+	]]
+	local setmetatable_result1_upvr = setmetatable({}, module_upvr_2)
+	local var3 = arg1
+	if not var3 then
+		var3 = error("No remoteEvent")
+	end
+	setmetatable_result1_upvr._remoteEvent = var3
+	var3 = arg2
+	local var4 = var3
+	if not var4 then
+		var4 = error("No remoteFunction")
+	end
+	setmetatable_result1_upvr._remoteFunction = var4
+	setmetatable_result1_upvr._remoteFunction.OnServerInvoke = function(arg1_2, arg2_2) -- Line 19
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr (readonly)
+		]]
+		return setmetatable_result1_upvr:_handleDelayRequest(arg2_2)
+	end
+	setmetatable_result1_upvr._remoteEvent.OnServerEvent:Connect(function(arg1_3) -- Line 22
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr (readonly)
+		]]
+		setmetatable_result1_upvr._remoteEvent:FireClient(arg1_3, setmetatable_result1_upvr:GetTime())
+	end)
+	spawn(function() -- Line 26
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr (readonly)
+		]]
+		while true do
+			wait(5)
+			setmetatable_result1_upvr:Sync()
+		end
+	end)
+	return setmetatable_result1_upvr
+end
+module_upvr_2.new = new
+local function IsSynced(arg1) -- Line 38
+	return true
+end
+module_upvr_2.IsSynced = IsSynced
+local function GetTime(arg1) -- Line 44
+	return tick()
+end
+module_upvr_2.GetTime = GetTime
+function module_upvr_2.Sync(arg1) -- Line 49
+	arg1._remoteEvent:FireAllClients(arg1:GetTime())
+end
+function module_upvr_2._handleDelayRequest(arg1, arg2) -- Line 56
+	return arg1:GetTime() - arg2
+end
+local module_upvr = {}
+module_upvr.__index = module_upvr
+module_upvr.ClassName = "SlaveClock"
+module_upvr._offset = -1
+function module_upvr.new(arg1, arg2) -- Line 67
+	--[[ Upvalues[1]:
+		[1]: module_upvr (readonly)
+	]]
+	local setmetatable_result1_upvr_2 = setmetatable({}, module_upvr)
+	local var10 = arg1
+	if not var10 then
+		var10 = error("No remoteEvent")
+	end
+	setmetatable_result1_upvr_2._remoteEvent = var10
+	var10 = arg2
+	local var11 = var10
+	if not var11 then
+		var11 = error("No remoteFunction")
+	end
+	setmetatable_result1_upvr_2._remoteFunction = var11
+	setmetatable_result1_upvr_2._remoteEvent.OnClientEvent:Connect(function(arg1_4) -- Line 73
+		--[[ Upvalues[1]:
+			[1]: setmetatable_result1_upvr_2 (readonly)
+		]]
+		setmetatable_result1_upvr_2:_handleSyncEvent(arg1_4)
+	end)
+	setmetatable_result1_upvr_2._remoteEvent:FireServer()
+	return setmetatable_result1_upvr_2
+end
+function module_upvr.GetTime(arg1) -- Line 82
+	if not arg1:IsSynced() then
+		warn("[SlaveClock][GetTime] - Slave clock is not yet synced")
+		return arg1:_getLocalTime()
+	end
+	return arg1:_getLocalTime() - arg1._offset
+end
+function module_upvr.IsSynced(arg1) -- Line 91
+	local var13
+	if arg1._offset == -1 then
+		var13 = false
+	else
+		var13 = true
+	end
+	return var13
+end
+function module_upvr._getLocalTime(arg1) -- Line 95
+	return tick()
+end
+function module_upvr._handleSyncEvent(arg1, arg2) -- Line 99
+	local var14 = arg1:_getLocalTime() - arg2
+	local any__sendDelayRequest_result1 = arg1:_sendDelayRequest(arg1:_getLocalTime())
+	arg1._offset = (var14 - any__sendDelayRequest_result1) / 2
+	arg1._pneWayDelay = (var14 + any__sendDelayRequest_result1) / 2
+end
+function module_upvr._sendDelayRequest(arg1, arg2) -- Line 131
+	return arg1._remoteFunction:InvokeServer(arg2)
+end
+local RunService_upvr = game:GetService("RunService")
+return (function() -- Line 137, Named "buildClock"
+	--[[ Upvalues[3]:
+		[1]: RunService_upvr (readonly)
+		[2]: module_upvr_2 (readonly)
+		[3]: module_upvr (readonly)
+	]]
+	local clockRemote = game.ReplicatedStorage.Remotes.clockRemote
+	local clockFunction = game.ReplicatedStorage.Remotes.clockFunction
+	if RunService_upvr:IsClient() and RunService_upvr:IsServer() then
+		clockRemote.OnClientEvent:Connect(function() -- Line 144
+		end)
+		return module_upvr_2.new(clockRemote, clockFunction)
+	end
+	if RunService_upvr:IsClient() then
+		return module_upvr.new(clockRemote, clockFunction)
+	end
+	return module_upvr_2.new(clockRemote, clockFunction)
+end)()

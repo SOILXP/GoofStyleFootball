@@ -1,0 +1,46 @@
+-- ModuleScript | decompile
+-- FullName: ReplicatedStorage.Modules.RaycastHitboxV3
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:25:49
+-- Luau version 6, Types version 3
+-- Time taken: 0.000790 seconds
+
+local module_upvr = {
+	Version = "3.2";
+	AttachmentName = "DmgPoint";
+	DebugMode = false;
+	WarningMessage = false;
+}
+local MainHandler_upvr = require(script.MainHandler)
+local HitboxObject_upvr = require(script.HitboxObject)
+function module_upvr.Initialize(arg1, arg2, arg3) -- Line 142
+	--[[ Upvalues[3]:
+		[1]: MainHandler_upvr (readonly)
+		[2]: HitboxObject_upvr (readonly)
+		[3]: module_upvr (readonly)
+	]]
+	assert(arg2, "You must provide an object instance.")
+	if not MainHandler_upvr:check(arg2) then
+		local any_new_result1 = HitboxObject_upvr:new()
+		any_new_result1:config(arg2, arg3)
+		any_new_result1:seekAttachments(module_upvr.AttachmentName, module_upvr.WarningMessage)
+		any_new_result1.debugMode = module_upvr.DebugMode
+		MainHandler_upvr:add(any_new_result1)
+	end
+	return any_new_result1
+end
+function module_upvr.Deinitialize(arg1, arg2) -- Line 156
+	--[[ Upvalues[1]:
+		[1]: MainHandler_upvr (readonly)
+	]]
+	MainHandler_upvr:remove(arg2)
+end
+function module_upvr.GetHitbox(arg1, arg2) -- Line 160
+	--[[ Upvalues[1]:
+		[1]: MainHandler_upvr (readonly)
+	]]
+	return MainHandler_upvr:check(arg2)
+end
+return module_upvr

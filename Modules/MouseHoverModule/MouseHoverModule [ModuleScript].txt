@@ -1,0 +1,99 @@
+-- ModuleScript | decompile
+-- FullName: ReplicatedStorage.Modules.MouseHoverModule
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:25:48
+-- Luau version 6, Types version 3
+-- Time taken: 0.002918 seconds
+
+local LocalPlayer = game.Players.LocalPlayer
+if not LocalPlayer then
+	LocalPlayer = game.Players:GetPropertyChangedSignal("LocalPlayer")
+end
+local mouse_upvr = LocalPlayer:GetMouse()
+local tbl_upvr = {}
+local function _(arg1) -- Line 8, Named "IsInFrame"
+	--[[ Upvalues[1]:
+		[1]: mouse_upvr (readonly)
+	]]
+	local X_3 = mouse_upvr.X
+	local Y_2 = mouse_upvr.Y
+	if arg1.AbsolutePosition.X < X_3 and arg1.AbsolutePosition.Y < Y_2 and X_3 < arg1.AbsolutePosition.X + arg1.AbsoluteSize.X and Y_2 < arg1.AbsolutePosition.Y + arg1.AbsoluteSize.Y then
+		return true
+	end
+	return false
+end
+local function _(arg1) -- Line 20, Named "CheckMouseExited"
+	if not arg1.MouseIsInFrame and arg1.MouseWasIn then
+		arg1.MouseWasIn = false
+		arg1.LeaveEvent:Fire()
+	end
+end
+local function _(arg1) -- Line 29, Named "CheckMouseEntered"
+	if arg1.MouseIsInFrame and not arg1.MouseWasIn then
+		arg1.MouseWasIn = true
+		arg1.EnteredEvent:Fire()
+	end
+end
+game:GetService("RunService").Heartbeat:Connect(function() -- Line 36
+	--[[ Upvalues[2]:
+		[1]: tbl_upvr (readonly)
+		[2]: mouse_upvr (readonly)
+	]]
+	for _, v in pairs(tbl_upvr) do
+		local UIObj_2 = v.UIObj
+		local X = mouse_upvr.X
+		local Y = mouse_upvr.Y
+		if UIObj_2.AbsolutePosition.X < X then
+			if UIObj_2.AbsolutePosition.Y < Y and X < UIObj_2.AbsolutePosition.X + UIObj_2.AbsoluteSize.X and Y < UIObj_2.AbsolutePosition.Y + UIObj_2.AbsoluteSize.Y then
+				-- KONSTANTWARNING: GOTO [51] #32
+			end
+		end
+		v.MouseIsInFrame = false
+		if not v.MouseIsInFrame then
+			if v.MouseWasIn then
+				v.MouseWasIn = false
+				v.LeaveEvent:Fire()
+			end
+		end
+	end
+	for _, v_2 in pairs(tbl_upvr) do
+		if v_2.MouseIsInFrame and not v_2.MouseWasIn then
+			v_2.MouseWasIn = true
+			v_2.EnteredEvent:Fire()
+		end
+	end
+end)
+return {
+	MouseEnterLeaveEvent = function(arg1) -- Line 54, Named "MouseEnterLeaveEvent"
+		--[[ Upvalues[1]:
+			[1]: tbl_upvr (readonly)
+		]]
+		if tbl_upvr[arg1] then
+			return tbl_upvr[arg1].EnteredEvent.Event, tbl_upvr[arg1].LeaveEvent.Event
+		end
+		local tbl = {}
+		tbl.UIObj = arg1
+		local BindableEvent_upvr_2 = Instance.new("BindableEvent")
+		local BindableEvent_upvr = Instance.new("BindableEvent")
+		tbl.EnteredEvent = BindableEvent_upvr_2
+		tbl.LeaveEvent = BindableEvent_upvr
+		tbl.MouseWasIn = false
+		tbl_upvr[arg1] = tbl
+		arg1.AncestryChanged:Connect(function() -- Line 71
+			--[[ Upvalues[4]:
+				[1]: arg1 (readonly)
+				[2]: BindableEvent_upvr_2 (readonly)
+				[3]: BindableEvent_upvr (readonly)
+				[4]: tbl_upvr (copied, readonly)
+			]]
+			if not arg1.Parent then
+				BindableEvent_upvr_2:Destroy()
+				BindableEvent_upvr:Destroy()
+				tbl_upvr[arg1] = nil
+			end
+		end)
+		return BindableEvent_upvr_2.Event, BindableEvent_upvr.Event
+	end;
+}
