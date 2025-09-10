@@ -1,0 +1,39 @@
+-- ModuleScript | decompile
+-- FullName: ReplicatedStorage.Modules.RaycastHitboxV3.CastLogics.CastVectorPoint
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:25:51
+-- Luau version 6, Types version 3
+-- Time taken: 0.000789 seconds
+
+local module = {}
+local Debugger_upvr = require(script.Parent.Debug.Debugger)
+function module.solve(arg1, arg2, arg3) -- Line 4
+	--[[ Upvalues[1]:
+		[1]: Debugger_upvr (readonly)
+	]]
+	local var3 = arg2.RelativePart.Position + arg2.RelativePart.CFrame:VectorToWorldSpace(arg2.Attachment)
+	local var4
+	if not arg2.LastPosition then
+		arg2.LastPosition = var3
+	end
+	if arg3 then
+		var4 = arg2.LastPosition
+		var4 = CFrame.new(var3, arg2.LastPosition)
+		Debugger_upvr(var3 - var4, var4)
+	end
+	local function INLINED() -- Internal function, doesn't exist in bytecode
+		var4 = arg2.LastPosition
+		return var4
+	end
+	if not arg2.LastPosition or not INLINED() then
+		var4 = Vector3.new()
+	end
+	var4 = var3
+	return arg2.LastPosition, var3 - var4, var4
+end
+function module.lastPosition(arg1, arg2, arg3) -- Line 17
+	arg2.LastPosition = arg3
+end
+return module
