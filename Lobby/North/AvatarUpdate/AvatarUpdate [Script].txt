@@ -1,8 +1,0 @@
--- Script | decompile
--- FullName: ReplicatedStorage.Lobby.North.AvatarUpdate
-
--- Failed to get script bytecode, error:
-
---[[
-Argument #1 is not a client script
---]]
