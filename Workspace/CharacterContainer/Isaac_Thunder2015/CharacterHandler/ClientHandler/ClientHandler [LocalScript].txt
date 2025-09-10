@@ -1,0 +1,3168 @@
+-- LocalScript | decompile
+-- FullName: Workspace.CharacterContainer.Isaac_Thunder2015.CharacterHandler.ClientHandler
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:25:16
+-- Luau version 6, Types version 3
+-- Time taken: 0.115069 seconds
+
+local LocalPlayer_upvr = game.Players.LocalPlayer
+local Character_4_upvr = LocalPlayer_upvr.Character
+if not Character_4_upvr then
+	Character_4_upvr = LocalPlayer_upvr.CharacterAdded:Wait()
+end
+local Humanoid_upvr = Character_4_upvr:WaitForChild("Humanoid", 9000000000)
+Humanoid_upvr:SetStateEnabled(Enum.HumanoidStateType.Climbing, false)
+Humanoid_upvr:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false)
+Humanoid_upvr:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding, false)
+Humanoid_upvr:SetStateEnabled(Enum.HumanoidStateType.FallingDown, false)
+Humanoid_upvr:SetStateEnabled(Enum.HumanoidStateType.Physics, false)
+local module_2_upvr = require(LocalPlayer_upvr:WaitForChild("PlayerScripts").PlayerModule:WaitForChild("ControlModule"))
+local HumanoidRootPart_upvr = Character_4_upvr:WaitForChild("HumanoidRootPart")
+local UserInputService_upvr = game:GetService("UserInputService")
+task.spawn(function() -- Line 16
+	--[[ Upvalues[1]:
+		[1]: Character_4_upvr (readonly)
+	]]
+	repeat
+		Character_4_upvr.Humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+	until Character_4_upvr.Humanoid.DisplayDistanceType == Enum.HumanoidDisplayDistanceType.None
+end)
+repeat
+	task.wait()
+until LocalPlayer_upvr:FindFirstChild("dataLoaded")
+if game.ReplicatedStorage.MaxStaminaRejoin:FindFirstChild(LocalPlayer_upvr.UserId) then
+	Character_4_upvr.Stats.MaxStamina.Value = game.ReplicatedStorage.MaxStaminaRejoin:FindFirstChild(LocalPlayer_upvr.UserId).Value
+end
+local Animator_upvr = Character_4_upvr.Humanoid.Animator
+repeat
+	wait()
+until LocalPlayer_upvr.Data.animationType.Value
+local SOME_upvr = game.ReplicatedStorage.AnimFolder:FindFirstChild(LocalPlayer_upvr.Data.animationType.Value)
+local StringValue_2 = Instance.new("StringValue")
+local StringValue_5 = Instance.new("StringValue")
+local StringValue_3 = Instance.new("StringValue")
+StringValue_2.Name = "walk"
+StringValue_5.Name = "idle"
+StringValue_3.Name = "run"
+local Animation = Instance.new("Animation")
+local Animation_3 = Instance.new("Animation")
+local Animation_4 = Instance.new("Animation")
+Animation.Parent = StringValue_2
+Animation.AnimationId = SOME_upvr.Walk.AnimationId
+Animation_3.Parent = StringValue_5
+Animation_3.AnimationId = SOME_upvr.Idle.AnimationId
+Animation_4.Parent = StringValue_3
+Animation_4.AnimationId = SOME_upvr.Walk.AnimationId
+StringValue_2.Parent = Character_4_upvr:FindFirstChild("Animate")
+StringValue_5.Parent = Character_4_upvr:FindFirstChild("Animate")
+StringValue_3.Parent = Character_4_upvr:FindFirstChild("Animate")
+local any_LoadAnimation_result1_upvw_73 = Animator_upvr:LoadAnimation(SOME_upvr.Run)
+any_LoadAnimation_result1_upvw_73.Priority = Enum.AnimationPriority.Movement
+local any_LoadAnimation_result1_upvw_48 = Animator_upvr:LoadAnimation(SOME_upvr.Sprint)
+any_LoadAnimation_result1_upvw_48.Priority = Enum.AnimationPriority.Movement
+local any_LoadAnimation_result1_upvw_71 = Animator_upvr:LoadAnimation(SOME_upvr.DribbleLeft)
+any_LoadAnimation_result1_upvw_71.Priority = Enum.AnimationPriority.Movement
+local any_LoadAnimation_result1_upvw_22 = Animator_upvr:LoadAnimation(SOME_upvr.DribbleRight)
+any_LoadAnimation_result1_upvw_22.Priority = Enum.AnimationPriority.Movement
+anim_LeftDribble = Animator_upvr:LoadAnimation(SOME_upvr.LeftDribbleL) -- Setting global
+anim_RightDribble = Animator_upvr:LoadAnimation(SOME_upvr.RightDribbleR) -- Setting global
+anim_LeftDribbleTap = Animator_upvr:LoadAnimation(SOME_upvr.LeftDribbleTap) -- Setting global
+anim_RightDribbleTap = Animator_upvr:LoadAnimation(SOME_upvr.RightDribbleTap) -- Setting global
+local any_LoadAnimation_result1_upvw_72 = Animator_upvr:LoadAnimation(SOME_upvr.TapLeft)
+any_LoadAnimation_result1_upvw_72.Priority = Enum.AnimationPriority.Action
+local any_LoadAnimation_result1_upvw_13 = Animator_upvr:LoadAnimation(SOME_upvr.TapRight)
+any_LoadAnimation_result1_upvw_13.Priority = Enum.AnimationPriority.Action
+local any_LoadAnimation_result1_upvw_66 = Animator_upvr:LoadAnimation(SOME_upvr.KickLeft)
+local any_LoadAnimation_result1_upvw_43 = Animator_upvr:LoadAnimation(SOME_upvr.KickRight)
+local any_LoadAnimation_result1_upvw_18 = Animator_upvr:LoadAnimation(SOME_upvr.PowerShotLeft)
+local any_LoadAnimation_result1_upvw_8 = Animator_upvr:LoadAnimation(SOME_upvr.PowerShotRight)
+local any_LoadAnimation_result1_upvw_6 = Animator_upvr:LoadAnimation(SOME_upvr.PowerShotExtraL)
+local any_LoadAnimation_result1_upvw_59 = Animator_upvr:LoadAnimation(SOME_upvr.PowerShotExtraR)
+local any_LoadAnimation_result1_upvw_78 = Animator_upvr:LoadAnimation(SOME_upvr.PowerShotExtraLL)
+local any_LoadAnimation_result1_upvw_85 = Animator_upvr:LoadAnimation(SOME_upvr.PowerShotExtraRR)
+local any_LoadAnimation_result1_upvw_41 = Animator_upvr:LoadAnimation(SOME_upvr.VolleyLeft)
+local any_LoadAnimation_result1_upvw_11 = Animator_upvr:LoadAnimation(SOME_upvr.VolleyRight)
+local any_LoadAnimation_result1_upvw_63 = Animator_upvr:LoadAnimation(SOME_upvr.TapIn_LowLeft)
+local any_LoadAnimation_result1_upvw_7 = Animator_upvr:LoadAnimation(SOME_upvr.TapIn_LowRight)
+local any_LoadAnimation_result1_upvw_54 = Animator_upvr:LoadAnimation(SOME_upvr.TapIn_ChipLeft)
+local any_LoadAnimation_result1_upvw_53 = Animator_upvr:LoadAnimation(SOME_upvr.TapIn_ChipRight)
+local any_LoadAnimation_result1_upvw_50 = Animator_upvr:LoadAnimation(SOME_upvr.CurveShotL)
+local any_LoadAnimation_result1_upvw_30 = Animator_upvr:LoadAnimation(SOME_upvr.CurveShotR)
+local any_LoadAnimation_result1_upvw_37 = Animator_upvr:LoadAnimation(SOME_upvr.TrivelaShotL)
+local any_LoadAnimation_result1_upvw_61 = Animator_upvr:LoadAnimation(SOME_upvr.TrivelaShotR)
+local any_LoadAnimation_result1_upvw_81 = Animator_upvr:LoadAnimation(SOME_upvr.TopspinShotL)
+local any_LoadAnimation_result1_upvw_51 = Animator_upvr:LoadAnimation(SOME_upvr.TopspinShotR)
+local any_LoadAnimation_result1_upvw_14 = Animator_upvr:LoadAnimation(SOME_upvr.BasicShotL)
+local any_LoadAnimation_result1_upvw_16 = Animator_upvr:LoadAnimation(SOME_upvr.BasicShotR)
+local any_LoadAnimation_result1_upvw_5 = Animator_upvr:LoadAnimation(SOME_upvr.Header)
+local any_LoadAnimation_result1_upvw_29 = Animator_upvr:LoadAnimation(SOME_upvr.Bicycle1)
+local any_LoadAnimation_result1_upvw_26 = Animator_upvr:LoadAnimation(SOME_upvr.Bicycle2)
+local any_LoadAnimation_result1_upvw_52 = Animator_upvr:LoadAnimation(SOME_upvr.ScissorL)
+local any_LoadAnimation_result1_upvw_24 = Animator_upvr:LoadAnimation(SOME_upvr.ScissorR)
+local any_LoadAnimation_result1_upvw_20 = Animator_upvr:LoadAnimation(SOME_upvr.GKKick)
+local any_LoadAnimation_result1_upvw_86 = Animator_upvr:LoadAnimation(SOME_upvr.GKSideVolley)
+local any_LoadAnimation_result1_upvw_57 = Animator_upvr:LoadAnimation(SOME_upvr.GKThrow)
+any_LoadAnimation_result1_upvw_57.Priority = Enum.AnimationPriority.Action2
+local any_LoadAnimation_result1_upvw_60 = Animator_upvr:LoadAnimation(SOME_upvr.GKGroundDiveLeft)
+any_LoadAnimation_result1_upvw_60.Priority = Enum.AnimationPriority.Action2
+local any_LoadAnimation_result1_upvw_45 = Animator_upvr:LoadAnimation(SOME_upvr.GKGroundDiveRight)
+any_LoadAnimation_result1_upvw_45.Priority = Enum.AnimationPriority.Action2
+local any_LoadAnimation_result1_upvw_42 = Animator_upvr:LoadAnimation(SOME_upvr.GKDiveForward)
+any_LoadAnimation_result1_upvw_42.Priority = Enum.AnimationPriority.Action2
+local any_LoadAnimation_result1_upvw_70 = Animator_upvr:LoadAnimation(SOME_upvr.GKAirDiveLeft)
+any_LoadAnimation_result1_upvw_70.Priority = Enum.AnimationPriority.Action2
+local any_LoadAnimation_result1_upvw_69 = Animator_upvr:LoadAnimation(SOME_upvr.GKAirDiveRight)
+any_LoadAnimation_result1_upvw_69.Priority = Enum.AnimationPriority.Action2
+local any_LoadAnimation_result1_upvw_40 = Animator_upvr:LoadAnimation(SOME_upvr.GKDiveUp)
+any_LoadAnimation_result1_upvw_40.Priority = Enum.AnimationPriority.Action2
+local any_LoadAnimation_result1_upvw_83 = Animator_upvr:LoadAnimation(SOME_upvr.GKSPDiveL)
+any_LoadAnimation_result1_upvw_83.Priority = Enum.AnimationPriority.Action2
+local any_LoadAnimation_result1_upvw_2 = Animator_upvr:LoadAnimation(SOME_upvr.GKSPDiveR)
+any_LoadAnimation_result1_upvw_2.Priority = Enum.AnimationPriority.Action2
+local any_LoadAnimation_result1_upvw_65 = Animator_upvr:LoadAnimation(SOME_upvr.GKSPDiveTL)
+any_LoadAnimation_result1_upvw_65.Priority = Enum.AnimationPriority.Action2
+local any_LoadAnimation_result1_upvw_68 = Animator_upvr:LoadAnimation(SOME_upvr.GKSPDiveTR)
+any_LoadAnimation_result1_upvw_68.Priority = Enum.AnimationPriority.Action2
+local any_LoadAnimation_result1_upvw_19 = Animator_upvr:LoadAnimation(SOME_upvr.standingCatchLow)
+local any_LoadAnimation_result1_upvw_10 = Animator_upvr:LoadAnimation(SOME_upvr.standingCatchMid)
+local any_LoadAnimation_result1_upvw = Animator_upvr:LoadAnimation(SOME_upvr.standingCatchHigh)
+local any_LoadAnimation_result1_upvw_21 = Animator_upvr:LoadAnimation(SOME_upvr.ShoveL)
+local any_LoadAnimation_result1_upvw_36 = Animator_upvr:LoadAnimation(SOME_upvr.ShoveR)
+local any_LoadAnimation_result1_upvw_23 = Animator_upvr:LoadAnimation(SOME_upvr.HoldBackL)
+local any_LoadAnimation_result1_upvw_84 = Animator_upvr:LoadAnimation(SOME_upvr.HoldBackR)
+local any_LoadAnimation_result1_upvw_75 = Animator_upvr:LoadAnimation(SOME_upvr.PushedBack1)
+local any_LoadAnimation_result1_upvw_27 = Animator_upvr:LoadAnimation(SOME_upvr.PushedBack2)
+local any_LoadAnimation_result1_upvw_17 = Animator_upvr:LoadAnimation(SOME_upvr.Stumble)
+local any_LoadAnimation_result1_upvw_56 = Animator_upvr:LoadAnimation(SOME_upvr.StumbleB)
+local any_LoadAnimation_result1_upvw_44 = Animator_upvr:LoadAnimation(SOME_upvr.ThrowIn)
+local any_LoadAnimation_result1_upvw_58 = Animator_upvr:LoadAnimation(SOME_upvr.firstTouchLeft)
+local any_LoadAnimation_result1_upvw_62 = Animator_upvr:LoadAnimation(SOME_upvr.firstTouchRight)
+local any_LoadAnimation_result1_upvw_67 = Animator_upvr:LoadAnimation(SOME_upvr.FT_FromAirLeft)
+local any_LoadAnimation_result1_upvw_33 = Animator_upvr:LoadAnimation(SOME_upvr.FT_FromAirRight)
+local any_LoadAnimation_result1_upvw_79 = Animator_upvr:LoadAnimation(SOME_upvr.firstTouch_RunningLeft)
+local any_LoadAnimation_result1_upvw_12 = Animator_upvr:LoadAnimation(SOME_upvr.firstTouch_RunningRight)
+local any_LoadAnimation_result1_upvw_80 = Animator_upvr:LoadAnimation(SOME_upvr.firstTouch_AirF)
+local any_LoadAnimation_result1_upvw_55 = Animator_upvr:LoadAnimation(SOME_upvr.firstTouch_AirB)
+local any_LoadAnimation_result1_upvw_9 = Animator_upvr:LoadAnimation(SOME_upvr.firstTouch_airFL)
+local any_LoadAnimation_result1_upvw_38 = Animator_upvr:LoadAnimation(SOME_upvr.firstTouch_airFR)
+local any_LoadAnimation_result1_upvw_47 = Animator_upvr:LoadAnimation(SOME_upvr.firstTouch_airLF)
+local any_LoadAnimation_result1_upvw_46 = Animator_upvr:LoadAnimation(SOME_upvr.firstTouch_airLB)
+local any_LoadAnimation_result1_upvw_74 = Animator_upvr:LoadAnimation(SOME_upvr.firstTouch_airRF)
+local any_LoadAnimation_result1_upvw_31 = Animator_upvr:LoadAnimation(SOME_upvr.firstTouch_airRB)
+local any_LoadAnimation_result1_upvw_15 = Animator_upvr:LoadAnimation(SOME_upvr.firstTouch_airBL)
+local any_LoadAnimation_result1_upvw_35 = Animator_upvr:LoadAnimation(SOME_upvr.firstTouch_airBR)
+local any_LoadAnimation_result1_upvw_32 = Animator_upvr:LoadAnimation(SOME_upvr.StandingTackleL)
+local any_LoadAnimation_result1_upvw_34 = Animator_upvr:LoadAnimation(SOME_upvr.StandingTackleR)
+local any_LoadAnimation_result1_upvw_49 = Animator_upvr:LoadAnimation(SOME_upvr.SlideTackleL)
+local any_LoadAnimation_result1_upvw_77 = Animator_upvr:LoadAnimation(SOME_upvr.SlideTackleR)
+local any_LoadAnimation_result1_upvw_4 = Animator_upvr:LoadAnimation(SOME_upvr.RoughTackle)
+local any_LoadAnimation_result1_upvw_28 = Animator_upvr:LoadAnimation(SOME_upvr.testfeintL)
+local any_LoadAnimation_result1_upvw_39 = Animator_upvr:LoadAnimation(SOME_upvr.testfeintR)
+local any_LoadAnimation_result1_upvw_82 = Animator_upvr:LoadAnimation(SOME_upvr.standingCatchStart)
+local any_LoadAnimation_result1_upvw_64 = Animator_upvr:LoadAnimation(SOME_upvr.StumbleLonger)
+local any_LoadAnimation_result1_upvw_76 = Animator_upvr:LoadAnimation(SOME_upvr.NutmegL)
+local any_LoadAnimation_result1_upvw_3 = Animator_upvr:LoadAnimation(SOME_upvr.NutmegR)
+local any_LoadAnimation_result1_upvw_25 = Animator_upvr:LoadAnimation(SOME_upvr.RequestBall)
+local function animationreset() -- Line 163
+	--[[ Upvalues[89]:
+		[1]: LocalPlayer_upvr (readonly)
+		[2]: Character_4_upvr (readonly)
+		[3]: any_LoadAnimation_result1_upvw_73 (read and write)
+		[4]: Animator_upvr (readonly)
+		[5]: any_LoadAnimation_result1_upvw_48 (read and write)
+		[6]: any_LoadAnimation_result1_upvw_71 (read and write)
+		[7]: any_LoadAnimation_result1_upvw_22 (read and write)
+		[8]: any_LoadAnimation_result1_upvw_72 (read and write)
+		[9]: any_LoadAnimation_result1_upvw_13 (read and write)
+		[10]: any_LoadAnimation_result1_upvw_66 (read and write)
+		[11]: any_LoadAnimation_result1_upvw_43 (read and write)
+		[12]: any_LoadAnimation_result1_upvw_18 (read and write)
+		[13]: any_LoadAnimation_result1_upvw_8 (read and write)
+		[14]: any_LoadAnimation_result1_upvw_6 (read and write)
+		[15]: any_LoadAnimation_result1_upvw_59 (read and write)
+		[16]: any_LoadAnimation_result1_upvw_78 (read and write)
+		[17]: any_LoadAnimation_result1_upvw_85 (read and write)
+		[18]: any_LoadAnimation_result1_upvw_41 (read and write)
+		[19]: any_LoadAnimation_result1_upvw_11 (read and write)
+		[20]: any_LoadAnimation_result1_upvw_63 (read and write)
+		[21]: any_LoadAnimation_result1_upvw_7 (read and write)
+		[22]: any_LoadAnimation_result1_upvw_54 (read and write)
+		[23]: any_LoadAnimation_result1_upvw_53 (read and write)
+		[24]: any_LoadAnimation_result1_upvw_50 (read and write)
+		[25]: any_LoadAnimation_result1_upvw_30 (read and write)
+		[26]: any_LoadAnimation_result1_upvw_37 (read and write)
+		[27]: any_LoadAnimation_result1_upvw_61 (read and write)
+		[28]: any_LoadAnimation_result1_upvw_81 (read and write)
+		[29]: any_LoadAnimation_result1_upvw_51 (read and write)
+		[30]: any_LoadAnimation_result1_upvw_14 (read and write)
+		[31]: any_LoadAnimation_result1_upvw_16 (read and write)
+		[32]: any_LoadAnimation_result1_upvw_5 (read and write)
+		[33]: any_LoadAnimation_result1_upvw_29 (read and write)
+		[34]: any_LoadAnimation_result1_upvw_26 (read and write)
+		[35]: any_LoadAnimation_result1_upvw_52 (read and write)
+		[36]: any_LoadAnimation_result1_upvw_24 (read and write)
+		[37]: any_LoadAnimation_result1_upvw_20 (read and write)
+		[38]: any_LoadAnimation_result1_upvw_86 (read and write)
+		[39]: any_LoadAnimation_result1_upvw_57 (read and write)
+		[40]: any_LoadAnimation_result1_upvw_60 (read and write)
+		[41]: any_LoadAnimation_result1_upvw_45 (read and write)
+		[42]: any_LoadAnimation_result1_upvw_42 (read and write)
+		[43]: any_LoadAnimation_result1_upvw_70 (read and write)
+		[44]: any_LoadAnimation_result1_upvw_69 (read and write)
+		[45]: any_LoadAnimation_result1_upvw_40 (read and write)
+		[46]: any_LoadAnimation_result1_upvw_83 (read and write)
+		[47]: any_LoadAnimation_result1_upvw_2 (read and write)
+		[48]: any_LoadAnimation_result1_upvw_65 (read and write)
+		[49]: any_LoadAnimation_result1_upvw_68 (read and write)
+		[50]: any_LoadAnimation_result1_upvw_82 (read and write)
+		[51]: any_LoadAnimation_result1_upvw_19 (read and write)
+		[52]: any_LoadAnimation_result1_upvw_10 (read and write)
+		[53]: any_LoadAnimation_result1_upvw (read and write)
+		[54]: any_LoadAnimation_result1_upvw_21 (read and write)
+		[55]: any_LoadAnimation_result1_upvw_36 (read and write)
+		[56]: any_LoadAnimation_result1_upvw_23 (read and write)
+		[57]: any_LoadAnimation_result1_upvw_84 (read and write)
+		[58]: any_LoadAnimation_result1_upvw_75 (read and write)
+		[59]: any_LoadAnimation_result1_upvw_27 (read and write)
+		[60]: any_LoadAnimation_result1_upvw_17 (read and write)
+		[61]: any_LoadAnimation_result1_upvw_56 (read and write)
+		[62]: any_LoadAnimation_result1_upvw_64 (read and write)
+		[63]: any_LoadAnimation_result1_upvw_44 (read and write)
+		[64]: any_LoadAnimation_result1_upvw_58 (read and write)
+		[65]: any_LoadAnimation_result1_upvw_62 (read and write)
+		[66]: any_LoadAnimation_result1_upvw_67 (read and write)
+		[67]: any_LoadAnimation_result1_upvw_33 (read and write)
+		[68]: any_LoadAnimation_result1_upvw_79 (read and write)
+		[69]: any_LoadAnimation_result1_upvw_12 (read and write)
+		[70]: any_LoadAnimation_result1_upvw_80 (read and write)
+		[71]: any_LoadAnimation_result1_upvw_55 (read and write)
+		[72]: any_LoadAnimation_result1_upvw_9 (read and write)
+		[73]: any_LoadAnimation_result1_upvw_38 (read and write)
+		[74]: any_LoadAnimation_result1_upvw_47 (read and write)
+		[75]: any_LoadAnimation_result1_upvw_46 (read and write)
+		[76]: any_LoadAnimation_result1_upvw_74 (read and write)
+		[77]: any_LoadAnimation_result1_upvw_31 (read and write)
+		[78]: any_LoadAnimation_result1_upvw_15 (read and write)
+		[79]: any_LoadAnimation_result1_upvw_35 (read and write)
+		[80]: any_LoadAnimation_result1_upvw_76 (read and write)
+		[81]: any_LoadAnimation_result1_upvw_3 (read and write)
+		[82]: any_LoadAnimation_result1_upvw_32 (read and write)
+		[83]: any_LoadAnimation_result1_upvw_34 (read and write)
+		[84]: any_LoadAnimation_result1_upvw_49 (read and write)
+		[85]: any_LoadAnimation_result1_upvw_77 (read and write)
+		[86]: any_LoadAnimation_result1_upvw_4 (read and write)
+		[87]: any_LoadAnimation_result1_upvw_25 (read and write)
+		[88]: any_LoadAnimation_result1_upvw_28 (read and write)
+		[89]: any_LoadAnimation_result1_upvw_39 (read and write)
+	]]
+	print("reset animations")
+	local SOME = game.ReplicatedStorage.AnimFolder:FindFirstChild(LocalPlayer_upvr.Data.animationType.Value)
+	for _, v in ipairs(Character_4_upvr.Animate:GetChildren()) do
+		if v.Name == "walk" or v.Name == "idle" or v.Name == "run" then
+			v:Destroy()
+		end
+	end
+	local StringValue_4 = Instance.new("StringValue")
+	local StringValue = Instance.new("StringValue")
+	local StringValue_6 = Instance.new("StringValue")
+	StringValue_4.Name = "walk"
+	StringValue.Name = "idle"
+	StringValue_6.Name = "run"
+	local Animation_6 = Instance.new("Animation")
+	local Animation_5 = Instance.new("Animation")
+	local Animation_2 = Instance.new("Animation")
+	Animation_6.Parent = StringValue_4
+	Animation_6.AnimationId = SOME.Walk.AnimationId
+	Animation_5.Parent = StringValue
+	Animation_5.AnimationId = SOME.Idle.AnimationId
+	Animation_2.Parent = StringValue_6
+	Animation_2.AnimationId = SOME.Walk.AnimationId
+	StringValue_4.Parent = Character_4_upvr:FindFirstChild("Animate")
+	StringValue.Parent = Character_4_upvr:FindFirstChild("Animate")
+	StringValue_6.Parent = Character_4_upvr:FindFirstChild("Animate")
+	any_LoadAnimation_result1_upvw_73 = Animator_upvr:LoadAnimation(SOME.Run)
+	any_LoadAnimation_result1_upvw_73.Priority = Enum.AnimationPriority.Movement
+	any_LoadAnimation_result1_upvw_48 = Animator_upvr:LoadAnimation(SOME.Sprint)
+	any_LoadAnimation_result1_upvw_48.Priority = Enum.AnimationPriority.Movement
+	any_LoadAnimation_result1_upvw_71 = Animator_upvr:LoadAnimation(SOME.DribbleLeft)
+	any_LoadAnimation_result1_upvw_71.Priority = Enum.AnimationPriority.Movement
+	any_LoadAnimation_result1_upvw_22 = Animator_upvr:LoadAnimation(SOME.DribbleRight)
+	any_LoadAnimation_result1_upvw_22.Priority = Enum.AnimationPriority.Movement
+	anim_LeftDribble = Animator_upvr:LoadAnimation(SOME.LeftDribbleL) -- Setting global
+	anim_RightDribble = Animator_upvr:LoadAnimation(SOME.RightDribbleR) -- Setting global
+	anim_LeftDribbleTap = Animator_upvr:LoadAnimation(SOME.LeftDribbleTap) -- Setting global
+	anim_RightDribbleTap = Animator_upvr:LoadAnimation(SOME.RightDribbleTap) -- Setting global
+	any_LoadAnimation_result1_upvw_72 = Animator_upvr:LoadAnimation(SOME.TapLeft)
+	any_LoadAnimation_result1_upvw_72.Priority = Enum.AnimationPriority.Action
+	any_LoadAnimation_result1_upvw_13 = Animator_upvr:LoadAnimation(SOME.TapRight)
+	any_LoadAnimation_result1_upvw_13.Priority = Enum.AnimationPriority.Action
+	any_LoadAnimation_result1_upvw_66 = Animator_upvr:LoadAnimation(SOME.KickLeft)
+	any_LoadAnimation_result1_upvw_43 = Animator_upvr:LoadAnimation(SOME.KickRight)
+	any_LoadAnimation_result1_upvw_18 = Animator_upvr:LoadAnimation(SOME.PowerShotLeft)
+	any_LoadAnimation_result1_upvw_8 = Animator_upvr:LoadAnimation(SOME.PowerShotRight)
+	any_LoadAnimation_result1_upvw_6 = Animator_upvr:LoadAnimation(SOME.PowerShotExtraL)
+	any_LoadAnimation_result1_upvw_59 = Animator_upvr:LoadAnimation(SOME.PowerShotExtraR)
+	any_LoadAnimation_result1_upvw_78 = Animator_upvr:LoadAnimation(SOME.PowerShotExtraLL)
+	any_LoadAnimation_result1_upvw_85 = Animator_upvr:LoadAnimation(SOME.PowerShotExtraRR)
+	any_LoadAnimation_result1_upvw_41 = Animator_upvr:LoadAnimation(SOME.VolleyLeft)
+	any_LoadAnimation_result1_upvw_11 = Animator_upvr:LoadAnimation(SOME.VolleyRight)
+	any_LoadAnimation_result1_upvw_63 = Animator_upvr:LoadAnimation(SOME.TapIn_LowLeft)
+	any_LoadAnimation_result1_upvw_7 = Animator_upvr:LoadAnimation(SOME.TapIn_LowRight)
+	any_LoadAnimation_result1_upvw_54 = Animator_upvr:LoadAnimation(SOME.TapIn_ChipLeft)
+	any_LoadAnimation_result1_upvw_53 = Animator_upvr:LoadAnimation(SOME.TapIn_ChipRight)
+	any_LoadAnimation_result1_upvw_50 = Animator_upvr:LoadAnimation(SOME.CurveShotL)
+	any_LoadAnimation_result1_upvw_30 = Animator_upvr:LoadAnimation(SOME.CurveShotR)
+	any_LoadAnimation_result1_upvw_37 = Animator_upvr:LoadAnimation(SOME.TrivelaShotL)
+	any_LoadAnimation_result1_upvw_61 = Animator_upvr:LoadAnimation(SOME.TrivelaShotR)
+	any_LoadAnimation_result1_upvw_81 = Animator_upvr:LoadAnimation(SOME.TopspinShotL)
+	any_LoadAnimation_result1_upvw_51 = Animator_upvr:LoadAnimation(SOME.TopspinShotR)
+	any_LoadAnimation_result1_upvw_14 = Animator_upvr:LoadAnimation(SOME.BasicShotL)
+	any_LoadAnimation_result1_upvw_16 = Animator_upvr:LoadAnimation(SOME.BasicShotR)
+	any_LoadAnimation_result1_upvw_5 = Animator_upvr:LoadAnimation(SOME.Header)
+	any_LoadAnimation_result1_upvw_29 = Animator_upvr:LoadAnimation(SOME.Bicycle1)
+	any_LoadAnimation_result1_upvw_26 = Animator_upvr:LoadAnimation(SOME.Bicycle2)
+	any_LoadAnimation_result1_upvw_52 = Animator_upvr:LoadAnimation(SOME.ScissorL)
+	any_LoadAnimation_result1_upvw_24 = Animator_upvr:LoadAnimation(SOME.ScissorR)
+	any_LoadAnimation_result1_upvw_20 = Animator_upvr:LoadAnimation(SOME.GKKick)
+	any_LoadAnimation_result1_upvw_86 = Animator_upvr:LoadAnimation(SOME.GKSideVolley)
+	any_LoadAnimation_result1_upvw_57 = Animator_upvr:LoadAnimation(SOME.GKThrow)
+	any_LoadAnimation_result1_upvw_57.Priority = Enum.AnimationPriority.Action2
+	any_LoadAnimation_result1_upvw_60 = Animator_upvr:LoadAnimation(SOME.GKGroundDiveLeft)
+	any_LoadAnimation_result1_upvw_60.Priority = Enum.AnimationPriority.Action2
+	any_LoadAnimation_result1_upvw_45 = Animator_upvr:LoadAnimation(SOME.GKGroundDiveRight)
+	any_LoadAnimation_result1_upvw_45.Priority = Enum.AnimationPriority.Action2
+	any_LoadAnimation_result1_upvw_42 = Animator_upvr:LoadAnimation(SOME.GKDiveForward)
+	any_LoadAnimation_result1_upvw_42.Priority = Enum.AnimationPriority.Action2
+	any_LoadAnimation_result1_upvw_70 = Animator_upvr:LoadAnimation(SOME.GKAirDiveLeft)
+	any_LoadAnimation_result1_upvw_70.Priority = Enum.AnimationPriority.Action2
+	any_LoadAnimation_result1_upvw_69 = Animator_upvr:LoadAnimation(SOME.GKAirDiveRight)
+	any_LoadAnimation_result1_upvw_69.Priority = Enum.AnimationPriority.Action2
+	any_LoadAnimation_result1_upvw_40 = Animator_upvr:LoadAnimation(SOME.GKDiveUp)
+	any_LoadAnimation_result1_upvw_40.Priority = Enum.AnimationPriority.Action2
+	any_LoadAnimation_result1_upvw_83 = Animator_upvr:LoadAnimation(SOME.GKSPDiveL)
+	any_LoadAnimation_result1_upvw_83.Priority = Enum.AnimationPriority.Action2
+	any_LoadAnimation_result1_upvw_2 = Animator_upvr:LoadAnimation(SOME.GKSPDiveR)
+	any_LoadAnimation_result1_upvw_2.Priority = Enum.AnimationPriority.Action2
+	any_LoadAnimation_result1_upvw_65 = Animator_upvr:LoadAnimation(SOME.GKSPDiveTL)
+	any_LoadAnimation_result1_upvw_65.Priority = Enum.AnimationPriority.Action2
+	any_LoadAnimation_result1_upvw_68 = Animator_upvr:LoadAnimation(SOME.GKSPDiveTR)
+	any_LoadAnimation_result1_upvw_68.Priority = Enum.AnimationPriority.Action2
+	any_LoadAnimation_result1_upvw_82 = Animator_upvr:LoadAnimation(SOME.standingCatchStart)
+	any_LoadAnimation_result1_upvw_19 = Animator_upvr:LoadAnimation(SOME.standingCatchLow)
+	any_LoadAnimation_result1_upvw_10 = Animator_upvr:LoadAnimation(SOME.standingCatchMid)
+	any_LoadAnimation_result1_upvw = Animator_upvr:LoadAnimation(SOME.standingCatchHigh)
+	any_LoadAnimation_result1_upvw_21 = Animator_upvr:LoadAnimation(SOME.ShoveL)
+	any_LoadAnimation_result1_upvw_36 = Animator_upvr:LoadAnimation(SOME.ShoveR)
+	any_LoadAnimation_result1_upvw_23 = Animator_upvr:LoadAnimation(SOME.HoldBackL)
+	any_LoadAnimation_result1_upvw_84 = Animator_upvr:LoadAnimation(SOME.HoldBackR)
+	any_LoadAnimation_result1_upvw_75 = Animator_upvr:LoadAnimation(SOME.PushedBack1)
+	any_LoadAnimation_result1_upvw_27 = Animator_upvr:LoadAnimation(SOME.PushedBack2)
+	any_LoadAnimation_result1_upvw_17 = Animator_upvr:LoadAnimation(SOME.Stumble)
+	any_LoadAnimation_result1_upvw_56 = Animator_upvr:LoadAnimation(SOME.StumbleB)
+	any_LoadAnimation_result1_upvw_64 = Animator_upvr:LoadAnimation(SOME.StumbleLonger)
+	any_LoadAnimation_result1_upvw_44 = Animator_upvr:LoadAnimation(SOME.ThrowIn)
+	any_LoadAnimation_result1_upvw_58 = Animator_upvr:LoadAnimation(SOME.firstTouchLeft)
+	any_LoadAnimation_result1_upvw_62 = Animator_upvr:LoadAnimation(SOME.firstTouchRight)
+	any_LoadAnimation_result1_upvw_67 = Animator_upvr:LoadAnimation(SOME.FT_FromAirLeft)
+	any_LoadAnimation_result1_upvw_33 = Animator_upvr:LoadAnimation(SOME.FT_FromAirRight)
+	any_LoadAnimation_result1_upvw_79 = Animator_upvr:LoadAnimation(SOME.firstTouch_RunningLeft)
+	any_LoadAnimation_result1_upvw_12 = Animator_upvr:LoadAnimation(SOME.firstTouch_RunningRight)
+	any_LoadAnimation_result1_upvw_80 = Animator_upvr:LoadAnimation(SOME.firstTouch_AirF)
+	any_LoadAnimation_result1_upvw_55 = Animator_upvr:LoadAnimation(SOME.firstTouch_AirB)
+	any_LoadAnimation_result1_upvw_9 = Animator_upvr:LoadAnimation(SOME.firstTouch_airFL)
+	any_LoadAnimation_result1_upvw_38 = Animator_upvr:LoadAnimation(SOME.firstTouch_airFR)
+	any_LoadAnimation_result1_upvw_47 = Animator_upvr:LoadAnimation(SOME.firstTouch_airLF)
+	any_LoadAnimation_result1_upvw_46 = Animator_upvr:LoadAnimation(SOME.firstTouch_airLB)
+	any_LoadAnimation_result1_upvw_74 = Animator_upvr:LoadAnimation(SOME.firstTouch_airRF)
+	any_LoadAnimation_result1_upvw_31 = Animator_upvr:LoadAnimation(SOME.firstTouch_airRB)
+	any_LoadAnimation_result1_upvw_15 = Animator_upvr:LoadAnimation(SOME.firstTouch_airBL)
+	any_LoadAnimation_result1_upvw_35 = Animator_upvr:LoadAnimation(SOME.firstTouch_airBR)
+	any_LoadAnimation_result1_upvw_76 = Animator_upvr:LoadAnimation(SOME.NutmegL)
+	any_LoadAnimation_result1_upvw_3 = Animator_upvr:LoadAnimation(SOME.NutmegR)
+	any_LoadAnimation_result1_upvw_32 = Animator_upvr:LoadAnimation(SOME.StandingTackleL)
+	any_LoadAnimation_result1_upvw_34 = Animator_upvr:LoadAnimation(SOME.StandingTackleR)
+	any_LoadAnimation_result1_upvw_49 = Animator_upvr:LoadAnimation(SOME.SlideTackleL)
+	any_LoadAnimation_result1_upvw_77 = Animator_upvr:LoadAnimation(SOME.SlideTackleR)
+	any_LoadAnimation_result1_upvw_4 = Animator_upvr:LoadAnimation(SOME.RoughTackle)
+	any_LoadAnimation_result1_upvw_25 = Animator_upvr:LoadAnimation(SOME.RequestBall)
+	any_LoadAnimation_result1_upvw_28 = Animator_upvr:LoadAnimation(SOME.testfeintL)
+	any_LoadAnimation_result1_upvw_39 = Animator_upvr:LoadAnimation(SOME.testfeintR)
+end
+animationreset()
+local ReplicatedStorage_upvr = game:GetService("ReplicatedStorage")
+ReplicatedStorage_upvr.Remotes.AnimationReset.OnClientEvent:Connect(animationreset)
+local HitboxHandler_upvr = require(game.ReplicatedStorage.Modules.HitboxHandler)
+local HitboxHandlerPlayers_upvr = require(game.ReplicatedStorage.Modules.HitboxHandlerPlayers)
+local ChargeGUI_upvw = HumanoidRootPart_upvr:WaitForChild("UIAttach"):WaitForChild("ChargeGUI")
+local Status_upvr = Character_4_upvr:WaitForChild("Status")
+local var119_upvw = 0
+local var120_upvw = 0
+local var121_upvw = 0
+local var122_upvw = false
+local var123_upvw = 0
+local var124_upvw = 0
+local var125_upvw = 0
+local var126_upvw = false
+local var127_upvw = false
+local tick_result1_upvw = tick()
+local ballStatus_upvr = game.Workspace.ballStatus
+local Controls_upvr = LocalPlayer_upvr.Settings.Controls
+local var131_upvw = false
+game.ReplicatedStorage.Remotes.CancelAnims.OnClientEvent:Connect(function() -- Line 335
+	--[[ Upvalues[1]:
+		[1]: Animator_upvr (readonly)
+	]]
+	for _, v_2 in pairs(Animator_upvr:GetPlayingAnimationTracks()) do
+		if v_2.Priority ~= Enum.AnimationPriority.Core then
+			v_2:Stop()
+		end
+	end
+end)
+game.ReplicatedStorage.Remotes.UpdateStamina.OnClientEvent:Connect(function(arg1) -- Line 343
+	--[[ Upvalues[1]:
+		[1]: Character_4_upvr (readonly)
+	]]
+	local Stamina_2 = Character_4_upvr.Stats.Stamina
+	Stamina_2.Value -= arg1
+end)
+game.ReplicatedStorage.Remotes.NutmegSFX.OnClientEvent:Connect(function() -- Line 347
+	local clone_3 = game.ReplicatedStorage.SFX.Boom:Clone()
+	clone_3.Parent = game.Workspace
+	clone_3:Play()
+	game.Debris:AddItem(clone_3, 10)
+end)
+local var143_upvw = false
+game.ReplicatedStorage.Remotes.Stumble.OnClientEvent:Connect(function(arg1, arg2) -- Line 356
+	--[[ Upvalues[6]:
+		[1]: Status_upvr (readonly)
+		[2]: var143_upvw (read and write)
+		[3]: any_LoadAnimation_result1_upvw_17 (read and write)
+		[4]: var120_upvw (read and write)
+		[5]: HumanoidRootPart_upvr (readonly)
+		[6]: any_LoadAnimation_result1_upvw_56 (read and write)
+	]]
+	if not arg2 then
+		local const_string = 'F'
+		local var153
+	end
+	if const_string == 'F' then
+		if Status_upvr:FindFirstChild("SlideTackleAnim") then
+		else
+			if var143_upvw == true then return end
+			var143_upvw = true
+			task.delay(4, function() -- Line 368
+				--[[ Upvalues[1]:
+					[1]: var143_upvw (copied, read and write)
+				]]
+				var143_upvw = false
+			end)
+			if var153 == nil then
+				var153 = 0.7
+			end
+			any_LoadAnimation_result1_upvw_17:Play(0.2, 1, 0.7 / var153)
+			var120_upvw *= 1 - var153 / 2
+			local Folder_10 = Instance.new("Folder")
+			Folder_10.Parent = Status_upvr
+			Folder_10.Name = "Knockdown"
+			game.Debris:AddItem(Folder_10, var153 - 0.05)
+			local Folder = Instance.new("Folder")
+			Folder.Parent = Status_upvr
+			Folder.Name = "NoCharge"
+			game.Debris:AddItem(Folder, var153 - 0.05)
+			local Folder_6 = Instance.new("Folder")
+			Folder_6.Parent = Status_upvr
+			Folder_6.Name = "CameraLocked"
+			game.Debris:AddItem(Folder_6, var153 - 0.05)
+			local Character_9 = game.Players.LocalPlayer.Character
+			for _, v_15 in pairs(Character_9.HumanoidRootPart:GetChildren()) do
+				if v_15:IsA("BodyVelocity") then
+					v_15:Destroy()
+				end
+			end
+			local _, any_ToOrientation_result2_upvr_2, _ = CFrame.lookAt(HumanoidRootPart_upvr.Position, HumanoidRootPart_upvr.CFrame * CFrame.new(0, 0, -25).Position):ToOrientation()
+			local BodyVelocity = Instance.new("BodyVelocity")
+			BodyVelocity.MaxForce = Vector3.new(50000, 0, 50000)
+			BodyVelocity.Velocity = Character_9.HumanoidRootPart.CFrame.lookVector * 25
+			BodyVelocity.Parent = Character_9.HumanoidRootPart
+			game.Debris:AddItem(BodyVelocity, var153)
+			local any_Connect_result1_upvr = game:GetService("RunService").RenderStepped:Connect(function() -- Line 404
+				--[[ Upvalues[2]:
+					[1]: HumanoidRootPart_upvr (copied, readonly)
+					[2]: any_ToOrientation_result2_upvr_2 (readonly)
+				]]
+				HumanoidRootPart_upvr.CFrame = CFrame.new(HumanoidRootPart_upvr.Position) * CFrame.Angles(0, any_ToOrientation_result2_upvr_2, 0)
+			end)
+			task.delay(var153, function() -- Line 408
+				--[[ Upvalues[1]:
+					[1]: any_Connect_result1_upvr (readonly)
+				]]
+				any_Connect_result1_upvr:Disconnect()
+			end)
+			game:GetService("TweenService"):Create(BodyVelocity, TweenInfo.new(var153, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+				Velocity = Character_9.HumanoidRootPart.CFrame.lookVector * 8;
+			}):Play()
+		end
+	end
+	if const_string == 'B' then
+		if Status_upvr:FindFirstChild("SlideTackleAnim") then return end
+		if var143_upvw == true then return end
+		var143_upvw = true
+		task.delay(4, function() -- Line 422
+			--[[ Upvalues[1]:
+				[1]: var143_upvw (copied, read and write)
+			]]
+			var143_upvw = false
+		end)
+		if var153 == nil then
+			var153 = 0.7
+		end
+		any_LoadAnimation_result1_upvw_56:Play(0.2, 1, 0.7 / var153)
+		var120_upvw *= 1 - var153 / 2
+		local Folder_14 = Instance.new("Folder")
+		Folder_14.Parent = Status_upvr
+		Folder_14.Name = "Knockdown"
+		game.Debris:AddItem(Folder_14, var153 - 0.05)
+		local Folder_11 = Instance.new("Folder")
+		Folder_11.Parent = Status_upvr
+		Folder_11.Name = "NoCharge"
+		any_ToOrientation_result2_upvr_2 = var153 - 0.05
+		game.Debris:AddItem(Folder_11, any_ToOrientation_result2_upvr_2)
+		local Folder_28 = Instance.new("Folder")
+		Folder_28.Parent = Status_upvr
+		Folder_28.Name = "CameraLocked"
+		any_ToOrientation_result2_upvr_2 = Folder_28
+		game.Debris:AddItem(any_ToOrientation_result2_upvr_2, var153 - 0.05)
+		any_ToOrientation_result2_upvr_2 = game.Players
+		local Character_8 = any_ToOrientation_result2_upvr_2.LocalPlayer.Character
+		any_ToOrientation_result2_upvr_2 = Character_8.HumanoidRootPart:GetChildren()
+		local pairs_result1_3, pairs_result2_5, pairs_result3_6 = pairs(any_ToOrientation_result2_upvr_2)
+		for _, v_3 in pairs_result1_3, pairs_result2_5, pairs_result3_6 do
+			any_Connect_result1_upvr = v_3:IsA("BodyVelocity")
+			if any_Connect_result1_upvr then
+				any_Connect_result1_upvr = v_3:Destroy
+				any_Connect_result1_upvr()
+			end
+		end
+		pairs_result2_5 = HumanoidRootPart_upvr.Position
+		any_Connect_result1_upvr = CFrame.new(0, 0, -40)
+		local _, any_ToOrientation_result2_upvr_3, _ = CFrame.lookAt(pairs_result2_5, HumanoidRootPart_upvr.CFrame * any_Connect_result1_upvr.Position):ToOrientation()
+		any_Connect_result1_upvr = "BodyVelocity"
+		local any = Instance.new(any_Connect_result1_upvr)
+		any_Connect_result1_upvr = Vector3.new(50000, 0, 50000)
+		any.MaxForce = any_Connect_result1_upvr
+		any_Connect_result1_upvr = Character_8.HumanoidRootPart.CFrame.lookVector * -40
+		any.Velocity = any_Connect_result1_upvr
+		any_Connect_result1_upvr = Character_8.HumanoidRootPart
+		any.Parent = any_Connect_result1_upvr
+		any_Connect_result1_upvr = game.Debris:AddItem
+		any_Connect_result1_upvr(any, var153)
+		any_Connect_result1_upvr = game:GetService("RunService").RenderStepped
+		any_Connect_result1_upvr = any_Connect_result1_upvr:Connect(function() -- Line 458
+			--[[ Upvalues[2]:
+				[1]: HumanoidRootPart_upvr (copied, readonly)
+				[2]: any_ToOrientation_result2_upvr_3 (readonly)
+			]]
+			HumanoidRootPart_upvr.CFrame = CFrame.new(HumanoidRootPart_upvr.Position) * CFrame.Angles(0, any_ToOrientation_result2_upvr_3, 0)
+		end)
+		task.delay(var153, function() -- Line 462
+			--[[ Upvalues[1]:
+				[1]: any_Connect_result1_upvr (readonly)
+			]]
+			any_Connect_result1_upvr:Disconnect()
+		end)
+		game:GetService("TweenService"):Create(any, TweenInfo.new(var153, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+			Velocity = Character_8.HumanoidRootPart.CFrame.lookVector * 8;
+		}):Play()
+	end
+end)
+function isLookPartInFront(arg1, arg2, arg3) -- Line 474
+	if arg3 / 360 <= math.pow((arg1.CFrame.LookVector - (arg2.CFrame.p - arg1.CFrame.p).Unit).Magnitude / 2, 2) then
+		return false
+	end
+	return true
+end
+function kick(arg1) -- Line 485
+	--[[ Upvalues[43]:
+		[1]: Status_upvr (readonly)
+		[2]: ballStatus_upvr (readonly)
+		[3]: LocalPlayer_upvr (readonly)
+		[4]: var121_upvw (read and write)
+		[5]: var119_upvw (read and write)
+		[6]: any_LoadAnimation_result1_upvw_44 (read and write)
+		[7]: Character_4_upvr (readonly)
+		[8]: any_LoadAnimation_result1_upvw_29 (read and write)
+		[9]: any_LoadAnimation_result1_upvw_26 (read and write)
+		[10]: HitboxHandler_upvr (readonly)
+		[11]: any_LoadAnimation_result1_upvw_5 (read and write)
+		[12]: any_LoadAnimation_result1_upvw_32 (read and write)
+		[13]: any_LoadAnimation_result1_upvw_34 (read and write)
+		[14]: HumanoidRootPart_upvr (readonly)
+		[15]: UserInputService_upvr (readonly)
+		[16]: var126_upvw (read and write)
+		[17]: var120_upvw (read and write)
+		[18]: any_LoadAnimation_result1_upvw_11 (read and write)
+		[19]: any_LoadAnimation_result1_upvw_41 (read and write)
+		[20]: any_LoadAnimation_result1_upvw_18 (read and write)
+		[21]: any_LoadAnimation_result1_upvw_8 (read and write)
+		[22]: any_LoadAnimation_result1_upvw_63 (read and write)
+		[23]: any_LoadAnimation_result1_upvw_7 (read and write)
+		[24]: any_LoadAnimation_result1_upvw_66 (read and write)
+		[25]: any_LoadAnimation_result1_upvw_43 (read and write)
+		[26]: Humanoid_upvr (readonly)
+		[27]: any_LoadAnimation_result1_upvw_73 (read and write)
+		[28]: any_LoadAnimation_result1_upvw_71 (read and write)
+		[29]: any_LoadAnimation_result1_upvw_22 (read and write)
+		[30]: any_LoadAnimation_result1_upvw_72 (read and write)
+		[31]: any_LoadAnimation_result1_upvw_13 (read and write)
+		[32]: Controls_upvr (readonly)
+		[33]: var125_upvw (read and write)
+		[34]: any_LoadAnimation_result1_upvw_14 (read and write)
+		[35]: any_LoadAnimation_result1_upvw_16 (read and write)
+		[36]: any_LoadAnimation_result1_upvw_37 (read and write)
+		[37]: any_LoadAnimation_result1_upvw_30 (read and write)
+		[38]: any_LoadAnimation_result1_upvw_61 (read and write)
+		[39]: any_LoadAnimation_result1_upvw_50 (read and write)
+		[40]: any_LoadAnimation_result1_upvw_81 (read and write)
+		[41]: any_LoadAnimation_result1_upvw_51 (read and write)
+		[42]: any_LoadAnimation_result1_upvw_54 (read and write)
+		[43]: any_LoadAnimation_result1_upvw_53 (read and write)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [9] 7. Error Block 2 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [9] 7. Error Block 2 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [18] 13. Error Block 3 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [18] 13. Error Block 3 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [27] 19. Error Block 536 start (CF ANALYSIS FAILED)
+	do
+		return
+	end
+	-- KONSTANTERROR: [27] 19. Error Block 536 end (CF ANALYSIS FAILED)
+end
+function soledrag() -- Line 1084
+	--[[ Upvalues[9]:
+		[1]: Status_upvr (readonly)
+		[2]: LocalPlayer_upvr (readonly)
+		[3]: ballStatus_upvr (readonly)
+		[4]: Character_4_upvr (readonly)
+		[5]: HitboxHandler_upvr (readonly)
+		[6]: UserInputService_upvr (readonly)
+		[7]: var125_upvw (read and write)
+		[8]: SOME_upvr (readonly)
+		[9]: module_2_upvr (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 113 start (CF ANALYSIS FAILED)
+	if game.ReplicatedStorage:FindFirstChild("ActivePenalty") or game.ReplicatedStorage:FindFirstChild("Shootout") or game.ReplicatedStorage:FindFirstChild("FinalShootout") then return end
+	if Status_upvr:FindFirstChild("KickCD") then return end
+	if Status_upvr:FindFirstChild("NoKickFrame") then return end
+	if not LocalPlayer_upvr:FindFirstChild("InPlay") then return end
+	if Status_upvr:FindFirstChild("Knockdown") then return end
+	if Status_upvr:FindFirstChild("TakingPen") then return end
+	if Status_upvr:FindFirstChild("OverchargeActive") then return end
+	if Status_upvr:FindFirstChild("NoCharge") then return end
+	if Status_upvr:FindFirstChild("SlideTackleAnim") then return end
+	if Status_upvr:FindFirstChild("JustShot") then return end
+	if game.ReplicatedStorage:FindFirstChild("gameStarting") then return end
+	if game.ReplicatedStorage:FindFirstChild("EndScreen") then return end
+	if ballStatus_upvr.lastKicked.Value ~= LocalPlayer_upvr then return end
+	local Folder_29 = Instance.new("Folder")
+	Folder_29.Name = "NoCharge"
+	Folder_29.Parent = Character_4_upvr.Status
+	game.Debris:AddItem(Folder_29, 0.15)
+	reset_charge()
+	-- KONSTANTERROR: [0] 1. Error Block 113 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [501] 347. Error Block 87 start (CF ANALYSIS FAILED)
+	game:GetService("RunService").Stepped:Wait()
+	-- KONSTANTERROR: [501] 347. Error Block 87 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [149] 115. Error Block 31 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	-- KONSTANTERROR: [149] 115. Error Block 31 end (CF ANALYSIS FAILED)
+end
+local tick_result1_upvw_6 = tick()
+function powerShotOvercharge(arg1) -- Line 1223
+	--[[ Upvalues[15]:
+		[1]: tick_result1_upvw_6 (read and write)
+		[2]: Status_upvr (readonly)
+		[3]: Character_4_upvr (readonly)
+		[4]: HumanoidRootPart_upvr (readonly)
+		[5]: any_LoadAnimation_result1_upvw_6 (read and write)
+		[6]: any_LoadAnimation_result1_upvw_59 (read and write)
+		[7]: var125_upvw (read and write)
+		[8]: UserInputService_upvr (readonly)
+		[9]: any_LoadAnimation_result1_upvw_78 (read and write)
+		[10]: any_LoadAnimation_result1_upvw_85 (read and write)
+		[11]: LocalPlayer_upvr (readonly)
+		[12]: any_LoadAnimation_result1_upvw_18 (read and write)
+		[13]: any_LoadAnimation_result1_upvw_8 (read and write)
+		[14]: HitboxHandler_upvr (readonly)
+		[15]: ballStatus_upvr (readonly)
+	]]
+	-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+	-- KONSTANTERROR: [0] 1. Error Block 152 start (CF ANALYSIS FAILED)
+	local var208
+	if tick() - tick_result1_upvw_6 < 2 then return end
+	if Status_upvr:FindFirstChild("JustUsedSkill") then return end
+	if Status_upvr:FindFirstChild("NoCharge") then return end
+	if Status_upvr:FindFirstChild("NoOverCharge") then return end
+	if Status_upvr:FindFirstChild("KickDisable") then return end
+	local OverchargeTiming = Character_4_upvr.HumanoidRootPart:FindFirstChild("OverchargeTiming")
+	if not OverchargeTiming then return end
+	local Ball = game.Workspace.Temp:FindFirstChild("Ball")
+	if not Ball then return end
+	tick_result1_upvw_6 = tick()
+	local var198_upvw = 150
+	local var199
+	if 0 < Character_4_upvr.HumanoidRootPart.CFrame.RightVector:Dot((Character_4_upvr.HumanoidRootPart.Position * Vector3.new(1, 0, 1) - Ball.Position * Vector3.new(1, 0, 1)).Unit) then
+		var199 = "Left"
+	else
+		var199 = "Right"
+	end
+	reset_charge()
+	holdingm2 = false -- Setting global
+	local Character = game.Players.LocalPlayer.Character
+	for _, v_4 in pairs(Character.HumanoidRootPart:GetChildren()) do
+		if v_4:IsA("BodyVelocity") then
+			v_4:Destroy()
+		end
+	end
+	local _, _, _ = Character.HumanoidRootPart.CFrame:ToOrientation()
+	local var207_upvw = 15
+	function var208() -- Line 1271
+		--[[ Upvalues[1]:
+			[1]: var207_upvw (read and write)
+		]]
+		for _ = 1, 12 do
+			task.wait(0.03)
+			var207_upvw *= 0.96
+		end
+	end
+	task.spawn(var208)
+	var208 = HumanoidRootPart_upvr.Position
+	local _, any_ToOrientation_result2_upvw, _ = CFrame.lookAt(var208, HumanoidRootPart_upvr.CFrame * CFrame.new(0, 0, -var207_upvw).Position):ToOrientation()
+	any_ToOrientation_result2_upvw = Character.HumanoidRootPart.CFrame.lookVector
+	local function INLINED() -- Internal function, doesn't exist in bytecode
+		any_ToOrientation_result2_upvw = any_LoadAnimation_result1_upvw_6
+		return any_ToOrientation_result2_upvw
+	end
+	if var199 ~= "Left" or not INLINED() then
+		any_ToOrientation_result2_upvw = any_LoadAnimation_result1_upvw_59
+	end
+	if var125_upvw == 2 or UserInputService_upvr:IsKeyDown(Enum.KeyCode.A) then
+		any_ToOrientation_result2_upvw = any_LoadAnimation_result1_upvw_78
+		local _ = (Character.HumanoidRootPart.CFrame * CFrame.fromEulerAnglesXYZ(0, 0.7853981633974483, 0)).lookVector
+	elseif var125_upvw == 3 or UserInputService_upvr:IsKeyDown(Enum.KeyCode.D) then
+		any_ToOrientation_result2_upvw = any_LoadAnimation_result1_upvw_85
+	end
+	any_ToOrientation_result2_upvw.Priority = Enum.AnimationPriority.Action2
+	any_ToOrientation_result2_upvw:Play()
+	local BodyVelocity_upvr_5 = Instance.new("BodyVelocity")
+	BodyVelocity_upvr_5.MaxForce = Vector3.new(50000, 0, 50000)
+	BodyVelocity_upvr_5.Velocity = (Character.HumanoidRootPart.CFrame * CFrame.fromEulerAnglesXYZ(0, -0.7853981633974483, 0)).lookVector * var207_upvw
+	BodyVelocity_upvr_5.Parent = Character.HumanoidRootPart
+	game.Debris:AddItem(BodyVelocity_upvr_5, 0.433)
+	local lookVector_upvw = (Character.HumanoidRootPart.CFrame * CFrame.fromEulerAnglesXYZ(0, -0.7853981633974483, 0)).lookVector
+	local Folder_9 = Instance.new("Folder")
+	Folder_9.Name = "CameraLocked"
+	Folder_9.Parent = Character.Status
+	game.Debris:AddItem(Folder_9, 0.917)
+	local any_Connect_result1_upvr_7 = game:GetService("RunService").RenderStepped:Connect(function() -- Line 1297
+		--[[ Upvalues[5]:
+			[1]: BodyVelocity_upvr_5 (readonly)
+			[2]: lookVector_upvw (read and write)
+			[3]: var207_upvw (read and write)
+			[4]: HumanoidRootPart_upvr (copied, readonly)
+			[5]: any_ToOrientation_result2_upvw (read and write)
+		]]
+		BodyVelocity_upvr_5.Velocity = lookVector_upvw * var207_upvw
+		HumanoidRootPart_upvr.CFrame = CFrame.new(HumanoidRootPart_upvr.Position) * CFrame.Angles(0, any_ToOrientation_result2_upvw, 0)
+	end)
+	task.delay(0.433, function() -- Line 1305
+		--[[ Upvalues[1]:
+			[1]: any_Connect_result1_upvr_7 (readonly)
+		]]
+		any_Connect_result1_upvr_7:Disconnect()
+	end)
+	game.ReplicatedStorage.Remotes.PowerShot:FireServer()
+	local NumberValue = Instance.new("NumberValue")
+	NumberValue.Name = "SpeedBoost"
+	NumberValue.Parent = Character.Status
+	NumberValue.Value = 0
+	game.Debris:AddItem(NumberValue, 0.917)
+	local Folder_21 = Instance.new("Folder")
+	Folder_21.Name = "NoCharge"
+	Folder_21.Parent = Character.Status
+	game.Debris:AddItem(Folder_21, 0.917)
+	local Folder_8 = Instance.new("Folder")
+	Folder_8.Name = "OverchargeActive"
+	Folder_8.Parent = Character.Status
+	game.Debris:AddItem(Folder_8, 1.2)
+	local Folder_27 = Instance.new("Folder")
+	Folder_27.Name = "FOVOverride"
+	Folder_27.Parent = Character.Status
+	game.Debris:AddItem(Folder_27, 0.917)
+	game.ReplicatedStorage.Remotes.SetCollisionGroup:FireServer(0.917, "NoCharCollide")
+	OverchargeTiming = OverchargeTiming.OverchargeUI.TimingBar
+	local var224_upvw = OverchargeTiming
+	if (game.Workspace.CurrentCamera.CameraSubject.Position - game.Workspace.CurrentCamera.CFrame.Position).Magnitude < 1 then
+		var224_upvw = LocalPlayer_upvr.PlayerGui.FirstPersonChargeBar.TimingBar
+	end
+	if not game.Players.LocalPlayer:GetAttribute("Freecam") then
+		game:GetService("TweenService"):Create(game.Workspace.CurrentCamera, TweenInfo.new(0.45, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+			FieldOfView = 52;
+		}):Play()
+		game:GetService("TweenService"):Create(NumberValue, TweenInfo.new(0.45, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+			Value = -18;
+		}):Play()
+		task.delay(0.45, function() -- Line 1339
+			game:GetService("TweenService"):Create(game.Workspace.CurrentCamera, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+				FieldOfView = 70;
+			}):Play()
+		end)
+	end
+	var224_upvw.Bar.Position = UDim2.new(0, 0, 0.5, 0)
+	game:GetService("TweenService"):Create(var224_upvw, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		BackgroundTransparency = 0.5;
+	}):Play()
+	game:GetService("TweenService"):Create(var224_upvw.Bar, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		BackgroundTransparency = 0;
+	}):Play()
+	game:GetService("TweenService"):Create(var224_upvw.COLOR, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		BackgroundTransparency = 0;
+	}):Play()
+	local any_Create_result1_upvr = game:GetService("TweenService"):Create(var224_upvw.Bar, TweenInfo.new(0.725, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {
+		Position = UDim2.new(1, 0, 0.5, 0);
+	})
+	any_Create_result1_upvr:Play()
+	local var234_upvw = false
+	local var236_upvw
+	var236_upvw = UserInputService_upvr.InputEnded:Connect(function(arg1_2) -- Line 1360
+		--[[ Upvalues[5]:
+			[1]: var224_upvw (read and write)
+			[2]: var234_upvw (read and write)
+			[3]: var198_upvw (read and write)
+			[4]: var236_upvw (read and write)
+			[5]: any_Create_result1_upvr (readonly)
+		]]
+		if arg1_2.UserInputType == Enum.UserInputType.MouseButton2 or arg1_2.KeyCode == Enum.KeyCode.ButtonR1 or arg1_2.UserInputType == Enum.UserInputType.MouseButton1 then
+			if 0.45 <= var224_upvw.Bar.Position.X.Scale and var224_upvw.Bar.Position.X.Scale <= 0.55 then
+				local clone_6 = game.ReplicatedStorage.UISounds.ui_achieve:Clone()
+				clone_6.Parent = game.Workspace
+				clone_6:Play()
+				game.Debris:AddItem(clone_6, 3)
+				var234_upvw = true
+				var198_upvw = 162.5
+			else
+				local clone_11 = game.ReplicatedStorage.UISounds["ui-error3"]:Clone()
+				clone_11.Parent = game.Workspace
+				clone_11:Play()
+				game.Debris:AddItem(clone_11, 3)
+			end
+			var236_upvw:Disconnect()
+			any_Create_result1_upvr:Pause()
+		end
+	end)
+	local var239_upvw = var236_upvw
+	local function _() -- Line 1379
+		--[[ Upvalues[5]:
+			[1]: var224_upvw (read and write)
+			[2]: var234_upvw (read and write)
+			[3]: var198_upvw (read and write)
+			[4]: var239_upvw (read and write)
+			[5]: any_Create_result1_upvr (readonly)
+		]]
+		if 0.45 <= var224_upvw.Bar.Position.X.Scale and var224_upvw.Bar.Position.X.Scale <= 0.55 then
+			local clone = game.ReplicatedStorage.UISounds.ui_achieve:Clone()
+			clone.Parent = game.Workspace
+			clone:Play()
+			game.Debris:AddItem(clone, 3)
+			var234_upvw = true
+			var198_upvw = 162.5
+		else
+			local clone_5 = game.ReplicatedStorage.UISounds["ui-error3"]:Clone()
+			clone_5.Parent = game.Workspace
+			clone_5:Play()
+			game.Debris:AddItem(clone_5, 3)
+		end
+		var239_upvw:Disconnect()
+		any_Create_result1_upvr:Pause()
+	end
+	task.delay(0.8, function() -- Line 1396
+		--[[ Upvalues[3]:
+			[1]: var239_upvw (read and write)
+			[2]: any_Create_result1_upvr (readonly)
+			[3]: var224_upvw (read and write)
+		]]
+		var239_upvw:Disconnect()
+		any_Create_result1_upvr:Cancel()
+		game:GetService("TweenService"):Create(var224_upvw, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			BackgroundTransparency = 1;
+		}):Play()
+		game:GetService("TweenService"):Create(var224_upvw.Bar, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			BackgroundTransparency = 1;
+		}):Play()
+		game:GetService("TweenService"):Create(var224_upvw.COLOR, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			BackgroundTransparency = 1;
+		}):Play()
+	end)
+	local var247_upvw = false
+	task.wait(0.4)
+	Status_upvr.ChildAdded:Connect(function(arg1_3) -- Line 1410
+		--[[ Upvalues[3]:
+			[1]: var247_upvw (read and write)
+			[2]: any_LoadAnimation_result1_upvw_18 (copied, read and write)
+			[3]: any_LoadAnimation_result1_upvw_8 (copied, read and write)
+		]]
+		if arg1_3.Name == "Knockdown" or arg1_3.Name == "JustUsedSkill" then
+			var247_upvw = true
+			any_LoadAnimation_result1_upvw_18:Stop()
+			any_LoadAnimation_result1_upvw_8:Stop()
+		end
+	end):Disconnect()
+	if var247_upvw == true then return end
+	local var249 = workspace.CurrentCamera.CFrame.lookVector * var198_upvw
+	if var234_upvw == false then
+		var249 += Vector3.new(math.random(-3, 3), math.random(-3, 3), math.random(-3, 3))
+	end
+	local any_Dot_result1_2 = Character_4_upvr.HumanoidRootPart.CFrame.LookVector:Dot((Character_4_upvr.HumanoidRootPart.CFrame.LookVector * Vector3.new(1, 0, 1) - var249.Unit * Vector3.new(1, 0, 1)).Unit)
+	if 0.3 < any_Dot_result1_2 or any_Dot_result1_2 < -0.3 then
+	end
+	local var251
+	if 50 < (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * var198_upvw).Y then
+		var251 = Vector3.new(var251.X, 50, var251.Z)
+	elseif var251.Y < 0 then
+		var251 = Vector3.new(var251.X, 0, var251.Z)
+	end
+	if 50 <= var251.Y then
+		-- KONSTANTWARNING: GOTO [928] #634
+	end
+	if 40 <= Vector3.new(var251.X * 0.75, var251.Y, var251.Z * 0.75).Y then
+		-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x3)
+		-- KONSTANTWARNING: GOTO [928] #634
+	end
+	-- KONSTANTERROR: [0] 1. Error Block 152 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [877] 599. Error Block 135 start (CF ANALYSIS FAILED)
+	if 30 <= Vector3.new(Vector3.new(var251.X * 0.75, var251.Y, var251.Z * 0.75).X * 0.825, Vector3.new(var251.X * 0.75, var251.Y, var251.Z * 0.75).Y, Vector3.new(var251.X * 0.75, var251.Y, var251.Z * 0.75).Z * 0.825).Y then
+		-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x3)
+		-- KONSTANTWARNING: GOTO [928] #634
+	end
+	-- KONSTANTERROR: [877] 599. Error Block 135 end (CF ANALYSIS FAILED)
+end
+function reset_charge() -- Line 1497
+	--[[ Upvalues[4]:
+		[1]: var119_upvw (read and write)
+		[2]: var121_upvw (read and write)
+		[3]: var123_upvw (read and write)
+		[4]: var124_upvw (read and write)
+	]]
+	var119_upvw = 0
+	var121_upvw = 0
+	var123_upvw = 0
+	var124_upvw = 0
+end
+function sideKick(arg1) -- Line 1504
+	--[[ Upvalues[15]:
+		[1]: Status_upvr (readonly)
+		[2]: LocalPlayer_upvr (readonly)
+		[3]: var123_upvw (read and write)
+		[4]: var124_upvw (read and write)
+		[5]: ballStatus_upvr (readonly)
+		[6]: Character_4_upvr (readonly)
+		[7]: any_LoadAnimation_result1_upvw_52 (read and write)
+		[8]: any_LoadAnimation_result1_upvw_24 (read and write)
+		[9]: HitboxHandler_upvr (readonly)
+		[10]: any_LoadAnimation_result1_upvw_32 (read and write)
+		[11]: any_LoadAnimation_result1_upvw_34 (read and write)
+		[12]: HumanoidRootPart_upvr (readonly)
+		[13]: var126_upvw (read and write)
+		[14]: var120_upvw (read and write)
+		[15]: any_LoadAnimation_result1_upvw_73 (read and write)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 175 start (CF ANALYSIS FAILED)
+	if game.ReplicatedStorage:FindFirstChild("ActivePenalty") or game.ReplicatedStorage:FindFirstChild("Shootout") or game.ReplicatedStorage:FindFirstChild("FinalShootout") then return end
+	-- KONSTANTERROR: [0] 1. Error Block 175 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [34] 25. Error Block 7 start (CF ANALYSIS FAILED)
+	do
+		return
+	end
+	-- KONSTANTERROR: [34] 25. Error Block 7 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [35] 26. Error Block 229 start (CF ANALYSIS FAILED)
+	if Status_upvr:FindFirstChild("NoKickFrame") then return end
+	if not LocalPlayer_upvr:FindFirstChild("InPlay") then return end
+	if Status_upvr:FindFirstChild("Knockdown") then return end
+	if Status_upvr:FindFirstChild("OverchargeActive") then return end
+	if Status_upvr:FindFirstChild("NoCharge") then return end
+	if Status_upvr:FindFirstChild("TakingPen") then return end
+	if Status_upvr:FindFirstChild("SlideTackleAnim") then return end
+	if game.ReplicatedStorage:FindFirstChild("gameStarting") then return end
+	if game.ReplicatedStorage:FindFirstChild("EndScreen") then return end
+	if Status_upvr:FindFirstChild("spaceCheck") == nil then
+	else
+	end
+	-- KONSTANTERROR: [35] 26. Error Block 229 end (CF ANALYSIS FAILED)
+end
+function gkKickFunction(arg1) -- Line 1786
+	--[[ Upvalues[11]:
+		[1]: var131_upvw (read and write)
+		[2]: LocalPlayer_upvr (readonly)
+		[3]: Status_upvr (readonly)
+		[4]: var121_upvw (read and write)
+		[5]: var119_upvw (read and write)
+		[6]: Character_4_upvr (readonly)
+		[7]: any_LoadAnimation_result1_upvw_86 (read and write)
+		[8]: any_LoadAnimation_result1_upvw_20 (read and write)
+		[9]: any_LoadAnimation_result1_upvw_57 (read and write)
+		[10]: HitboxHandler_upvr (readonly)
+		[11]: any_LoadAnimation_result1_upvw_5 (read and write)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 51 start (CF ANALYSIS FAILED)
+	local var252
+	if var252 == true then return end
+	var252 = LocalPlayer_upvr.SelectedPosition.Value
+	if var252 ~= "GK" then return end
+	var252 = LocalPlayer_upvr:FindFirstChild("InPlay")
+	if not var252 then return end
+	var252 = Status_upvr:FindFirstChild("Knockdown")
+	if var252 then return end
+	local function INLINED_2() -- Internal function, doesn't exist in bytecode
+		var252 = var121_upvw
+		return var252
+	end
+	if arg1 ~= true or not INLINED_2() then
+		var252 = var119_upvw
+	end
+	-- KONSTANTERROR: [0] 1. Error Block 51 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [37] 30. Error Block 73 start (CF ANALYSIS FAILED)
+	if var252 == 0 then return end
+	local var253
+	if arg1 == false then
+		if 50 < var252 then
+			game.ReplicatedStorage.Remotes.GKDrop:FireServer(Character_4_upvr.HumanoidRootPart.CFrame, true)
+			any_LoadAnimation_result1_upvw_86:Play(0, 1)
+			local var254_upvw = 10
+			local var255_upvw = -20
+			local BodyVelocity_upvr_2 = Instance.new("BodyVelocity")
+			BodyVelocity_upvr_2.MaxForce = Vector3.new(50000, 0, 50000)
+			BodyVelocity_upvr_2.Velocity = Character_4_upvr.HumanoidRootPart.CFrame.lookVector * var254_upvw + Character_4_upvr.HumanoidRootPart.CFrame.rightVector * var255_upvw
+			BodyVelocity_upvr_2.Parent = Character_4_upvr.HumanoidRootPart
+			game.Debris:AddItem(BodyVelocity_upvr_2, 0.4)
+			local any_Connect_result1_upvr_8 = game:GetService("RunService").RenderStepped:Connect(function() -- Line 1818
+				--[[ Upvalues[4]:
+					[1]: BodyVelocity_upvr_2 (readonly)
+					[2]: Character_4_upvr (copied, readonly)
+					[3]: var254_upvw (read and write)
+					[4]: var255_upvw (read and write)
+				]]
+				BodyVelocity_upvr_2.Velocity = Character_4_upvr.HumanoidRootPart.CFrame.lookVector * var254_upvw + Character_4_upvr.HumanoidRootPart.CFrame.rightVector * var255_upvw
+			end)
+			task.delay(0.4, function() -- Line 1821
+				--[[ Upvalues[1]:
+					[1]: any_Connect_result1_upvr_8 (readonly)
+				]]
+				any_Connect_result1_upvr_8:Disconnect()
+			end)
+			task.spawn(function() -- Line 1824
+				--[[ Upvalues[2]:
+					[1]: var254_upvw (read and write)
+					[2]: var255_upvw (read and write)
+				]]
+				for _ = 1, 13 do
+					task.wait(0.03)
+					var254_upvw *= 0.975
+					var255_upvw *= 0.975
+				end
+			end)
+			task.wait(0.35)
+		else
+			game.ReplicatedStorage.Remotes.GKDrop:FireServer(Character_4_upvr.HumanoidRootPart.CFrame, false)
+			any_LoadAnimation_result1_upvw_20:Play(0, 1)
+			task.wait(0.3)
+		end
+		if 82 < (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Y then
+			-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x2)
+		elseif Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).Y < 35 then
+			-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x2)
+		end
+		if 72.5 <= Vector3.new(Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).X, 35, Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).Z).Y then
+			-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x3)
+		elseif 60 <= Vector3.new(Vector3.new(Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).X, 35, Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).Z).X * 0.75, Vector3.new(Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).X, 35, Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).Z).Y, Vector3.new(Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).X, 35, Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).Z).Z * 0.75).Y then
+			-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x3)
+		elseif 47.5 <= Vector3.new(Vector3.new(Vector3.new(Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).X, 35, Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).Z).X * 0.75, Vector3.new(Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).X, 35, Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).Z).Y, Vector3.new(Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).X, 35, Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).Z).Z * 0.75).X * 0.825, Vector3.new(Vector3.new(Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).X, 35, Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).Z).X * 0.75, Vector3.new(Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).X, 35, Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).Z).Y, Vector3.new(Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).X, 35, Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).Z).Z * 0.75).Y, Vector3.new(Vector3.new(Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).X, 35, Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).Z).X * 0.75, Vector3.new(Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).X, 35, Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).Z).Y, Vector3.new(Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).X, 35, Vector3.new((Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).X, 82, (Vector3.new(Character_4_upvr.HumanoidRootPart.CFrame.lookVector.X, workspace.CurrentCamera.CFrame.lookVector.Y * 1, Character_4_upvr.HumanoidRootPart.CFrame.lookVector.Z) * (17.5 + var252 * 1.6)).Z).Z).Z * 0.75).Z * 0.825).Y then
+			-- KONSTANTERROR: Expression was reused, decompilation is incorrect (x3)
+			-- KONSTANTWARNING: GOTO [325] #227
+		end
+	elseif arg1 == true then
+		any_LoadAnimation_result1_upvw_57:Play(0, 1)
+		task.wait(0.275)
+	end
+	-- KONSTANTERROR: [37] 30. Error Block 73 end (CF ANALYSIS FAILED)
+end
+local var262_upvw = false
+function slideTackle(arg1) -- Line 1880
+	--[[ Upvalues[10]:
+		[1]: var262_upvw (read and write)
+		[2]: LocalPlayer_upvr (readonly)
+		[3]: Status_upvr (readonly)
+		[4]: var120_upvw (read and write)
+		[5]: any_LoadAnimation_result1_upvw_4 (read and write)
+		[6]: any_LoadAnimation_result1_upvw_49 (read and write)
+		[7]: any_LoadAnimation_result1_upvw_77 (read and write)
+		[8]: ballStatus_upvr (readonly)
+		[9]: HumanoidRootPart_upvr (readonly)
+		[10]: HitboxHandler_upvr (readonly)
+	]]
+	if arg1 == true then
+		var262_upvw = false
+	end
+	if LocalPlayer_upvr.SelectedPosition.Value == "GK" and Status_upvr:FindFirstChild("InBox") then
+	else
+		if not LocalPlayer_upvr:FindFirstChild("InPlay") then return end
+		if Status_upvr:FindFirstChild("Knockdown") then return end
+		if Status_upvr:FindFirstChild("NoTackle") then return end
+		if Status_upvr:FindFirstChild("KickDisable") and not Status_upvr:FindFirstChild("ManMarkActive") then return end
+		if not Status_upvr:FindFirstChild("ManMarkActive") and Status_upvr:FindFirstChild("NoCharge") then return end
+		if Status_upvr:FindFirstChild("spaceCheck") and arg1 ~= true then return end
+		if var262_upvw == true and not arg1 then return end
+		if Status_upvr:FindFirstChild("NoMovement") then return end
+		if game.ReplicatedStorage:FindFirstChild("Shootout") or game.ReplicatedStorage:FindFirstChild("FinalShootout") or game.ReplicatedStorage:FindFirstChild("ActivePenalty") then return end
+		if game.ReplicatedStorage:FindFirstChild("gameStarting") or game.ReplicatedStorage:FindFirstChild("playResetting") then return end
+		if game.ReplicatedStorage:FindFirstChild("EndScreen") then return end
+		local Ball_2_upvr = game.Workspace.Temp:FindFirstChild("Ball")
+		local var268_upvw = "Left"
+		if Ball_2_upvr then
+			if 0 < game.Workspace.CurrentCamera.CFrame.RightVector:Dot((game.Workspace.CurrentCamera.CFrame.Position * Vector3.new(1, 0, 1) - Ball_2_upvr.Position * Vector3.new(1, 0, 1)).Unit) then
+				var268_upvw = "Left"
+			else
+				var268_upvw = "Right"
+			end
+		end
+		var262_upvw = true
+		task.delay(6, function() -- Line 1935
+			--[[ Upvalues[1]:
+				[1]: var262_upvw (copied, read and write)
+			]]
+			var262_upvw = false
+		end)
+		game.ReplicatedStorage.Remotes.SlideFX:FireServer()
+		local Character_5_upvr = game.Players.LocalPlayer.Character
+		for i_20_upvw, v_16 in pairs(Character_5_upvr.HumanoidRootPart:GetChildren()) do
+			if v_16:IsA("BodyVelocity") then
+				v_16:Destroy()
+			end
+		end
+		if var120_upvw == 13.125 then
+		else
+			i_20_upvw = 9
+			if i_20_upvw <= var120_upvw then
+			else
+				i_20_upvw = 6
+				if i_20_upvw <= var120_upvw then
+				else
+					i_20_upvw = 3
+					if i_20_upvw <= var120_upvw then
+					end
+				end
+			end
+		end
+		local var274_upvw = 47.5 - 15
+		local var275_upvw = false
+		i_20_upvw = nil
+		v_16 = Character_5_upvr.HumanoidRootPart.CFrame.lookVector
+		local var276
+		if var276 then
+			var268_upvw = "BT"
+			var275_upvw = true
+			var274_upvw = 62.5
+			i_20_upvw = any_LoadAnimation_result1_upvw_4
+			var276 = i_20_upvw:Play
+			var276(0, 1)
+			var276 = Instance.new("Folder")
+			var276.Name = "CameraLocked"
+			var276.Parent = Character_5_upvr.Status
+			game.Debris:AddItem(var276, 1.25)
+			local Folder_20 = Instance.new("Folder")
+			Folder_20.Name = "NoJump"
+			Folder_20.Parent = Character_5_upvr.Status
+			game.Debris:AddItem(Folder_20, 1.25)
+			local Folder_12 = Instance.new("Folder")
+			Folder_12.Name = "NoCharge"
+			Folder_12.Parent = Character_5_upvr.Status
+			game.Debris:AddItem(Folder_12, 1.25)
+			local Folder_15 = Instance.new("Folder")
+			Folder_15.Name = "Knockdown"
+			Folder_15.Parent = Character_5_upvr.Status
+			game.Debris:AddItem(Folder_15, 1.25)
+		else
+			local function INLINED_3() -- Internal function, doesn't exist in bytecode
+				var276 = -Character_5_upvr.HumanoidRootPart.CFrame.rightVector
+				return var276
+			end
+			if var268_upvw ~= "Left" or not INLINED_3() then
+				var276 = Character_5_upvr.HumanoidRootPart.CFrame.rightVector
+			end
+			v_16 = var276
+			local function INLINED_4() -- Internal function, doesn't exist in bytecode
+				var276 = any_LoadAnimation_result1_upvw_49
+				return var276
+			end
+			if var268_upvw ~= "Left" or not INLINED_4() then
+				var276 = any_LoadAnimation_result1_upvw_77
+			end
+			i_20_upvw = var276
+			var276 = i_20_upvw:Play
+			var276(0, 1)
+			var276 = Instance.new("Folder")
+			var276.Name = "CameraLocked"
+			var276.Parent = Character_5_upvr.Status
+			game.Debris:AddItem(var276, 0.55)
+			local Folder_3 = Instance.new("Folder")
+			Folder_3.Name = "NoJump"
+			Folder_3.Parent = Character_5_upvr.Status
+			game.Debris:AddItem(Folder_3, 0.55)
+			local Folder_7 = Instance.new("Folder")
+			Folder_7.Name = "NoCharge"
+			Folder_7.Parent = Character_5_upvr.Status
+			game.Debris:AddItem(Folder_7, 0.55)
+		end
+		local _, any_ToOrientation_result2_upvr_4, _ = Character_5_upvr.HumanoidRootPart.CFrame:ToOrientation()
+		game.ReplicatedStorage.Remotes.SetCollisionGroup:FireServer(1.25, "NoCharCollide")
+		local Folder_22 = Instance.new("Folder")
+		Folder_22.Name = "SlideTackleActive"
+		Folder_22.Parent = Character_5_upvr.Status
+		game.Debris:AddItem(Folder_22, 1.2)
+		local Folder_2 = Instance.new("Folder")
+		Folder_2.Name = "SlideTackleAnim"
+		Folder_2.Parent = Character_5_upvr.Status
+		game.Debris:AddItem(Folder_2, 0.65)
+		local BodyVelocity_upvr_3 = Instance.new("BodyVelocity")
+		BodyVelocity_upvr_3.MaxForce = Vector3.new(50000, 0, 50000)
+		BodyVelocity_upvr_3.Velocity = Character_5_upvr.HumanoidRootPart.CFrame.lookVector * var274_upvw
+		BodyVelocity_upvr_3.Parent = Character_5_upvr.HumanoidRootPart
+		game.Debris:AddItem(BodyVelocity_upvr_3, 0.55)
+		game:GetService("TweenService"):Create(BodyVelocity_upvr_3, TweenInfo.new(0.55, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+			Velocity = Character_5_upvr.HumanoidRootPart.CFrame.lookVector * 12;
+		}):Play()
+		local var289_upvw = false
+		local var290 = 60
+		if var275_upvw then
+			var290 = 100
+		end
+		local var291_upvw
+		local var293_upvw
+		var293_upvw = Character_5_upvr["Left Leg"].Touched:Connect(function(arg1_4) -- Line 2030
+			--[[ Upvalues[4]:
+				[1]: Character_5_upvr (readonly)
+				[2]: var291_upvw (read and write)
+				[3]: var293_upvw (read and write)
+				[4]: var289_upvw (read and write)
+			]]
+			if not arg1_4:IsDescendantOf(Character_5_upvr) and arg1_4:IsDescendantOf(game.Workspace.CharacterContainer) and (arg1_4.Name == "Right Leg" or arg1_4.Name == "Left Leg") then
+				var291_upvw:Disconnect()
+				var293_upvw:Disconnect()
+				var289_upvw = true
+			end
+		end)
+		local var294_upvw = var293_upvw
+		var291_upvw = Character_5_upvr["Right Leg"].Touched:Connect(function(arg1_5) -- Line 2039
+			--[[ Upvalues[4]:
+				[1]: Character_5_upvr (readonly)
+				[2]: var291_upvw (read and write)
+				[3]: var294_upvw (read and write)
+				[4]: var289_upvw (read and write)
+			]]
+			if not arg1_5:IsDescendantOf(Character_5_upvr) and arg1_5:IsDescendantOf(game.Workspace.CharacterContainer) and (arg1_5.Name == "Right Leg" or arg1_5.Name == "Left Leg") then
+				var291_upvw:Disconnect()
+				var294_upvw:Disconnect()
+				var289_upvw = true
+			end
+		end)
+		task.delay(1, function() -- Line 2049
+			--[[ Upvalues[2]:
+				[1]: var291_upvw (read and write)
+				[2]: var294_upvw (read and write)
+			]]
+			var291_upvw:Disconnect()
+			var294_upvw:Disconnect()
+		end)
+		local RaycastParams_new_result1_2_upvr = RaycastParams.new()
+		RaycastParams_new_result1_2_upvr.RespectCanCollide = false
+		RaycastParams_new_result1_2_upvr.FilterType = Enum.RaycastFilterType.Include
+		local tbl_3 = {}
+		if ballStatus_upvr.lastKicked.Value == nil or not ballStatus_upvr.lastKicked.Value.Character then
+		end
+		tbl_3[1] = game.Workspace.CharacterContainer
+		RaycastParams_new_result1_2_upvr.FilterDescendantsInstances = tbl_3
+		local var300_upvw
+		var300_upvw = game:GetService("RunService").RenderStepped:Connect(function(arg1_6) -- Line 2057
+			--[[ Upvalues[9]:
+				[1]: Status_upvr (copied, readonly)
+				[2]: BodyVelocity_upvr_3 (readonly)
+				[3]: var300_upvw (read and write)
+				[4]: var274_upvw (read and write)
+				[5]: Ball_2_upvr (readonly)
+				[6]: Character_5_upvr (readonly)
+				[7]: RaycastParams_new_result1_2_upvr (readonly)
+				[8]: ballStatus_upvr (copied, readonly)
+				[9]: var289_upvw (read and write)
+			]]
+			if Status_upvr:FindFirstChild("NoTackle") then
+				BodyVelocity_upvr_3:Destroy()
+				var300_upvw:Disconnect()
+			end
+			var274_upvw *= 58.5 * arg1_6
+			if Ball_2_upvr then
+				local Position_4 = (Character_5_upvr.HumanoidRootPart.CFrame * CFrame.new(0, -2, -2)).Position
+				local workspace_Spherecast_result1 = workspace:Spherecast(Position_4, 1.6, (CFrame.new(Position_4, Ball_2_upvr.Position).LookVector) * ((Position_4 - Ball_2_upvr.Position).Magnitude / 2), RaycastParams_new_result1_2_upvr)
+				if workspace_Spherecast_result1 and ballStatus_upvr.lastKicked.Value ~= nil and workspace_Spherecast_result1.Instance.Parent == ballStatus_upvr.lastKicked.Value.Character then
+					var289_upvw = true
+				end
+			end
+		end)
+		if var275_upvw == true then
+			var268_upvw = "BT"
+			var300_upvw:Disconnect()
+			local var306_upvr = v_16 * var290 + Vector3.new(math.random(-10, 10), math.random(-10, 10), math.random(-10, 10))
+			local tick_result1_upvr_2 = tick()
+			local any_Connect_result1_upvw = game:GetService("RunService").RenderStepped:Connect(function(arg1_7) -- Line 2081
+				--[[ Upvalues[11]:
+					[1]: var274_upvw (read and write)
+					[2]: HumanoidRootPart_upvr (copied, readonly)
+					[3]: any_ToOrientation_result2_upvr_4 (readonly)
+					[4]: HitboxHandler_upvr (copied, readonly)
+					[5]: Character_5_upvr (readonly)
+					[6]: RaycastParams_new_result1_2_upvr (readonly)
+					[7]: ballStatus_upvr (copied, readonly)
+					[8]: var289_upvw (read and write)
+					[9]: var306_upvr (readonly)
+					[10]: tick_result1_upvr_2 (readonly)
+					[11]: var268_upvw (read and write)
+				]]
+				var274_upvw *= 58.5 * arg1_7
+				HumanoidRootPart_upvr.CFrame = CFrame.new(HumanoidRootPart_upvr.Position) * CFrame.Angles(0, any_ToOrientation_result2_upvr_4, 0)
+				local any_Create_result1 = HitboxHandler_upvr.Create({
+					cframe = Character_5_upvr.HumanoidRootPart.CFrame * CFrame.new(0, -2, -2.5);
+					size = Vector3.new(3.5, 5, 5);
+				})
+				local var310
+				if any_Create_result1 then
+					var310 = Character_5_upvr.HumanoidRootPart.CFrame * CFrame.new(0, -2, 0)
+					local Position = var310.Position
+					var310 = 2.4
+					if controlledSprinting then
+						var310 = 3
+					end
+					local workspace_Spherecast_result1_4 = workspace:Spherecast(Position, var310, CFrame.new(Position, Position + Character_5_upvr.HumanoidRootPart.CFrame.lookVector).LookVector * 12, RaycastParams_new_result1_2_upvr)
+					if workspace_Spherecast_result1_4 and ballStatus_upvr.lastKicked.Value ~= nil and workspace_Spherecast_result1_4.Instance.Parent == ballStatus_upvr.lastKicked.Value.Character then
+						var289_upvw = true
+					end
+					game.ReplicatedStorage.Remotes.SlideTackleHit:FireServer(any_Create_result1, var306_upvr, tick() - tick_result1_upvr_2, var289_upvw, var268_upvw, Position)
+				end
+			end)
+			task.delay(0.45, function() -- Line 2104
+				--[[ Upvalues[1]:
+					[1]: any_Connect_result1_upvw (read and write)
+				]]
+				any_Connect_result1_upvw:Disconnect()
+			end)
+		else
+			tick_result1_upvr_2 = task.delay
+			tick_result1_upvr_2(0.175, function() -- Line 2108
+				--[[ Upvalues[13]:
+					[1]: var300_upvw (read and write)
+					[2]: var268_upvw (read and write)
+					[3]: Status_upvr (copied, readonly)
+					[4]: BodyVelocity_upvr_3 (readonly)
+					[5]: var274_upvw (read and write)
+					[6]: HumanoidRootPart_upvr (copied, readonly)
+					[7]: any_ToOrientation_result2_upvr_4 (readonly)
+					[8]: HitboxHandler_upvr (copied, readonly)
+					[9]: Character_5_upvr (readonly)
+					[10]: RaycastParams_new_result1_2_upvr (readonly)
+					[11]: ballStatus_upvr (copied, readonly)
+					[12]: var289_upvw (read and write)
+					[13]: var306_upvr (readonly)
+				]]
+				var300_upvw:Disconnect()
+				local var316_upvw = 0
+				if var268_upvw == "Left" then
+					var316_upvw = -1
+				elseif var268_upvw == "Right" then
+					var316_upvw = 1
+				end
+				local var318_upvw
+				local tick_result1_upvr = tick()
+				var318_upvw = game:GetService("RunService").RenderStepped:Connect(function(arg1_8) -- Line 2119
+					--[[ Upvalues[15]:
+						[1]: Status_upvr (copied, readonly)
+						[2]: BodyVelocity_upvr_3 (copied, readonly)
+						[3]: var318_upvw (read and write)
+						[4]: var274_upvw (copied, read and write)
+						[5]: HumanoidRootPart_upvr (copied, readonly)
+						[6]: any_ToOrientation_result2_upvr_4 (copied, readonly)
+						[7]: HitboxHandler_upvr (copied, readonly)
+						[8]: Character_5_upvr (copied, readonly)
+						[9]: var316_upvw (read and write)
+						[10]: RaycastParams_new_result1_2_upvr (copied, readonly)
+						[11]: ballStatus_upvr (copied, readonly)
+						[12]: var289_upvw (copied, read and write)
+						[13]: var306_upvr (copied, readonly)
+						[14]: tick_result1_upvr (readonly)
+						[15]: var268_upvw (copied, read and write)
+					]]
+					if Status_upvr:FindFirstChild("NoTackle") then
+						BodyVelocity_upvr_3:Destroy()
+						var318_upvw:Disconnect()
+					end
+					var274_upvw *= 58.5 * arg1_8
+					HumanoidRootPart_upvr.CFrame = CFrame.new(HumanoidRootPart_upvr.Position) * CFrame.Angles(0, any_ToOrientation_result2_upvr_4, 0)
+					local any_Create_result1_2 = HitboxHandler_upvr.Create({
+						cframe = Character_5_upvr.HumanoidRootPart.CFrame * CFrame.new(var316_upvw, -2, -1.75);
+						size = Vector3.new(4, 5, 6.25);
+					})
+					local var322
+					if any_Create_result1_2 then
+						var322 = Character_5_upvr.HumanoidRootPart.CFrame * CFrame.new(0, -2, 0)
+						local Position_3 = var322.Position
+						var322 = 1.6
+						if controlledSprinting then
+							var322 = 3
+						end
+						local workspace_Spherecast_result1_3 = workspace:Spherecast(Position_3, var322, CFrame.new(Position_3, Position_3 + Character_5_upvr.HumanoidRootPart.CFrame.lookVector).LookVector * 12, RaycastParams_new_result1_2_upvr)
+						if workspace_Spherecast_result1_3 and ballStatus_upvr.lastKicked.Value ~= nil and workspace_Spherecast_result1_3.Instance.Parent == ballStatus_upvr.lastKicked.Value.Character then
+							var289_upvw = true
+						end
+						game.ReplicatedStorage.Remotes.SlideTackleHit:FireServer(any_Create_result1_2, var306_upvr, tick() - tick_result1_upvr, var289_upvw, var268_upvw, Position_3)
+					end
+				end)
+				task.delay(0.225, function() -- Line 2145
+					--[[ Upvalues[1]:
+						[1]: var318_upvw (read and write)
+					]]
+					var318_upvw:Disconnect()
+				end)
+			end)
+		end
+		if ballStatus_upvr.lastKicked.Value ~= LocalPlayer_upvr then
+			tick_result1_upvr_2 = false
+		else
+			tick_result1_upvr_2 = true
+		end
+		task.delay(0.65, function() -- Line 2151
+			--[[ Upvalues[8]:
+				[1]: arg1 (readonly)
+				[2]: var275_upvw (read and write)
+				[3]: Status_upvr (copied, readonly)
+				[4]: ballStatus_upvr (copied, readonly)
+				[5]: LocalPlayer_upvr (copied, readonly)
+				[6]: tick_result1_upvr_2 (readonly)
+				[7]: Character_5_upvr (readonly)
+				[8]: i_20_upvw (read and write)
+			]]
+			if not arg1 and not var275_upvw then
+				if not Status_upvr:FindFirstChild("HasHitSlideTackle") or ballStatus_upvr.lastKicked.Value ~= LocalPlayer_upvr or tick_result1_upvr_2 then
+					if not Status_upvr:FindFirstChild("HasHitSlideTackle") and not tick_result1_upvr_2 then
+						game.ReplicatedStorage.Remotes.SlideTackleMiss:FireServer()
+					end
+					local Folder_5 = Instance.new("Folder")
+					Folder_5.Name = "CameraLocked"
+					Folder_5.Parent = Character_5_upvr.Status
+					game.Debris:AddItem(Folder_5, 0.6)
+					local Folder_26 = Instance.new("Folder")
+					Folder_26.Name = "NoJump"
+					Folder_26.Parent = Character_5_upvr.Status
+					game.Debris:AddItem(Folder_26, 0.6)
+					local Folder_4 = Instance.new("Folder")
+					Folder_4.Name = "Knockdown"
+					Folder_4.Parent = Character_5_upvr.Status
+					game.Debris:AddItem(Folder_4, 0.6)
+					local Folder_19 = Instance.new("Folder")
+					Folder_19.Name = "NoCharge"
+					Folder_19.Parent = Character_5_upvr.Status
+					game.Debris:AddItem(Folder_19, 0.6)
+					return
+				end
+				i_20_upvw:Stop()
+			end
+		end)
+	end
+end
+Status_upvr.ChildRemoved:Connect(function(arg1) -- Line 2181
+	if arg1.Name == "ManMarkTackleCheck" then
+		slideTackle(true)
+	end
+end)
+local var332_upvw = false
+function shove() -- Line 2189
+	--[[ Upvalues[8]:
+		[1]: LocalPlayer_upvr (readonly)
+		[2]: Status_upvr (readonly)
+		[3]: var332_upvw (read and write)
+		[4]: ballStatus_upvr (readonly)
+		[5]: HitboxHandlerPlayers_upvr (readonly)
+		[6]: Character_4_upvr (readonly)
+		[7]: any_LoadAnimation_result1_upvw_21 (read and write)
+		[8]: any_LoadAnimation_result1_upvw_36 (read and write)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 63 start (CF ANALYSIS FAILED)
+	local var339
+	if var339 == "GK" then
+		var339 = Status_upvr:FindFirstChild("InBox")
+		if var339 then return end
+	end
+	var339 = Status_upvr:FindFirstChild("Knockdown")
+	if var339 then return end
+	var339 = LocalPlayer_upvr:FindFirstChild("InPlay")
+	if not var339 then return end
+	var339 = var332_upvw
+	if var339 == true then return end
+	if Status_upvr:FindFirstChild("Walled") == nil then
+		var339 = false
+	else
+		var339 = true
+	end
+	if not var339 and ballStatus_upvr.lastKicked.Value ~= LocalPlayer_upvr then return end
+	local pairs_result1_2, pairs_result2_15, pairs_result3_9 = pairs(HitboxHandlerPlayers_upvr.Create({
+		cframe = Character_4_upvr.HumanoidRootPart.CFrame * CFrame.new(0, 0, 2);
+		size = Vector3.new(6, 6, 6);
+	}, Character_4_upvr))
+	-- KONSTANTERROR: [0] 1. Error Block 63 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [260] 175. Error Block 38 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [260] 175. Error Block 38 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [82] 63. Error Block 17 start (CF ANALYSIS FAILED)
+	-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [260.10]
+	-- KONSTANTERROR: [82] 63. Error Block 17 end (CF ANALYSIS FAILED)
+end
+local function _() -- Line 2261, Named "getCharge"
+	--[[ Upvalues[4]:
+		[1]: var123_upvw (read and write)
+		[2]: var119_upvw (read and write)
+		[3]: var121_upvw (read and write)
+		[4]: var124_upvw (read and write)
+	]]
+	if var123_upvw ~= 0 then
+		return var123_upvw
+	end
+	if var119_upvw ~= 0 then
+		return var119_upvw
+	end
+	if var121_upvw ~= 0 then
+		return var121_upvw
+	end
+	if var124_upvw ~= 0 then
+		return var124_upvw
+	end
+end
+function firstTouch(arg1, arg2, arg3, arg4) -- Line 2277
+	--[[ Upvalues[28]:
+		[1]: LocalPlayer_upvr (readonly)
+		[2]: Status_upvr (readonly)
+		[3]: ballStatus_upvr (readonly)
+		[4]: HitboxHandler_upvr (readonly)
+		[5]: Character_4_upvr (readonly)
+		[6]: any_LoadAnimation_result1_upvw_66 (read and write)
+		[7]: any_LoadAnimation_result1_upvw_43 (read and write)
+		[8]: any_LoadAnimation_result1_upvw_67 (read and write)
+		[9]: any_LoadAnimation_result1_upvw_33 (read and write)
+		[10]: var126_upvw (read and write)
+		[11]: any_LoadAnimation_result1_upvw_79 (read and write)
+		[12]: any_LoadAnimation_result1_upvw_12 (read and write)
+		[13]: any_LoadAnimation_result1_upvw_58 (read and write)
+		[14]: any_LoadAnimation_result1_upvw_62 (read and write)
+		[15]: var123_upvw (read and write)
+		[16]: var119_upvw (read and write)
+		[17]: var121_upvw (read and write)
+		[18]: var124_upvw (read and write)
+		[19]: any_LoadAnimation_result1_upvw_80 (read and write)
+		[20]: any_LoadAnimation_result1_upvw_55 (read and write)
+		[21]: any_LoadAnimation_result1_upvw_9 (read and write)
+		[22]: any_LoadAnimation_result1_upvw_47 (read and write)
+		[23]: any_LoadAnimation_result1_upvw_15 (read and write)
+		[24]: any_LoadAnimation_result1_upvw_46 (read and write)
+		[25]: any_LoadAnimation_result1_upvw_38 (read and write)
+		[26]: any_LoadAnimation_result1_upvw_74 (read and write)
+		[27]: any_LoadAnimation_result1_upvw_35 (read and write)
+		[28]: any_LoadAnimation_result1_upvw_31 (read and write)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [6] 6. Error Block 2 start (CF ANALYSIS FAILED)
+	do
+		return
+	end
+	-- KONSTANTERROR: [6] 6. Error Block 2 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [8] 8. Error Block 3 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [8] 8. Error Block 3 end (CF ANALYSIS FAILED)
+end
+function firstTouchBackup(arg1, arg2, arg3, arg4) -- Line 2576
+	--[[ Upvalues[13]:
+		[1]: LocalPlayer_upvr (readonly)
+		[2]: Status_upvr (readonly)
+		[3]: ballStatus_upvr (readonly)
+		[4]: Character_4_upvr (readonly)
+		[5]: any_LoadAnimation_result1_upvw_66 (read and write)
+		[6]: any_LoadAnimation_result1_upvw_43 (read and write)
+		[7]: any_LoadAnimation_result1_upvw_67 (read and write)
+		[8]: any_LoadAnimation_result1_upvw_33 (read and write)
+		[9]: var126_upvw (read and write)
+		[10]: any_LoadAnimation_result1_upvw_79 (read and write)
+		[11]: any_LoadAnimation_result1_upvw_12 (read and write)
+		[12]: any_LoadAnimation_result1_upvw_58 (read and write)
+		[13]: any_LoadAnimation_result1_upvw_62 (read and write)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [6] 6. Error Block 2 start (CF ANALYSIS FAILED)
+	do
+		return
+	end
+	-- KONSTANTERROR: [6] 6. Error Block 2 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [7] 7. Error Block 3 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [7] 7. Error Block 3 end (CF ANALYSIS FAILED)
+end
+local var345_upvw = false
+function dive() -- Line 2721
+	--[[ Upvalues[20]:
+		[1]: var131_upvw (read and write)
+		[2]: Humanoid_upvr (readonly)
+		[3]: LocalPlayer_upvr (readonly)
+		[4]: Status_upvr (readonly)
+		[5]: var345_upvw (read and write)
+		[6]: any_LoadAnimation_result1_upvw_40 (read and write)
+		[7]: Character_4_upvr (readonly)
+		[8]: UserInputService_upvr (readonly)
+		[9]: var125_upvw (read and write)
+		[10]: any_LoadAnimation_result1_upvw_69 (read and write)
+		[11]: any_LoadAnimation_result1_upvw_68 (read and write)
+		[12]: any_LoadAnimation_result1_upvw_70 (read and write)
+		[13]: any_LoadAnimation_result1_upvw_65 (read and write)
+		[14]: any_LoadAnimation_result1_upvw_42 (read and write)
+		[15]: HumanoidRootPart_upvr (readonly)
+		[16]: HitboxHandler_upvr (readonly)
+		[17]: any_LoadAnimation_result1_upvw_45 (read and write)
+		[18]: any_LoadAnimation_result1_upvw_2 (read and write)
+		[19]: any_LoadAnimation_result1_upvw_60 (read and write)
+		[20]: any_LoadAnimation_result1_upvw_83 (read and write)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 137 start (CF ANALYSIS FAILED)
+	if var131_upvw == true then return end
+	if Humanoid_upvr.AutoRotate == true then return end
+	if LocalPlayer_upvr.SelectedPosition.Value ~= "GK" then return end
+	if not LocalPlayer_upvr:FindFirstChild("InPlay") then return end
+	if Status_upvr:FindFirstChild("Knockdown") then return end
+	if Status_upvr:FindFirstChild("HasBall") then return end
+	if Status_upvr:FindFirstChild("NoMovement") then return end
+	if game.ReplicatedStorage:FindFirstChild("gameStarting") or game.ReplicatedStorage:FindFirstChild("playResetting") then return end
+	-- KONSTANTERROR: [0] 1. Error Block 137 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [74] 56. Error Block 20 start (CF ANALYSIS FAILED)
+	do
+		return
+	end
+	-- KONSTANTERROR: [74] 56. Error Block 20 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [75] 57. Error Block 21 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [75] 57. Error Block 21 end (CF ANALYSIS FAILED)
+end
+game.ReplicatedStorage.Remotes.SlideFX.OnClientEvent:Connect(function(arg1) -- Line 2983
+	--[[ Upvalues[1]:
+		[1]: LocalPlayer_upvr (readonly)
+	]]
+	if arg1:FindFirstChild("HumanoidRootPart") == nil then
+	else
+		if arg1.HumanoidRootPart:FindFirstChild("DustTrail") then return end
+		local clone_15_upvr = game.ReplicatedStorage.VFX.SlideTrail.DustTrail:Clone()
+		clone_15_upvr.Parent = arg1.HumanoidRootPart
+		if LocalPlayer_upvr.Settings.Misc.SnowEnabled.Value == true then
+			clone_15_upvr.Dust.Color = ColorSequence.new(Color3.new(1, 1, 1))
+		end
+		clone_15_upvr.Dust.Enabled = true
+		task.delay(0.55, function() -- Line 2994
+			--[[ Upvalues[1]:
+				[1]: clone_15_upvr (readonly)
+			]]
+			clone_15_upvr.Dust.Enabled = false
+		end)
+		local clone_7 = game.ReplicatedStorage.SFX.SlideSFX:Clone()
+		clone_7.Parent = arg1.HumanoidRootPart
+		clone_7:Play()
+		game.Debris:AddItem(clone_7, 2)
+	end
+end)
+game.ReplicatedStorage.Remotes.DiveFX.OnClientEvent:Connect(function(arg1) -- Line 3004
+	--[[ Upvalues[1]:
+		[1]: LocalPlayer_upvr (readonly)
+	]]
+	if arg1:FindFirstChild("HumanoidRootPart") == nil then
+	else
+		local RaycastParams_new_result1_4 = RaycastParams.new()
+		RaycastParams_new_result1_4.FilterDescendantsInstances = {game.Workspace.gameArea}
+		RaycastParams_new_result1_4.FilterType = Enum.RaycastFilterType.Include
+		if game.Workspace.FX:FindFirstChild("SlideTrail") then return end
+		local workspace_Raycast_result1_2 = workspace:Raycast(arg1.HumanoidRootPart.Position, Vector3.new(0, -20, 0), RaycastParams_new_result1_4)
+		if workspace_Raycast_result1_2 ~= nil then
+			local clone_8 = game.ReplicatedStorage.VFX.SlideTrail:Clone()
+			clone_8.Parent = game.Workspace.FX
+			clone_8.Position = workspace_Raycast_result1_2.Position
+			if LocalPlayer_upvr.Settings.Misc.SnowEnabled.Value == true then
+				clone_8.DiveLand.Dust.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			end
+			clone_8.DiveLand.Dust:Emit(50)
+			game.Debris:AddItem(clone_8, 2)
+		end
+		local clone_9 = game.ReplicatedStorage.SFX["diveLand"..math.random(1, 3)]:Clone()
+		clone_9.Parent = arg1.HumanoidRootPart
+		clone_9:Play()
+		game.Debris:AddItem(clone_9, 3)
+		local clone_2 = game.ReplicatedStorage.SFX.diveLandMain:Clone()
+		clone_2.Parent = arg1.HumanoidRootPart
+		clone_2:Play()
+		game.Debris:AddItem(clone_2, 3)
+	end
+end)
+local var357_upvw = false
+function showSelf() -- Line 3036
+	--[[ Upvalues[3]:
+		[1]: LocalPlayer_upvr (readonly)
+		[2]: var357_upvw (read and write)
+		[3]: ChargeGUI_upvw (read and write)
+	]]
+	if not LocalPlayer_upvr:FindFirstChild("InPlay") then
+	else
+		if var357_upvw == true then return end
+		ChargeGUI_upvw.Charge.Bar.BackgroundColor3 = Color3.fromRGB(255, 233, 105)
+		var357_upvw = true
+		ChargeGUI_upvw.Charge.Bar.Size = UDim2.new(0.07, 0, 0, 0)
+		game:GetService("TweenService"):Create(ChargeGUI_upvw.Charge, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Transparency = 0.5;
+		}):Play()
+		game:GetService("TweenService"):Create(ChargeGUI_upvw.Charge.Overlay, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Transparency = 0.5;
+		}):Play()
+		game:GetService("TweenService"):Create(ChargeGUI_upvw.Charge.Bar, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Transparency = 0;
+		}):Play()
+	end
+end
+function hideSelf() -- Line 3057
+	--[[ Upvalues[2]:
+		[1]: var357_upvw (read and write)
+		[2]: ChargeGUI_upvw (read and write)
+	]]
+	if var357_upvw == false then
+	else
+		var357_upvw = false
+		game:GetService("TweenService"):Create(ChargeGUI_upvw.Charge, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Transparency = 1;
+		}):Play()
+		game:GetService("TweenService"):Create(ChargeGUI_upvw.Charge.Overlay, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Transparency = 1;
+		}):Play()
+		game:GetService("TweenService"):Create(ChargeGUI_upvw.Charge.Bar, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Transparency = 1;
+		}):Play()
+	end
+end
+local tbl_5_upvr = {
+	Knockdown = -200;
+	NoMovement = -200;
+}
+function RequestRun(arg1) -- Line 3083
+	--[[ Upvalues[9]:
+		[1]: LocalPlayer_upvr (readonly)
+		[2]: Character_4_upvr (readonly)
+		[3]: var126_upvw (read and write)
+		[4]: Status_upvr (readonly)
+		[5]: UserInputService_upvr (readonly)
+		[6]: ReplicatedStorage_upvr (readonly)
+		[7]: any_LoadAnimation_result1_upvw_73 (read and write)
+		[8]: Humanoid_upvr (readonly)
+		[9]: var120_upvw (read and write)
+	]]
+	if not LocalPlayer_upvr:FindFirstChild("InPlay") then
+	else
+		if Character_4_upvr.Stats.Stamina.Value <= 0 then return end
+		if game.ReplicatedStorage:FindFirstChild("gameStarting") or game.ReplicatedStorage:FindFirstChild("playResetting") then return end
+		if var126_upvw == true then return end
+		if Status_upvr:FindFirstChild("NoSprint") then return end
+		if not var126_upvw and not Status_upvr:FindFirstChild("Knockdown") and (UserInputService_upvr:IsKeyDown(Enum.KeyCode.W) or UserInputService_upvr:IsKeyDown(Enum.KeyCode.D) or UserInputService_upvr:IsKeyDown(Enum.KeyCode.A) or UserInputService_upvr:IsKeyDown(Enum.KeyCode.S) or UserInputService_upvr.GamepadEnabled or UserInputService_upvr:GetLastInputType() == Enum.UserInputType.Touch) then
+			ReplicatedStorage_upvr.Remotes.RequestRun:FireServer(true)
+			var126_upvw = true
+			task.spawn(function() -- Line 3100
+				--[[ Upvalues[1]:
+					[1]: Character_4_upvr (copied, readonly)
+				]]
+				for _, v_17 in pairs(Character_4_upvr:GetDescendants()) do
+					if v_17.Name == "DashTrail" then
+						v_17.Enabled = true
+					end
+				end
+			end)
+			any_LoadAnimation_result1_upvw_73.Looped = true
+			any_LoadAnimation_result1_upvw_73.Priority = Enum.AnimationPriority.Movement
+			any_LoadAnimation_result1_upvw_73:Play(0.5)
+		end
+		task.spawn(function() -- Line 3111
+			--[[ Upvalues[6]:
+				[1]: var126_upvw (copied, read and write)
+				[2]: Status_upvr (copied, readonly)
+				[3]: Humanoid_upvr (copied, readonly)
+				[4]: any_LoadAnimation_result1_upvw_73 (copied, read and write)
+				[5]: var120_upvw (copied, read and write)
+				[6]: Character_4_upvr (copied, readonly)
+			]]
+			-- KONSTANTERROR: [0] 1. Error Block 36 start (CF ANALYSIS FAILED)
+			task.wait()
+			-- KONSTANTERROR: [0] 1. Error Block 36 end (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [6] 5. Error Block 41 start (CF ANALYSIS FAILED)
+			if Status_upvr:FindFirstChild("NoSprint") then
+				-- KONSTANTERROR: [12] 10. Error Block 35 start (CF ANALYSIS FAILED)
+				StopRun()
+				-- KONSTANTWARNING: GOTO [99] #73
+				-- KONSTANTERROR: [12] 10. Error Block 35 end (CF ANALYSIS FAILED)
+			end
+			-- KONSTANTERROR: [6] 5. Error Block 41 end (CF ANALYSIS FAILED)
+		end)
+	end
+end
+function StopRun() -- Line 3148
+	--[[ Upvalues[5]:
+		[1]: var126_upvw (read and write)
+		[2]: ReplicatedStorage_upvr (readonly)
+		[3]: any_LoadAnimation_result1_upvw_73 (read and write)
+		[4]: any_LoadAnimation_result1_upvw_48 (read and write)
+		[5]: Character_4_upvr (readonly)
+	]]
+	if var126_upvw then
+		ReplicatedStorage_upvr.Remotes.RequestRun:FireServer(false)
+		any_LoadAnimation_result1_upvw_73:Stop()
+		any_LoadAnimation_result1_upvw_48:Stop()
+		var126_upvw = false
+		task.spawn(function() -- Line 3154
+			--[[ Upvalues[1]:
+				[1]: Character_4_upvr (copied, readonly)
+			]]
+			for _, v_5 in pairs(Character_4_upvr:GetDescendants()) do
+				if v_5.Name == "DashTrail" then
+					v_5.Enabled = false
+				end
+			end
+		end)
+	end
+end
+stopRun = StopRun() -- Setting global
+UserInputService_upvr.InputChanged:Connect(function(arg1, arg2) -- Line 3167
+	--[[ Upvalues[3]:
+		[1]: var125_upvw (read and write)
+		[2]: var127_upvw (read and write)
+		[3]: Humanoid_upvr (readonly)
+	]]
+	if arg1.UserInputType == Enum.UserInputType.Gamepad1 and arg1.KeyCode == Enum.KeyCode.Thumbstick1 then
+		if 0.75 <= arg1.Position.Y then
+			var125_upvw = 4
+		elseif 0.75 <= arg1.Position.X then
+			var125_upvw = 3
+		elseif arg1.Position.X <= -0.75 then
+			var125_upvw = 2
+		elseif arg1.Position.Y <= -0.75 then
+			var125_upvw = 1
+		else
+			var125_upvw = 4
+		end
+		if var127_upvw then
+			if 0.6 < arg1.Position.Magnitude then
+				RequestRun(true)
+			else
+				if Humanoid_upvr.MoveDirection.Magnitude < 0.3 then
+					StopRun()
+					return
+				end
+				StopRun()
+			end
+		end
+		StopRun()
+	end
+end)
+UserInputService_upvr.TouchMoved:Connect(function(arg1, arg2) -- Line 3210
+	--[[ Upvalues[4]:
+		[1]: LocalPlayer_upvr (readonly)
+		[2]: var125_upvw (read and write)
+		[3]: var127_upvw (read and write)
+		[4]: Humanoid_upvr (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 40 start (CF ANALYSIS FAILED)
+	local var380 = require(LocalPlayer_upvr:WaitForChild("PlayerScripts").PlayerModule:WaitForChild("ControlModule")):GetMoveVector() * Vector3.new(1, 0, 1)
+	local var381 = 0.75
+	if LocalPlayer_upvr.SelectedPosition.Value == "GK" then
+		var381 = 0.5
+	end
+	if var380.Z <= -var381 then
+		var125_upvw = 4
+		-- KONSTANTWARNING: GOTO [57] #42
+	end
+	-- KONSTANTERROR: [0] 1. Error Block 40 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [36] 27. Error Block 41 start (CF ANALYSIS FAILED)
+	if var381 <= var380.X then
+		var125_upvw = 3
+	elseif var380.X <= -var381 then
+		var125_upvw = 2
+	elseif var381 <= var380.Z then
+		var125_upvw = 1
+	end
+	if var127_upvw then
+		if var380.Z <= -0.75 or 0.75 <= var380.X or 0.75 <= var380.Z or var380.X <= -0.75 then
+			RequestRun(true)
+		else
+			if Humanoid_upvr.MoveDirection.Magnitude < 0.3 then
+				StopRun()
+				return
+			end
+			StopRun()
+		end
+	end
+	StopRun()
+	-- KONSTANTERROR: [36] 27. Error Block 41 end (CF ANALYSIS FAILED)
+end)
+UserInputService_upvr.TouchEnded:Connect(function(arg1, arg2) -- Line 3245
+	--[[ Upvalues[1]:
+		[1]: LocalPlayer_upvr (readonly)
+	]]
+	if (require(LocalPlayer_upvr:WaitForChild("PlayerScripts").PlayerModule:WaitForChild("ControlModule")):GetMoveVector() * Vector3.new(1, 0, 1)).Magnitude < 0.2 then
+		StopRun()
+	end
+end)
+UserInputService_upvr.InputBegan:Connect(function(arg1, arg2) -- Line 3256
+	--[[ Upvalues[5]:
+		[1]: Status_upvr (readonly)
+		[2]: Controls_upvr (readonly)
+		[3]: UserInputService_upvr (readonly)
+		[4]: Character_4_upvr (readonly)
+		[5]: var127_upvw (read and write)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [6] 6. Error Block 2 start (CF ANALYSIS FAILED)
+	do
+		return
+	end
+	-- KONSTANTERROR: [6] 6. Error Block 2 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [7] 7. Error Block 3 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [7] 7. Error Block 3 end (CF ANALYSIS FAILED)
+end)
+UserInputService_upvr.InputEnded:Connect(function(arg1, arg2) -- Line 3290
+	--[[ Upvalues[3]:
+		[1]: Controls_upvr (readonly)
+		[2]: UserInputService_upvr (readonly)
+		[3]: Humanoid_upvr (readonly)
+	]]
+	if arg1.UserInputType == Enum.UserInputType.Keyboard and (arg1.KeyCode == Enum.KeyCode[Controls_upvr.Sprint.Value] or not UserInputService_upvr:IsKeyDown(Enum.KeyCode[Controls_upvr.Sprint.Value])) then
+		StopRun()
+	end
+	if arg1.UserInputType == Enum.UserInputType.Touch and Humanoid_upvr.MoveDirection.Magnitude < 0.3 then
+		StopRun()
+	end
+end)
+local var385_upvw = false
+local function _(arg1) -- Line 3313, Named "isMouseButtonDown"
+	--[[ Upvalues[1]:
+		[1]: UserInputService_upvr (readonly)
+	]]
+	for _, v_6 in pairs(UserInputService_upvr:GetMouseButtonsPressed()) do
+		if v_6.UserInputType == arg1 then
+			return true
+		end
+	end
+	return false
+end
+local var391_upvw = false
+function pushback(arg1, arg2) -- Line 3325
+	--[[ Upvalues[7]:
+		[1]: var126_upvw (read and write)
+		[2]: var391_upvw (read and write)
+		[3]: Status_upvr (readonly)
+		[4]: var120_upvw (read and write)
+		[5]: any_LoadAnimation_result1_upvw_75 (read and write)
+		[6]: any_LoadAnimation_result1_upvw_27 (read and write)
+		[7]: HumanoidRootPart_upvr (readonly)
+	]]
+	if arg1 == nil then
+		local const_number_4 = 0.5
+	end
+	if arg2 == nil then
+		local const_number_3 = 0.5
+	end
+	if var126_upvw == true and var391_upvw ~= true then
+		local var425_upvw
+		if not var425_upvw then
+			var425_upvw = math.max(var120_upvw - 3, 0)
+			var120_upvw = var425_upvw
+			local function INLINED_6() -- Internal function, doesn't exist in bytecode
+				var425_upvw = any_LoadAnimation_result1_upvw_75
+				return var425_upvw
+			end
+			if math.random(1, 2) ~= 1 or not INLINED_6() then
+				var425_upvw = any_LoadAnimation_result1_upvw_27
+			end
+			var425_upvw = var425_upvw:Play
+			var425_upvw(0, 1, 0.36 / const_number_4)
+			var425_upvw = -22
+			local Character_3 = game.Players.LocalPlayer.Character
+			for _, v_7 in pairs(Character_3.HumanoidRootPart:GetChildren()) do
+				if v_7:IsA("BodyVelocity") then
+					v_7:Destroy()
+				end
+			end
+			var391_upvw = true
+			task.delay(0.45, function() -- Line 3339
+				--[[ Upvalues[1]:
+					[1]: var391_upvw (copied, read and write)
+				]]
+				var391_upvw = false
+			end)
+			local clone_4 = game.ReplicatedStorage.SFX.Boom:Clone()
+			clone_4.Parent = game.Workspace
+			clone_4:Play()
+			game.Debris:AddItem(clone_4, 10)
+			local _, any_ToOrientation_result2_upvr, _ = Character_3.HumanoidRootPart.CFrame:ToOrientation()
+			local BodyVelocity_2_upvr = Instance.new("BodyVelocity")
+			BodyVelocity_2_upvr.MaxForce = Vector3.new(50000, 0, 50000)
+			BodyVelocity_2_upvr.Velocity = Character_3.HumanoidRootPart.CFrame.lookVector * var425_upvw
+			BodyVelocity_2_upvr.Parent = Character_3.HumanoidRootPart
+			game.Debris:AddItem(BodyVelocity_2_upvr, const_number_4 * 0.625)
+			local CFrame_upvr_2 = Character_3.HumanoidRootPart.CFrame
+			local Folder_16 = Instance.new("Folder")
+			Folder_16.Name = "CameraLocked"
+			Folder_16.Parent = Character_3.Status
+			game.Debris:AddItem(Folder_16, const_number_3)
+			local Folder_24 = Instance.new("Folder")
+			Folder_24.Name = "Knockdown"
+			Folder_24.Parent = Character_3.Status
+			game.Debris:AddItem(Folder_24, const_number_3)
+			local any_Connect_result1_upvr_3 = game:GetService("RunService").RenderStepped:Connect(function() -- Line 3353
+				--[[ Upvalues[5]:
+					[1]: BodyVelocity_2_upvr (readonly)
+					[2]: CFrame_upvr_2 (readonly)
+					[3]: var425_upvw (read and write)
+					[4]: HumanoidRootPart_upvr (copied, readonly)
+					[5]: any_ToOrientation_result2_upvr (readonly)
+				]]
+				BodyVelocity_2_upvr.Velocity = CFrame_upvr_2.lookVector * var425_upvw
+				HumanoidRootPart_upvr.CFrame = CFrame.new(HumanoidRootPart_upvr.Position) * CFrame.Angles(0, any_ToOrientation_result2_upvr, 0)
+			end)
+			task.delay(0.25, function() -- Line 3365
+				--[[ Upvalues[1]:
+					[1]: any_Connect_result1_upvr_3 (readonly)
+				]]
+				any_Connect_result1_upvr_3:Disconnect()
+			end)
+			for _ = 1, 8 do
+				var425_upvw *= 0.96
+				task.wait(0.0167)
+			end
+		end
+	end
+end
+function getClosestEnemy() -- Line 3378
+	--[[ Upvalues[2]:
+		[1]: LocalPlayer_upvr (readonly)
+		[2]: Character_4_upvr (readonly)
+	]]
+	local var449
+	for _, v_8 in ipairs(game.Workspace.CharacterContainer:GetChildren()) do
+		local any_GetPlayerFromCharacter_result1_2 = game.Players:GetPlayerFromCharacter(v_8)
+		if not any_GetPlayerFromCharacter_result1_2 or any_GetPlayerFromCharacter_result1_2.SelectedTeam.Value ~= LocalPlayer_upvr.SelectedTeam.Value then
+			if (v_8.HumanoidRootPart.Position - Character_4_upvr.HumanoidRootPart.Position).Magnitude < 30 then
+			end
+		end
+	end
+	return nil
+end
+local lookVector_upvw_2 = Character_4_upvr.HumanoidRootPart.CFrame.lookVector
+task.spawn(function() -- Line 3395
+	--[[ Upvalues[10]:
+		[1]: var120_upvw (read and write)
+		[2]: lookVector_upvw_2 (read and write)
+		[3]: Character_4_upvr (readonly)
+		[4]: ballStatus_upvr (readonly)
+		[5]: LocalPlayer_upvr (readonly)
+		[6]: var131_upvw (read and write)
+		[7]: any_LoadAnimation_result1_upvw_23 (read and write)
+		[8]: any_LoadAnimation_result1_upvw_84 (read and write)
+		[9]: HitboxHandlerPlayers_upvr (readonly)
+		[10]: Status_upvr (readonly)
+	]]
+	while true do
+		if 0 < var120_upvw and ballStatus_upvr.lastKicked.Value ~= nil and ballStatus_upvr.lastKicked.Value ~= LocalPlayer_upvr and (ballStatus_upvr.lastKicked.Value.Character.HumanoidRootPart.Position - Character_4_upvr.HumanoidRootPart.Position).Magnitude < 15 then
+			local var474
+			if 0.1 < (lookVector_upvw_2 - Character_4_upvr.HumanoidRootPart.CFrame.lookVector).Magnitude then
+				local any_Dot_result1_3 = lookVector_upvw_2:Dot((lookVector_upvw_2 - Character_4_upvr.HumanoidRootPart.CFrame.lookVector).Unit)
+				var474 = 0
+				if 0.15 < any_Dot_result1_3 then
+					var474 += 2.5
+				end
+				if 0.3 < any_Dot_result1_3 then
+					var474 += 2.5
+				end
+				if 0.45 < any_Dot_result1_3 then
+					var474 += 2.5
+				end
+				if 0.6 < any_Dot_result1_3 then
+					var474 += 2.5
+				end
+				var120_upvw = math.max(var120_upvw - var474, 0)
+			end
+		end
+		lookVector_upvw_2 = Character_4_upvr.HumanoidRootPart.CFrame.lookVector
+		if var131_upvw == true and ballStatus_upvr.lastKicked.Value ~= LocalPlayer_upvr then
+			task.spawn(function() -- Line 3424
+				--[[ Upvalues[7]:
+					[1]: LocalPlayer_upvr (copied, readonly)
+					[2]: Character_4_upvr (copied, readonly)
+					[3]: any_LoadAnimation_result1_upvw_23 (copied, read and write)
+					[4]: any_LoadAnimation_result1_upvw_84 (copied, read and write)
+					[5]: HitboxHandlerPlayers_upvr (copied, readonly)
+					[6]: Status_upvr (copied, readonly)
+					[7]: ballStatus_upvr (copied, readonly)
+				]]
+				-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+				if not LocalPlayer_upvr:FindFirstChild("InPlay") then
+				else
+					local getClosestEnemy_result1_2 = getClosestEnemy()
+					local var486 = ""
+					if getClosestEnemy_result1_2 then
+						if 0 < Character_4_upvr.HumanoidRootPart.CFrame.RightVector:Dot((Character_4_upvr.HumanoidRootPart.Position * Vector3.new(1, 0, 1) - getClosestEnemy_result1_2.HumanoidRootPart.Position * Vector3.new(1, 0, 1)).Unit) then
+							var486 = "Left"
+						else
+							var486 = "Right"
+						end
+						if var486 ~= "Left" or not any_LoadAnimation_result1_upvw_23 then
+						end
+						any_LoadAnimation_result1_upvw_84:Play()
+						if var486 ~= "Left" or not any_LoadAnimation_result1_upvw_84 then
+						end
+						any_LoadAnimation_result1_upvw_23:Stop()
+						local tbl = {}
+						local tbl_10 = {}
+						if var486 == "Left" then
+						else
+						end
+						tbl_10.cframe = Character_4_upvr.HumanoidRootPart.CFrame * CFrame.new(1.5, 0, 2)
+						tbl_10.size = Vector3.new(3.5, 6, 3.5)
+						for _, v_18 in pairs(HitboxHandlerPlayers_upvr.Create(tbl_10, Character_4_upvr)) do
+							local Parent_2 = v_18.Parent
+							local any_GetPlayerFromCharacter_result1 = game.Players:GetPlayerFromCharacter(Parent_2)
+							if not any_GetPlayerFromCharacter_result1 or any_GetPlayerFromCharacter_result1.SelectedTeam.Value ~= LocalPlayer_upvr.SelectedTeam.Value then
+								if Parent_2:FindFirstChild("Humanoid") and not table.find(tbl, Parent_2) then
+									table.insert(tbl, Parent_2)
+									game.ReplicatedStorage.Remotes.BodyBlock:FireServer(any_GetPlayerFromCharacter_result1)
+								end
+								if Status_upvr:FindFirstChild("Walled") then
+									shove()
+								elseif ballStatus_upvr.lastKicked.Value ~= any_GetPlayerFromCharacter_result1 and Parent_2.HumanoidRootPart.CFrame.LookVector:Dot(Character_4_upvr.HumanoidRootPart.CFrame.LookVector.Unit) >= 0.7 then
+									shove()
+								end
+							end
+						end
+						return
+					end
+					any_LoadAnimation_result1_upvw_23:Stop()
+					any_LoadAnimation_result1_upvw_84:Stop()
+				end
+			end)
+		elseif any_LoadAnimation_result1_upvw_23.IsPlaying == true or any_LoadAnimation_result1_upvw_84.IsPlaying == true then
+			any_LoadAnimation_result1_upvw_23:Stop()
+			any_LoadAnimation_result1_upvw_84:Stop()
+		end
+		task.wait(0.03)
+	end
+end)
+local RaycastParams_new_result1_5_upvr = RaycastParams.new()
+RaycastParams_new_result1_5_upvr.FilterDescendantsInstances = {Character_4_upvr, game.Workspace.miscFX, game.Workspace.GKCollision, game.Workspace.Detection, game.Workspace.PlayerPositions, game.Workspace.GameEndPositions, game.Workspace.Temp, game.Workspace.FX}
+RaycastParams_new_result1_5_upvr.FilterType = Enum.RaycastFilterType.Exclude
+RaycastParams_new_result1_5_upvr.CollisionGroup = "Default"
+function isMobile() -- Line 3493
+	--[[ Upvalues[1]:
+		[1]: UserInputService_upvr (readonly)
+	]]
+	if UserInputService_upvr.GamepadEnabled then
+		return false
+	end
+	if UserInputService_upvr.KeyboardEnabled then
+		return false
+	end
+	if UserInputService_upvr.MouseEnabled then
+		return false
+	end
+	if UserInputService_upvr.TouchEnabled then
+		return true
+	end
+end
+controlledSprinting = false -- Setting global
+local var497_upvw = 70
+local tick_result1_upvw_2 = tick()
+local var499_upvw = false
+local tick_result1_upvw_4 = tick()
+local tick_result1_upvw_5 = tick()
+local tick_result1_upvw_9 = tick()
+local function _(arg1) -- Line 3511
+	--[[ Upvalues[35]:
+		[1]: UserInputService_upvr (readonly)
+		[2]: Controls_upvr (readonly)
+		[3]: var122_upvw (read and write)
+		[4]: var125_upvw (read and write)
+		[5]: Character_4_upvr (readonly)
+		[6]: Status_upvr (readonly)
+		[7]: var497_upvw (read and write)
+		[8]: var357_upvw (read and write)
+		[9]: ChargeGUI_upvw (read and write)
+		[10]: LocalPlayer_upvr (readonly)
+		[11]: tick_result1_upvw_2 (read and write)
+		[12]: var127_upvw (read and write)
+		[13]: module_2_upvr (readonly)
+		[14]: var126_upvw (read and write)
+		[15]: RaycastParams_new_result1_5_upvr (readonly)
+		[16]: var120_upvw (read and write)
+		[17]: any_LoadAnimation_result1_upvw_73 (read and write)
+		[18]: any_LoadAnimation_result1_upvw_48 (read and write)
+		[19]: var131_upvw (read and write)
+		[20]: ballStatus_upvr (readonly)
+		[21]: var499_upvw (read and write)
+		[22]: tick_result1_upvw_4 (read and write)
+		[23]: tick_result1_upvw_5 (read and write)
+		[24]: tbl_5_upvr (readonly)
+		[25]: HitboxHandler_upvr (readonly)
+		[26]: any_LoadAnimation_result1_upvw_10 (read and write)
+		[27]: any_LoadAnimation_result1_upvw_19 (read and write)
+		[28]: any_LoadAnimation_result1_upvw (read and write)
+		[29]: Humanoid_upvr (readonly)
+		[30]: var121_upvw (read and write)
+		[31]: var123_upvw (read and write)
+		[32]: var124_upvw (read and write)
+		[33]: var119_upvw (read and write)
+		[34]: var385_upvw (read and write)
+		[35]: tick_result1_upvw_9 (read and write)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 563 start (CF ANALYSIS FAILED)
+	if UserInputService_upvr:IsKeyDown(Enum.KeyCode[Controls_upvr.ControlSprint.Value]) or var122_upvw then
+		if UserInputService_upvr:IsKeyDown(Enum.KeyCode.S) or var125_upvw == 1 then
+			controlledSprinting = false -- Setting global
+		elseif 40 < Character_4_upvr.Stats.MaxStamina.Value and not game.ReplicatedStorage:FindFirstChild("NoFullSprint") then
+			controlledSprinting = true -- Setting global
+			-- KONSTANTWARNING: GOTO [83] #59
+		end
+	elseif not UserInputService_upvr:IsKeyDown(Enum.KeyCode[Controls_upvr.ControlSprint.Value]) and not var122_upvw then
+		if UserInputService_upvr:IsKeyDown(Enum.KeyCode.S) or var125_upvw == 1 then
+			controlledSprinting = false -- Setting global
+		end
+		controlledSprinting = false -- Setting global
+	end
+	if Character_4_upvr.Stats.MaxStamina.Value <= 40 then
+		controlledSprinting = false -- Setting global
+	end
+	if Status_upvr:FindFirstChild("NoTackle") then
+		controlledSprinting = false -- Setting global
+	end
+	local CameraSubject = game.Workspace.CurrentCamera.CameraSubject
+	if CameraSubject:IsA("Humanoid") then
+		CameraSubject = CameraSubject.Parent.HumanoidRootPart
+	end
+	if (CameraSubject.Position - game.Workspace.CurrentCamera.CFrame.Position).Magnitude < 1 then
+		var497_upvw = 84
+		if var357_upvw and ChargeGUI_upvw ~= LocalPlayer_upvr.PlayerGui.FirstPersonChargeBar then
+			hideSelf()
+		end
+		ChargeGUI_upvw = LocalPlayer_upvr.PlayerGui.FirstPersonChargeBar
+	else
+		var497_upvw = 70
+		if var357_upvw and ChargeGUI_upvw ~= Character_4_upvr.HumanoidRootPart:FindFirstChild("UIAttach").ChargeGUI then
+			hideSelf()
+		end
+		ChargeGUI_upvw = Character_4_upvr.HumanoidRootPart:FindFirstChild("UIAttach").ChargeGUI
+	end
+	-- KONSTANTERROR: [0] 1. Error Block 563 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [199] 137. Error Block 37 start (CF ANALYSIS FAILED)
+	tick_result1_upvw_2 = tick()
+	game.ReplicatedStorage.Remotes.UpdateStamina:FireServer(Character_4_upvr.Stats.Stamina.Value)
+	-- KONSTANTERROR: [199] 137. Error Block 37 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [221] 150. Error Block 38 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [221] 150. Error Block 38 end (CF ANALYSIS FAILED)
+end
+game.ReplicatedStorage.Remotes.MaxStaminaResetClient.OnClientEvent:Connect(function() -- Line 3993
+	--[[ Upvalues[1]:
+		[1]: Character_4_upvr (readonly)
+	]]
+	Character_4_upvr.Stats.MaxStamina.Value = 100
+end)
+game.ReplicatedStorage.Remotes.HalftimeClient.OnClientEvent:Connect(function() -- Line 3997
+	--[[ Upvalues[1]:
+		[1]: Character_4_upvr (readonly)
+	]]
+	Character_4_upvr.Stats.MaxStamina.Value = math.min(Character_4_upvr.Stats.MaxStamina.Value + 12, 100)
+end)
+local tick_result1_upvw_10 = tick()
+local tick_result1_upvw_8 = tick()
+UserInputService_upvr.InputEnded:Connect(function(arg1, arg2) -- Line 4016
+	--[[ Upvalues[3]:
+		[1]: Controls_upvr (readonly)
+		[2]: LocalPlayer_upvr (readonly)
+		[3]: Status_upvr (readonly)
+	]]
+	local var510
+	local function INLINED_9() -- Internal function, doesn't exist in bytecode
+		var510 = Enum.UserInputType.MouseButton1
+		return var510
+	end
+	local function INLINED_10() -- Internal function, doesn't exist in bytecode
+		var510 = Enum.UserInputType.MouseButton2
+		return var510
+	end
+	if Controls_upvr.Flipped.Value ~= true or not INLINED_9() or not INLINED_10() then
+		if arg1.KeyCode ~= Enum.KeyCode.ButtonR1 then
+			var510 = false
+		else
+			var510 = true
+		end
+	end
+	if arg1.UserInputType == var510 then
+		var510 = Controls_upvr.ReleaseDive
+		if var510.Value then
+			var510 = LocalPlayer_upvr.SelectedPosition
+			if var510.Value == "GK" and not Status_upvr:FindFirstChild("HasBall") and Status_upvr:FindFirstChild("InBox") and not Status_upvr:FindFirstChild("TakingSetPiece") then
+				dive()
+				return
+			end
+		end
+	end
+end)
+local tick_result1_upvw_7 = tick()
+local tick_result1_upvw_3 = tick()
+local mouse_upvr = LocalPlayer_upvr:GetMouse()
+UserInputService_upvr.InputBegan:Connect(function(arg1, arg2) -- Line 4025
+	--[[ Upvalues[22]:
+		[1]: Status_upvr (readonly)
+		[2]: tick_result1_upvw_7 (read and write)
+		[3]: tick_result1_upvw_3 (read and write)
+		[4]: var120_upvw (read and write)
+		[5]: any_LoadAnimation_result1_upvw_73 (read and write)
+		[6]: any_LoadAnimation_result1_upvw_39 (read and write)
+		[7]: any_LoadAnimation_result1_upvw_28 (read and write)
+		[8]: Controls_upvr (readonly)
+		[9]: tick_result1_upvw_10 (read and write)
+		[10]: tick_result1_upvw_8 (read and write)
+		[11]: var121_upvw (read and write)
+		[12]: var123_upvw (read and write)
+		[13]: var124_upvw (read and write)
+		[14]: LocalPlayer_upvr (readonly)
+		[15]: var119_upvw (read and write)
+		[16]: var131_upvw (read and write)
+		[17]: Character_4_upvr (readonly)
+		[18]: UserInputService_upvr (readonly)
+		[19]: var125_upvw (read and write)
+		[20]: HitboxHandler_upvr (readonly)
+		[21]: ballStatus_upvr (readonly)
+		[22]: mouse_upvr (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [6] 6. Error Block 2 start (CF ANALYSIS FAILED)
+	do
+		return
+	end
+	-- KONSTANTERROR: [6] 6. Error Block 2 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [7] 7. Error Block 3 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [7] 7. Error Block 3 end (CF ANALYSIS FAILED)
+end)
+Humanoid_upvr:GetPropertyChangedSignal("Jump"):Connect(function() -- Line 4196
+	--[[ Upvalues[8]:
+		[1]: Humanoid_upvr (readonly)
+		[2]: Status_upvr (readonly)
+		[3]: Character_4_upvr (readonly)
+		[4]: LocalPlayer_upvr (readonly)
+		[5]: var119_upvw (read and write)
+		[6]: var121_upvw (read and write)
+		[7]: var123_upvw (read and write)
+		[8]: var124_upvw (read and write)
+	]]
+	if Humanoid_upvr.Jump == true and not Status_upvr:FindFirstChild("spaceCheck") then
+		if not Status_upvr:FindFirstChild("Knockdown") and not Status_upvr:FindFirstChild("NoMovement") then
+			if not Status_upvr:FindFirstChild("NoJump") and Character_4_upvr.Humanoid.FloorMaterial ~= Enum.Material.Air then
+				local Folder_25 = Instance.new("Folder")
+				Folder_25.Name = "spaceCheck"
+				Folder_25.Parent = Status_upvr
+				game.Debris:AddItem(Folder_25, 0.3)
+				if not game.ReplicatedStorage:FindFirstChild("InfiniteStamina") and LocalPlayer_upvr.Name ~= "kaitoudono" then
+					local Stamina = Character_4_upvr.Stats.Stamina
+					Stamina.Value -= 4
+				end
+				if isMobile() then
+					task.wait(0.1)
+					local MobileControlEvents_2 = game.ReplicatedStorage.MobileControlEvents
+					if 0 < var119_upvw then
+						MobileControlEvents_2.M1:Fire(false)
+						return
+					end
+					if 0 < var121_upvw then
+						MobileControlEvents_2.M2:Fire(false)
+						return
+					end
+					if 0 < var123_upvw then
+						MobileControlEvents_2.DribbleLeft:Fire(false)
+						return
+					end
+					if 0 < var124_upvw then
+						MobileControlEvents_2.DribbleRight:Fire(false)
+					end
+				end
+			end
+		end
+	end
+end)
+UserInputService_upvr.InputEnded:Connect(function(arg1, arg2) -- Line 4223
+	--[[ Upvalues[10]:
+		[1]: Controls_upvr (readonly)
+		[2]: tick_result1_upvw (read and write)
+		[3]: LocalPlayer_upvr (readonly)
+		[4]: Status_upvr (readonly)
+		[5]: var119_upvw (read and write)
+		[6]: var385_upvw (read and write)
+		[7]: var121_upvw (read and write)
+		[8]: var131_upvw (read and write)
+		[9]: var123_upvw (read and write)
+		[10]: var124_upvw (read and write)
+	]]
+	local var520
+	local function INLINED_11() -- Internal function, doesn't exist in bytecode
+		var520 = Enum.UserInputType.MouseButton2
+		return var520
+	end
+	if Controls_upvr.Flipped.Value ~= true or not INLINED_11() then
+		var520 = Enum.UserInputType.MouseButton1
+	end
+	local function INLINED_12() -- Internal function, doesn't exist in bytecode
+		var520 = Enum.KeyCode.ButtonL1
+		return arg1.KeyCode == var520
+	end
+	if arg1.UserInputType == var520 or INLINED_12() then
+		var520 = tick()
+		var520 = 0.1
+		if var520 - tick_result1_upvw < var520 then
+		else
+			tick_result1_upvw = tick()
+			holdingm1 = false -- Setting global
+			holdingm2 = false -- Setting global
+			holdingz = false -- Setting global
+			holdingc = false -- Setting global
+			hideSelf()
+			var520 = LocalPlayer_upvr.SelectedPosition
+			if var520.Value == "GK" and Status_upvr:FindFirstChild("InBox") and Status_upvr:FindFirstChild("HasBall") and not Status_upvr:FindFirstChild("TakingSetPiece") then
+				var520 = false
+				gkKickFunction(var520)
+			elseif not Status_upvr:FindFirstChild("NoCharge") and not Status_upvr:FindFirstChild("KickCD") then
+				var520 = false
+				kick(var520)
+			end
+			var119_upvw = 0
+			var385_upvw = false
+		end
+	end
+	local function INLINED_13() -- Internal function, doesn't exist in bytecode
+		var520 = Enum.UserInputType.MouseButton1
+		return var520
+	end
+	if Controls_upvr.Flipped.Value ~= true or not INLINED_13() then
+		var520 = Enum.UserInputType.MouseButton2
+	end
+	local function INLINED_14() -- Internal function, doesn't exist in bytecode
+		var520 = Enum.KeyCode.ButtonR1
+		return arg1.KeyCode == var520
+	end
+	if arg1.UserInputType == var520 or INLINED_14() then
+		var520 = LocalPlayer_upvr.SelectedPosition
+		if var520.Value == "GK" and not Status_upvr:FindFirstChild("HasBall") and Status_upvr:FindFirstChild("InBox") and not Status_upvr:FindFirstChild("TakingSetPiece") then
+		else
+			var520 = tick()
+			var520 = 0.1
+			if var520 - tick_result1_upvw < var520 then return end
+			tick_result1_upvw = tick()
+			holdingm2 = false -- Setting global
+			holdingm1 = false -- Setting global
+			holdingz = false -- Setting global
+			holdingc = false -- Setting global
+			hideSelf()
+			var520 = LocalPlayer_upvr.SelectedPosition
+			if var520.Value == "GK" and Status_upvr:FindFirstChild("InBox") and not Status_upvr:FindFirstChild("TakingSetPiece") then
+				var520 = true
+				gkKickFunction(var520)
+			elseif not Status_upvr:FindFirstChild("NoCharge") and not Status_upvr:FindFirstChild("KickCD") then
+				var520 = true
+				kick(var520)
+			end
+			var121_upvw = 0
+			var385_upvw = false
+		end
+	end
+	var520 = Enum.KeyCode[Controls_upvr.Shove.Value]
+	local function INLINED_15() -- Internal function, doesn't exist in bytecode
+		var520 = Enum.KeyCode.DPadUp
+		return arg1.KeyCode == var520
+	end
+	if arg1.KeyCode == var520 or INLINED_15() then
+		var131_upvw = false
+	else
+		var520 = Enum.KeyCode[Controls_upvr.DribbleLeft.Value]
+		local function INLINED_16() -- Internal function, doesn't exist in bytecode
+			var520 = Enum.KeyCode.ButtonL2
+			return arg1.KeyCode == var520
+		end
+		if arg1.KeyCode == var520 or INLINED_16() then
+			if arg2 == true then
+			else
+				holdingm2 = false -- Setting global
+				holdingm1 = false -- Setting global
+				holdingz = false -- Setting global
+				holdingc = false -- Setting global
+				hideSelf()
+				var520 = LocalPlayer_upvr.SelectedPosition
+				if var520.Value == "GK" and Status_upvr:FindFirstChild("InBox") and Status_upvr:FindFirstChild("HasBall") and not Status_upvr:FindFirstChild("TakingSetPiece") then
+					var520 = false
+					gkKickFunction(var520)
+				elseif not Status_upvr:FindFirstChild("NoCharge") and not Status_upvr:FindFirstChild("KickCD") then
+					var520 = "Left"
+					sideKick(var520)
+				end
+				var123_upvw = 0
+				var385_upvw = false
+			end
+		end
+		var520 = Enum.KeyCode[Controls_upvr.DribbleRight.Value]
+		local function INLINED_17() -- Internal function, doesn't exist in bytecode
+			var520 = Enum.KeyCode.ButtonR2
+			return arg1.KeyCode == var520
+		end
+		if arg1.KeyCode == var520 or INLINED_17() then
+			if arg2 == true then return end
+			holdingm2 = false -- Setting global
+			holdingm1 = false -- Setting global
+			holdingz = false -- Setting global
+			holdingc = false -- Setting global
+			hideSelf()
+			var520 = LocalPlayer_upvr.SelectedPosition
+			if var520.Value == "GK" and Status_upvr:FindFirstChild("InBox") and Status_upvr:FindFirstChild("HasBall") and not Status_upvr:FindFirstChild('-') then
+				var520 = false
+				gkKickFunction(var520)
+			elseif not Status_upvr:FindFirstChild("NoCharge") and not Status_upvr:FindFirstChild("KickCD") then
+				var520 = "Right"
+				sideKick(var520)
+			end
+			var124_upvw = 0
+			var385_upvw = false
+		end
+	end
+end)
+game.ReplicatedStorage.Remotes.GetClientKickInfo.OnClientInvoke = function() -- Line 4290
+	--[[ Upvalues[6]:
+		[1]: UserInputService_upvr (readonly)
+		[2]: var125_upvw (read and write)
+		[3]: Character_4_upvr (readonly)
+		[4]: var119_upvw (read and write)
+		[5]: var121_upvw (read and write)
+		[6]: Status_upvr (readonly)
+	]]
+	local tbl_8 = {}
+	local _
+	for i_12, v_9 in pairs(UserInputService_upvr:GetKeysPressed()) do
+		table.insert(tbl_8, v_9.KeyCode)
+	end
+	local Ball_4 = game.Workspace.Temp:FindFirstChild("Ball")
+	if UserInputService_upvr.GamepadEnabled then
+		if var125_upvw == 2 then
+			tbl_8 = {Enum.KeyCode.A}
+		elseif var125_upvw == 3 then
+			tbl_8 = {Enum.KeyCode.D}
+		elseif var125_upvw == 1 then
+			tbl_8 = {Enum.KeyCode.S}
+		elseif var125_upvw == 4 then
+			local tbl_7 = {Enum.KeyCode.W}
+			tbl_8 = tbl_7
+		end
+	end
+	tbl_7 = nil
+	local var536 = tbl_7
+	if Ball_4 ~= nil then
+		v_9 = Character_4_upvr.HumanoidRootPart.Position * Vector3.new(1, 0, 1)
+		i_12 = v_9 - Ball_4.Position * Vector3.new(1, 0, 1)
+		v_9 = Character_4_upvr.HumanoidRootPart.CFrame
+		i_12 = v_9.RightVector:Dot(i_12.Unit)
+		v_9 = 0
+		if v_9 < i_12 then
+			var536 = "Left"
+		else
+			var536 = "Right"
+		end
+	end
+	local module = {
+		look = Character_4_upvr.HumanoidRootPart.CFrame.lookVector;
+		right = Character_4_upvr.HumanoidRootPart.CFrame.rightVector;
+		pos = Character_4_upvr.HumanoidRootPart.CFrame;
+	}
+	if var121_upvw >= var119_upvw or not var119_upvw then
+	end
+	module.charge = var121_upvw
+	module.cameraLook = game.Workspace.CurrentCamera.CFrame.LookVector
+	if Status_upvr:FindFirstChild("spaceCheck") == nil then
+	else
+	end
+	module.isAir = true
+	module.moveDirection = Character_4_upvr.HumanoidRootPart.AssemblyLinearVelocity.Unit
+	module.keysDown = tbl_8
+	module.side = var536
+	return module
+end
+game.ReplicatedStorage.Remotes.BallTrailClient.OnClientEvent:Connect(function(arg1) -- Line 4333
+	--[[ Upvalues[1]:
+		[1]: LocalPlayer_upvr (readonly)
+	]]
+	local clone_12_upvr = game.ReplicatedStorage.VFX.SlideTrail.ballTrail:Clone()
+	if LocalPlayer_upvr.Settings.Misc.SnowEnabled.Value == true then
+		clone_12_upvr.Dust.Color = ColorSequence.new(Color3.new(1, 1, 1))
+	end
+	clone_12_upvr.Parent = arg1
+	local clone_10 = game.ReplicatedStorage.SFX.SlideSFX:Clone()
+	clone_10.Parent = arg1
+	clone_10:Play()
+	game.Debris:AddItem(clone_10, 3)
+	local clone_13 = game.ReplicatedStorage.SFX.rollSFX:Clone()
+	clone_13.Parent = arg1
+	clone_13:Play()
+	game.Debris:AddItem(clone_13, 3)
+	local any_Connect_result1_upvr_2 = game:GetService("RunService").RenderStepped:Connect(function() -- Line 4339
+		--[[ Upvalues[2]:
+			[1]: arg1 (readonly)
+			[2]: clone_12_upvr (readonly)
+		]]
+		local RaycastParams_new_result1 = RaycastParams.new()
+		RaycastParams_new_result1.FilterDescendantsInstances = {game.Workspace.gameArea, game.Workspace.Temp}
+		RaycastParams_new_result1.FilterType = Enum.RaycastFilterType.Include
+		local workspace_Raycast_result1 = workspace:Raycast(arg1.Position, Vector3.new(0, -2, 0), RaycastParams_new_result1)
+		if workspace_Raycast_result1 ~= nil and workspace_Raycast_result1.Instance ~= nil then
+			clone_12_upvr.Dust.Enabled = true
+		else
+			clone_12_upvr.Dust.Enabled = false
+		end
+	end)
+	task.delay(0.75, function() -- Line 4358
+		--[[ Upvalues[2]:
+			[1]: any_Connect_result1_upvr_2 (readonly)
+			[2]: clone_12_upvr (readonly)
+		]]
+		any_Connect_result1_upvr_2:Disconnect()
+		clone_12_upvr.Dust.Enabled = false
+		game.Debris:AddItem(clone_12_upvr, 4)
+	end)
+end)
+game.ReplicatedStorage.Remotes.ClientVelocity.OnClientEvent:Connect(function(arg1, arg2, arg3, arg4) -- Line 4365
+	if arg4 == nil then
+	end
+	local Character_2_upvr = game.Players.LocalPlayer.Character
+	for _, v_10 in pairs(Character_2_upvr.HumanoidRootPart:GetChildren()) do
+		if v_10:IsA("BodyVelocity") then
+			v_10:Destroy()
+		end
+	end
+	local BodyVelocity_upvr_4 = Instance.new("BodyVelocity")
+	BodyVelocity_upvr_4.MaxForce = Vector3.new(50000, 0, 50000)
+	BodyVelocity_upvr_4.Velocity = Character_2_upvr.HumanoidRootPart.CFrame.lookVector * arg1
+	BodyVelocity_upvr_4.Parent = Character_2_upvr.HumanoidRootPart
+	game.Debris:AddItem(BodyVelocity_upvr_4, arg2)
+	local any_Connect_result1_upvr_6 = game:GetService("RunService").RenderStepped:Connect(function() -- Line 4381
+		--[[ Upvalues[3]:
+			[1]: BodyVelocity_upvr_4 (readonly)
+			[2]: Character_2_upvr (readonly)
+			[3]: arg1 (read and write)
+		]]
+		BodyVelocity_upvr_4.Velocity = Character_2_upvr.HumanoidRootPart.CFrame.lookVector * arg1
+	end)
+	task.delay(arg2, function() -- Line 4384
+		--[[ Upvalues[1]:
+			[1]: any_Connect_result1_upvr_6 (readonly)
+		]]
+		any_Connect_result1_upvr_6:Disconnect()
+	end)
+	if arg3 == true then
+	else
+		for _ = 1, math.floor(arg2 * 30) do
+			task.wait(0.0167)
+		end
+	end
+end)
+game.ReplicatedStorage.Remotes.ClientVelocityLock.OnClientEvent:Connect(function(arg1, arg2, arg3, arg4) -- Line 4395
+	--[[ Upvalues[1]:
+		[1]: HumanoidRootPart_upvr (readonly)
+	]]
+	if arg3 == nil then
+		local var570_upvw = 0
+	end
+	local Character_7 = game.Players.LocalPlayer.Character
+	for i_14, v_11 in pairs(Character_7.HumanoidRootPart:GetChildren()) do
+		if v_11:IsA("BodyVelocity") then
+			v_11:Destroy()
+		end
+	end
+	local _, any_ToOrientation_result2_upvw_2, _ = Character_7.HumanoidRootPart.CFrame:ToOrientation()
+	if arg4 == true then
+		i_14 = CFrame.lookAt
+		v_11 = HumanoidRootPart_upvr.Position
+		i_14 = i_14(v_11, HumanoidRootPart_upvr.CFrame * CFrame.new(var570_upvw, 0, -arg2).Position):ToOrientation()
+		local _, any_ToOrientation_result2, _ = i_14(v_11, HumanoidRootPart_upvr.CFrame * CFrame.new(var570_upvw, 0, -arg2).Position):ToOrientation()
+		any_ToOrientation_result2_upvw_2 = any_ToOrientation_result2
+	end
+	local BodyVelocity_upvr_6 = Instance.new("BodyVelocity")
+	BodyVelocity_upvr_6.MaxForce = Vector3.new(50000, 0, 50000)
+	BodyVelocity_upvr_6.Velocity = Character_7.HumanoidRootPart.CFrame.lookVector * arg2 + Character_7.HumanoidRootPart.CFrame.rightVector * var570_upvw
+	BodyVelocity_upvr_6.Parent = Character_7.HumanoidRootPart
+	game.Debris:AddItem(BodyVelocity_upvr_6, arg1)
+	local CFrame_upvr = Character_7.HumanoidRootPart.CFrame
+	local Folder_17_upvr = Instance.new("Folder")
+	Folder_17_upvr.Name = "CameraLocked"
+	Folder_17_upvr.Parent = Character_7.Status
+	game.Debris:AddItem(Folder_17_upvr, arg1)
+	BodyVelocity_upvr_6.Destroying:Connect(function() -- Line 4424
+		--[[ Upvalues[1]:
+			[1]: Folder_17_upvr (readonly)
+		]]
+		Folder_17_upvr:Destroy()
+	end)
+	local any_Connect_result1_upvr_5 = game:GetService("RunService").RenderStepped:Connect(function() -- Line 4416
+		--[[ Upvalues[6]:
+			[1]: BodyVelocity_upvr_6 (readonly)
+			[2]: CFrame_upvr (readonly)
+			[3]: arg2 (read and write)
+			[4]: var570_upvw (read and write)
+			[5]: HumanoidRootPart_upvr (copied, readonly)
+			[6]: any_ToOrientation_result2_upvw_2 (read and write)
+		]]
+		BodyVelocity_upvr_6.Velocity = CFrame_upvr.lookVector * arg2 + CFrame_upvr.rightVector * var570_upvw
+		HumanoidRootPart_upvr.CFrame = CFrame.new(HumanoidRootPart_upvr.Position) * CFrame.Angles(0, any_ToOrientation_result2_upvw_2, 0)
+	end)
+	task.delay(arg1, function() -- Line 4428
+		--[[ Upvalues[1]:
+			[1]: any_Connect_result1_upvr_5 (readonly)
+		]]
+		any_Connect_result1_upvr_5:Disconnect()
+	end)
+	for _ = 1, math.floor(arg1 * 30) do
+		arg2 *= 0.975
+		var570_upvw *= 0.975
+		task.wait(0.0167)
+	end
+end)
+game.ReplicatedStorage.Remotes.Blur.OnClientEvent:Connect(function(arg1) -- Line 4438
+	--[[ Upvalues[1]:
+		[1]: LocalPlayer_upvr (readonly)
+	]]
+	if LocalPlayer_upvr:GetAttribute("Freecam") then
+	else
+		game:GetService("TweenService"):Create(game.Lighting.Blur, TweenInfo.new(0.75, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Size = 20;
+		}):Play()
+		task.delay(arg1, function() -- Line 4443
+			game:GetService("TweenService"):Create(game.Lighting.Blur, TweenInfo.new(0.75, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Size = 2;
+			}):Play()
+		end)
+	end
+end)
+LocalPlayer_upvr:WaitForChild("SelectedPosition").Changed:Connect(function() -- Line 4450
+	--[[ Upvalues[1]:
+		[1]: LocalPlayer_upvr (readonly)
+	]]
+	if LocalPlayer_upvr.SelectedPosition.Value == "GK" then
+		for _, v_12 in pairs(game.Workspace.gameArea.Field.GoalboxAway.Goal:GetDescendants()) do
+			if v_12:IsA("Texture") and v_12.Name == "TextureBack" then
+				v_12.Transparency = 0.9
+			end
+		end
+		for _, v_13 in pairs(game.Workspace.gameArea.Field.GoalboxHome.Goal:GetDescendants()) do
+			if v_13:IsA("Texture") then
+				if v_13.Name == "TextureBack" then
+					v_13.Transparency = 0.9
+				end
+			end
+		end
+	else
+		for _, v_19 in pairs(game.Workspace.gameArea.Field.GoalboxAway.Goal:GetDescendants()) do
+			if v_19:IsA("Texture") and v_19.Name == "TextureBack" then
+				v_19.Transparency = 0
+			end
+		end
+		for _, v_20 in pairs(game.Workspace.gameArea.Field.GoalboxHome.Goal:GetDescendants()) do
+			if v_20:IsA("Texture") and v_20.Name == "TextureBack" then
+				v_20.Transparency = 0
+			end
+		end
+	end
+end)
+game.ReplicatedStorage.Remotes.Pushback.OnClientEvent:Connect(pushback)
+Status_upvr.ChildAdded:Connect(function(arg1) -- Line 4478
+	--[[ Upvalues[2]:
+		[1]: var119_upvw (read and write)
+		[2]: var121_upvw (read and write)
+	]]
+	if arg1.Name == "NoCharge" then
+		var119_upvw = 0
+		var121_upvw = 0
+	end
+end)
+local var614_upvw = 0
+task.spawn(function() -- Line 4488
+	--[[ Upvalues[2]:
+		[1]: LocalPlayer_upvr (readonly)
+		[2]: var614_upvw (read and write)
+	]]
+	while wait(1) do
+		if LocalPlayer_upvr:FindFirstChild("InPlay") and not game.ReplicatedStorage:FindFirstChild("Shootout") and not game.ReplicatedStorage:FindFirstChild("FinalShootoutF") then
+			var614_upvw += 1
+			if 60 < var614_upvw then
+				game.ReplicatedStorage.Remotes.Reset:FireServer(true)
+			end
+		end
+	end
+end)
+UserInputService_upvr.InputBegan:Connect(function(arg1) -- Line 4499
+	--[[ Upvalues[2]:
+		[1]: var122_upvw (read and write)
+		[2]: var614_upvw (read and write)
+	]]
+	if arg1.KeyCode == Enum.KeyCode.DPadRight then
+		var122_upvw = not var122_upvw
+	end
+	if arg1.UserInputType ~= Enum.UserInputType.MouseMovement then
+		var614_upvw = 0
+	end
+end)
+local MobileControlEvents = game.ReplicatedStorage.MobileControlEvents
+MobileControlEvents.M1.Event:Connect(function(arg1) -- Line 4512
+	--[[ Upvalues[9]:
+		[1]: tick_result1_upvw_10 (read and write)
+		[2]: tick_result1_upvw_8 (read and write)
+		[3]: Status_upvr (readonly)
+		[4]: Controls_upvr (readonly)
+		[5]: var121_upvw (read and write)
+		[6]: tick_result1_upvw (read and write)
+		[7]: LocalPlayer_upvr (readonly)
+		[8]: var119_upvw (read and write)
+		[9]: var385_upvw (read and write)
+	]]
+	if arg1 == true then
+		tick_result1_upvw_10 = tick()
+		if tick() - tick_result1_upvw_8 < 0.2 then
+			soledrag()
+		else
+			local var619
+			if Status_upvr:FindFirstChild("LeftRightInput") then
+				var619 = game.ReplicatedStorage
+				local function INLINED_18() -- Internal function, doesn't exist in bytecode
+					var619 = Enum.UserInputType.MouseButton2
+					return var619
+				end
+				if Controls_upvr.Flipped.Value ~= true or not INLINED_18() then
+					var619 = Enum.UserInputType.MouseButton1
+				end
+				var619.Remotes.KeyInput:FireServer(var619, true)
+			end
+			var121_upvw = 0
+			holdingm2 = false -- Setting global
+			holdingm1 = true -- Setting global
+		end
+	end
+	if arg1 == false then
+		if tick() - tick_result1_upvw < 0.1 then return end
+		tick_result1_upvw = tick()
+		holdingm1 = false -- Setting global
+		holdingm2 = false -- Setting global
+		hideSelf()
+		if LocalPlayer_upvr.SelectedPosition.Value == "GK" and Status_upvr:FindFirstChild("InBox") and Status_upvr:FindFirstChild("HasBall") and not Status_upvr:FindFirstChild("TakingSetPiece") then
+			gkKickFunction(false)
+		elseif not Status_upvr:FindFirstChild("NoCharge") and not Status_upvr:FindFirstChild("KickCD") then
+			kick(false)
+		end
+		var119_upvw = 0
+		var385_upvw = false
+	end
+end)
+MobileControlEvents.M2.Event:Connect(function(arg1) -- Line 4544
+	--[[ Upvalues[9]:
+		[1]: tick_result1_upvw_8 (read and write)
+		[2]: tick_result1_upvw_10 (read and write)
+		[3]: Status_upvr (readonly)
+		[4]: Controls_upvr (readonly)
+		[5]: LocalPlayer_upvr (readonly)
+		[6]: var119_upvw (read and write)
+		[7]: tick_result1_upvw (read and write)
+		[8]: var121_upvw (read and write)
+		[9]: var385_upvw (read and write)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [2] 2. Error Block 46 start (CF ANALYSIS FAILED)
+	tick_result1_upvw_8 = tick()
+	if tick() - tick_result1_upvw_10 < 0.2 then
+		soledrag()
+		return
+	end
+	local var622
+	if Status_upvr:FindFirstChild("LeftRightInput") then
+		var622 = game.ReplicatedStorage
+		local function INLINED_20() -- Internal function, doesn't exist in bytecode
+			var622 = Enum.UserInputType.MouseButton1
+			return var622
+		end
+		if Controls_upvr.Flipped.Value ~= true or not INLINED_20() then
+			var622 = Enum.UserInputType.MouseButton2
+		end
+		var622.Remotes.KeyInput:FireServer(var622, true)
+	end
+	if LocalPlayer_upvr.SelectedPosition.Value == "GK" then
+		if not Status_upvr:FindFirstChild("HasBall") then
+			if Status_upvr:FindFirstChild("InBox") then
+				if not Status_upvr:FindFirstChild("TakingSetPiece") then
+					dive()
+					return
+				end
+			end
+		end
+	end
+	var119_upvw = 0
+	holdingm1 = false -- Setting global
+	holdingz = false -- Setting global
+	holdingc = false -- Setting global
+	holdingm2 = true -- Setting global
+	do
+		return
+	end
+	-- KONSTANTERROR: [2] 2. Error Block 46 end (CF ANALYSIS FAILED)
+end)
+MobileControlEvents.SlideTackle.Event:Connect(slideTackle)
+MobileControlEvents.Physical.Event:Connect(function(arg1) -- Line 4589
+	--[[ Upvalues[1]:
+		[1]: var131_upvw (read and write)
+	]]
+	if arg1 == true then
+		shove()
+	end
+	var131_upvw = arg1
+end)
+MobileControlEvents.UseSkill.Event:Connect(function() -- Line 4596
+	--[[ Upvalues[7]:
+		[1]: Status_upvr (readonly)
+		[2]: Character_4_upvr (readonly)
+		[3]: var125_upvw (read and write)
+		[4]: HitboxHandler_upvr (readonly)
+		[5]: ballStatus_upvr (readonly)
+		[6]: var119_upvw (read and write)
+		[7]: var121_upvw (read and write)
+	]]
+	-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+	-- KONSTANTERROR: [0] 1. Error Block 65 start (CF ANALYSIS FAILED)
+	local var625
+	if Status_upvr:FindFirstChild("JustShot") then return end
+	if Status_upvr:FindFirstChild("SlideTackleActive") then return end
+	if Status_upvr:FindFirstChild("NoSkill") then return end
+	local Ball_3 = game.Workspace.Temp:FindFirstChild("Ball")
+	local Folder_23 = Instance.new("Folder")
+	Folder_23.Name = "KickDisable"
+	Folder_23.Parent = Status_upvr
+	game.Debris:AddItem(Folder_23, 0.3)
+	local var628
+	if Ball_3 ~= nil then
+		var625 = Character_4_upvr.HumanoidRootPart
+		var625 = Vector3.new(1, 0, 1)
+		var625 = Ball_3.Position
+		local const_vector = Vector3.new(1, 0, 1)
+		var625 = Character_4_upvr
+		if 0 < var625.HumanoidRootPart.CFrame.RightVector:Dot((var625.Position * var625 - var625 * const_vector).Unit) then
+			var628 = "Left"
+		else
+			var628 = "Right"
+		end
+	end
+	local tbl_2 = {}
+	print(var125_upvw)
+	if var125_upvw == 2 then
+		tbl_2 = {Enum.KeyCode.A}
+	elseif var125_upvw == 3 then
+		tbl_2 = {Enum.KeyCode.D}
+	elseif var125_upvw == 1 then
+		tbl_2 = {Enum.KeyCode.S}
+	else
+		tbl_2 = {Enum.KeyCode.W}
+	end
+	-- KONSTANTERROR: [0] 1. Error Block 65 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [238] 163. Error Block 58 start (CF ANALYSIS FAILED)
+	-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [239.12]
+	nil.isAir = true
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	nil.isNearBall = var625
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	nil.moveDirection = Character_4_upvr.HumanoidRootPart.AssemblyLinearVelocity.Unit
+	-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [254.10]
+	-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [254.11]
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	const_vector:FireServer(nil, nil, nil)
+	if var625 then
+		-- KONSTANTWARNING: GOTO [261] #178
+	end
+	task.wait((1/60))
+	-- KONSTANTERROR: [238] 163. Error Block 58 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [134] 95. Error Block 56 start (CF ANALYSIS FAILED)
+	if task.wait((1/60)) ~= nil then
+	else
+	end
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	if task.wait((1/60)) then
+	end
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [260.65666]
+	local function INLINED_21() -- Internal function, doesn't exist in bytecode
+		-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+		return Character_4_upvr.HumanoidRootPart.AssemblyLinearVelocity.Unit
+	end
+	if Character_4_upvr.HumanoidRootPart >= Character_4_upvr.HumanoidRootPart.AssemblyLinearVelocity or not INLINED_21() then
+	end
+	-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+	if Character_4_upvr.HumanoidRootPart.AssemblyLinearVelocity == nil then
+		-- KONSTANTWARNING: GOTO [239] #164
+	end
+	-- KONSTANTERROR: [134] 95. Error Block 56 end (CF ANALYSIS FAILED)
+end)
+MobileControlEvents.Emote.Event:Connect(function() -- Line 4658
+	--[[ Upvalues[3]:
+		[1]: UserInputService_upvr (readonly)
+		[2]: LocalPlayer_upvr (readonly)
+		[3]: Status_upvr (readonly)
+	]]
+	game.ReplicatedStorage.Remotes.KeyInput:FireServer(Enum.KeyCode.V, true)
+	local var637_upvw
+	var637_upvw = UserInputService_upvr.InputChanged:Connect(function(arg1) -- Line 4660
+		--[[ Upvalues[3]:
+			[1]: LocalPlayer_upvr (copied, readonly)
+			[2]: Status_upvr (copied, readonly)
+			[3]: var637_upvw (read and write)
+		]]
+		if arg1.UserInputType == Enum.UserInputType.Touch and Status_upvr:FindFirstChild("Emoting") and 0.4 < (require(LocalPlayer_upvr:WaitForChild("PlayerScripts").PlayerModule:WaitForChild("ControlModule")):GetMoveVector().Unit * Vector3.new(1, 0, 1)).Magnitude then
+			game.ReplicatedStorage.Remotes.KeyInput:FireServer(Enum.KeyCode.V, false)
+			var637_upvw:Disconnect()
+		end
+	end)
+	task.delay(5, function() -- Line 4671
+		--[[ Upvalues[1]:
+			[1]: var637_upvw (read and write)
+		]]
+		var637_upvw:Disconnect()
+	end)
+end)
+MobileControlEvents.MarkPass.Event:Connect(function() -- Line 4676
+	local RaycastParams_new_result1_3 = RaycastParams.new()
+	RaycastParams_new_result1_3.FilterDescendantsInstances = {game.Workspace.gameArea}
+	RaycastParams_new_result1_3.FilterType = Enum.RaycastFilterType.Include
+	local workspace_Raycast_result1_3 = workspace:Raycast(game.Workspace.CurrentCamera.CFrame.Position, game.Workspace.CurrentCamera.CFrame.LookVector * 250, RaycastParams_new_result1_3)
+	if workspace_Raycast_result1_3 ~= nil then
+		game.ReplicatedStorage.Remotes.KeyInput:FireServer(Enum.KeyCode.F, true, workspace_Raycast_result1_3.Position)
+	end
+end)
+MobileControlEvents.SprintToggle.Event:Connect(function(arg1) -- Line 4686
+	--[[ Upvalues[1]:
+		[1]: var127_upvw (read and write)
+	]]
+	var127_upvw = arg1
+end)
+MobileControlEvents.DribbleLeft.Event:Connect(function(arg1) -- Line 4690
+	--[[ Upvalues[7]:
+		[1]: var119_upvw (read and write)
+		[2]: var121_upvw (read and write)
+		[3]: var124_upvw (read and write)
+		[4]: LocalPlayer_upvr (readonly)
+		[5]: Status_upvr (readonly)
+		[6]: var123_upvw (read and write)
+		[7]: var385_upvw (read and write)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [2] 2. Error Block 2 start (CF ANALYSIS FAILED)
+	holdingc = false -- Setting global
+	var119_upvw = 0
+	var121_upvw = 0
+	var124_upvw = 0
+	holdingz = true -- Setting global
+	holdingm2 = false -- Setting global
+	holdingm1 = false -- Setting global
+	do
+		return
+	end
+	-- KONSTANTERROR: [2] 2. Error Block 2 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [21] 17. Error Block 3 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [21] 17. Error Block 3 end (CF ANALYSIS FAILED)
+end)
+MobileControlEvents.DribbleRight.Event:Connect(function(arg1) -- Line 4715
+	--[[ Upvalues[7]:
+		[1]: var119_upvw (read and write)
+		[2]: var121_upvw (read and write)
+		[3]: var123_upvw (read and write)
+		[4]: LocalPlayer_upvr (readonly)
+		[5]: Status_upvr (readonly)
+		[6]: var124_upvw (read and write)
+		[7]: var385_upvw (read and write)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [2] 2. Error Block 2 start (CF ANALYSIS FAILED)
+	holdingz = false -- Setting global
+	var119_upvw = 0
+	var121_upvw = 0
+	var123_upvw = 0
+	holdingc = true -- Setting global
+	holdingm2 = false -- Setting global
+	holdingm1 = false -- Setting global
+	do
+		return
+	end
+	-- KONSTANTERROR: [2] 2. Error Block 2 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [21] 17. Error Block 3 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [21] 17. Error Block 3 end (CF ANALYSIS FAILED)
+end)
+MobileControlEvents.ControlSprintToggle.Event:Connect(function(arg1) -- Line 4740
+	--[[ Upvalues[1]:
+		[1]: var122_upvw (read and write)
+	]]
+	var122_upvw = arg1
+end)
+local var648_upvw
+local var649_upvw
+game:GetService("RunService").RenderStepped:Connect(function() -- Line 4745
+	--[[ Upvalues[2]:
+		[1]: var648_upvw (read and write)
+		[2]: var649_upvw (read and write)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [11] 8. Error Block 2 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [11] 8. Error Block 2 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [14] 10. Error Block 3 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [14] 10. Error Block 3 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [44] 30. Error Block 11 start (CF ANALYSIS FAILED)
+	var649_upvw = game.Workspace.Temp:FindFirstChild("Ball").Name
+	do
+		return
+	end
+	-- KONSTANTERROR: [44] 30. Error Block 11 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [58] 39. Error Block 31 start (CF ANALYSIS FAILED)
+	if game.Workspace.Temp:FindFirstChild("Ball") == nil and var648_upvw and var649_upvw then
+		for _, v_14 in pairs(game.Workspace.Temp:GetChildren()) do
+			if v_14:FindFirstChild("ballHandler") then
+				var648_upvw = v_14
+				if var648_upvw.Name ~= var649_upvw then
+					var648_upvw.Name = var649_upvw
+				end
+			end
+		end
+	end
+	-- KONSTANTERROR: [58] 39. Error Block 31 end (CF ANALYSIS FAILED)
+end)

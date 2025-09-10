@@ -1,0 +1,137 @@
+-- LocalScript | decompile
+-- FullName: Workspace.CharacterContainer.Isaac_Thunder2015.WalkingSoundsClient
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:25:18
+-- Luau version 6, Types version 3
+-- Time taken: 0.002313 seconds
+
+local SoundService = game:GetService("SoundService")
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Character = LocalPlayer.Character
+if not Character then
+	Character = LocalPlayer.CharacterAdded:wait()
+end
+local Humanoid_upvr = Character.Humanoid
+local var5_upvw
+local var6_upvw
+local var7_upvw
+local var8_upvw
+local CurrentSound_upvr = SoundService:FindFirstChild("CurrentSound")
+if not CurrentSound_upvr then
+	CurrentSound_upvr = Instance.new("Sound", SoundService)
+end
+CurrentSound_upvr.Name = "CurrentSound"
+if Character.HumanoidRootPart:FindFirstChild("Running") then
+	Character.HumanoidRootPart:FindFirstChild("Running"):Destroy()
+end
+local var10_upvw
+local function _() -- Line 38, Named "getFloorMaterial"
+	--[[ Upvalues[3]:
+		[1]: var10_upvw (read and write)
+		[2]: Humanoid_upvr (readonly)
+		[3]: var8_upvw (read and write)
+	]]
+	var10_upvw = Humanoid_upvr.FloorMaterial
+	var8_upvw = string.split(tostring(var10_upvw), "Enum.Material.")[2]
+	return var8_upvw
+end
+local IDlist_upvr = require(script.IDlist)
+local function getSoundProperties_upvr() -- Line 46, Named "getSoundProperties"
+	--[[ Upvalues[6]:
+		[1]: IDlist_upvr (readonly)
+		[2]: var8_upvw (read and write)
+		[3]: var5_upvw (read and write)
+		[4]: var6_upvw (read and write)
+		[5]: var7_upvw (read and write)
+		[6]: Humanoid_upvr (readonly)
+	]]
+	for i, v in pairs(IDlist_upvr) do
+		local var19
+		if i == var8_upvw then
+			var5_upvw = v.id
+			var6_upvw = 0.35
+			if var8_upvw == "Air" then
+				var6_upvw = 0
+			end
+			local function INLINED() -- Internal function, doesn't exist in bytecode
+				var19 = Humanoid_upvr.WalkSpeed / 14
+				return var19
+			end
+			if Humanoid_upvr.WalkSpeed >= 16 or not INLINED() then
+				var19 = Humanoid_upvr.WalkSpeed / 24
+			end
+			var7_upvw = var19 * v.speed
+			return
+		end
+	end
+end
+local function _() -- Line 61, Named "update"
+	--[[ Upvalues[4]:
+		[1]: CurrentSound_upvr (readonly)
+		[2]: var5_upvw (read and write)
+		[3]: var6_upvw (read and write)
+		[4]: var7_upvw (read and write)
+	]]
+	CurrentSound_upvr.SoundId = var5_upvw
+	CurrentSound_upvr.Volume = var6_upvw
+	CurrentSound_upvr.PlaybackSpeed = var7_upvw
+end
+var10_upvw = Humanoid_upvr.FloorMaterial
+local var20_upvw = var10_upvw
+var8_upvw = string.split(tostring(var20_upvw), "Enum.Material.")[2]
+getSoundProperties_upvr()
+CurrentSound_upvr.SoundId = var5_upvw
+CurrentSound_upvr.Volume = var6_upvw
+CurrentSound_upvr.PlaybackSpeed = var7_upvw
+Humanoid_upvr:GetPropertyChangedSignal("FloorMaterial"):Connect(function() -- Line 73
+	--[[ Upvalues[8]:
+		[1]: var20_upvw (read and write)
+		[2]: Humanoid_upvr (readonly)
+		[3]: var8_upvw (read and write)
+		[4]: getSoundProperties_upvr (readonly)
+		[5]: CurrentSound_upvr (readonly)
+		[6]: var5_upvw (read and write)
+		[7]: var6_upvw (read and write)
+		[8]: var7_upvw (read and write)
+	]]
+	var20_upvw = Humanoid_upvr.FloorMaterial
+	var8_upvw = string.split(tostring(var20_upvw), "Enum.Material.")[2]
+	getSoundProperties_upvr()
+	CurrentSound_upvr.SoundId = var5_upvw
+	CurrentSound_upvr.Volume = var6_upvw
+	CurrentSound_upvr.PlaybackSpeed = var7_upvw
+	if 0 < Humanoid_upvr.MoveDirection.Magnitude then
+		CurrentSound_upvr.Playing = true
+	end
+end)
+Humanoid_upvr.Running:Connect(function(arg1) -- Line 84
+	--[[ Upvalues[6]:
+		[1]: Humanoid_upvr (readonly)
+		[2]: getSoundProperties_upvr (readonly)
+		[3]: CurrentSound_upvr (readonly)
+		[4]: var5_upvw (read and write)
+		[5]: var6_upvw (read and write)
+		[6]: var7_upvw (read and write)
+	]]
+	if 0 < Humanoid_upvr.MoveDirection.Magnitude and 0 < arg1 and Humanoid_upvr:GetState() ~= Enum.HumanoidStateType.Climbing and Humanoid_upvr.FloorMaterial ~= Enum.Material.Air then
+		getSoundProperties_upvr()
+		CurrentSound_upvr.SoundId = var5_upvw
+		CurrentSound_upvr.Volume = var6_upvw
+		CurrentSound_upvr.PlaybackSpeed = var7_upvw
+		CurrentSound_upvr.Playing = true
+		CurrentSound_upvr.Looped = true
+	else
+		CurrentSound_upvr:Stop()
+	end
+end)
+LocalPlayer.CharacterAdded:Connect(function() -- Line 96
+	--[[ Upvalues[1]:
+		[1]: CurrentSound_upvr (readonly)
+	]]
+	task.wait(1)
+	if CurrentSound_upvr.IsPlaying then
+		CurrentSound_upvr:Stop()
+	end
+end)

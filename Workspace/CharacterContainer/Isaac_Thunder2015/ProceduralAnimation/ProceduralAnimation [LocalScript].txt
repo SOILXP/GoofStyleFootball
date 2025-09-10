@@ -1,0 +1,111 @@
+-- LocalScript | decompile
+-- FullName: Workspace.CharacterContainer.Isaac_Thunder2015.ProceduralAnimation
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:25:18
+-- Luau version 6, Types version 3
+-- Time taken: 0.003083 seconds
+
+local LocalPlayer = game.Players.LocalPlayer
+local Character = LocalPlayer.Character
+local Torso = Character:WaitForChild("Torso")
+local C0_upvr = Character:WaitForChild("HumanoidRootPart").RootJoint.C0
+local C0_upvr_3 = Torso.Neck.C0
+local C0_upvr_2 = Torso["Right Hip"].C0
+local C0_upvr_4 = Torso["Left Hip"].C0
+local const_number = 45
+function has_action_anim(arg1) -- Line 35
+	for _, v in arg1.Humanoid.Animator:GetPlayingAnimationTracks() do
+		if v.Priority ~= Enum.AnimationPriority.Movement and v.Priority ~= Enum.AnimationPriority.Core and v.Priority ~= Enum.AnimationPriority.Idle then
+			return true
+		end
+	end
+	return false
+end
+local radians_upvw = math.rad(const_number)
+local radians_upvw_2 = math.rad(82.5 - const_number)
+local var16_upvr = const_number / 140
+local ControlModule_upvr = require(LocalPlayer.PlayerScripts.PlayerModule.ControlModule)
+local var18_upvw
+local var19_upvw
+local var20_upvw = 0
+local var21_upvw = 0
+function Calculate(arg1, arg2, arg3, arg4) -- Line 44
+	--[[ Upvalues[12]:
+		[1]: radians_upvw (read and write)
+		[2]: radians_upvw_2 (read and write)
+		[3]: var16_upvr (readonly)
+		[4]: ControlModule_upvr (readonly)
+		[5]: var18_upvw (read and write)
+		[6]: var19_upvw (read and write)
+		[7]: var20_upvw (read and write)
+		[8]: var21_upvw (read and write)
+		[9]: C0_upvr_2 (readonly)
+		[10]: C0_upvr_4 (readonly)
+		[11]: C0_upvr (readonly)
+		[12]: C0_upvr_3 (readonly)
+	]]
+	if arg3.WalkSpeed == 0 then
+	else
+		local any_VectorToObjectSpace_result1 = arg2.CFrame:VectorToObjectSpace(arg2.AssemblyLinearVelocity)
+		local vector3 = Vector3.new(any_VectorToObjectSpace_result1.X / arg3.WalkSpeed, 0, any_VectorToObjectSpace_result1.Z / arg3.WalkSpeed)
+		local var24 = vector3.X * (radians_upvw - (math.abs(vector3.Z)) * (radians_upvw / 2))
+		local var25 = vector3.X * (radians_upvw_2 - (math.abs(vector3.Z)) * (radians_upvw_2 / 2))
+		local var26 = vector3.X * (var16_upvr - (math.abs(vector3.Z)) * (var16_upvr / 2))
+		if 0.5 < ControlModule_upvr:GetMoveVector().Z then
+			var24 *= -1
+			var25 *= -1
+			var26 *= -1
+		end
+		var18_upvw = arg2.AssemblyLinearVelocity * Vector3.new(1, 0, 1)
+		if 2 < var18_upvw.Magnitude then
+			var19_upvw = var18_upvw.Unit
+			var20_upvw = arg2.CFrame.RightVector:Dot(var19_upvw) / 8.5
+			var21_upvw = arg2.CFrame.LookVector:Dot(var19_upvw) / 10.5
+		else
+			var20_upvw = 0
+			var21_upvw = 0
+		end
+		local var27 = (0.2) / ((1/60) / arg1)
+		arg4["Right Hip"].C0 = arg4["Right Hip"].C0:Lerp(C0_upvr_2 * CFrame.new(-var26, 0, -math.abs(var26) + math.abs(-var26)) * CFrame.Angles(0, -var24, 0), var27)
+		arg4["Left Hip"].C0 = arg4["Left Hip"].C0:Lerp(C0_upvr_4 * CFrame.new(-var26, 0, -math.abs(-var26) + math.abs(-var26)) * CFrame.Angles(0, -var24, 0), var27)
+		arg2.RootJoint.C0 = arg2.RootJoint.C0:Lerp(C0_upvr * CFrame.Angles(var21_upvw, -var20_upvw, -var25), var27)
+		arg4.Neck.C0 = arg4.Neck.C0:Lerp(C0_upvr_3 * CFrame.Angles(0, 0, var25), var27)
+	end
+end
+local function _(arg1) -- Line 86, Named "reset_c0"
+	--[[ Upvalues[4]:
+		[1]: C0_upvr_2 (readonly)
+		[2]: C0_upvr_4 (readonly)
+		[3]: C0_upvr (readonly)
+		[4]: C0_upvr_3 (readonly)
+	]]
+	arg1.Torso["Right Hip"].C0 = C0_upvr_2
+	arg1.Torso["Left Hip"].C0 = C0_upvr_4
+	arg1.HumanoidRootPart.RootJoint.C0 = C0_upvr
+	arg1.Torso.Neck.C0 = C0_upvr_3
+end
+game:GetService("RunService").RenderStepped:Connect(function(arg1) -- Line 93
+	--[[ Upvalues[4]:
+		[1]: C0_upvr_2 (readonly)
+		[2]: C0_upvr_4 (readonly)
+		[3]: C0_upvr (readonly)
+		[4]: C0_upvr_3 (readonly)
+	]]
+	for _, v_2 in workspace.CharacterContainer:GetChildren() do
+		local HumanoidRootPart = v_2:FindFirstChild("HumanoidRootPart")
+		local Humanoid = v_2:FindFirstChild("Humanoid")
+		if HumanoidRootPart ~= nil and Humanoid ~= nil and v_2:FindFirstChild("Torso") ~= nil then
+			if has_action_anim(v_2) or Humanoid.WalkSpeed == 0 then
+				v_2.Torso["Right Hip"].C0 = C0_upvr_2
+				v_2.Torso["Left Hip"].C0 = C0_upvr_4
+				v_2.HumanoidRootPart.RootJoint.C0 = C0_upvr
+				v_2.Torso.Neck.C0 = C0_upvr_3
+			else
+				-- KONSTANTERROR: Expression was reused, decompilation is incorrect
+				Calculate(arg1, HumanoidRootPart, Humanoid, v_2:FindFirstChild("Torso"))
+			end
+		end
+	end
+end)

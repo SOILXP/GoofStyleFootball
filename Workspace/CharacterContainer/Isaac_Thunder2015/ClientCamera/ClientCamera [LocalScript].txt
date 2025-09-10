@@ -1,0 +1,294 @@
+-- LocalScript | decompile
+-- FullName: Workspace.CharacterContainer.Isaac_Thunder2015.ClientCamera
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-09-10 13:25:17
+-- Luau version 6, Types version 3
+-- Time taken: 0.011666 seconds
+
+local Character_2_upvw = game:GetService("Players").LocalPlayer.Character
+if not Character_2_upvw then
+	Character_2_upvw = game:GetService("Players").LocalPlayer.CharacterAdded:Wait()
+end
+local UserInputService_upvr = game:GetService("UserInputService")
+local CurrentCamera_upvr = workspace.CurrentCamera
+CurrentCamera_upvr.CameraSubject = Character_2_upvw:WaitForChild("Neck_CameraSubject")
+if CurrentCamera_upvr.CameraType ~= Enum.CameraType.Custom then
+	CurrentCamera_upvr.CameraType = Enum.CameraType.Custom
+end
+local Status_upvw = Character_2_upvw.Status
+local var9_upvw = false
+UserSettings().GameSettings.RotationType = Enum.RotationType.MovementRelative
+for _, v in Character_2_upvw:GetDescendants() do
+	if v:IsA("BasePart") then
+		v.LocalTransparencyModifier = 0
+	end
+end
+local any_new_result1_upvr = require(game:GetService("ReplicatedStorage").Modules.CameraShaker).new(Enum.RenderPriority.Camera.Value + 1, function(arg1) -- Line 17, Named "camShakeHandler"
+	--[[ Upvalues[1]:
+		[1]: CurrentCamera_upvr (readonly)
+	]]
+	if arg1 ~= CFrame.new(0, 0, 0) then
+		local var10 = CurrentCamera_upvr
+		var10.CFrame *= arg1
+	end
+end)
+local tbl_3_upvr = {
+	["Right Shoulder"] = Vector3.new(2, 0, 0);
+	["Left Shoulder"] = Vector3.new(-2, 0, 0);
+	["Above Head"] = Vector3.new(0, 2, 0);
+}
+any_new_result1_upvr:Start()
+function input_Began(arg1, arg2) -- Line 35
+	--[[ Upvalues[4]:
+		[1]: var9_upvw (read and write)
+		[2]: UserInputService_upvr (readonly)
+		[3]: Character_2_upvw (read and write)
+		[4]: tbl_3_upvr (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 18 start (CF ANALYSIS FAILED)
+	if arg2 ~= true then
+	else
+		return
+	end
+	-- KONSTANTERROR: [0] 1. Error Block 18 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [10] 7. Error Block 6 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [10] 7. Error Block 6 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [16] 10. Error Block 15 start (CF ANALYSIS FAILED)
+	var9_upvw = not var9_upvw
+	-- KONSTANTERROR: [16] 10. Error Block 15 end (CF ANALYSIS FAILED)
+end
+game.ReplicatedStorage.MobileControlEvents.shiftLock.Event:Connect(function() -- Line 56
+	input_Began({
+		KeyCode = Enum.KeyCode.LeftControl;
+	}, false)
+end)
+UserInputService_upvr.InputBegan:Connect(input_Began)
+UserInputService_upvr.MouseBehavior = Enum.MouseBehavior.Default
+local tick_result1_upvw = tick()
+local var20_upvw = false
+game:GetService("RunService").RenderStepped:Connect(function() -- Line 63
+	--[[ Upvalues[7]:
+		[1]: CurrentCamera_upvr (readonly)
+		[2]: tick_result1_upvw (read and write)
+		[3]: Status_upvw (read and write)
+		[4]: var9_upvw (read and write)
+		[5]: var20_upvw (read and write)
+		[6]: Character_2_upvw (read and write)
+		[7]: UserInputService_upvr (readonly)
+	]]
+	local var63
+	if CurrentCamera_upvr.CameraSubject:IsA("Humanoid") then
+		var63 = var63.Parent.HumanoidRootPart
+	end
+	local Magnitude_2 = (var63.Position - CurrentCamera_upvr.CFrame.Position).Magnitude
+	if 80 < Magnitude_2 and 10 < tick() - tick_result1_upvw and not Status_upvw:FindFirstChild("CameraOverride") then
+		tick_result1_upvw = tick()
+		game.ReplicatedStorage.Remotes.ac:FireServer()
+	end
+	if Magnitude_2 < 1 then
+		if not var9_upvw then
+			var20_upvw = true
+			input_Began({
+				KeyCode = Enum.KeyCode.LeftControl;
+			}, false)
+		end
+		CurrentCamera_upvr.CFrame *= CFrame.new(0, 0.35, -0.6)
+		if not CurrentCamera_upvr.CameraSubject:IsA("Humanoid") then
+			CurrentCamera_upvr.CameraSubject = Character_2_upvw.Head
+		end
+		if Character_2_upvw.Head.Transparency ~= 1 then
+			for _, v_2 in pairs(Character_2_upvw:GetDescendants()) do
+				if v_2:IsA("BasePart") and (v_2.Name == "Head" or v_2.Parent:isA("Accessory") or v_2:FindFirstChild("HeadWeld")) then
+					v_2:SetAttribute("OldTransparency", v_2.Transparency)
+					v_2.Transparency = 1
+				end
+			end
+		end
+		for i_3, v_3 in pairs(Character_2_upvw:GetDescendants()) do
+			if v_3:IsA("ParticleEmitter") or v_3:IsA("Trail") then
+				v_3:SetAttribute("wasEnabled", v_3.Enabled)
+				v_3.Enabled = false
+			end
+		end
+		if UserInputService_upvr:IsKeyDown(Enum.KeyCode.LeftAlt) then
+			UserInputService_upvr.MouseBehavior = Enum.MouseBehavior.Default
+			v_3 = game.Players
+			i_3 = v_3.LocalPlayer
+			i_3.PlayerGui.MouseIcon.MouseIcon.Visible = false
+			UserInputService_upvr.MouseIconEnabled = true
+		else
+			UserInputService_upvr.MouseIconEnabled = false
+			if var9_upvw == true then
+				v_3 = game.Players
+				i_3 = v_3.LocalPlayer
+				i_3.PlayerGui.MouseIcon.MouseIcon.Visible = true
+				UserInputService_upvr.MouseBehavior = Enum.MouseBehavior.LockCenter
+			else
+				UserInputService_upvr.MouseBehavior = Enum.MouseBehavior.Default
+				v_3 = game.Players
+				i_3 = v_3.LocalPlayer
+				i_3.PlayerGui.MouseIcon.MouseIcon.Visible = false
+			end
+		end
+	else
+		i_3 = game
+		if i_3.Players.LocalPlayer.PlayerGui:FindFirstChild("MouseIcon") then
+			if var9_upvw == true then
+				v_3 = game.Players
+				i_3 = v_3.LocalPlayer
+				i_3.PlayerGui.MouseIcon.MouseIcon.Visible = true
+			elseif var9_upvw == false then
+				v_3 = game.Players
+				i_3 = v_3.LocalPlayer
+				i_3.PlayerGui.MouseIcon.MouseIcon.Visible = false
+			end
+		end
+		UserInputService_upvr.MouseIconEnabled = not var9_upvw
+		if not CurrentCamera_upvr.CameraSubject:IsA("Humanoid") then
+			CurrentCamera_upvr.CameraSubject = Character_2_upvw.Neck_CameraSubject
+		end
+		if Character_2_upvw.Head.Transparency == 1 then
+			if var20_upvw == true then
+				var20_upvw = false
+				input_Began({
+					KeyCode = Enum.KeyCode.LeftControl;
+				}, false)
+			end
+			for _, v_4 in pairs(Character_2_upvw:GetDescendants()) do
+				if v_4:IsA("ParticleEmitter") or v_4:IsA("Trail") then
+					v_4.Enabled = v_4:GetAttribute("wasEnabled") or false
+				end
+				if v_4.Name == "Head" or v_4.Parent:isA("Accessory") or v_4:FindFirstChild("HeadWeld") then
+					if v_4:IsA("BasePart") then
+						v_4.Transparency = v_4:GetAttribute("OldTransparency")
+					end
+				end
+			end
+		end
+	end
+	local class_Humanoid_3 = Character_2_upvw:FindFirstChildOfClass("Humanoid")
+	local HumanoidRootPart_2 = Character_2_upvw:FindFirstChild("HumanoidRootPart")
+	if class_Humanoid_3 and HumanoidRootPart_2 and not Status_upvw:FindFirstChild("CameraOverride") then
+		class_Humanoid_3.AutoRotate = not var9_upvw
+		if 1 < Magnitude_2 then
+			CurrentCamera_upvr.CFrame *= CFrame.new(class_Humanoid_3.CameraOffset.X, 0.5 + class_Humanoid_3.CameraOffset.Y, 0)
+		end
+	end
+	if var9_upvw and not Status_upvw:FindFirstChild("CameraLocked") and not Status_upvw:FindFirstChild("Ragdoll") and not Status_upvw:FindFirstChild("Dead") and class_Humanoid_3 and HumanoidRootPart_2 and class_Humanoid_3:GetState() ~= Enum.HumanoidStateType.Dead then
+		local _, any_ToOrientation_result2_2, _ = CurrentCamera_upvr.CFrame:ToOrientation()
+		HumanoidRootPart_2.CFrame = CFrame.new(HumanoidRootPart_2.Position) * CFrame.Angles(0, any_ToOrientation_result2_2, 0)
+	end
+end)
+game.ReplicatedStorage.CameraShake.Event:Connect(function(arg1) -- Line 165
+	--[[ Upvalues[1]:
+		[1]: any_new_result1_upvr (readonly)
+	]]
+	if game.Players.LocalPlayer.Settings.CameraShake.Value == true then
+	else
+		any_new_result1_upvr:ShakeOnce(arg1.magnitude or 0, arg1.roughness or 0, arg1.fadeIn or 0, arg1.fadeOut or 0, nil, Vector3.new(0, 0, 0))
+	end
+end)
+game.Players.LocalPlayer.CharacterAdded:Connect(function(arg1) -- Line 176
+	--[[ Upvalues[5]:
+		[1]: Character_2_upvw (read and write)
+		[2]: Status_upvw (read and write)
+		[3]: var9_upvw (read and write)
+		[4]: UserInputService_upvr (readonly)
+		[5]: CurrentCamera_upvr (readonly)
+	]]
+	Character_2_upvw = arg1
+	Status_upvw = Character_2_upvw.Status
+	var9_upvw = false
+	UserInputService_upvr.MouseBehavior = Enum.MouseBehavior.Default
+	CurrentCamera_upvr.CameraSubject = arg1:WaitForChild("Neck_CameraSubject")
+end)
+local Players_upvr = game:GetService("Players")
+local LocalPlayer_upvr = Players_upvr.LocalPlayer
+local var85_upvw
+local var86_upvw
+local var87_upvw
+function HandleCharacter(arg1) -- Line 190
+	--[[ Upvalues[3]:
+		[1]: var85_upvw (read and write)
+		[2]: var86_upvw (read and write)
+		[3]: var87_upvw (read and write)
+	]]
+	var85_upvw = arg1:WaitForChild("HumanoidRootPart")
+	var86_upvw = arg1.Torso:FindFirstChild("Neck", true)
+	local var88
+	while true do
+		var88 = var86_upvw
+		if var88 then break end
+		var88 = wait
+		var88()
+		var88 = arg1:FindFirstChild("Neck", true)
+		var86_upvw = var88
+	end
+	while true do
+		var88 = arg1:FindFirstChildOfClass("Humanoid")
+		if var88 then break end
+		var88 = wait
+		var88()
+	end
+	if arg1:FindFirstChildOfClass("Humanoid").RigType ~= Enum.HumanoidRigType.R6 then
+		var88 = false
+	else
+		var88 = true
+	end
+	var87_upvw = var88
+end
+local Character = LocalPlayer_upvr.Character
+if not Character then
+	Character = LocalPlayer_upvr.CharacterAdded:Wait()
+end
+HandleCharacter(Character)
+LocalPlayer_upvr.CharacterAdded:Connect(HandleCharacter)
+local HeadRotationRemote = game:GetService("ReplicatedStorage"):WaitForChild("HeadRotationRemote")
+local TweenService_upvr = game:GetService("TweenService")
+HeadRotationRemote.OnClientEvent:Connect(function(arg1) -- Line 208
+	--[[ Upvalues[1]:
+		[1]: TweenService_upvr (readonly)
+	]]
+	for _, v_5 in ipairs(arg1) do
+		local var100
+		if var100 then
+			var100 = v_5[1].Character
+			if var100 then
+				var100 = v_5[1].Character.Torso:FindFirstChild("Neck", true)
+			end
+			if var100 then
+				TweenService_upvr:Create(var100, TweenInfo.new(0.05, Enum.EasingStyle.Linear), {
+					C1 = v_5[2];
+				}):Play()
+			end
+		end
+	end
+end)
+game:GetService("RunService").Stepped:Connect(function() -- Line 218
+	--[[ Upvalues[4]:
+		[1]: var85_upvw (read and write)
+		[2]: var86_upvw (read and write)
+		[3]: LocalPlayer_upvr (readonly)
+		[4]: Players_upvr (readonly)
+	]]
+	if var85_upvw and var86_upvw and workspace.CurrentCamera.CameraSubject and workspace.CurrentCamera.CameraSubject.Parent == LocalPlayer_upvr.Character then
+		local unit_2 = var85_upvw.CFrame:toObjectSpace(workspace.CurrentCamera.CFrame).lookVector.unit
+		var86_upvw.C1 = CFrame.new(var86_upvw.C1.p) * CFrame.Angles(0, math.asin(unit_2.x), 0) * CFrame.Angles((-math.pi/2) + -math.asin(unit_2.y), 0, math.pi)
+	end
+	for _, v_6 in ipairs(Players_upvr:GetPlayers()) do
+		if v_6.Character and v_6.Character:FindFirstChild("Head") then
+			local class_Humanoid_2 = v_6.Character:FindFirstChildOfClass("Humanoid")
+			if class_Humanoid_2 and class_Humanoid_2.Health ~= 0 then
+				v_6.Character.Head.CanCollide = false
+			end
+		end
+	end
+end)
+while wait(0.05) do
+	if var86_upvw and Last ~= var86_upvw.C1 then
+		HeadRotationRemote:FireServer(var86_upvw.C1)
+		Last = var86_upvw.C1 -- Setting global
+	end
+end

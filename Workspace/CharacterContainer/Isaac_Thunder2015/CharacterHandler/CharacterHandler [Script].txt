@@ -1,0 +1,8 @@
+-- Script | decompile
+-- FullName: Workspace.CharacterContainer.Isaac_Thunder2015.CharacterHandler
+
+-- Failed to get script bytecode, error:
+
+--[[
+Argument #1 is not a client script
+--]]
